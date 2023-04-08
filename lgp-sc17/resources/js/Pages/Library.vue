@@ -1,5 +1,6 @@
 <script setup>
 import NavBar from "@/Components/NavBar.vue";
+import Footer from "@/Components/Footer.vue";
 
 const title="Library"
 const subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet"
@@ -10,6 +11,7 @@ const subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
         <template v-slot:content-right></template>
         <template v-slot:content-bottom></template>
     </NavBar>
+    <Footer></Footer>
 </template>
 
 <script>
