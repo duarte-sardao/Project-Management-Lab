@@ -1,6 +1,6 @@
 <template>
     <div class="p-7 bg-gradient-to-r from-[#578AD6] to-white">
-        <div class="navbar rounded-full px-7 bg-[#FFFCF9] shadow-lg">
+        <div class="navbar rounded-full px-7 bg-[#FFFCF9] shadow-lg opacity-90">
             <label tabindex="0" class="btn btn-ghost">
                 <div class="">
                     <img src="/logo.png"  alt="default user"/>
@@ -12,7 +12,7 @@
                 <a class="btn btn-ghost text-gray-600 normal-case text-xl" href="/about">About Us</a>
             </div>
             <div class="flex-none gap-2">
-                <a class="btn bg-[#B9CEED] text-gray-600 border-0 normal-case text-xl rounded-full px-7 mr-7">Log in</a>
+                <a class="btn bg-[#B9CEED] text-gray-600 hover:bg-[#578AD6] hover:text-gray-200 border-0 normal-case text-xl rounded-full px-7 mr-7">Log in</a>
                 <form>
                     <div class="relative mr-7">
                         <input type="search" id="search" class="input block w-full text-sm text-gray-900 input-bordered border-[#578AD6] rounded-full bg-gray-50" placeholder="Search" required>

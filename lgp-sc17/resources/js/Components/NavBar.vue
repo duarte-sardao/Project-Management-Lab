@@ -12,7 +12,7 @@ const props = defineProps({
 <template>
     <div class="p-7 bg-gradient-to-r from-[#578AD6] to-white relative overflow-hidden">
         <img class="absolute" style="right: -100px; height: 900px; top: -200px; z-index: 0" src="/svg_icons/polygons.svg" alt="polygons">
-        <div class="relative navbar rounded-full px-7 bg-[#FFFCF9] shadow-lg" style="z-index: 1;">
+        <div class="relative navbar rounded-full px-7 bg-[#FFFCF9] shadow-lg opacity-90" style="z-index: 1;">
             <label tabindex="0" class="btn btn-ghost">
                 <div class="">
                     <img src="/logo.png"  alt="default user"/>
@@ -24,7 +24,7 @@ const props = defineProps({
                 <a class="btn btn-ghost text-gray-600 normal-case text-xl" href="/about">About Us</a>
             </div>
             <div class="flex-none gap-2">
-                <a class="btn bg-[#B9CEED] text-gray-600 border-0 normal-case text-xl rounded-full px-7 mr-7">Log in</a>
+                <a class="btn bg-[#B9CEED] hover:bg-[#578AD6] hover:text-gray-200 text-gray-600 border-0 normal-case text-xl rounded-full px-7 mr-7">Log in</a>
                 <form>
                     <div class="relative mr-7">
                         <input type="search" id="search" class="input block w-full text-sm text-gray-900 input-bordered border-[#578AD6] rounded-full bg-gray-50" placeholder="Search" required>
