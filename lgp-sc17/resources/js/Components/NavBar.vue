@@ -23,7 +23,7 @@ const submit = () => {
 </script>
 
 <template>
-    <div class="p-7 bg-gradient-to-r from-[#578AD6] to-white relative overflow-hidden">
+    <div class="p-7 bg-gradient-to-r from-[#578AD6] to-[#FFFCF9] relative overflow-hidden">
         <img class="absolute" style="right: -100px; height: 900px; top: -200px; z-index: 0" src="/svg_icons/polygons.svg" alt="polygons">
         <div class="relative navbar rounded-full px-7 bg-[#FFFCF9] shadow-lg opacity-90" style="z-index: 1;">
             <label tabindex="0" class="btn btn-ghost">
