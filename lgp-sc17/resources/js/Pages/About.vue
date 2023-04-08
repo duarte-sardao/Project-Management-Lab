@@ -7,7 +7,7 @@ const subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
 
 <template>
     <NavBar :title="title" :subtitle="subtitle">
-        <template v-slot:content-right></template>
+        <template v-slot:content-right>asdfasd</template>
         <template v-slot:content-bottom></template>
     </NavBar>
 </template>

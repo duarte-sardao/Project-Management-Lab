@@ -60,12 +60,12 @@ const submit = () => {
                 <div class="my-5 text-black font-bold">{{subtitle}}</div>
             </div>
             <div>
-                <div class="pl-16">
+                <div class="pl-16 text-black">
                     <slot name="content-right"></slot>
                 </div>
             </div>
         </div>
-        <div class="m-16 pl-16">
+        <div class="m-16 pl-16 text-black">
             <slot name="content-bottom"></slot>
         </div>
     </div>
