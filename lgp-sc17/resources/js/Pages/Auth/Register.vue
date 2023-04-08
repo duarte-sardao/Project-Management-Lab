@@ -5,6 +5,8 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import NavBarSimple from "@/Components/NavBarSimple.vue";
+import Footer from "@/Components/Footer.vue";
 
 const form = useForm({
     name: '',
@@ -22,6 +24,7 @@ const submit = () => {
 </script>
 
 <template>
+    <NavBarSimple></NavBarSimple>
     <GuestLayout>
         <Head title="Register" />
 
@@ -101,4 +104,5 @@ const submit = () => {
             </div>
         </form>
     </GuestLayout>
+    <Footer></Footer>
 </template>
