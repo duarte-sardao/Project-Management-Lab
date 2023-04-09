@@ -3,7 +3,7 @@ import { Link } from "@inertiajs/vue3";
 </script>
 
 <template>
-    <div class="p-7 bg-gradient-to-r from-mainBlue to-bgColor relative overflow-hidden">
+    <div class="p-7 bg-gradient-to-r from-mainBlue relative overflow-hidden">
         <div class="navbar rounded-[50px] p-16 bg-bgColor shadow-lg opacity-90">
             <div class="w-full grid-cols-3">
                 <Link class="flex justify-center align-middle w-6/12 mx-5" :href="route('homepage')">

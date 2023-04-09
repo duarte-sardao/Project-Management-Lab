@@ -28,25 +28,27 @@ const submit = () => {
 </script>
 
 <template>
-    <NavBarSimple></NavBarSimple>
     <Head><title>Log in</title></Head>
+    <div class="relative" style="z-index: 1">
+        <NavBarSimple></NavBarSimple>
+    </div>
 
-    <div class="relative overflow-hidden">
-        <img class="absolute" style="right: 150px; height: 500px; top: 0; z-index: 0" src="/svg_img/login.svg" alt="polygons">
-        <div class="relative" style="z-index: 1">
-            <div class="py-16 pl-[12rem] text-2xl font-bold text-gray-800">
+    <div id="login-grid" class="grid grid-cols-2 relative">
+        <img id="login-img" class="absolute" style="right: 15%; height: 120%; top: -10%; z-index: 0" src="/svg_img/login.svg" alt="polygons">
+        <div class="flex flex-col items-center justify-center col-span-1" style="z-index: 1">
+            <div class="py-16 text-2xl font-bold text-gray-800">
                 <Link class="py-2 mr-10 text-highlightBlue border-b-2 border-highlightBlue" :href="route('login')">Log in</Link>
                 <Link class="py-2 ml-10" :href="route('register')">Sign up</Link>
             </div>
 
             <div class="pb-16">
-                <form @submit.prevent="submit">
-                    <div class="px-[8rem]">
-                        <InputLabel for="email" value="Username or Email" />
+                <form class="flex flex-col items-center" @submit.prevent="submit">
+                    <div class="max-w-[22rem] w-full">
+                        <InputLabel for="email" value="Email" />
                         <TextInput
                             id="email"
                             type="email"
-                            class="mt-1 input-bordered border-mainBlue rounded-full bg-gray-50 max-w-[22rem] w-full"
+                            class="mt-1 input-bordered border-mainBlue rounded-full bg-gray-50 w-full"
                             v-model="form.email"
                             required
                             autofocus
@@ -55,12 +57,12 @@ const submit = () => {
                         <InputError class="mt-2" :message="form.errors.email" />
                     </div>
 
-                    <div class="mt-4 px-[8rem]">
+                    <div class="mt-4 max-w-[22rem] w-full">
                         <InputLabel for="password" value="Password" />
                         <TextInput
                             id="password"
                             type="password"
-                            class="mt-1 input-bordered border-mainBlue rounded-full bg-gray-50 max-w-[22rem] w-full"
+                            class="mt-1 input-bordered border-mainBlue rounded-full bg-gray-50 w-full"
                             v-model="form.password"
                             required
                             autocomplete="current-password"
@@ -89,5 +91,18 @@ const submit = () => {
             </div>
         </div>
     </div>
-    <Footer></Footer>
+    <div class="relative" style="z-index: 1">
+        <Footer></Footer>
+    </div>
 </template>
+
+<style>
+@media all and (max-width: 1000px) {
+    #login-img{
+        display: none
+    }
+    #login-grid{
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+}
+</style>
