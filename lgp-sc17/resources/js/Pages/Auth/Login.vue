@@ -1,6 +1,4 @@
 <script setup>
-import Checkbox from '@/Components/Checkbox.vue';
-import GuestLayout from '@/Layouts/GuestLayout.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
@@ -17,7 +15,6 @@ defineProps({
 const form = useForm({
     email: '',
     password: '',
-    remember: false,
 });
 
 const submit = () => {
@@ -34,7 +31,7 @@ const submit = () => {
     </div>
 
     <div id="login-grid" class="grid grid-cols-2 relative">
-        <img id="login-img" class="absolute" style="right: 15%; height: 120%; top: -10%; z-index: 0" src="/svg_img/login.svg" alt="polygons">
+        <img id="login-img" class="absolute" style="right: 15%; height: 120%; top: -10%; z-index: 0" src="/svg_img/login.svg" alt="login image">
         <div class="flex flex-col items-center justify-center col-span-1" style="z-index: 1">
             <div class="py-16 text-2xl font-bold text-gray-800">
                 <Link class="py-2 mr-10 text-highlightBlue border-b-2 border-highlightBlue" :href="route('login')">Log in</Link>
@@ -69,13 +66,6 @@ const submit = () => {
                         />
                         <InputError class="mt-2" :message="form.errors.password" />
                     </div>
-
-                    <!--div class="mt-4 px-[8rem]">
-                        <label class="flex items-center">
-                            <Checkbox name="remember" v-model:checked="form.remember" />
-                            <span class="ml-2 text-sm text-gray-600">Remember me</span>
-                        </label>
-                    </div-->
 
                     <div class="flex items-center justify-center mt-4 mx-[8rem] mb-16 grid-cols-2 max-w-[22rem]">
                         <Link
