@@ -40,7 +40,7 @@ const submit = () => {
 
             <div class="pb-16">
                 <form class="flex flex-col items-center" @submit.prevent="submit">
-                    <div class="max-w-[22rem] w-full">
+                    <div class="max-w-[22rem] w-[100vw]">
                         <InputLabel for="email" value="Email" />
                         <TextInput
                             id="email"
@@ -54,7 +54,7 @@ const submit = () => {
                         <InputError class="mt-2" :message="form.errors.email" />
                     </div>
 
-                    <div class="mt-4 max-w-[22rem] w-full">
+                    <div class="mt-4 max-w-[22rem] w-[100vw]">
                         <InputLabel for="password" value="Password" />
                         <TextInput
                             id="password"
@@ -67,7 +67,7 @@ const submit = () => {
                         <InputError class="mt-2" :message="form.errors.password" />
                     </div>
 
-                    <div class="flex items-center justify-center mt-4 mx-[8rem] mb-16 grid-cols-2 max-w-[22rem]">
+                    <div class="flex items-center justify-center mt-4 mb-16 grid-cols-2">
                         <Link
                             v-if="canResetPassword"
                             :href="route('password.request')"
