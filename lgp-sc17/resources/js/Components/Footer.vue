@@ -7,7 +7,7 @@ import { Link } from "@inertiajs/vue3";
         <div class="navbar rounded-[50px] p-16 bg-bgColor shadow-lg opacity-90">
             <div class="w-full grid-cols-3">
                 <Link class="flex justify-center align-middle w-6/12 mx-5" :href="route('homepage')">
-                    <img src="/svg_icons/logo.svg" alt="logo">
+                    <img src="/svg_img/logo.svg" alt="logo">
                 </Link>
                 <div class="w-2/12 mx-5">
                     <div class="text-gray-800 text-xl mb-5">
