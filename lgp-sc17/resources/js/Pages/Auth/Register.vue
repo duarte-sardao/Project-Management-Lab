@@ -1,5 +1,4 @@
 <script setup>
-import GuestLayout from '@/Layouts/GuestLayout.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
@@ -31,7 +30,7 @@ const submit = () => {
     </div>
 
     <div id="login-grid" class="grid grid-cols-2 relative">
-        <img id="login-img" class="absolute" style="right: 15%; height: 80%; top: 10%; z-index: 0" src="/svg_img/register.svg" alt="register image">
+        <img id="login-img" class="absolute" style="right: 10%; height: 90%; top: 5%; z-index: 0" src="/svg_img/register.svg" alt="register image">
         <div class="flex flex-col items-center justify-center col-span-1" style="z-index: 1">
             <div class="py-16 text-2xl font-bold text-gray-800">
                 <Link class="py-2 mr-10" :href="route('login')">Log in</Link>
@@ -124,3 +123,14 @@ const submit = () => {
 
     <Footer></Footer>
 </template>
+
+<style>
+@media all and (max-width: 1000px) {
+    #login-img{
+        display: none
+    }
+    #login-grid{
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+}
+</style>
