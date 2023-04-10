@@ -28,7 +28,7 @@ const form = useForm({
     </NavBar>
 
     <div class="p-16 bg-[#FFFCF9]">
-        <div class="grid grid-rows-3 mb-100 space-evenly">
+        <div class="grid grid-rows-3 space-evenly">
             <div class="flex justify-evenly">
                 <img src="/svg_icons/vision.svg" alt="our vision">
                 <div class="pl-16 basis-3/6 m-auto">
@@ -45,7 +45,7 @@ const form = useForm({
                 <img src="/svg_icons/howworks.svg" alt="how it works">
             </div>
 
-            <div class="flex justify-evenly">
+            <div class="flex justify-evenly mb-36">
                 <img src="/svg_icons/howworks2.svg" alt="how it works">
                 <div class="pl-16 basis-3/6 m-auto">
                     <div class="m-auto p-4 text-black font-bold text-center text-4xl">How It Works</div>
@@ -54,15 +54,15 @@ const form = useForm({
             </div>
         </div>
 
-        <div class="rounded-[50px] p-4 m-100 bg-[#E9EFFD] opacity-90 shadow-lg">
+        <div class="rounded-[50px] py-10 pl-10 pr-28 m-100 bg-[#E9EFFD] opacity-90 shadow-lg">
 
-            <div class="my-5 ml-4 text-black font-bold text-2xl">Get in touch!</div>
+            <div class="my-5 ml-4 text-black font-bold text-4xl">Get in touch!</div>
             <div class="my-5 ml-4 text-black test-s">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet</div>
 
             <form @submit.prevent="submit">
-                <div>
+                <div class="border-b-2 border-b-gray-400">
 
-                    <TextInput
+                    <input
                         id="name"
                         type="text"
                         placeholder="Name"
@@ -76,9 +76,9 @@ const form = useForm({
                     <InputError class="mt-2" :message="form.errors.name" />
                 </div>
 
-                <div class="mt-4">
+                <div class="mt-4 border-b-2 border-b-gray-400">
 
-                    <TextInput
+                    <input
                         id="email"
                         type="email"
                         placeholder="Email"
@@ -91,9 +91,9 @@ const form = useForm({
                     <InputError class="mt-2" :message="form.errors.email" />
                 </div>
 
-                <div class="mt-4">
+                <div class="mt-4 border-b-2 border-b-gray-400">
 
-                    <TextInput
+                    <input
                         id="message_subject"
                         type="text"
                         placeholder="Message Subject"
@@ -106,26 +106,29 @@ const form = useForm({
                     <InputError class="mt-2" :message="form.errors.message_subject" />
                 </div>
 
-                <div class="mt-4">
+                <div class="mt-4 border-b-2 border-b-gray-400">
 
-                    <TextInput
+                    <textarea
                         id="message"
                         type="text"
                         placeholder="Message"
-                        class="input input-ghost w-full"
+                        class="textarea textarea-ghost w-full"
                         v-model="form.message"
                         required
-                        autocomplete="new-password"
-                    />
+                        autocomplete="new-message"
+                    ></textarea>
 
                     <InputError class="mt-2" :message="form.errors.message" />
                 </div>
 
                 <div class="flex items-center justify-end mt-4">
 
-                    <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                        Send
-                    </PrimaryButton>
+                    <button class="btn btn-active ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                        Send  
+                        <svg aria-hidden="true" class="w-5 h-5 text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" 
+                            d="M 20.25 11.5008 L 20.6526 11.2043 L 20.8709 11.5008 L 20.6526 11.7972 L 20.25 11.5008 Z M 6.75 12.0008 C 6.4739 12.0008 6.25 11.7769 6.25 11.5008 C 6.25 11.2246 6.4739 11.0008 6.75 11.0008 V 12.0008 Z M 16.1526 5.0932 L 20.6526 11.2043 L 19.8474 11.7972 L 15.3474 5.6861 L 16.1526 5.0932 Z M 20.6526 11.7972 L 16.1526 17.9083 L 15.3474 17.3154 L 19.8474 11.2043 L 20.6526 11.7972 Z M 20.25 12.0008 H 6.75 V 11.0008 H 20.25 V 12.0008 Z">
+                        </path></svg>
+                    </button>
                 </div>
             </form>
         </div>
