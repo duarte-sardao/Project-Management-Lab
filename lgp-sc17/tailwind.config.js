@@ -14,8 +14,16 @@ module.exports = {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                bgColor: '#FFFCF9',
+                mainBlue: '#578AD6',
+                lightBlue: '#B9CEED'
+            }
         },
     },
 
-    plugins: [require('@tailwindcss/forms')],
+    plugins: [
+        require('@tailwindcss/forms'),
+        require("daisyui")
+    ],
 };
