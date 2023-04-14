@@ -7,15 +7,24 @@ use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
-use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\RegisteredGuestController;
+use App\Http\Controllers\Auth\RegisteredPatientController;
+use App\Http\Controllers\Auth\RegisteredMedicalStaffController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisteredUserController::class, 'create'])
+    Route::get('register', [RegisteredGuestController::class, 'create'])
                 ->name('register');
+    Route::post('register', [RegisteredGuestController::class, 'store']);
+    
+    Route::get('register/patient', [RegisteredPatientController::class, 'create'])
+                ->name('register_patient');
+    Route::post('register/patient', [RegisteredPatientController::class, 'store']);
 
-    Route::post('register', [RegisteredUserController::class, 'store']);
+    Route::get('register/medical_staff', [RegisteredMedicalStaffController::class, 'create'])
+                ->name('register_medical_staff');
+    Route::post('register/medical_staff', [RegisteredMedicalStaffController::class, 'store']);
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
