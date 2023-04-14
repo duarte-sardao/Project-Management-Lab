@@ -41,7 +41,7 @@ const submit = () => {
             <div class="pb-16">
                 <form class="flex flex-col items-center" @submit.prevent="submit">
                     <div class="max-w-[22rem] w-[100vw]">
-                        <InputLabel for="email" value="Email" />
+                        <InputLabel for="email" value="Username or Email" />
                         <TextInput
                             id="email"
                             type="email"
