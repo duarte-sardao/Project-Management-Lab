@@ -32,15 +32,19 @@ const submit = () => {
     <div id="login-grid" class="grid grid-cols-2 relative">
         <img id="login-img" class="absolute" style="right: 10%; height: 90%; top: 5%; z-index: 0" src="/svg_img/register.svg" alt="register image">
         <div class="flex flex-col items-center justify-center col-span-1" style="z-index: 1">
-            <div class="py-16 text-2xl font-bold text-gray-800">
+            <div class="pt-16 text-2xl font-bold text-gray-800">
                 <Link class="py-2 mr-10" :href="route('login')">Log in</Link>
                 <Link class="py-2 ml-10 text-highlightBlue border-b-2 border-highlightBlue" :href="route('register')">Sign up</Link>
             </div>
 
-            <div class="pb-16">
+            <div class="max-w-[22rem] w-[100vw] text-lg font-bold text-gray-800 w-[100vw] pt-8 pb-3 pl-4">
+                Guest sign up*
+            </div>
+
+            <div class="pb-5">
                 <form class="flex flex-col items-center w-full" @submit.prevent="submit">
                     <div class="max-w-[22rem] w-[100vw]">
-                        <InputLabel for="name" value="Name" />
+                        <InputLabel for="name" value="Full Name" />
                         <TextInput
                             id="name"
                             type="text"
@@ -53,7 +57,7 @@ const submit = () => {
                         <InputError class="mt-2" :message="form.errors.name" />
                     </div>
 
-                    <div class="mt-4 max-w-[22rem] w-[100vw]">
+                    <div class="mt-3 max-w-[22rem] w-[100vw]">
                         <InputLabel for="email" value="Email" />
                         <TextInput
                             id="email"
@@ -67,7 +71,7 @@ const submit = () => {
                         <InputError class="mt-2" :message="form.errors.email" />
                     </div>
 
-                    <div class="mt-4 max-w-[22rem] w-[100vw]">
+                    <div class="mt-3 max-w-[22rem] w-[100vw]">
                         <InputLabel for="username" value="Username" />
                         <TextInput
                             id="username"
@@ -81,7 +85,7 @@ const submit = () => {
                         <InputError class="mt-2" :message="form.errors.username" />
                     </div>
 
-                    <div class="mt-4 max-w-[22rem] w-[100vw]">
+                    <div class="mt-3 max-w-[22rem] w-[100vw]">
                         <InputLabel for="password" value="Password" />
                         <TextInput
                             id="password"
@@ -94,8 +98,8 @@ const submit = () => {
                         <InputError class="mt-2" :message="form.errors.password" />
                     </div>
 
-                    <div class="mt-4 max-w-[22rem] w-[100vw]">
-                        <InputLabel for="password_confirmation" value="Confirm Password" />
+                    <div class="mt-3 max-w-[22rem] w-[100vw]">
+                        <InputLabel for="password_confirmation" value="Repeat Password" />
                         <TextInput
                             id="password_confirmation"
                             type="password"
@@ -107,7 +111,20 @@ const submit = () => {
                         <InputError class="mt-2" :message="form.errors.password_confirmation" />
                     </div>
 
-                    <div class="flex items-center justify-center mt-4 mb-16 grid-cols-2">
+                    <div class="max-w-[22rem] w-[100vw] pl-4 pt-4">
+                        <input type="checkbox" id="terms&conditions" v-model="checked" class="rounded-full border-[#AFCDFB] focus:shadow-sm focus:ring-0 focus:ring-offset-0 mb-0.5"/>
+                        <label for="checkbox" class="font-bold text-gray-800 pl-3">
+                            I agree to 
+                            <Link
+                                :href="route('Terms&Conditions')"
+                                class="text-mainBlue hover:text-blue-300"
+                            >
+                                Terms and Conditions
+                            </Link>
+                        </label>
+                    </div>
+
+                    <div class="flex items-center justify-center mt-4 mb-3 grid-cols-2">
                         <Link
                             :href="route('login')"
                             class="text-md text-gray-800 hover:text-gray-500 font-bold"
@@ -117,6 +134,9 @@ const submit = () => {
                         <PrimaryButton class="justify-self-end ml-8" :class="{ 'opacity-50': form.processing }" :disabled="form.processing">Sign up</PrimaryButton>
                     </div>
                 </form>
+                <div class="max-w-[22rem] w-[100vw] text-gray-800 text-xs">
+                    *If you're a patient, contact your doctor team before sign up and get access to patient sign up page with additional features
+                </div>
             </div>
         </div>
     </div>
