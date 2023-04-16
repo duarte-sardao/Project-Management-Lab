@@ -19,7 +19,17 @@ class ProfileController extends Controller
      */
     public function visualize(Request $request): Response
     {
-        return Inertia::render('Profile/Profile');
+        $nextAppointment = date_create("25-09-1989 12:50 GMT");
+        return Inertia::render('Profile/Profile', [
+            'edit' => false,
+            'isGuest' => false,
+            'status' => 'Patient',
+            'hospital' => 'São João',
+            'nextAppointment' => [
+                'date' => date_format($nextAppointment, 'd-m-Y'),
+                'time' => date_format($nextAppointment, 'h\hi')
+            ],
+        ]);
     }
 
     /**
@@ -46,7 +56,7 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit');
+        return Redirect::route('profile');
     }
 
     /**
