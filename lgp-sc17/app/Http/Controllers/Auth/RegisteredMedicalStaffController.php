@@ -48,12 +48,12 @@ class RegisteredMedicalStaffController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $medical_staff = MedicalStaff::create([
+        event(new Registered($user));
+
+        MedicalStaff::create([
             'user_id' => $user->id,
             'license_number' => $request->license,
         ]);
-
-        event(new Registered($user));
 
         Auth::login($user);
 

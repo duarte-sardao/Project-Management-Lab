@@ -9,11 +9,8 @@ class Patient extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+    protected $table = 'patients';
+
     protected $fillable = [
         'user_id',
         'healthcare_number',

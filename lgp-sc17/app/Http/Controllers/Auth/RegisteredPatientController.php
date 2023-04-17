@@ -48,12 +48,12 @@ class RegisteredPatientController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $patient = Patient::create([
+        event(new Registered($user));
+
+        Patient::create([
             'user_id' => $user->id,
             'healthcare' => $request->healthcare,
         ]);
-
-        event(new Registered($user));
 
         Auth::login($user);
 
