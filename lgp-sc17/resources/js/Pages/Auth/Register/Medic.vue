@@ -13,12 +13,12 @@ const form = useForm({
     username: '',
     password: '',
     password_confirmation: '',
-    license: '',
+    license_number: '',
     terms: false,
 });
 
 const submit = () => {
-    form.post(route('register/medical_staff'), {
+    form.post(route('register_medic'), {
         onFinish: () => form.reset('password', 'password_confirmation'),
     });
 };
@@ -117,11 +117,11 @@ const submit = () => {
                             id="license"
                             type="number"
                             class="mt-1 input-bordered border-mainBlue rounded-full text-gray-800 w-full"
-                            v-model="form.license"
+                            v-model="form.license_number"
                             required
                             autocomplete="new-password"
                         />
-                        <InputError class="mt-2" :message="form.errors.license" />
+                        <InputError class="mt-2" :message="form.errors.license_number" />
                     </div>
 
                     <div class="max-w-[22rem] w-[100vw] pl-4 pt-4">
@@ -129,7 +129,6 @@ const submit = () => {
                             type="checkbox"
                             id="terms"
                             v-model="form.terms"
-                            required
                             class="rounded-full border-[#AFCDFB] focus:shadow-sm focus:ring-0 focus:ring-offset-0 mb-0.5"
                         />
                         <label for="terms" class="font-bold text-gray-800 pl-3">

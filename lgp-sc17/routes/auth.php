@@ -9,8 +9,9 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\RegisteredPatientController;
-use App\Http\Controllers\Auth\RegisteredMedicalStaffController;
+use App\Http\Controllers\Auth\RegisteredMedicController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -22,14 +23,14 @@ Route::middleware('guest')->group(function () {
                 ->name('register_patient');
     Route::post('register/patient', [RegisteredPatientController::class, 'store']);
 
-    Route::get('register/medical_staff', [RegisteredMedicalStaffController::class, 'create'])
-                ->name('register_medical_staff');
-    Route::post('register/medical_staff', [RegisteredMedicalStaffController::class, 'store']);
+    Route::get('register/medic', [RegisteredMedicController::class, 'create'])
+                ->name('register_medic');
+    Route::post('register/medic', [RegisteredMedicController::class, 'store']);
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
 
-    Route::post('login', [\App\Http\Controllers\LoginController::class, 'authenticate']);
+    Route::post('login', [LoginController::class, 'authenticate']);
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
                 ->name('password.request');

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Models\MedicalStaff;
+use App\Models\Medic;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -15,14 +15,14 @@ use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class RegisteredMedicalStaffController extends Controller
+class RegisteredMedicController extends Controller
 {
     /**
      * Display the registration view.
      */
     public function create(): Response
     {
-        return Inertia::render('Auth/Register/MedicalStaff');
+        return Inertia::render('Auth/Register/Medic');
     }
 
     /**
@@ -37,7 +37,7 @@ class RegisteredMedicalStaffController extends Controller
             'username' => 'required|string|max:32|unique:'.User::class,
             'email' => 'required|string|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'license' => 'required|integer|unique:'.User::class,
+            'license_number' => 'required|integer|unique:'.Medic::class,
             'terms' => 'required|boolean',
         ]);
 
@@ -54,9 +54,9 @@ class RegisteredMedicalStaffController extends Controller
 
         event(new Registered($user));
 
-        MedicalStaff::create([
+        Medic::create([
             'user_id' => $user->id,
-            'license_number' => $request->license,
+            'license_number' => $request->license_number,
         ]);
 
         Auth::login($user);

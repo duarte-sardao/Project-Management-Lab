@@ -37,7 +37,7 @@ class RegisteredPatientController extends Controller
             'username' => 'required|string|max:32|unique:'.User::class,
             'email' => 'required|string|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'healthcare' => 'required|integer|unique:'.User::class,
+            'healthcare_number' => 'required|integer|unique:'.Patient::class,
             'terms' => 'required|boolean',
         ]);
 
@@ -56,7 +56,7 @@ class RegisteredPatientController extends Controller
 
         Patient::create([
             'user_id' => $user->id,
-            'healthcare' => $request->healthcare,
+            'healthcare_number' => $request->healthcare_number,
         ]);
 
         Auth::login($user);
