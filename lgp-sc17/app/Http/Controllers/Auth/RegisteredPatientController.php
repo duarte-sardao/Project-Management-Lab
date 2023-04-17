@@ -41,6 +41,10 @@ class RegisteredPatientController extends Controller
             'terms' => 'required|boolean',
         ]);
 
+        if (!$request->terms) {
+            return redirect()->back()->withErrors(['terms' => 'Required Field']);
+        }
+
         $user = User::create([
             'name' => $request->name,
             'username' => $request->username,

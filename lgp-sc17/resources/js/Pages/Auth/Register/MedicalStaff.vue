@@ -48,7 +48,7 @@ const submit = () => {
                         <TextInput
                             id="name"
                             type="text"
-                            class="mt-1 input-bordered border-mainBlue rounded-full bg-gray-50 w-full"
+                            class="mt-1 input-bordered border-mainBlue rounded-full text-gray-800 w-full"
                             v-model="form.name"
                             required
                             autofocus
@@ -62,7 +62,7 @@ const submit = () => {
                         <TextInput
                             id="email"
                             type="email"
-                            class="mt-1 input-bordered border-mainBlue rounded-full bg-gray-50 w-full"
+                            class="mt-1 input-bordered border-mainBlue rounded-full text-gray-800 w-full"
                             v-model="form.email"
                             required
                             autofocus
@@ -76,7 +76,7 @@ const submit = () => {
                         <TextInput
                             id="username"
                             type="text"
-                            class="mt-1 input-bordered border-mainBlue rounded-full bg-gray-50 w-full"
+                            class="mt-1 input-bordered border-mainBlue rounded-full text-gray-800 w-full"
                             v-model="form.username"
                             required
                             autofocus
@@ -90,7 +90,7 @@ const submit = () => {
                         <TextInput
                             id="password"
                             type="password"
-                            class="mt-1 input-bordered border-mainBlue rounded-full bg-gray-50 w-full"
+                            class="mt-1 input-bordered border-mainBlue rounded-full text-gray-800 w-full"
                             v-model="form.password"
                             required
                             autocomplete="new-password"
@@ -103,7 +103,7 @@ const submit = () => {
                         <TextInput
                             id="password_confirmation"
                             type="password"
-                            class="mt-1 input-bordered border-mainBlue rounded-full bg-gray-50 w-full"
+                            class="mt-1 input-bordered border-mainBlue rounded-full text-gray-800 w-full"
                             v-model="form.password_confirmation"
                             required
                             autocomplete="new-password"
@@ -116,7 +116,7 @@ const submit = () => {
                         <TextInput
                             id="license"
                             type="number"
-                            class="mt-1 input-bordered border-mainBlue rounded-full bg-gray-50 w-full"
+                            class="mt-1 input-bordered border-mainBlue rounded-full text-gray-800 w-full"
                             v-model="form.license"
                             required
                             autocomplete="new-password"
@@ -128,12 +128,12 @@ const submit = () => {
                         <input
                             type="checkbox"
                             id="terms"
-                            v-model="terms"
+                            v-model="form.terms"
                             required
                             class="rounded-full border-[#AFCDFB] focus:shadow-sm focus:ring-0 focus:ring-offset-0 mb-0.5"
                         />
-                        <label for="checkbox" class="font-bold text-gray-800 pl-3">
-                            I agree to 
+                        <label for="terms" class="font-bold text-gray-800 pl-3">
+                            I agree to
                             <Link
                                 :href="route('Terms&Conditions')"
                                 class="text-mainBlue hover:text-blue-300"

@@ -41,14 +41,14 @@ const submit = () => {
                 Guest sign up*
             </div>
 
-            <div class="pb-5">
+            <div class="pb-5 ">
                 <form class="flex flex-col items-center w-full" @submit.prevent="submit">
                     <div class="max-w-[22rem] w-[100vw]">
                         <InputLabel for="name" value="Full Name" />
                         <TextInput
                             id="name"
                             type="text"
-                            class="mt-1 input-bordered border-mainBlue rounded-full bg-gray-50 w-full"
+                            class="mt-1 input-bordered text-gray-800 border-mainBlue rounded-full w-full"
                             v-model="form.name"
                             required
                             autofocus
@@ -62,7 +62,7 @@ const submit = () => {
                         <TextInput
                             id="email"
                             type="email"
-                            class="mt-1 input-bordered border-mainBlue rounded-full bg-gray-50 w-full"
+                            class="mt-1 input-bordered text-gray-800 border-mainBlue rounded-full w-full"
                             v-model="form.email"
                             required
                             autofocus
@@ -76,7 +76,7 @@ const submit = () => {
                         <TextInput
                             id="username"
                             type="text"
-                            class="mt-1 input-bordered border-mainBlue rounded-full bg-gray-50 w-full"
+                            class="mt-1 input-bordered text-gray-800 border-mainBlue rounded-full w-full"
                             v-model="form.username"
                             required
                             autofocus
@@ -90,7 +90,7 @@ const submit = () => {
                         <TextInput
                             id="password"
                             type="password"
-                            class="mt-1 input-bordered border-mainBlue rounded-full bg-gray-50 w-full"
+                            class="mt-1 input-bordered text-gray-800 border-mainBlue rounded-full w-full"
                             v-model="form.password"
                             required
                             autocomplete="new-password"
@@ -103,7 +103,7 @@ const submit = () => {
                         <TextInput
                             id="password_confirmation"
                             type="password"
-                            class="mt-1 input-bordered border-mainBlue rounded-full bg-gray-50 w-full"
+                            class="mt-1 input-bordered text-gray-800 border-mainBlue rounded-full w-full"
                             v-model="form.password_confirmation"
                             required
                             autocomplete="new-password"
@@ -112,9 +112,14 @@ const submit = () => {
                     </div>
 
                     <div class="max-w-[22rem] w-[100vw] pl-4 pt-4">
-                        <input type="checkbox" id="terms&conditions" v-model="checked" class="rounded-full border-[#AFCDFB] focus:shadow-sm focus:ring-0 focus:ring-offset-0 mb-0.5"/>
-                        <label for="checkbox" class="font-bold text-gray-800 pl-3">
-                            I agree to 
+                        <input
+                            type="checkbox"
+                            id="terms"
+                            v-model="form.terms"
+                            class="rounded-full border-[#AFCDFB] focus:shadow-sm focus:ring-0 focus:ring-offset-0 mb-0.5"
+                        />
+                        <label for="terms" class="font-bold text-gray-800 pl-3">
+                            I agree to
                             <Link
                                 :href="route('Terms&Conditions')"
                                 class="text-mainBlue hover:text-blue-300"
@@ -122,6 +127,7 @@ const submit = () => {
                                 Terms and Conditions
                             </Link>
                         </label>
+                        <InputError class="mt-2" :message="form.errors.terms" />
                     </div>
 
                     <div class="flex items-center justify-center mt-4 mb-3 grid-cols-2">

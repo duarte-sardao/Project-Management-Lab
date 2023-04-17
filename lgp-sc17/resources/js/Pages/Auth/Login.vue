@@ -13,7 +13,7 @@ defineProps({
 });
 
 const form = useForm({
-    email: '',
+    credential: '',
     password: '',
 });
 
@@ -41,17 +41,17 @@ const submit = () => {
             <div class="pb-16">
                 <form class="flex flex-col items-center" @submit.prevent="submit">
                     <div class="max-w-[22rem] w-[100vw]">
-                        <InputLabel for="email" value="Username or Email" />
+                        <InputLabel for="credential" value="Username or Email" />
                         <TextInput
-                            id="email"
-                            type="email"
-                            class="mt-1 input-bordered border-mainBlue rounded-full bg-gray-50 w-full"
-                            v-model="form.email"
+                            id="credential"
+                            type="text"
+                            class="mt-1 input-bordered border-mainBlue rounded-full text-gray-800 w-full"
+                            v-model="form.credential"
                             required
                             autofocus
                             autocomplete="username"
                         />
-                        <InputError class="mt-2" :message="form.errors.email" />
+                        <InputError class="mt-2" :message="form.errors.credential" />
                     </div>
 
                     <div class="mt-4 max-w-[22rem] w-[100vw]">
@@ -59,7 +59,7 @@ const submit = () => {
                         <TextInput
                             id="password"
                             type="password"
-                            class="mt-1 input-bordered border-mainBlue rounded-full bg-gray-50 w-full"
+                            class="mt-1 input-bordered border-mainBlue rounded-full text-gray-800 w-full"
                             v-model="form.password"
                             required
                             autocomplete="current-password"
