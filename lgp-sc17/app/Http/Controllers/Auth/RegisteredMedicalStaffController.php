@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\MedicalStaff;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -45,7 +46,11 @@ class RegisteredMedicalStaffController extends Controller
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'license' => $request->license,
+        ]);
+
+        $medical_staff = MedicalStaff::create([
+            'user_id' => $user->id,
+            'license_number' => $request->license,
         ]);
 
         event(new Registered($user));

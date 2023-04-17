@@ -33,7 +33,7 @@ class RegisteredGuestController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'username' => 'required|string|max:32|unique:'.User::class,
+            'username' => 'required|string|max:64|unique:'.User::class,
             'email' => 'required|string|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'terms' => 'required|boolean',
