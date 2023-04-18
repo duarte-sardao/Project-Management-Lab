@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Patient;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -14,14 +15,14 @@ use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class RegisteredUserController extends Controller
+class RegisteredPatientController extends Controller
 {
     /**
      * Display the registration view.
      */
     public function create(): Response
     {
-        return Inertia::render('Auth/Register/Guest');
+        return Inertia::render('Auth/Register/Patient');
     }
 
     /**
@@ -33,9 +34,10 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'username' => 'required|string|max:64|unique:'.User::class,
+            'username' => 'required|string|max:32|unique:'.User::class,
             'email' => 'required|string|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'healthcare_number' => 'required|integer|unique:'.Patient::class,
             'terms' => 'required|boolean',
         ]);
 
@@ -51,6 +53,11 @@ class RegisteredUserController extends Controller
         ]);
 
         event(new Registered($user));
+
+        Patient::create([
+            'user_id' => $user->id,
+            'healthcare_number' => $request->healthcare_number,
+        ]);
 
         Auth::login($user);
 

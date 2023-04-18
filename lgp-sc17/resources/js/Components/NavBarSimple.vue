@@ -14,7 +14,7 @@ const submit = () => {
 </script>
 
 <template>
-    <div class="p-7 bg-gradient-to-r from-mainBlue to-bgColor">
+    <div class="p-7 bg-gradient-to-r from-mainBlue to-transparent">
         <div class="navbar rounded-full px-7 bg-bgColor shadow-lg opacity-90">
             <label tabindex="0" class="btn btn-ghost">
                 <div class="">

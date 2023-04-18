@@ -17,7 +17,8 @@ module.exports = {
             colors: {
                 bgColor: '#FFFCF9',
                 mainBlue: '#578AD6',
-                lightBlue: '#B9CEED'
+                lightBlue: '#B9CEED',
+                highlightBlue: '#244D89'
             }
         },
     },
