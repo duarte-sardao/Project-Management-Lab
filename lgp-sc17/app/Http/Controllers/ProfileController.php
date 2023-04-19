@@ -72,10 +72,12 @@ class ProfileController extends Controller
         $user->name = $request->name;
         $user->phone_number = $request->phone_number;
 
-        $fileName = $user->username.'.'.$request->file('profile_img')->getClientOriginalExtension();
-        $request->file('profile_img')->move(public_path('/img/users/'), $fileName);
+        if (sizeof($request->files) == 1) {
+            $fileName = $user->username.'.'.$request->file('profile_img')->getClientOriginalExtension();
+            $request->file('profile_img')->move(public_path('/img/users/'), $fileName);
+            $user->profile_img_url = '/img/users/'.$fileName;
+        }
 
-        $user->profile_img_url = '/img/users/'.$fileName;
         $user->save();
 
         return Redirect::route('profile');
