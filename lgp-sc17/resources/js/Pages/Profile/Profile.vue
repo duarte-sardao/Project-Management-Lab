@@ -103,7 +103,7 @@ if (profile_img_url.value == null) {
                     <div class="col-span-3">
                         <div v-if="edit">
                             <label for="image-input" class="pl-5 text-lg text-black/[.57] block">Profile Image</label>
-                            <input id="image-input" @change="inputFile" type="file" class="file-input file-input-primary w-full max-w-md right-0 bottom-10" />
+                            <input id="image-input" @change="inputFile" type="file" accept="image/*" class="file-input file-input-primary w-full max-w-md right-0 bottom-10" />
                         </div>
                         <ProfileInfo :text="'Status'" :value="status" />
                         <ProfileInfo :text="'Hospital'" :value="hospital" />

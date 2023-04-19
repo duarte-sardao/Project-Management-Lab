@@ -9,6 +9,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -72,9 +73,15 @@ class ProfileController extends Controller
         $user->name = $request->name;
         $user->phone_number = $request->phone_number;
 
-        if (sizeof($request->files) == 1) {
+        $imageExtensions = ['jpg', 'jpeg', 'jpe', 'gif', 'png', 'svg', 'ico'];
+        if (sizeof($request->files) == 1 && in_array($request->file('profile_img')->getClientOriginalExtension(), $imageExtensions)) {
+            if ($user->profile_img_url != null) {
+                File::delete(public_path($user->profile_img_url));
+            }
+
             $fileName = $user->username.'.'.$request->file('profile_img')->getClientOriginalExtension();
             $request->file('profile_img')->move(public_path('/img/users/'), $fileName);
+
             $user->profile_img_url = '/img/users/'.$fileName;
         }
 
