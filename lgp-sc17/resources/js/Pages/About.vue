@@ -14,10 +14,15 @@ const subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
 const form = useForm({
     name: '',
     email: '',
-    message_subject: '',
+    subject: '',
     message: '',
     terms: false,
 });
+
+
+const submit = () => {
+    form.post(route('about-form'), {});
+};
 
 </script>
 
@@ -89,16 +94,16 @@ const form = useForm({
                 <div class="mt-4 border-b-2 border-b-gray-400">
 
                     <input
-                        id="message_subject"
+                        id="subject"
                         type="text"
                         placeholder="Message Subject"
                         class="input input-ghost w-full"
-                        v-model="form.message_subject"
+                        v-model="form.subject"
                         required
-                        autocomplete="new-message_subject"
+                        autocomplete="new-subject"
                     />
 
-                    <InputError class="mt-2" :message="form.errors.message_subject" />
+                    <InputError class="mt-2" :message="form.errors.subject" />
                 </div>
 
                 <div class="mt-4 border-b-2 border-b-gray-400">
