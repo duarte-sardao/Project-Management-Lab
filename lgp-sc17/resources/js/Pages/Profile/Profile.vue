@@ -21,14 +21,23 @@ const user = usePage().props.auth.user;
 const form = useForm({
     name: user.name,
     phone_number: user.phone_number,
+    profile_img: null
 });
 
 const submit = () => {
-    form.patch(route('profile.update'));
+    form.post(route('profile.update'));
     edit.value = false;
 };
 
-const edit = ref(false)
+function inputFile(event) {
+    form.profile_img = event.target.files[0];
+}
+
+const edit = ref(false);
+const profile_img_url = ref(user.profile_img_url);
+if (profile_img_url.value == null) {
+    profile_img_url.value = '/svg_icons/profile.svg';
+}
 </script>
 
 <template>
@@ -39,7 +48,7 @@ const edit = ref(false)
 
     <div id="profile-grid" class="mt-7 mb-14 grid grid-cols-8 relative">
         <div class="col-span-2 bg-[#E9EFFD] ml-[3vw] mr-[1vw] rounded-3xl shadow-md pt-[5vh] relative">
-            <img id="profile-img" class="rounded-full mx-auto mb-[7vh] h-fit" src="/svg_icons/profile.svg" alt="profile image">
+            <img id="profile-img" class="rounded-full mx-auto mb-[7vh] h-fit w-[200px] h-[200px]" :src="profile_img_url" alt="profile image">
             <div class="text-gray-800 font-medium text-2xl mb-[4vh]" :class="edit && 'text-center'">
                 <button class="border-0" @click="edit = !edit">
                     <div v-if="!edit" class="ml-[4vw]">
@@ -85,6 +94,10 @@ const edit = ref(false)
             </div>
             <div class="grid grid-cols-4 mt-10 mb-[20vh]">
                 <div class="col-span-3">
+                    <div v-if="edit">
+                        <label for="image-input" class="pl-5 text-lg text-black/[.57] block">Profile Image</label>
+                        <input id="image-input" @change="inputFile" type="file" class="file-input file-input-primary w-full max-w-md right-0 bottom-10" />
+                    </div>
                     <ProfileInfo :text="'Status'" :value="status" />
                     <ProfileInfo :text="'Hospital'" :value="hospital" />
                     <ProfileInfo :text="'Next appointment date'" :value="nextAppointment.date" />
@@ -104,3 +117,27 @@ const edit = ref(false)
     </div>
     <Footer></Footer>
 </template>
+
+<script>
+export default {
+    name: "Profile"
+}
+</script>
+
+<style scoped>
+    #image-input {
+        --tw-border-opacity: 1;
+        border-color: #578AD6;
+    }
+    #image-input:focus {
+        outline: 2px solid hsl(var(--p));
+    }
+    #image-input::file-selector-button {
+        --tw-border-opacity: 1;
+        border-color: #578AD6;
+        --tw-bg-opacity: 1;
+        background-color: #578AD6;
+        --tw-text-opacity: 1;
+        color: hsl(var(--pc) / var(--tw-text-opacity));
+    }
+</style>
