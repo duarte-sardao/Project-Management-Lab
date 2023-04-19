@@ -39,7 +39,7 @@ const edit = ref(false)
 
     <div id="profile-grid" class="mt-7 mb-14 grid grid-cols-8 relative">
         <div class="col-span-2 bg-[#E9EFFD] ml-[3vw] mr-[1vw] rounded-3xl shadow-md pt-[5vh] relative">
-            <img id="profile-img" class="rounded-full mx-auto mb-[7vh] h-fit" src="/svg_img/profile.svg" alt="profile image">
+            <img id="profile-img" class="rounded-full mx-auto mb-[7vh] h-fit" src="/svg_icons/profile.svg" alt="profile image">
             <div class="text-gray-800 font-medium text-2xl mb-[4vh]" :class="edit && 'text-center'">
                 <button class="border-0" @click="edit = !edit">
                     <div v-if="!edit" class="ml-[4vw]">

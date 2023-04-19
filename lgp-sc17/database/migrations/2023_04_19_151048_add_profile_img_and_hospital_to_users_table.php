@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('profile_img_url')->nullable();
-            $table->unsignedBigInteger('hospital_id');
+            $table->unsignedBigInteger('hospital_id')->default(1);
 
             $table->foreign('hospital_id')->references('id')->on('hospitals');
         });
