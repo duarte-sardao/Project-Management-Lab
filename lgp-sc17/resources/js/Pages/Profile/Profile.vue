@@ -1,5 +1,5 @@
 <script setup>
-import ProfileTextBox from '@/Components/ProfileTextBox.vue';
+import ProfileTextBox from '@/Components/Profile/ProfileTextBox.vue';
 import ProfileInfo from '@/Components/Profile/ProfileInfo.vue';
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 import NavBarSimple from "@/Components/NavBarSimple.vue";
@@ -63,19 +63,20 @@ defineProps({
         <div class="col-span-6 border-2 border-[#E9EFFD] ml-[1vw] mr-[3vw] rounded-lg pt-[5vh] px-[3vw] shadow-md">
             <div class="grid grid-cols-2">
                 <div class="col-span-1 h-fit">
-                    <ProfileTextBox :text="'Full Name'" v-model="form.name" :isInput="edit" inputType="text" errors=""/>
-                    <ProfileTextBox :text="'Username'" v-model="form.username" :isInput="edit" inputType="text" errors=""/>
+                    <ProfileTextBox :text="'Full Name'" v-model="form.name" :edit="edit" :isInput="edit" inputType="text" errors=""/>
+                    <ProfileTextBox :text="'Username'" v-model="form.username" :edit="edit" :isInput="false" inputType="text" errors=""/>
                     <ProfileTextBox
                         v-if="!isGuest"
                         :text="status === 'Patient' ? 'Healthcare number':'License Number'"
                         v-model="form.name"
+                        :edit="edit"
                         :isInput="false"
                         errors=""
                     />
                 </div>
                 <div class="col-span-1 grid justify-items-end flex items-start h-fit">
-                    <ProfileTextBox :text="'Email'" v-model="form.email" :isInput="edit" inputType="email" errors=""/>
-                    <ProfileTextBox :text="'Phone Number'" v-model="form.phone_number" :isInput="edit" inputType="number" errors=""/>
+                    <ProfileTextBox :text="'Email'" v-model="form.email" :edit="edit" :isInput="false" inputType="email" errors=""/>
+                    <ProfileTextBox :text="'Phone Number'" v-model="form.phone_number" :edit="edit" :isInput="edit" inputType="number" errors=""/>
                 </div>
             </div>
             <div class="grid grid-cols-2 mt-10 mb-[20vh]">

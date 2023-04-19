@@ -1,7 +1,7 @@
 <script setup>
 import InputError from '@/Components/InputError.vue';
 import { onMounted, ref } from 'vue';
-defineProps(['id', 'inputType', 'text', 'isInput', 'modelValue', 'errors']);
+defineProps(['id', 'edit', 'inputType', 'text', 'isInput', 'modelValue', 'errors']);
 defineEmits(['update:modelValue']);
 
 const input = ref(null);
@@ -34,7 +34,7 @@ defineExpose({ focus: () => input.value.focus() });
         <div
             v-else
             id=id
-            class="rounded-full border-2 border-[#B9CEED] h-12 leading-9 pt-1 px-5 w-[30vw] text-gray-800 text-xl"
+            class="rounded-full border-2 border-[#B9CEED] h-12 leading-9 pt-1 px-5 w-[30vw] text-gray-800 text-xl" :class="edit && 'bg-slate-200/[.4]'"
         >
             {{ modelValue }}
         </div>
