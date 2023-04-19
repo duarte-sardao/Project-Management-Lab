@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -30,4 +30,29 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function hospital(): BelongsTo {
+        return $this->belongsTo(Hospital::class);
+    }
+
+    public function status(): string {
+        if ($this->isPatient()) {
+            return 'Patient';
+        } elseif ($this->isMedic()) {
+            return 'Medic';
+        }
+        return 'Guest';
+    }
+
+    public function isGuest(): bool {
+        return !($this->isPatient() || $this->isMedic());
+    }
+
+    public function isPatient(): bool {
+        return Patient::where('user_id','=',$this->id)->exists();
+    }
+
+    public function isMedic(): bool {
+        return Medic::where('user_id','=',$this->id)->exists();
+    }
 }

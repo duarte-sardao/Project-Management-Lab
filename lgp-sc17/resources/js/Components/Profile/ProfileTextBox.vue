@@ -7,7 +7,7 @@ defineEmits(['update:modelValue']);
 const input = ref(null);
 
 onMounted(() => {
-    if (input.value.hasAttribute('autofocus')) {
+    if (input.value != null && input.value.hasAttribute('autofocus')) {
         input.value.focus();
     }
 });
@@ -27,7 +27,7 @@ defineExpose({ focus: () => input.value.focus() });
                 autofocus
                 ref="input"
                 required
-                class="focus-visible:outline-none rounded-full border-2 bg-transparent border-[#B9CEED] h-12 leading-9 pt-1 px-5 w-[30vw] text-gray-800 text-xl"
+                class="pb-1 focus-visible:outline-none rounded-full border-2 bg-transparent border-[#B9CEED] h-12 leading-9 pt-1 px-5 w-[30vw] text-gray-800 text-xl"
             />
             <InputError class="mt-2" :message="errors" />
         </div>

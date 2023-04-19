@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Medic;
+use App\Models\Patient;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,15 +21,31 @@ class ProfileController extends Controller
      */
     public function visualize(Request $request): Response
     {
+        /* TODO: nextAppointment date
         $nextAppointment = date_create("25-09-1989 12:50 GMT");
+
+        'nextAppointment' => [
+            'date' => date_format($nextAppointment, 'd-m-Y'),
+            'time' => date_format($nextAppointment, 'h\hi')
+        ],
+        */
+
+        $user = Auth::getUser();
+        $number = null;
+        if ($user->isPatient()) {
+            $number = Patient::where('user_id','=',$user->id)->first()->healthcare_number;
+        } elseif ($user->isMedic()) {
+            $number = Medic::where('user_id','=',$user->id)->first()->license_number;
+        }
+
         return Inertia::render('Profile/Profile', [
-            'edit' => false,
-            'isGuest' => false,
-            'status' => 'Patient',
-            'hospital' => 'São João',
+            'isGuest' => $user->isGuest(),
+            'status' => $user->status(),
+            'number' => $number,
+            'hospital' => $user->hospital->name,
             'nextAppointment' => [
-                'date' => date_format($nextAppointment, 'd-m-Y'),
-                'time' => date_format($nextAppointment, 'h\hi')
+                'date' => '',
+                'time' => ''
             ],
         ]);
     }
@@ -50,11 +68,10 @@ class ProfileController extends Controller
     {
         $request->user()->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
-
-        $request->user()->save();
+        $user = Auth::getUser();
+        $user->name = $request->name;
+        $user->phone_number = $request->phone_number;
+        $user->save();
 
         return Redirect::route('profile');
     }
