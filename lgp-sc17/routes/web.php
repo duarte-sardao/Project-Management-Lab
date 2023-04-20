@@ -48,6 +48,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::post('about-form', [MailController::class, 'sendEmail']);
+Route::post('about-form', [MailController::class, 'sendEmail'])->name('about-form');
 
 require __DIR__.'/auth.php';

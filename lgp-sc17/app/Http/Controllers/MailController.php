@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Controller;
+namespace App\Http\Controllers;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+//use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
-class MailController extends AbstractController
+class MailController extends Controller
 {
     public function sendEmail(MailerInterface $mailer, Request $request)
     {
@@ -25,7 +25,7 @@ class MailController extends AbstractController
             ->from($request['email'])
             ->to('healthybyte.noreply@gmail.com')
             ->subject($request['subject'])
-            ->text($request['subject'])
+            ->text($request['subject']);
 
         $mailer->send($email);
 
