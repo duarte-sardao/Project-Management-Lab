@@ -16,7 +16,7 @@ class MailController extends Controller
             'name' => ['required', 'string', 'max:255' ],
             'email' => ['required', 'string', 'email', 'max:255' ],
             'subject' => ['required', 'string', 'max:255'],
-            'message' => ['required', 'string', 'max:255']
+            'message' => ['required', 'string']
          ]);
 
         Mail::to('healthybyte.noreply@gmail.com')->send(new AboutUsMail($request->email, $request->name, $request->subject, $request->message));

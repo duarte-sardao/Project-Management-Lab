@@ -15,8 +15,7 @@ const form = useForm({
     name: '',
     email: '',
     subject: '',
-    message: '',
-    terms: false,
+    message: ''
 });
 
 
@@ -124,8 +123,8 @@ const submit = () => {
                 <div class="flex items-center justify-end mt-4">
 
                     <PrimaryButton  class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                        Send  
-                        <svg aria-hidden="true" class="w-5 h-5 text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" 
+                        Send
+                        <svg aria-hidden="true" class="w-5 h-5 text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
                             d="M 20.25 11.5008 L 20.6526 11.2043 L 20.8709 11.5008 L 20.6526 11.7972 L 20.25 11.5008 Z M 6.75 12.0008 C 6.4739 12.0008 6.25 11.7769 6.25 11.5008 C 6.25 11.2246 6.4739 11.0008 6.75 11.0008 V 12.0008 Z M 16.1526 5.0932 L 20.6526 11.2043 L 19.8474 11.7972 L 15.3474 5.6861 L 16.1526 5.0932 Z M 20.6526 11.7972 L 16.1526 17.9083 L 15.3474 17.3154 L 19.8474 11.2043 L 20.6526 11.7972 Z M 20.25 12.0008 H 6.75 V 11.0008 H 20.25 V 12.0008 Z">
                         </path></svg>
                     </PrimaryButton >
@@ -151,10 +150,10 @@ export default {
         grid-template-columns: repeat(1, minmax(0, 1fr));
     }
     #first-about-pic{
-        display: block 
+        display: block
     }
     #second-about-pic{
-        display: none 
+        display: none
     }
 }
 </style>
