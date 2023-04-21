@@ -37,7 +37,7 @@ const answers = [
 </script>
 
 <template>
-    <Head><title>Log in</title></Head>
+    <Head><title>Post</title></Head>
     <div class="relative" style="z-index: 1">
         <NavBarSimple></NavBarSimple>
     </div>

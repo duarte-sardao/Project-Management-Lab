@@ -16,6 +16,11 @@ class ForumController extends Controller
      */
     public function visualize(Request $request): Response
     {
-        return Inertia::render('ForumPost');
+        return Inertia::render('Forum/Post');
+    }
+
+    public function create(Request $request): Response
+    {
+        return Inertia::render('Forum/CreatePost');
     }
 }
