@@ -1,11 +1,11 @@
 <script setup>
 import { ref } from 'vue';
-const componentKey = ref(0);
+const componentKey = ref(false);
 
 defineProps(['topic', 'index']);
 
 const forceRender = () => {
-    componentKey.value += 1;
+    componentKey.value = !componentKey.value;
 }
 </script>
 
@@ -16,7 +16,7 @@ const forceRender = () => {
         :key="componentKey"
         v-on:click="forceRender()"
     >
-        <div class="inline-block align-middle rounded-full border-1 w-[20px] h-[20px] mb-[3px] mr-2" :class="'bg-[#' + topic.color + ']'"></div>
+        <div class="inline-block align-middle rounded-full border-1 w-[20px] h-[20px] mb-[3px] mr-2" :style="'background:' + topic.color"></div>
         {{ topic.topic }}
     </div>
 </template>

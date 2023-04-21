@@ -4,7 +4,6 @@ import NavBarSimple from "@/Components/NavBarSimple.vue";
 import Footer from "@/Components/Footer.vue";
 import TopicButton from "@/Components/TopicButton.vue";
 
-
 const clickTopic = (index) => {
     topics[index].selected = !topics[index].selected;
 };
@@ -28,14 +27,14 @@ const form = useForm({
 // };
 
 const topics = [
-    {color: '000', topic:'Topic'},
-    {color: 'FFFF00', topic:'Topic', selected:false},
-    {color: '00FFFF', topic:'Topic', selected:false},
-    {color: '00FF00', topic:'Topic', selected:false},
-    {color: '0000FF', topic:'Topic', selected:false},
-    {color: 'FF00FF', topic:'Topic', selected:false},
-    {color: 'F0F0F0', topic:'Topic', selected:false},
-    {color: '0F0F0F', topic:'Topic', selected:false},
+    {color: '#000000', topic:'Topic', selected:false},
+    {color: '#FFFF00', topic:'Topic', selected:false},
+    {color: '#00FFFF', topic:'Topic', selected:false},
+    {color: '#00FF00', topic:'Topic', selected:false},
+    {color: '#0000FF', topic:'Topic', selected:false},
+    {color: '#FF00FF', topic:'Topic', selected:false},
+    {color: '#F0F0F0', topic:'Topic', selected:false},
+    {color: '#0F0F0F', topic:'Topic', selected:false},
 ]
 </script>
 
@@ -54,7 +53,7 @@ const topics = [
                 id="post-title"
                 type="text"
                 class="rounded-3xl border-none bg-[#E9EFFD] w-[100%] px-4 text-lg text-black"
-                placeholder="Add a title or question"    
+                placeholder="Add a title or question"
             />
             <textarea
                 id="post-content"
@@ -64,7 +63,7 @@ const topics = [
             <div class="mt-[3vh] pl-[2vw]">
                 <div class="text-[#6D6D6D] text-lg">Choose one or more topics</div>
                 <div id="topics-area" class="max-h-[25vh] overflow-auto">
-                    <TopicButton v-for="(topic, index) in topics" :topic="topic" :index="index" :key="topic.selected" v-on:click="clickTopic(index)"/>
+                    <TopicButton v-for="(topic, index) in topics" :topic="topic" :index="index" v-on:click="clickTopic(index)"/>
                 </div>
             </div>
             <button class="shadow-md shadow-black/[.25] justify-self-end mt-[3vh] mb-[10vh] bg-[#578AD6] px-20 py-3 text-xl text-white font-bold rounded-3xl ">
