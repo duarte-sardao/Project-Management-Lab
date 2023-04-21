@@ -30,6 +30,9 @@ const submit = () => {
             if (form.profile_img != null) {
                 window.location.reload();
             }
+            if (form.errors.phone_number) {
+                form.phone_number = user.phone_number
+            }
         }
     });
     edit.value = false;
@@ -83,7 +86,7 @@ if (profile_img_url.value == null) {
             <div class="col-span-6 border-2 border-[#E9EFFD] ml-[1vw] mr-[3vw] rounded-lg pt-[5vh] px-[3vw] shadow-md">
                 <div class="grid grid-cols-2">
                     <div class="col-span-1 h-fit">
-                        <ProfileTextBox :text="'Full Name'" v-model="form.name" :edit="edit" :isInput="edit" inputType="text" errors=""/>
+                        <ProfileTextBox :text="'Full Name'" v-model="form.name" :edit="edit" :isInput="edit" inputType="text" :errors="form.errors.name"/>
                         <ProfileTextBox :text="'Username'" v-model="user.username" :edit="edit" :isInput="false" inputType="text" errors=""/>
                         <ProfileTextBox
                             v-if="!isGuest"
@@ -96,7 +99,7 @@ if (profile_img_url.value == null) {
                     </div>
                     <div class="col-span-1 grid justify-items-end flex items-start h-fit">
                         <ProfileTextBox :text="'Email'" v-model="user.email" :edit="edit" :isInput="false" inputType="email" errors=""/>
-                        <ProfileTextBox :text="'Phone Number'" v-model="form.phone_number" :edit="edit" :isInput="edit" inputType="number" errors=""/>
+                        <ProfileTextBox :text="'Phone Number'" v-model="form.phone_number" :edit="edit" :isInput="edit" inputType="number" :errors="form.errors.phone_number"/>
                     </div>
                 </div>
                 <div class="grid grid-cols-4 mt-10 mb-[20vh]">
@@ -107,8 +110,8 @@ if (profile_img_url.value == null) {
                         </div>
                         <ProfileInfo :text="'Status'" :value="status" />
                         <ProfileInfo :text="'Hospital'" :value="hospital" />
-                        <ProfileInfo :text="'Next appointment date'" :value="nextAppointment.date" />
-                        <ProfileInfo :text="'Next appointment time'" :value="nextAppointment.time" />
+                        <ProfileInfo :text="'Next appointment date'" :value="nextAppointment.date !== '' ? nextAppointment.date : 'No future appointment'" />
+                        <ProfileInfo :text="'Next appointment time'" :value="nextAppointment.time !== '' ? nextAppointment.time : 'No future appointment'" />
                     </div>
                     <div class="col-span-1 relative">
                         <button

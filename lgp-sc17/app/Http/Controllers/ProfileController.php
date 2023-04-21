@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Medic;
 use App\Models\Patient;
+use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use function Termwind\renderUsing;
 
 class ProfileController extends Controller
 {
@@ -69,8 +71,12 @@ class ProfileController extends Controller
     {
         $request->user()->fill($request->validated());
 
-        $user = Auth::getUser();
+        $user = User::find(Auth::id());
         $user->name = $request->name;
+
+        if (intval($request->phone_number) <= 0) {
+            return back()->withErrors(['phone_number' => "Phone number invalid"]);
+        }
         $user->phone_number = $request->phone_number;
 
         $imageExtensions = ['jpg', 'jpeg', 'jpe', 'gif', 'png', 'svg', 'ico'];

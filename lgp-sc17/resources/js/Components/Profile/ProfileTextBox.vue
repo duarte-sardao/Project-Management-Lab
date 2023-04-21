@@ -1,7 +1,7 @@
 <script setup>
 import InputError from '@/Components/InputError.vue';
 import { onMounted, ref } from 'vue';
-defineProps(['id', 'edit', 'inputType', 'text', 'isInput', 'modelValue', 'errors']);
+const props = defineProps(['id', 'edit', 'inputType', 'text', 'isInput', 'modelValue', 'errors']);
 defineEmits(['update:modelValue']);
 
 const input = ref(null);
@@ -29,7 +29,6 @@ defineExpose({ focus: () => input.value.focus() });
                 required
                 class="pb-1 focus-visible:outline-none rounded-full border-2 bg-transparent border-[#B9CEED] h-12 leading-9 pt-1 px-5 w-[30vw] text-gray-800 text-xl"
             />
-            <InputError class="mt-2" :message="errors" />
         </div>
         <div
             v-else
@@ -38,5 +37,6 @@ defineExpose({ focus: () => input.value.focus() });
         >
             {{ modelValue }}
         </div>
+        <InputError class="mt-2" :message="errors" />
     </div>
 </template>
