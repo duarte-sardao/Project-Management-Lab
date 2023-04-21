@@ -36,7 +36,7 @@ const submit = () => {
             <div class="pt-16 pl-4 pb-5 max-w-[22rem] w-[100vw] text-2xl font-bold text-gray-800 text-[#244D89]">
                 <div class="w-fit">
                     Medical staff sign up
-                    <img class="inline pl-2 pb-2" style="height: 5vh;" src="/svg_icons/medical_staff_sign_up.svg" alt="medical_staff">
+                    <img class="inline pl-2 pb-2" style="height: 5vh;" src="/svg_icons/medical_staff.svg" alt="medical_staff">
                     <div class="mt-1 block border-2 border-[#244D89] rounded-3xl"></div>
                 </div>
             </div>
