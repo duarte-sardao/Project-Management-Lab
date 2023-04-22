@@ -1,5 +1,14 @@
 <script setup>
-defineProps(['answer']);
+import { ref } from 'vue';
+
+const props = defineProps(['answer']);
+
+const componentKey = ref(props.answer.userLikes);
+
+const forceRender = () => {
+    componentKey.value = !componentKey.value;
+}
+
 </script>
 
 <template>
@@ -24,8 +33,8 @@ defineProps(['answer']);
                 <div class="text-xs font-bold text-[#767676]">{{ answer.date }}</div>
             </div>
         </div>
-        <button class="grid justify-items-center justify-self-end max-h-[3.25rem] mt-[-2rem] mb-[4vh]">
-            <img src="/svg_icons/favorite.svg" alt="Like" class="h-[2rem]"/>
+        <button :key="componentKey" @click="() =>{ $emit('clickHandler', componentKey ? -1:1); forceRender(); }" class="grid justify-items-center justify-self-end max-h-[3.25rem] mt-[-2rem] mb-[4vh]">
+            <img :src="componentKey ? '/svg_icons/unlike.svg':'/svg_icons/like.svg'" alt="Like" class="h-[2rem]"/>
             <div class="text-[#E67A79] text-sm">{{ answer.likes }} {{ answer.likes === 1 ? 'Like' : 'Likes' }}</div>
         </button>
         <div class="text-[#222222] font-normal text-base mb-[10vh]">
