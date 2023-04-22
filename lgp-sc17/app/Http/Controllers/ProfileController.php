@@ -75,7 +75,7 @@ class ProfileController extends Controller
         $user->name = $request->name;
 
         if (intval($request->phone_number) <= 0) {
-            return back()->withErrors(['phone_number' => "Phone number invalid"]);
+            return back()->withErrors(['phone_number' => "Phone number invalid"])->with(['error' => 'An error has occurred']);
         }
         $user->phone_number = $request->phone_number;
 
@@ -92,8 +92,7 @@ class ProfileController extends Controller
         }
 
         $user->save();
-
-        return Redirect::route('profile');
+        return Redirect::route('profile')->with(['success' => 'Profiled updated with success']);
     }
 
     /**

@@ -5,6 +5,7 @@ import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 import NavBarSimple from "@/Components/NavBarSimple.vue";
 import Footer from "@/Components/Footer.vue";
 import {ref} from "vue";
+import MessageToast from "@/Components/MessageToast.vue";
 
 const props = defineProps({
     isGuest: Boolean,
@@ -24,7 +25,14 @@ const form = useForm({
     profile_img: null
 });
 
+const displayToast = ref(false);
+function cleanToast() {
+    usePage().props.flash.success_message = null;
+    usePage().props.flash.error_message = null;
+    displayToast.value = false;
+}
 const submit = () => {
+    displayToast.value = true;
     form.post(route('profile.update'), {
         onFinish () {
             if (form.profile_img != null) {
@@ -33,6 +41,7 @@ const submit = () => {
             if (form.errors.phone_number) {
                 form.phone_number = user.phone_number
             }
+            setTimeout(cleanToast, 3000);
         }
     });
     edit.value = false;
@@ -54,6 +63,8 @@ if (profile_img_url.value == null) {
     <div class="relative" style="z-index: 1">
         <NavBarSimple></NavBarSimple>
     </div>
+
+    <MessageToast v-if="displayToast" :message="$page.props.flash.success_message" :error="$page.props.flash.error_message"></MessageToast>
 
     <form @submit.prevent="submit">
         <div id="profile-grid" class="mt-7 mb-14 grid grid-cols-8 relative">
