@@ -59,7 +59,7 @@ if (profile_img_url.value == null) {
 </script>
 
 <template>
-    <Head><title>Register</title></Head>
+    <Head><title>Profile</title></Head>
     <div class="relative" style="z-index: 1">
         <NavBarSimple></NavBarSimple>
     </div>
