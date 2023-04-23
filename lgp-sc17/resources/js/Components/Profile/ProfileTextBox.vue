@@ -2,10 +2,6 @@
 import InputError from '@/Components/InputError.vue';
 import { onMounted, ref } from 'vue';
 const props = defineProps({
-    'id': {
-        type: String,
-        required: true,
-    },
     'edit': {
         type: Boolean,
         required: true
@@ -67,7 +63,6 @@ defineExpose({ focus: () => input.value.focus() });
         </div>
         <div
             v-else
-            id=id
             class="rounded-full border-2 border-[#B9CEED] h-12 leading-9 pt-1 px-5 w-[30vw] text-gray-800 text-xl" :class="edit && 'bg-slate-200/[.4]'"
         >
             {{ modelValue }}

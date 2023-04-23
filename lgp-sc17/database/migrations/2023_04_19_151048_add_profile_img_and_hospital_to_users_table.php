@@ -33,6 +33,11 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('profile_img_url');
+        });
+        Schema::table('patients', function (Blueprint $table) {
+            $table->dropForeign('hospital_id');
+        });
+        Schema::table('medics', function (Blueprint $table) {
             $table->dropForeign('hospital_id');
         });
     }
