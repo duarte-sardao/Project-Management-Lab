@@ -82,7 +82,7 @@ if (profile_img_url.value == null) {
                     </button>
                 </div>
                 <div class="ml-[4vw] text-gray-800 font-medium text-2xl">
-                    <Link href="#">
+                    <Link v-if="!isGuest" href="#">
                         <img src="/svg_icons/questionnaire.svg" class="inline mr-3 pb-1" alt="User questionnaire"/>
                         Questionnaire
                     </Link>
@@ -120,9 +120,9 @@ if (profile_img_url.value == null) {
                             <input id="image-input" @change="inputFile" type="file" accept="image/*" class="file-input file-input-primary w-full max-w-md right-0 bottom-10" />
                         </div>
                         <ProfileInfo :text="'Status'" :value="status" />
-                        <ProfileInfo :text="'Hospital'" :value="hospital" />
-                        <ProfileInfo :text="'Next appointment date'" :value="nextAppointment.date !== '' ? nextAppointment.date : 'No future appointment'" />
-                        <ProfileInfo :text="'Next appointment time'" :value="nextAppointment.time !== '' ? nextAppointment.time : 'No future appointment'" />
+                        <ProfileInfo v-if="!isGuest" :text="'Hospital'" :value="hospital" />
+                        <ProfileInfo v-if="!isGuest" :text="'Next appointment date'" :value="nextAppointment.date !== '' ? nextAppointment.date : 'No future appointment'" />
+                        <ProfileInfo v-if="!isGuest" :text="'Next appointment time'" :value="nextAppointment.time !== '' ? nextAppointment.time : 'No future appointment'" />
                     </div>
                     <div class="col-span-1 relative">
                         <button
