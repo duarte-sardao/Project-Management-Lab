@@ -34,21 +34,21 @@ const post = {
     date: '5 days ago',
     user: {
         name: 'Name/Nickname',
-        img: 'default-user-image.png',
+        img: '/default-user-image.png',
     },
     likes: 0,
     userLikes: false,
     answers: [
         {
             date:'3 days ago',
-            user: {img: 'default-user-image.png', username: 'Name/Nickname', role:'MedicalStaff'},
+            user: {img: '/default-user-image.png', username: 'Name/Nickname', role:'MedicalStaff'},
             content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet magna aliquam eleifend. In eget sodales massa. Nulla bibendum, elit non ultricies vulputate, purus mauris molestie enim, ac dictum massa leo ultricies justo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet magna aliquam eleifend. In eget sodales massa. Nulla bibendum, elit non ultricies vulputate, purus mauris molestie enim, ac dictum massa leo ultricies justo.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet magna aliquam eleifend. In eget sodales massa. Nulla bibendum, elit non ultricies vulputate, purus mauris molestie enim, ac dictum massa leo ultricies justo.',
             likes: 10,
             userLikes: false,
         },
         {
             date:'3 days ago',
-            user: {img: 'default-user-image.png', username: 'Name/Nickname', role:'Patient'},
+            user: {img: '/default-user-image.png', username: 'Name/Nickname', role:'Patient'},
             content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet magna aliquam eleifend. In eget sodales massa. Nulla bibendum, elit non ultricies vulputate, purus mauris molestie enim, ac dictum massa leo ultricies justo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet magna aliquam eleifend. In eget sodales massa. Nulla bibendum, elit non ultricies vulputate, purus mauris molestie enim, ac dictum massa leo ultricies justo.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet magna aliquam eleifend. In eget sodales massa. Nulla bibendum, elit non ultricies vulputate, purus mauris molestie enim, ac dictum massa leo ultricies justo.',
             likes: 10,
             userLikes: true,
