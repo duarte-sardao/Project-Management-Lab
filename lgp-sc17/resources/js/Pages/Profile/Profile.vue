@@ -110,7 +110,7 @@ if (profile_img_url.value == null) {
                     </div>
                     <div class="col-span-1 grid justify-items-end flex items-start h-fit">
                         <ProfileTextBox :text="'Email'" v-model="user.email" :edit="edit" :isInput="false" inputType="email" errors=""/>
-                        <ProfileTextBox :text="'Phone Number'" v-model="form.phone_number" :edit="edit" :isInput="edit" inputType="number" :errors="form.errors.phone_number"/>
+                        <ProfileTextBox :text="'Phone Number'" v-model="form.phone_number" :edit="edit" :isInput="edit" :required="false" inputType="number" :errors="form.errors.phone_number"/>
                     </div>
                 </div>
                 <div class="grid grid-cols-4 mt-10 mb-[20vh]">

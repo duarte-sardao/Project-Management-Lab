@@ -79,7 +79,7 @@ class ProfileController extends Controller
         $user = User::find(Auth::id());
         $user->name = $request->name;
 
-        if (intval($request->phone_number) <= 0) {
+        if ((intval($request->phone_number) <= 0) && ($request->phone_number != '')) {
             return back()->withErrors(['phone_number' => "Phone number invalid"])->with(['error' => 'An error has occurred']);
         }
         $user->phone_number = $request->phone_number;

@@ -1,7 +1,42 @@
 <script setup>
 import InputError from '@/Components/InputError.vue';
 import { onMounted, ref } from 'vue';
-const props = defineProps(['id', 'edit', 'inputType', 'text', 'isInput', 'modelValue', 'errors']);
+const props = defineProps({
+    'id': {
+        type: String,
+        required: true,
+    },
+    'edit': {
+        type: Boolean,
+        required: true
+    },
+    'inputType': {
+        type: String,
+        required: true,
+    },
+    'text': {
+        type: String,
+        required: true,
+    },
+    'isInput': {
+        type: Boolean,
+        required: true,
+    },
+    'modelValue': {
+        type: String || Number,
+        required: true,
+    },
+    'required': {
+        type: Boolean,
+        required: false,
+        default: true,
+    },
+    'errors': {
+        type: String,
+        required: false,
+        default: '',
+    }
+});
 defineEmits(['update:modelValue']);
 
 const input = ref(null);
@@ -26,7 +61,7 @@ defineExpose({ focus: () => input.value.focus() });
                 @input="$emit('update:modelValue', $event.target.value)"
                 autofocus
                 ref="input"
-                required
+                :required="required"
                 class="pb-1 focus-visible:outline-none rounded-full border-2 bg-transparent border-[#B9CEED] h-12 leading-9 pt-1 px-5 w-[30vw] text-gray-800 text-xl"
             />
         </div>
