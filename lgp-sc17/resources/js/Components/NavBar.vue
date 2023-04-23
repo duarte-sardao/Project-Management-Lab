@@ -1,4 +1,4 @@
-<script setup>º
+<script setup>
 import NavBarContentExtended from "@/Components/NavBarContentExtended.vue";
 import NavBarContentCollapsed from "@/Components/NavBarContentCollapsed.vue";
 
