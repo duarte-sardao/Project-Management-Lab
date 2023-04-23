@@ -14,11 +14,16 @@ class ForumController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function visualize(Request $request): Response
+    public function posts(Request $request): Response
+    {
+        return Inertia::render('Forum/Forum');
+    }
+
+    public function post(Request $request): Response
     {
         return Inertia::render('Forum/Post');
     }
-
+    
     public function create(Request $request): Response
     {
         return Inertia::render('Forum/CreatePost');
