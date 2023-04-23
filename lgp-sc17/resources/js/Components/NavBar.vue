@@ -3,7 +3,7 @@ import {Link, useForm, usePage} from "@inertiajs/vue3";
 import TextInput from "@/Components/TextInput.vue";
 
 let profile_img_url = '/svg_icons/profile.svg';
-if (usePage().props.auth.user) {
+if (usePage().props.auth.user.profile_img_url) {
     profile_img_url = usePage().props.auth.user.profile_img_url;
 }
 
