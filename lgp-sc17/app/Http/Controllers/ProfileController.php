@@ -35,17 +35,22 @@ class ProfileController extends Controller
 
         $user = Auth::getUser();
         $number = null;
+        $hospital = null;
         if ($user->isPatient()) {
-            $number = Patient::where('user_id','=',$user->id)->first()->healthcare_number;
+            $patient = Patient::where('user_id','=',$user->id)->first();
+            $number = $patient->healthcare_number;
+            $hospital = $patient->hospital->name;
         } elseif ($user->isMedic()) {
-            $number = Medic::where('user_id','=',$user->id)->first()->license_number;
+            $medic = Medic::where('user_id','=',$user->id)->first();
+            $number = $medic->license_number;
+            $hospital = $medic->hospital->name;
         }
 
         return Inertia::render('Profile/Profile', [
             'isGuest' => $user->isGuest(),
             'status' => $user->status(),
             'number' => $number,
-            'hospital' => $user->hospital->name,
+            'hospital' => $hospital,
             'nextAppointment' => [
                 'date' => '',
                 'time' => ''

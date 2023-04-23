@@ -32,9 +32,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function hospital(): BelongsTo {
-        return $this->belongsTo(Hospital::class);
-    }
 
     public function status(): string {
         if ($this->isPatient()) {

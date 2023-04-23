@@ -15,4 +15,8 @@ class Medic extends Model
         'user_id',
         'license_number',
     ];
+
+    public function hospital(): BelongsTo {
+        return $this->belongsTo(Hospital::class);
+    }
 }

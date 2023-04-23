@@ -15,4 +15,8 @@ class Patient extends Model
         'user_id',
         'healthcare_number',
     ];
+
+    public function hospital(): BelongsTo {
+        return $this->belongsTo(Hospital::class);
+    }
 }
