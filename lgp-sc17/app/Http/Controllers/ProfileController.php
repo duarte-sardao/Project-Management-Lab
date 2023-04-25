@@ -79,13 +79,15 @@ class ProfileController extends Controller
         $user = User::find(Auth::id());
         $user->name = $request->name;
 
-        if ((intval($request->phone_number) <= 0)) {
-            return back()->withErrors(['phone_number' => "Phone number invalid"])->with(['error' => 'An error has occurred']);
+        if ($request->phone_number) {
+            if ((intval($request->phone_number) <= 0)) {
+                return back()->withErrors(['phone_number' => "Phone number invalid"])->with(['error' => 'An error has occurred']);
+            }
+            $user->phone_number = $request->phone_number;
         }
-        $user->phone_number = $request->phone_number;
 
         $imageExtensions = ['jpg', 'jpeg', 'jpe', 'gif', 'png', 'svg', 'ico'];
-        if (sizeof($request->files) == 1 && in_array($request->file('profile_img')->getClientOriginalExtension(), $imageExtensions)) {
+        if ($request->file('profile_img') && in_array($request->file('profile_img')->getClientOriginalExtension(), $imageExtensions)) {
             if ($user->profile_img_url != null) {
                 File::delete(public_path($user->profile_img_url));
             }
