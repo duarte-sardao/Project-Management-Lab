@@ -60,9 +60,7 @@ if (profile_img_url.value == null) {
 
 <template>
     <Head><title>Profile</title></Head>
-    <div class="relative" style="z-index: 1">
-        <NavBarSimple></NavBarSimple>
-    </div>
+    <NavBarSimple></NavBarSimple>
 
     <MessageToast v-if="displayToast" :message="$page.props.flash.success_message" :error="$page.props.flash.error_message"></MessageToast>
 
