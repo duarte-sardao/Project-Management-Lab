@@ -3,6 +3,8 @@ import NavBarContentExtended from "@/Components/NavBarContentExtended.vue";
 import NavBarContentCollapsed from "@/Components/NavBarContentCollapsed.vue";
 </script>
 
+
+
 <template>
     <div class="relative" style="z-index: 2">
         <div class="p-7 bg-gradient-to-r from-mainBlue to-transparent">

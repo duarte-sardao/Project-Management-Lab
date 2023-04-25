@@ -1,6 +1,11 @@
 <script setup>
-import {Link, useForm} from "@inertiajs/vue3";
+import {Link, useForm, usePage} from "@inertiajs/vue3";
 import TextInput from "@/Components/TextInput.vue";
+
+let profile_img_url = '/svg_icons/profile.svg';
+if (usePage().props.auth.user && usePage().props.auth.user.profile_img_url) {
+    profile_img_url = usePage().props.auth.user.profile_img_url;
+}
 
 const form = useForm({
     search: '',
@@ -30,7 +35,10 @@ const submit = () => {
                     <Link class="btn btn-ghost text-gray-600 normal-case text-xl rounded-full" :href="route('about')">About Us</Link>
                 </li>
                 <li class="my-2">
-                    <Link :href="route('login')" class="btn bg-lightBlue text-gray-600 hover:bg-mainBlue hover:text-gray-200 border-0 normal-case text-xl rounded-full">Log in</Link>
+                    <Link v-if="$page.props.auth.user === null" :href="route('login')" class="btn bg-lightBlue hover:bg-mainBlue hover:text-gray-200 text-gray-600 border-0 normal-case text-xl rounded-full">Log in</Link>
+                    <Link v-else :href="route('profile')" class="btn p-0 border-0 normal-case text-xl rounded-full bg-transparent hover:bg-lightBlue">
+                        <img id="profile-img" class="rounded-full mx-auto h-fit w-[48px] h-[48px]" :src="profile_img_url" alt="profile image">
+                    </Link>
                 </li>
                 <li>
                     <form class="p-0 my-2" @submit.prevent="submit">

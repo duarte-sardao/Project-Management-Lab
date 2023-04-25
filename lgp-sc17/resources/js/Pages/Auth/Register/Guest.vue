@@ -25,9 +25,7 @@ const submit = () => {
 
 <template>
     <Head><title>Register</title></Head>
-    <div class="relative" style="z-index: 1">
-        <NavBarSimple></NavBarSimple>
-    </div>
+    <NavBarSimple></NavBarSimple>
 
     <div id="login-grid" class="grid grid-cols-2 relative">
         <img id="login-img" class="absolute" style="right: 10%; height: 90%; top: 5%; z-index: 0" src="/svg_img/register.svg" alt="register image">
@@ -146,7 +144,6 @@ const submit = () => {
             </div>
         </div>
     </div>
-
     <Footer></Footer>
 </template>
 

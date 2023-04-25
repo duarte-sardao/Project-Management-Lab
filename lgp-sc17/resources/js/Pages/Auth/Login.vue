@@ -79,9 +79,7 @@ const submit = () => {
             </div>
         </div>
     </div>
-    <div class="relative" style="z-index: 1">
-        <Footer></Footer>
-    </div>
+    <Footer></Footer>
 </template>
 
 <style>
