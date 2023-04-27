@@ -5,47 +5,11 @@ import NavBarSimple from "@/Components/NavBarSimple.vue";
 import Footer from "@/Components/Footer.vue";
 import ForumPost from "@/Components/ForumPost.vue";
 
-const form = useForm({
-    credential: '',
-    password: '',
+const props = defineProps({
+    posts: Array,
+    topics: Array,
 });
 
-const submit = () => {
-    form.post(route('login'), {
-        onFinish: () => form.reset('password'),
-    });
-};
-
-const topics = [
-    { topic: 'Topic1', color: '#FFFFA0', follows: false },
-    { topic: 'Topic2', color: '#32CACE', follows: true },
-    { topic: 'Topic3', color: '#DFEFC3', follows: false },
-    { topic: 'Topic4', color: '#BEC5E9', follows: false },
-    { topic: 'Topic5', color: '#F39DB3', follows: false },
-    { topic: 'Topic6', color: '#FE7868', follows: false },
-    { topic: 'Topic7', color: '#8BBFA2', follows: false },
-    { topic: 'Topic1', color: '#FFFFA0', follows: false },
-    { topic: 'Topic2', color: '#32CACE', follows: true },
-    { topic: 'Topic3', color: '#DFEFC3', follows: false },
-    { topic: 'Topic4', color: '#BEC5E9', follows: false },
-    { topic: 'Topic5', color: '#F39DB3', follows: false },
-    { topic: 'Topic6', color: '#FE7868', follows: false },
-    { topic: 'Topic7', color: '#8BBFA2', follows: false },
-    { topic: 'Topic1', color: '#FFFFA0', follows: false },
-    { topic: 'Topic2', color: '#32CACE', follows: true },
-    { topic: 'Topic3', color: '#DFEFC3', follows: false },
-    { topic: 'Topic4', color: '#BEC5E9', follows: false },
-    { topic: 'Topic5', color: '#F39DB3', follows: false },
-    { topic: 'Topic6', color: '#FE7868', follows: false },
-    { topic: 'Topic7', color: '#8BBFA2', follows: false },
-    { topic: 'Topic1', color: '#FFFFA0', follows: false },
-    { topic: 'Topic2', color: '#32CACE', follows: true },
-    { topic: 'Topic3', color: '#DFEFC3', follows: false },
-    { topic: 'Topic4', color: '#BEC5E9', follows: false },
-    { topic: 'Topic5', color: '#F39DB3', follows: false },
-    { topic: 'Topic6', color: '#FE7868', follows: false },
-    { topic: 'Topic7', color: '#8BBFA2', follows: false },
-];
 
 const currentForum = ref(0);
 const changeForum = (value) => {
@@ -91,9 +55,8 @@ const changeForum = (value) => {
         </div>
         <div class="grid grid-cols-10">
             <div class="relative col-span-8">
-                <Link :href="route('forum.post')"><ForumPost /></Link>
-                <Link :href="route('forum.post')"><ForumPost /></Link>
-                <Link :href="route('forum.post')"><ForumPost /></Link>
+                <Link v-if="props.posts.length" v-for="post in props.posts" :href="route('forum.post', {id: post.id})"><ForumPost :data="post"/></Link>
+                <div v-else class="h-[100%] flex justify-center items-center text-2xl">There are no posts to display.</div>
                 <div class="h-[100%] border-[#221F1C]/[.42] border-2 rounded-3xl inline-block absolute right-0 top-0"></div>
             </div>
             <div class="col-span-2 pl-[2vw]">
@@ -131,7 +94,7 @@ const changeForum = (value) => {
                 </div>
                 <div class="mt-[6vh] border-2 border-[#221F1C]/[.42] w-[100%] rounded-3xl"></div>
                 <div class="mt-[6vh] h-[100%] overflow-auto">
-                    <button v-for="(topic, index) in topics" class="block mt-[3vh] ml-2" v-on:click="changeForum(3+index)">
+                    <button v-for="(topic, index) in props.topics" class="block mt-[3vh] ml-2" v-on:click="changeForum(3+index)">
                         <div
                             class="inline-block align-middle rounded-full w-[25px] h-[25px] mb-[3px] mr-2"
                             :style="`background: ${topic.color}; outline: 2px dashed ${currentForum === (3+index) ? '#578AD6':'transparent'};`">

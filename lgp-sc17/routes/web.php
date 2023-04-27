@@ -43,9 +43,14 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/forum', [ForumController::class, 'posts'])->name('forum.posts');
-    Route::get('/forum/id', [ForumController::class, 'post'])->name('forum.post');
-    Route::get('/forum/new', [ForumController::class, 'create'])->name('forum.create');
+    Route::get('/forum', [ForumController::class, 'posts'])->name('forum');
+    Route::get('/forum/new', [ForumController::class, 'create'])->name('forum.new');
+    Route::post('forum/new', [ForumController::class, 'store'])->name('forum.create');
+    Route::post('forum/{id}/like', [ForumController::class, 'like'])->name('forum.like-post');
+    Route::post('forum/answer/{id}/like', [ForumController::class, 'likeAnswer'])->name('forum.like-answer');
+    Route::post('forum/topic/{id}/follow', [ForumController::class, 'follow'])->name('forum.follow');
+    Route::get('/forum/{id}', [ForumController::class, 'post'])->name('forum.post');
+    Route::post('/forum/{id}', [ForumController::class, 'answer'])->name('forum.answer');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

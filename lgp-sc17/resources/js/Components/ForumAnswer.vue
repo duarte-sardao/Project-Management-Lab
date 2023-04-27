@@ -16,7 +16,7 @@ const forceRender = () => {
         <div class="grid grid-cols-6 max-h-[5rem] mt-[6vh] max-w-[30vw]">
             <img 
                 id="author-image"
-                :src="answer.user.img"
+                :src="answer.user.image"
                 alt="author image"
                 class="rounded-full mix-blend-luminosity max-h-[5rem] cols-span-1"
             />
@@ -30,11 +30,11 @@ const forceRender = () => {
                         class="inline max-h-[1rem] align-top pl-1"
                     />
                 </div>
-                <div class="text-xs font-bold text-[#767676]">{{ answer.date }}</div>
+                <div class="text-xs font-bold text-[#767676]">{{ answer.elapsed_time }}</div>
             </div>
         </div>
         <button :key="componentKey" @click="() =>{ $emit('clickHandler', componentKey ? -1:1); forceRender(); }" class="grid justify-items-center justify-self-end max-h-[3.25rem] mt-[-2rem] mb-[4vh]">
-            <img :src="componentKey ? '/svg_icons/unlike.svg':'/svg_icons/like.svg'" alt="Like" class="h-[2rem]"/>
+            <img :src="props.answer.userLikes ? '/svg_icons/unlike.svg':'/svg_icons/like.svg'" alt="Like" class="h-[2rem]"/>
             <div class="text-[#E67A79] text-sm">{{ answer.likes }} {{ answer.likes === 1 ? 'Like' : 'Likes' }}</div>
         </button>
         <div class="text-[#222222] font-normal text-base mb-[10vh]">
