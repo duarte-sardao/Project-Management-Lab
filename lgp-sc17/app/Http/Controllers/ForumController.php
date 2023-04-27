@@ -46,6 +46,7 @@ class ForumController extends Controller
      */
     public function posts(Request $request): Response
     {
+        $topics_followed = Auth::user()->follow;
         $forum_posts = ForumPost::all();
         $result = array();
         foreach($forum_posts as $forum_post) {
@@ -63,6 +64,7 @@ class ForumController extends Controller
                     'quantity' => count($forum_post->answers),
                     'profile_pictures' => [],
                 ],
+                'follows' => count($topics_followed->intersect($forum_post->topics)) > 0,
             ]);
         }
 
