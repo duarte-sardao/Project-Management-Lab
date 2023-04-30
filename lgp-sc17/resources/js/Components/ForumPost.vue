@@ -23,12 +23,21 @@ defineProps(['data']);
                     </div>
                 </div>
                 <div class="text-[#222222] text-sm font-medium col-span-2">
-                    <div>
-                        <img src="/svg_icons/profile3.svg" class="relative max-h-[2.75rem] h-[2.75rem] inline border-[1px] border-[#000]/[.25] rounded-full z-40" alt="user"/>
-                        <img src="/svg_icons/profile4.svg" class="relative max-h-[2.75rem] h-[2.75rem] inline border-[1px] border-[#000]/[.25] rounded-full ml-[-6%] z-30" alt="user"/>
-                        <img src="/svg_icons/profile2.svg" class="relative max-h-[2.75rem] h-[2.75rem] inline border-[1px] border-[#000]/[.25] rounded-full ml-[-6%] z-20" alt="user"/>
-                        <img src="/svg_icons/profile5.svg" class="relative max-h-[2.75rem] h-[2.75rem] inline border-[1px] border-[#000]/[.25] rounded-full ml-[-6%] z-10" alt="user"/>
-                        <img src="/svg_icons/more-answers.svg" class="relative max-h-[2.75rem] h-[2.75rem] inline border-[1px] border-[#000]/[.25] rounded-full ml-[-6%]" alt="user"/>
+                    <div v-if="data.answers.quantity > 0">
+                        <img
+                            v-for="(img, index) in data.answers.profile_pictures"
+                            :src="img"
+                            class="relative max-h-[2.75rem] h-[2.75rem] inline border-[1px] border-[#000]/[.25] rounded-full"
+                            :class="index > 0 && 'ml-[-6%]'"
+                            :style="`z-index: ${(4 - index) * 10}`"
+                            alt="user"
+                        />
+                        <img
+                            v-if="data.answers.quantity > data.answers.profile_pictures.length"
+                            src="/svg_icons/more-answers.svg"
+                            class="relative max-h-[2.75rem] h-[2.75rem] inline border-[1px] border-[#000]/[.25] rounded-full ml-[-6%]"
+                            alt="user"
+                        />
                     </div>
                     <div class="relative mt-[2vh] pl-1">
                         <img src="/svg_icons/answers.svg" alt="answers" class="inline max-h-[2rem]" />
