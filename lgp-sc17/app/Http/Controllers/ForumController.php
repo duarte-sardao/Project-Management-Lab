@@ -42,12 +42,136 @@ class ForumController extends Controller
     }
 
     /**
+     * 
+     */
+    public function search(Request $request, $query) {
+        /**
+         * Pesquisar presença nos títulos
+         * Pesquisar presença nos conteúdos
+         * Pesquisar presença nos usernames
+         * Pesquisar presença nas answers
+         */
+    }
+
+    /**
      * Display the forum page
      */
     public function posts(Request $request): Response
     {
         $topics_followed = Auth::user()->follow;
         $forum_posts = ForumPost::all();
+        $result = array();
+        foreach($forum_posts as $forum_post) {
+            $answers = $forum_post->answers;
+            $profile_pictures = array();
+            $quantity = min(count($answers), 4);
+            for ($i = 0; $i < $quantity; $i++) {
+                array_push($profile_pictures, '/svg_icons/profile4.svg');
+            }
+
+            array_push($result, [
+                'id' => $forum_post->id,
+                'title'=> $forum_post->title,
+                'content'=> $forum_post->post->content,
+                'posted_at'=> $forum_post->post->posted_at,
+                'author' => [
+                    'username' => $forum_post->post->user->username,
+                    'image' => '/svg_icons/profile1.svg',
+                ],
+                'topics' => $forum_post->topics,
+                'answers' => [
+                    'quantity' => count($answers),
+                    'profile_pictures' => $profile_pictures,
+                ],
+                'follows' => count($topics_followed->intersect($forum_post->topics)) > 0,
+            ]);
+        }
+
+        $topics = Topic::select('id', 'topic', 'color')->orderBy('topic')->get();
+
+        return Inertia::render('Forum/Forum', ['posts' => $result, 'topics' => $topics, 'currentForum' => 0]);
+    }
+
+
+    /**
+     * Display the forum page
+     */
+    public function following_posts(Request $request): Response
+    {
+        $topics_followed = Auth::user()->follow;
+        $result = array();
+        foreach ($topics_followed as $topic) {
+            $forum_posts = $topic->posts;
+            foreach($forum_posts as $forum_post) {
+                array_push($result, [
+                    'id' => $forum_post->id,
+                    'title'=> $forum_post->title,
+                    'content'=> $forum_post->post->content,
+                    'posted_at'=> $forum_post->post->posted_at,
+                    'author' => [
+                        'username' => $forum_post->post->user->username,
+                        'image' => '/svg_icons/profile1.svg',
+                    ],
+                    'topics' => $forum_post->topics,
+                    'answers' => [
+                        'quantity' => count($forum_post->answers),
+                        'profile_pictures' => [],
+                    ],
+                    'follows' => count($topics_followed->intersect($forum_post->topics)) > 0,
+                ]);
+            }
+        }
+
+        $topics = Topic::select('id', 'topic', 'color')->orderBy('topic')->get();
+
+        return Inertia::render('Forum/Forum', ['posts' => $result, 'topics' => $topics, 'currentForum' => 1]);
+    }
+
+    /**
+     * Display the forum page
+     */
+    public function my_discussions(Request $request): Response
+    {
+        $user = Auth::user();
+        $topics_followed = $user->follow;
+        $forum_posts = $user->posts;
+        $result = array();
+        foreach($forum_posts as $forum_post) {
+            array_push($result, [
+                'id' => $forum_post->id,
+                'title'=> $forum_post->title,
+                'content'=> $forum_post->post->content,
+                'posted_at'=> $forum_post->post->posted_at,
+                'author' => [
+                    'username' => $user->username,
+                    'image' => '/svg_icons/profile1.svg',
+                ],
+                'topics' => $forum_post->topics,
+                'answers' => [
+                    'quantity' => count($forum_post->answers),
+                    'profile_pictures' => [],
+                ],
+                'follows' => count($topics_followed->intersect($forum_post->topics)) > 0,
+            ]);
+        }
+
+        $topics = Topic::select('id', 'topic', 'color')->orderBy('topic')->get();
+
+        return Inertia::render('Forum/Forum', ['posts' => $result, 'topics' => $topics, 'currentForum' => 2]);
+    }
+
+    /**
+     * Display the forum page
+     */
+    public function topic_posts(Request $request, $id): Response
+    {
+        $topic = Topic::find($id);
+        if ($topic == null) {
+            return back()->withErrors(['topic' => "There is no topic with id: " . $id])->with(['error' => 'An error has occurred']);
+        }
+        
+        $topics_followed = Auth::user()->follow;
+        $forum_posts = $topic->posts;
         $result = array();
         foreach($forum_posts as $forum_post) {
             array_push($result, [
@@ -68,36 +192,42 @@ class ForumController extends Controller
             ]);
         }
 
-        $topics = Topic::select('id', 'topic', 'color')->get();
-        foreach ($topics as $topic) {
-            $topic->follows = false; # TODO: check if the logged user follows this topic
-        }
+        $topics = Topic::select('id', 'topic', 'color')->orderBy('topic')->get();
 
-        return Inertia::render('Forum/Forum', ['posts' => $result, 'topics' => $topics]);
+        return Inertia::render('Forum/Forum', ['posts' => $result, 'topics' => $topics, 'currentTopic' => $id]);
     }
 
-        /**
+    /**
      * Display the page of a specific forum post
      */
     public function post(Request $request, $id): Response
     {
         $user = Auth::user();
-        $temp = ForumPost::find($id);
-        if ($temp == null) {
+        $forum_post = ForumPost::find($id);
+        if ($forum_post == null) {
             return back()->withErrors(['post' => "There is no forum post with id: " . $id])->with(['error' => 'An error has occurred']);
         }
-        
-        $forum_post = $temp->first();
 
+        $currentTopic = $request->get('currentTopic');
         $topics = array();
-        foreach ($forum_post->topics as $topic) {
+        foreach ($forum_post->topics as $index => $topic) {
+            if ($currentTopic == null && $topic->userFollows($user->id) != null) {
+                $currentTopic = $index;
+            } else if ($topic->id == $request->get('currentTopic')) {
+                $currentTopic = $index;
+            }
             array_push($topics, [
                 'topic_id' => $topic->id,
                 'topic' => $topic->topic,
                 'color' => $topic->color,
                 'userFollows' =>  $topic->userFollows($user->id) != null,
+                'selected' => false,
             ]);
         }
+        if ($currentTopic > count($topics) || $currentTopic < 0) {
+            $currentTopic = 0;
+        }
+        $topics[$currentTopic]['selected'] = true;
     
         $answers = array();
         foreach($forum_post->answers as $answer) {
@@ -113,7 +243,7 @@ class ForumController extends Controller
             array_push($answers, $answer);
         }
     
-        return Inertia::render('Forum/Post', ['post' => [
+        return Inertia::render('Forum/Post', ['currentTopic' => $currentTopic, 'post' => [
             'id' => $forum_post->id,
             'title'=> $forum_post->title,
             'content'=> $forum_post->post->content,
@@ -170,10 +300,13 @@ class ForumController extends Controller
 
 
         foreach ($request->topics as $topic) {
-            $topic_obj = Topic::create([
-                'topic' => $topic['topic'],
-                'color' => $topic['color'],
-            ]);
+            $topic_obj = Topic::where('topic', $topic['topic'])->first();
+            if ($topic_obj == null) {
+                $topic_obj = Topic::create([
+                    'topic' => $topic['topic'],
+                    'color' => $topic['color'],
+                ]);
+            }
 
             $topic_post = TopicPost::create([
                 'forum_post_id' => $forum_post->id,

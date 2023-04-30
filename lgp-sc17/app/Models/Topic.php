@@ -16,8 +16,8 @@ class Topic extends Model
         'color',
     ];
 
-    public function getPosts() {
-        return $this->hasMany(TopicPost::class);
+    public function posts() {
+        return $this->belongsToMany(ForumPost::class, 'topic_post');
     }
 
     public function userFollows($user_id) {

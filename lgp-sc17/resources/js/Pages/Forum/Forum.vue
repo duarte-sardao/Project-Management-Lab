@@ -8,15 +8,9 @@ import ForumPost from "@/Components/ForumPost.vue";
 const props = defineProps({
     posts: Array,
     topics: Array,
+    currentForum: Number,
+    currentTopic: Number,
 });
-
-
-const currentForum = ref(0);
-const changeForum = (value) => {
-    if (currentForum.value !== value) {
-        currentForum.value = value;
-    }
-};
 
 </script>
 
@@ -55,52 +49,59 @@ const changeForum = (value) => {
         </div>
         <div class="grid grid-cols-10">
             <div class="relative col-span-8">
-                <Link v-if="props.posts.length" v-for="post in props.posts" :href="route('forum.post', {id: post.id})"><ForumPost :data="post"/></Link>
+                <Link
+                    v-if="props.posts.length"
+                    v-for="post in props.posts"
+                    :data="(props.currentTopic == null) ? {}:{'currentTopic':props.currentTopic}"
+                    :href="route('forum.post', {id: post.id})"
+                >
+                    <ForumPost :data="post"/>
+                </Link>
                 <div v-else class="h-[100%] flex justify-center items-center text-2xl">There are no posts to display.</div>
                 <div class="h-[100%] border-[#221F1C]/[.42] border-2 rounded-3xl inline-block absolute right-0 top-0"></div>
             </div>
             <div class="col-span-2 pl-[2vw]">
-                <div :key="currentForum" class="px-[1vw]">
-                    <button v-on:click="changeForum(0)">
+                <div class="px-[1vw]">
+                    <Link :href="route('forum')" class="block">
                         <img 
-                            :src="currentForum === 0 ? `/svg_icons/all_discussions_selected.svg`:`/svg_icons/all_discussions.svg`"
+                            :src="props.currentForum === 0 ? `/svg_icons/all_discussions_selected.svg`:`/svg_icons/all_discussions.svg`"
                             alt="All discussions"
                             class="inline-block align-middle max-h-[2.5rem]"
                         />
-                        <div class="inline-block text-xl text-[#578AD6] ml-[1vw]" :class="currentForum === 0 ? 'text-[#578AD6]': 'text-[#6D6D6D]'">
+                        <div class="inline-block text-xl text-[#578AD6] ml-[1vw]" :class="props.currentForum === 0 ? 'text-[#578AD6]': 'text-[#6D6D6D]'">
                             All discussions
                         </div>  
-                    </button>
-                    <button class="mt-[4vh]" v-on:click="changeForum(1)">
+                    </Link>
+                    <Link :href="route('forum-following')" class="block mt-[4vh]">
                         <img 
-                            :src="currentForum === 1 ? '/svg_icons/following_discussions_selected.svg':'/svg_icons/following_discussions.svg'"
+                            :src="props.currentForum === 1 ? '/svg_icons/following_discussions_selected.svg':'/svg_icons/following_discussions.svg'"
                             alt="Following discussions"
                             class="inline-block align-middle max-h-[2rem]"
                         />
-                        <div class="inline-block text-xl text-[#578AD6] ml-[1vw]" :class="currentForum === 1 ? 'text-[#578AD6]': 'text-[#6D6D6D]'">
+                        <div class="inline-block text-xl text-[#578AD6] ml-[1vw]" :class="props.currentForum === 1 ? 'text-[#578AD6]': 'text-[#6D6D6D]'">
                             Following
                         </div>  
-                    </button>
-                    <button class="mt-[4vh]" v-on:click="changeForum(2)">
+                    </Link>
+                    <Link :href="route('forum-my_discussions')" class="block mt-[4vh]">
                         <img
-                            :src="currentForum === 2 ? '/svg_icons/my_discussions_selected.svg':'/svg_icons/my_discussions.svg'"
+                            :src="props.currentForum === 2 ? '/svg_icons/my_discussions_selected.svg':'/svg_icons/my_discussions.svg'"
                             alt="My discussions"
                             class="inline-block align-middle max-h-[2.5rem]"
                         />
-                        <div class="inline-block text-xl text-[#578AD6] ml-[1vw]" :class="currentForum === 2 ? 'text-[#578AD6]': 'text-[#6D6D6D]'">
+                        <div class="inline-block text-xl text-[#578AD6] ml-[1vw]" :class="props.currentForum === 2 ? 'text-[#578AD6]': 'text-[#6D6D6D]'">
                             My discussions
                         </div>  
-                    </button>
+                    </Link>
                 </div>
                 <div class="mt-[6vh] border-2 border-[#221F1C]/[.42] w-[100%] rounded-3xl"></div>
                 <div class="mt-[6vh] h-[100%] overflow-auto">
-                    <button v-for="(topic, index) in props.topics" class="block mt-[3vh] ml-2" v-on:click="changeForum(3+index)">
+                    <Link v-for="topic in props.topics" :href="route('forum-topic_posts', {id:topic.id})" class="block mt-[3vh] ml-2">
                         <div
                             class="inline-block align-middle rounded-full w-[25px] h-[25px] mb-[3px] mr-2"
-                            :style="`background: ${topic.color}; outline: 2px dashed ${currentForum === (3+index) ? '#578AD6':'transparent'};`">
+                            :style="`background: ${topic.color}; outline: 2px dashed ${props.currentTopic && (props.currentTopic == topic.id) ? '#578AD6':'transparent'};`">
                         </div>
-                        <span class="ml-[1.25vw] text-lg font-bold" :class="currentForum === (3+index) ? 'text-[#578AD6]': 'text-[#6D6D6D]'">{{ topic.topic }}</span>
-                    </button>
+                        <span class="ml-[1.25vw] text-lg font-bold" :class="(props.currentTopic && (props.currentTopic == topic.id)) ? 'text-[#578AD6]': 'text-[#6D6D6D]'">{{ topic.topic }}</span>
+                    </Link>
                 </div>
             </div>
         </div>

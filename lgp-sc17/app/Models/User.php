@@ -34,4 +34,8 @@ class User extends Authenticatable
     public function follow() {
         return $this->belongsToMany(Topic::class, 'follows');
     }
+
+    public function posts() {
+        return $this->hasManyThrough(ForumPost::class, Post::class, 'author');
+    }
 }

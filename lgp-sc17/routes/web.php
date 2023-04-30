@@ -44,6 +44,10 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/forum', [ForumController::class, 'posts'])->name('forum');
+    Route::get('/forum/my_discussions', [ForumController::class, 'my_discussions'])->name('forum-my_discussions');
+    Route::get('/forum/following', [ForumController::class, 'following_posts'])->name('forum-following');
+    Route::get('/forum/topic/{id}/posts', [ForumController::class, 'topic_posts'])->name('forum-topic_posts');
+    Route::get('/forum/search/{query}', [ForumController::class, 'search'])->name('forum-search');
     Route::get('/forum/new', [ForumController::class, 'create'])->name('forum.new');
     Route::post('forum/new', [ForumController::class, 'store'])->name('forum.create');
     Route::post('forum/{id}/like', [ForumController::class, 'like'])->name('forum.like-post');

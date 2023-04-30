@@ -8,7 +8,8 @@ import TopicTag from "@/Components/TopicTag.vue";
 import InputError from "@/Components/InputError.vue";
 
 const props = defineProps({
-    'post': Object,
+    post: Object,
+    currentTopic: Number,
 });
 
 const form = useForm({
@@ -49,11 +50,11 @@ const likeAnswer = (index) => {
         .catch((err) => console.error(err));
 }
 
-const currentTopic = ref(0);
+const currentTopic = ref((props.currentTopic !== null ? props.currentTopic : 0));
 const topicTagHandler = (index) => {
-    post.topics[currentTopic.value].selected = false;
+    props.post.topics[currentTopic.value].selected = false;
     currentTopic.value = index;
-    post.topics[currentTopic.value].selected = true;
+    props.post.topics[currentTopic.value].selected = true;
 }
 
 const changeFollowButton = ref(false);
@@ -80,7 +81,7 @@ const followHandler = () => {
             <Link :href="route('forum')" class="justify-self-end py-2 px-14 shadow-md border-[#244D89] rounded-3xl border-2 text-lg font-black text-[#244D89]">Back to forum</Link>
         </div>
         <div id="post-grid" class="relative bg-[#E9EFFD] shadow-md px-[5vw] mt-[8vh] mb-[10vh]" style="border-radius: 2.5rem">
-            <div class="absolute w-[70vw] top-[-4vh]">
+            <div v-if="props.post.topics.length > 0" class="absolute w-[70vw] top-[-4vh]">
                 <TopicTag v-on:click="topicTagHandler(index)" :key="currentTopic" v-for="(item, index) in props.post.topics" :topic="item" :index="index"/>
             </div>
             <div id="post-title" class="mt-[7vh] text-[#1E1B18] font-bold text-4xl text-center">
@@ -112,7 +113,7 @@ const followHandler = () => {
                         {{ props.post.likes }} Like{{ props.post.likes === 1 ? '':'s' }}
                     </button>
                 </div>
-                <div :key="currentTopic">
+                <div :key="currentTopic" v-if="props.post.topics.length > 0">
                     <button :key="changeFollowButton" v-on:click="followHandler" class="flex items-center text-[#C49960] font-bold">
                         <img
                             :src="props.post.topics[currentTopic].userFollows ? '/svg_icons/unfollow.svg':'/svg_icons/follow.svg'"
