@@ -12,6 +12,14 @@ const props = defineProps({
     currentTopic: Number,
 });
 
+const form = useForm({
+    search: '',
+});
+
+const submit = () => {
+    form.get(route('forum.search'));
+};
+
 </script>
 
 <template>
@@ -26,15 +34,16 @@ const props = defineProps({
             <div class="mt-[2vh] text-[#221F1C]/[.9] w-[30vw] font-bold text-xl">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet
             </div>
-            <div class="relative mt-[3vh]">
+            <form @submit.prevent="submit" class="relative mt-[3vh]">
                 <input
-                id="forum_search"
-                class="relative z-10 py-[1vh] pl-6 pr-[4vw] bg-[#FFF]/[.63] border-2 border-[#244D89] rounded-3xl w-[40vw] text-[#000]/[.57] text-lg focus-visible:outline-none"
-                placeholder="Search in the forum"
+                    id="forum_search"
+                    class="relative z-10 py-[1vh] pl-6 pr-[4vw] bg-[#FFF]/[.63] border-2 border-[#244D89] rounded-3xl w-[40vw] text-[#000]/[.57] text-lg focus-visible:outline-none"
+                    placeholder="Search in the forum"
+                    v-model="form.search"
                 />
                 <div class="absolute top-0 left-[36.5vw] z-30 h-[100%]  border-[1px] border-[#244D89]"></div>
-                <button class="absolute top-[.85vh] left-[37vw] z-20"><img src="/svg_icons/search.svg" /></button>
-            </div>
+                <button type="submit" class="absolute top-[.85vh] left-[37vw] z-20 hover:scale-125 transition duration-300"><img src="/svg_icons/search.svg" /></button>
+            </form>
         </div>
     </div>
     <div id="forum-post" class="grid pl-[7vw] pr-[4vw] mb-[20vh]">

@@ -43,6 +43,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('forum/search', [ForumController::class, 'search'])->name('forum.search');
     Route::get('/forum', [ForumController::class, 'posts'])->name('forum');
     Route::get('/forum/my_discussions', [ForumController::class, 'my_discussions'])->name('forum-my_discussions');
     Route::get('/forum/following', [ForumController::class, 'following_posts'])->name('forum-following');

@@ -12,6 +12,8 @@ use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Carbon;
 
+use Illuminate\Support\Facades\DB;
+
 use App\Models\User;
 use App\Models\Post;
 use App\Models\ForumPost;
@@ -42,15 +44,57 @@ class ForumController extends Controller
     }
 
     /**
-     * 
+     * Display forum posts according to a specific query
      */
-    public function search(Request $request, $query) {
-        /**
-         * Pesquisar presença nos títulos
-         * Pesquisar presença nos conteúdos
-         * Pesquisar presença nos usernames
-         * Pesquisar presença nas answers
-         */
+    public function search(Request $request) {
+        $ids = DB::table('forum_posts')
+                    ->leftJoin('topic_post', 'forum_posts.id', '=', 'topic_post.forum_post_id')
+                    ->leftJoin('topics', 'topic_post.topic_id', '=', 'topics.id')
+                    ->join('posts', 'forum_posts.post_id', '=', 'posts.id')
+                    ->join('users', 'posts.author', '=', 'users.id')
+                    ->where('title', 'like', '%' . $request->search . '%')
+                    ->orWhere('content', 'like', '%' . $request->search . '%')
+                    ->orWhere('username', 'like', '%' . $request->search . '%')
+                    ->orWhere('name', 'like', '%' . $request->search . '%')
+                    ->orWhere('topic', 'like', '%' . $request->search , '%')
+                    ->get('forum_posts.id')
+                    ->unique();
+
+        $forum_posts = array();
+        foreach($ids as $forum_post) {
+            array_push($forum_posts, ForumPost::find($forum_post->id));
+        }
+        $topics_followed = Auth::user()->follow;
+        $result = array();
+        foreach($forum_posts as $forum_post) {
+            $answers = $forum_post->answers;
+            $profile_pictures = array();
+            $quantity = min(count($answers), 4);
+            for ($i = 0; $i < $quantity; $i++) {
+                array_push($profile_pictures, '/svg_icons/profile4.svg');
+            }
+
+            array_push($result, [
+                'id' => $forum_post->id,
+                'title'=> $forum_post->title,
+                'content'=> $forum_post->post->content,
+                'posted_at'=> $forum_post->post->posted_at,
+                'author' => [
+                    'username' => $forum_post->post->user->username,
+                    'image' => '/svg_icons/profile1.svg',
+                ],
+                'topics' => $forum_post->topics,
+                'answers' => [
+                    'quantity' => count($answers),
+                    'profile_pictures' => $profile_pictures,
+                ],
+                'follows' => count($topics_followed->intersect($forum_post->topics)) > 0,
+            ]);
+        }
+
+        $topics = Topic::select('id', 'topic', 'color')->orderBy('topic')->get();
+
+        return Inertia::render('Forum/Forum', ['posts' => $result, 'topics' => $topics, 'currentForum' => -1]);
     }
 
     /**
