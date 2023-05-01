@@ -5,7 +5,7 @@ defineProps(['data']);
 </script>
 
 <template>
-    <div id="posts-grid" class="relative bg-[#E9EFFD] shadow-md px-[2vw] pt-[1vh] pb-[4vh] mb-[6vh] mr-[7vw]" style="border-radius: 2.25rem">
+    <div id="posts-grid" class="relative bg-[#E9EFFD] shadow-md px-[2vw] pt-[1vh] pb-[4vh] mb-[6vh] mr-[7vw] hover:brightness-95" style="border-radius: 2.25rem">
             <img v-if="data.follows" src="/svg_icons/topic_followed.svg" alt="followed" class="absolute max-h-[2rem] top-[-3%] left-[0.75%]" />
             <div class="grid grid-cols-7 my-[5vh]">
                 <img 

@@ -78,7 +78,9 @@ const followHandler = () => {
 
     <div id="forum-post" class="grid px-[10vw] mb-[20vh]">
         <div class="grid mt-[4vh]">
-            <Link :href="route('forum')" class="justify-self-end py-2 px-14 shadow-md border-[#244D89] rounded-3xl border-2 text-lg font-black text-[#244D89]">Back to forum</Link>
+            <Link :href="route('forum')" class="justify-self-end py-2 px-14 shadow-md border-[#244D89] rounded-3xl border-2 text-lg font-black text-[#244D89] hover:bg-gray-200">
+                Back to forum
+            </Link>
         </div>
         <div id="post-grid" class="relative bg-[#E9EFFD] shadow-md px-[5vw] mt-[8vh] mb-[10vh]" style="border-radius: 2.5rem">
             <div v-if="props.post.topics.length > 0" class="absolute w-[70vw] top-[-4vh]">
@@ -104,7 +106,7 @@ const followHandler = () => {
             </div>
             <div class="grid grid-cols-2 w-[50%] mb-[5vh]">
                 <div>
-                    <button :key="changeLikeButton" v-on:click="likeHandler" class="flex items-center text-[#E67A79] font-bold">
+                    <button :key="changeLikeButton" v-on:click="likeHandler" class="flex items-center text-[#E67A79] font-bold hover:brightness-75">
                         <img
                             :src="props.post.userLikes ? '/svg_icons/unlike.svg':'/svg_icons/like.svg'"
                             alt="favorite"
@@ -114,7 +116,7 @@ const followHandler = () => {
                     </button>
                 </div>
                 <div :key="currentTopic" v-if="props.post.topics.length > 0">
-                    <button :key="changeFollowButton" v-on:click="followHandler" class="flex items-center text-[#C49960] font-bold">
+                    <button :key="changeFollowButton" v-on:click="followHandler" class="flex items-center text-[#C49960] font-bold hover:brightness-75">
                         <img
                             :src="props.post.topics[currentTopic].userFollows ? '/svg_icons/unfollow.svg':'/svg_icons/follow.svg'"
                             alt="favorite"
@@ -134,7 +136,7 @@ const followHandler = () => {
                 v-model="form.content"
             />
             <InputError class=" mt-2 pl-[2vw]" :message="answerError" />
-            <button class="justify-self-end	mt-[4vh] py-2 px-12 bg-[#578AD6] rounded-3xl text-white font-bold text-lg" type="submit">Submit</button>
+            <button class="justify-self-end	mt-[4vh] py-2 px-12 bg-[#578AD6] rounded-3xl text-white font-bold text-lg hover:brightness-90" type="submit">Submit</button>
         </form>
         <div class="mt-[8vh]">
             <div class="border-b-[1px] border-[#221F1C]/[.21] pl-[4vw] pb-2 text-black font-bold text-xl">

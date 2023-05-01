@@ -33,9 +33,12 @@ const forceRender = () => {
                 <div class="text-xs font-bold text-[#767676]">{{ answer.elapsed_time }}</div>
             </div>
         </div>
-        <button :key="componentKey" @click="() =>{ $emit('clickHandler', componentKey ? -1:1); forceRender(); }" class="grid justify-items-center justify-self-end max-h-[3.25rem] mt-[-2rem] mb-[4vh]">
+        <button
+            :key="componentKey" @click="() =>{ $emit('clickHandler', componentKey ? -1:1); forceRender(); }"
+            class="grid justify-items-center justify-self-end max-h-[3.25rem] mt-[-2rem] mb-[4vh] hover:font-bold hover:brightness-75"
+        >
             <img :src="props.answer.userLikes ? '/svg_icons/unlike.svg':'/svg_icons/like.svg'" alt="Like" class="h-[2rem]"/>
-            <div class="text-[#E67A79] text-sm">{{ answer.likes }} {{ answer.likes === 1 ? 'Like' : 'Likes' }}</div>
+            <div class="mt-2 text-[#E67A79] text-sm">{{ answer.likes }} {{ answer.likes === 1 ? 'Like' : 'Likes' }}</div>
         </button>
         <div class="text-[#222222] font-normal text-base mb-[10vh]">
             {{ answer.content }}

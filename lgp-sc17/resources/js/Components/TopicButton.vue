@@ -11,8 +11,8 @@ const forceRender = () => {
 
 <template>
     <div
-        class="inline-block w-[21.25%] px-2 py-2 my-[2vh] bg-[#FFFFFF]/[.81] rounded-xl border-2 border-[#578AD6] text-lg text-left"
-        :class="[(index % 4 !== 0) ? 'ml-[5%]':'', topic.selected ? 'opacity-100':'opacity-40']"
+        class="inline-block w-[21.25%] px-2 py-2 my-[2vh] bg-[#FFFFFF]/[.81] rounded-xl border-2 border-[#578AD6] text-lg text-left cursor-pointer"
+        :class="[(index % 4 !== 0) ? 'ml-[5%]':'', topic.selected ? 'opacity-100 hover:opacity-50':'opacity-40 hover:opacity-70']"
         :key="componentKey"
         v-on:click="forceRender()"
     >

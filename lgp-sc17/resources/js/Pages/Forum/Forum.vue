@@ -42,7 +42,7 @@ const props = defineProps({
             <button class="inline-block justify-self-start py-2 w-[45%] shadow-md bg-[#B9CEED] rounded-3xl text-lg font-black text-[#222222]">Latest First</button>
             <Link
                 :href="route('forum.create')"
-                class="inline-block justify-self-end py-2 w-[45%] shadow-md bg-[#578AD6] rounded-3xl text-lg font-black text-[#FFF] text-center"
+                class="inline-block justify-self-end py-2 w-[45%] shadow-md bg-[#578AD6] rounded-3xl text-lg font-black text-[#FFF] text-center hover:brightness-90"
             >
                 Start a new discussion
             </Link>
@@ -62,7 +62,7 @@ const props = defineProps({
             </div>
             <div class="col-span-2 pl-[2vw]">
                 <div class="px-[1vw]">
-                    <Link :href="route('forum')" class="block">
+                    <Link :href="route('forum')" class="block hover:font-bold">
                         <img 
                             :src="props.currentForum === 0 ? `/svg_icons/all_discussions_selected.svg`:`/svg_icons/all_discussions.svg`"
                             alt="All discussions"
@@ -72,7 +72,7 @@ const props = defineProps({
                             All discussions
                         </div>  
                     </Link>
-                    <Link :href="route('forum-following')" class="block mt-[4vh]">
+                    <Link :href="route('forum-following')" class="block mt-[4vh] hover:font-bold">
                         <img 
                             :src="props.currentForum === 1 ? '/svg_icons/following_discussions_selected.svg':'/svg_icons/following_discussions.svg'"
                             alt="Following discussions"
@@ -82,7 +82,7 @@ const props = defineProps({
                             Following
                         </div>  
                     </Link>
-                    <Link :href="route('forum-my_discussions')" class="block mt-[4vh]">
+                    <Link :href="route('forum-my_discussions')" class="block mt-[4vh] hover:font-bold ">
                         <img
                             :src="props.currentForum === 2 ? '/svg_icons/my_discussions_selected.svg':'/svg_icons/my_discussions.svg'"
                             alt="My discussions"
@@ -95,7 +95,7 @@ const props = defineProps({
                 </div>
                 <div class="mt-[6vh] border-2 border-[#221F1C]/[.42] w-[100%] rounded-3xl"></div>
                 <div class="mt-[6vh] h-[100%] overflow-auto">
-                    <Link v-for="topic in props.topics" :href="route('forum-topic_posts', {id:topic.id})" class="block mt-[3vh] ml-2">
+                    <Link v-for="topic in props.topics" :href="route('forum-topic_posts', {id:topic.id})" class="block mt-[3vh] ml-2 hover:pl-2">
                         <div
                             class="inline-block align-middle rounded-full w-[25px] h-[25px] mb-[3px] mr-2"
                             :style="`background: ${topic.color}; outline: 2px dashed ${props.currentTopic && (props.currentTopic == topic.id) ? '#578AD6':'transparent'};`">
