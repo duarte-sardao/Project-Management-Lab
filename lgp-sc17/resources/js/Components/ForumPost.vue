@@ -46,5 +46,11 @@ defineProps(['data']);
                     </div>
                 </div>
             </div>
+            <div class="grid grid-flow-col gap-0 justify-end mr-[2vw]">
+                <div v-for="topic in data.topics" class="inline-block px-4 py-1 mr-1 rounded-3xl border-2 border-[#578AD6] bg-white text-sm bg-gray text-[#000]/[.6] font-bold">
+                    <div class="inline-block align-middle rounded-full border-1 w-[15px] h-[15px] mb-[3px] mr-2" :style="`background:${topic.color}`"></div>
+                    {{ topic.topic }}
+                </div>
+            </div>
         </div>
 </template>
