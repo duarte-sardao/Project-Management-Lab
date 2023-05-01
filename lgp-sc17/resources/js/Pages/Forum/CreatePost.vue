@@ -34,11 +34,7 @@ const form = useForm({
 
 const submit = () => {
     form.topics = topics.filter(t => t.selected);
-    form.post(route('forum.create'), {
-        onFinish () {
-            console.log('done');
-        }
-    });
+    form.post(route('forum.create'));
 };
 
 const topics = [

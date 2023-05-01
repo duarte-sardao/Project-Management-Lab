@@ -325,7 +325,7 @@ class ForumController extends Controller
         $request->validate([
             'title' => 'required|string|max:64',
             'content' => 'required|string',
-            'topics' => 'required|array',
+            'topics' => 'array',
         ]);
 
         if (count($request->topics) > 4) {
