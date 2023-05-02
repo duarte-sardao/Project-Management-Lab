@@ -17,6 +17,9 @@
         "vue": "^3.2.41"
     },
     "dependencies": {
-        "daisyui": "^2.51.5"
+        "@intlify/unplugin-vue-i18n": "^0.10.0",
+        "daisyui": "^2.51.5",
+        "vue-flag-icon": "^2.1.0",
+        "vue-i18n": "^9.2.2"
     }
 }

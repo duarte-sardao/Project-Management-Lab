@@ -1,10 +1,12 @@
 <script setup>
-import {Link, usePage} from "@inertiajs/vue3";
+import { Link, usePage } from "@inertiajs/vue3";
+import { i18n, changeLocale } from "@/plugins/i18n";
 
 let profile_img_url = '/svg_icons/profile.svg';
 if (usePage().props.auth.user && usePage().props.auth.user.profile_img_url) {
     profile_img_url = usePage().props.auth.user.profile_img_url;
 }
+
 </script>
 
 <template>
@@ -12,6 +14,11 @@ if (usePage().props.auth.user && usePage().props.auth.user.profile_img_url) {
         <Link class="btn btn-ghost text-gray-600 normal-case text-xl" :href="route('homepage')">Home</Link>
         <Link class="btn btn-ghost text-gray-600 normal-case text-xl" :href="route('library')">Library</Link>
         <Link class="btn btn-ghost text-gray-600 normal-case text-xl" :href="route('about')">About Us</Link>
+    </div>
+    <div v-for="entry in languages">
+        <button v-if="entry.language != i18n.global.locale.value" @click="changeLocale(entry.language)" class="transition mr-4 hover:scale-125 duration-300">
+            <flag :iso="entry.flag" v-bind:squared=false />
+        </button>
     </div>
     <div class="flex-none gap-2">
         <Link v-if="$page.props.auth.user === null" :href="route('login')" class="btn bg-lightBlue hover:bg-mainBlue hover:text-gray-200 text-gray-600 border-0 normal-case text-xl rounded-full">Log in</Link>
@@ -23,7 +30,15 @@ if (usePage().props.auth.user && usePage().props.auth.user.profile_img_url) {
 
 <script>
 export default {
-    name: "NavBarMainButtons"
+    name: "NavBarMainButtons",
+    data() {
+        return {
+            languages: [
+                { flag: 'us', language: 'en' },
+                { flag: 'pt', language: 'pt' }
+        ],
+        }
+    }
 }
 </script>
 

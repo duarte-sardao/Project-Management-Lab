@@ -1,5 +1,6 @@
 <script setup>
-import {Link, usePage} from "@inertiajs/vue3";
+import { Link, usePage } from "@inertiajs/vue3";
+import { i18n, changeLocale } from "@/plugins/i18n";
 
 let profile_img_url = '/svg_icons/profile.svg';
 if (usePage().props.auth.user && usePage().props.auth.user.profile_img_url) {
@@ -23,6 +24,13 @@ if (usePage().props.auth.user && usePage().props.auth.user.profile_img_url) {
                 <li class="my-2">
                     <Link class="btn btn-ghost text-gray-600 normal-case text-xl rounded-full" :href="route('about')">About Us</Link>
                 </li>
+                <div v-for="entry in languages">
+                    <li v-if="entry.language != i18n.global.locale.value">
+                        <button @click="changeLocale(entry.language)" class="flex justify-center group">
+                            <flag :iso="entry.flag" v-bind:squared=false class="transition group-hover:scale-125 duration-300"/>
+                        </button>
+                    </li>
+                </div>
                 <li class="my-2">
                     <Link v-if="$page.props.auth.user === null" :href="route('login')" class="btn bg-lightBlue hover:bg-mainBlue hover:text-gray-200 text-gray-600 border-0 normal-case text-xl rounded-full">Log in</Link>
                     <Link v-else :href="route('profile')" class="btn p-0 border-0 normal-case text-xl rounded-full bg-transparent hover:bg-lightBlue">
@@ -36,7 +44,15 @@ if (usePage().props.auth.user && usePage().props.auth.user.profile_img_url) {
 
 <script>
 export default {
-    name: "NavBarContentCollapsed"
+    name: "NavBarContentCollapsed",
+    data() {
+        return {
+            languages: [
+                { flag: 'us', language: 'en' },
+                { flag: 'pt', language: 'pt' }
+            ],
+        }
+    }
 }
 </script>
 
