@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MailController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -56,9 +57,12 @@ Route::middleware('auth')->group(function () {
     Route::post('forum/topic/{id}/follow', [ForumController::class, 'follow'])->name('forum.follow');
     Route::get('/forum/{id}', [ForumController::class, 'post'])->name('forum.post');
     Route::post('/forum/{id}', [ForumController::class, 'answer'])->name('forum.answer');
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/profile', [ProfileController::class, 'visualize'])->name('profile');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::post('about-form', [MailController::class, 'sendEmail'])->name('about-form');
 
 require __DIR__.'/auth.php';

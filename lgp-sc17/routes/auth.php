@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\RegisteredPatientController;
 use App\Http\Controllers\Auth\RegisteredMedicController;
 use App\Http\Controllers\Auth\VerifyEmailController;

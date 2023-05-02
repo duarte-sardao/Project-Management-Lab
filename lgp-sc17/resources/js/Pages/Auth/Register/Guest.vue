@@ -24,27 +24,29 @@ const submit = () => {
 </script>
 
 <template>
-    <Head><title>Register</title></Head>
-    <div class="relative" style="z-index: 1">
-        <NavBarSimple></NavBarSimple>
-    </div>
+    <Head><title>{{ $t('registerGuestTitle') }}</title></Head>
+    <NavBarSimple></NavBarSimple>
 
     <div id="login-grid" class="grid grid-cols-2 relative">
         <img id="login-img" class="absolute" style="right: 10%; height: 90%; top: 5%; z-index: 0" src="/svg_img/register.svg" alt="register image">
         <div class="flex flex-col items-center justify-center col-span-1" style="z-index: 1">
             <div class="pt-16 text-2xl font-bold text-gray-800">
-                <Link class="py-2 mr-10" :href="route('login')">Log in</Link>
-                <Link class="py-2 ml-10 text-highlightBlue border-b-2 border-highlightBlue" :href="route('register')">Sign up</Link>
+                <Link class="py-2 mr-10" :href="route('login')">
+                    {{ $t('login') }}
+                </Link>
+                <Link class="py-2 ml-10 text-highlightBlue border-b-2 border-highlightBlue" :href="route('register')">
+                    {{ $t('register') }}
+                </Link>
             </div>
 
             <div class="max-w-[22rem] w-[100vw] text-lg font-bold text-gray-800 w-[100vw] pt-8 pb-3 pl-4">
-                Guest sign up*
+                {{ $t('guestRegister') }}
             </div>
 
             <div class="pb-5 ">
                 <form class="flex flex-col items-center w-full" @submit.prevent="submit">
                     <div class="max-w-[22rem] w-[100vw]">
-                        <InputLabel for="name" value="Full Name" />
+                        <InputLabel for="name" :value="$t('fullName')" />
                         <TextInput
                             id="name"
                             type="text"
@@ -86,7 +88,7 @@ const submit = () => {
                     </div>
 
                     <div class="mt-3 max-w-[22rem] w-[100vw]">
-                        <InputLabel for="password" value="Password" />
+                        <InputLabel for="password" :value="$t('password')" />
                         <TextInput
                             id="password"
                             type="password"
@@ -99,7 +101,7 @@ const submit = () => {
                     </div>
 
                     <div class="mt-3 max-w-[22rem] w-[100vw]">
-                        <InputLabel for="password_confirmation" value="Repeat Password" />
+                        <InputLabel for="password_confirmation" :value="$t('repeatPassword')" />
                         <TextInput
                             id="password_confirmation"
                             type="password"
@@ -119,12 +121,12 @@ const submit = () => {
                             class="rounded-full border-[#AFCDFB] focus:shadow-sm focus:ring-0 focus:ring-offset-0 mb-0.5"
                         />
                         <label for="terms" class="font-bold text-gray-800 pl-3">
-                            I agree to
+                            {{ $t('iAgree') }}
                             <Link
                                 :href="route('Terms&Conditions')"
                                 class="text-mainBlue hover:text-blue-300"
                             >
-                                Terms and Conditions
+                                {{ $t('termsAndConditions') }}
                             </Link>
                         </label>
                         <InputError class="mt-2" :message="form.errors.terms" />
@@ -135,18 +137,19 @@ const submit = () => {
                             :href="route('login')"
                             class="text-md text-gray-800 hover:text-gray-500 font-bold"
                         >
-                            Already registered?
+                            {{ $t('alreadyRegistered') }}
                         </Link>
-                        <PrimaryButton class="justify-self-end ml-8" :class="{ 'opacity-50': form.processing }" :disabled="form.processing">Sign up</PrimaryButton>
+                        <PrimaryButton class="justify-self-end ml-8" :class="{ 'opacity-50': form.processing }" :disabled="form.processing">
+                            {{ $t('register') }}
+                        </PrimaryButton>
                     </div>
                 </form>
                 <div class="max-w-[22rem] w-[100vw] text-gray-800 text-xs">
-                    *If you're a patient, contact your doctor team before sign up and get access to patient sign up page with additional features
+                    {{ $t('registerAdvice') }}
                 </div>
             </div>
         </div>
     </div>
-
     <Footer></Footer>
 </template>
 

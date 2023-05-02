@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -20,6 +19,7 @@ class User extends Authenticatable
         'email',
         'phone_number',
         'password',
+        'profile_img_url'
     ];
 
     protected $hidden = [
@@ -37,5 +37,26 @@ class User extends Authenticatable
 
     public function posts() {
         return $this->hasManyThrough(ForumPost::class, Post::class, 'author');
+    }
+
+    public function status(): string {
+        if ($this->isPatient()) {
+            return 'Patient';
+        } elseif ($this->isMedic()) {
+            return 'Medic';
+        }
+        return 'Guest';
+    }
+
+    public function isGuest(): bool {
+        return !($this->isPatient() || $this->isMedic());
+    }
+
+    public function isPatient(): bool {
+        return Patient::where('user_id','=',$this->id)->exists();
+    }
+
+    public function isMedic(): bool {
+        return Medic::where('user_id','=',$this->id)->exists();
     }
 }

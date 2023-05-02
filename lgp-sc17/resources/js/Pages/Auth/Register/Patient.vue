@@ -25,17 +25,15 @@ const submit = () => {
 </script>
 
 <template>
-    <Head><title>Patient register</title></Head>
-    <div class="relative" style="z-index: 1">
-        <NavBarSimple></NavBarSimple>
-    </div>
+    <Head><title>{{ $t('registerPatientTitle') }}</title></Head>
+    <NavBarSimple></NavBarSimple>
 
     <div id="login-grid" class="grid grid-cols-2 relative">
         <img id="login-img" class="absolute" style="right: 7%; height: 85vh; top: 5%; z-index: 0" src="/svg_img/register.svg" alt="register image">
         <div class="flex flex-col items-center justify-center col-span-1" style="z-index: 1">
             <div class="pt-16 pl-4 pb-5 max-w-[22rem] w-[100vw] text-2xl font-bold text-gray-800 text-[#244D89]">
                 <div class="w-fit">
-                    Patient sign up
+                    {{ $t('patientRegister') }}
                     <img class="inline pl-2" style="height: 4vh;" src="/svg_icons/patient_sign_up.svg" alt="patient">
                     <div class="mt-1 block border-2 border-[#244D89] rounded-3xl"></div>
                 </div>
@@ -44,7 +42,7 @@ const submit = () => {
             <div class="pb-5">
                 <form class="flex flex-col items-center w-full" @submit.prevent="submit">
                     <div class="max-w-[22rem] w-[100vw]">
-                        <InputLabel for="name" value="Full Name" />
+                        <InputLabel for="name" :value="$t('fullName')" />
                         <TextInput
                             id="name"
                             type="text"
@@ -86,7 +84,7 @@ const submit = () => {
                     </div>
 
                     <div class="mt-3 max-w-[22rem] w-[100vw]">
-                        <InputLabel for="password" value="Password" />
+                        <InputLabel for="password" :value="$t('password')" />
                         <TextInput
                             id="password"
                             type="password"
@@ -99,7 +97,7 @@ const submit = () => {
                     </div>
 
                     <div class="mt-3 max-w-[22rem] w-[100vw]">
-                        <InputLabel for="password_confirmation" value="Repeat Password" />
+                        <InputLabel for="password_confirmation" :value="$t('repeatPassword')" />
                         <TextInput
                             id="password_confirmation"
                             type="password"
@@ -112,7 +110,7 @@ const submit = () => {
                     </div>
 
                     <div class="mt-3 max-w-[22rem] w-[100vw]">
-                        <InputLabel for="healthcare" value="Healthcare number" />
+                        <InputLabel for="healthcare" :value="$t('healthcareNumber')" />
                         <TextInput
                             id="healthcare"
                             type="number"
@@ -132,12 +130,12 @@ const submit = () => {
                             class="rounded-full border-[#AFCDFB] focus:shadow-sm focus:ring-0 focus:ring-offset-0 mb-0.5"
                         />
                         <label for="terms" class="font-bold text-gray-800 pl-3">
-                            I agree to
+                            {{ $t('iAgree') }}
                             <Link
                                 :href="route('Terms&Conditions')"
                                 class="text-mainBlue hover:text-blue-300"
                             >
-                                Terms and Conditions
+                               {{ $t('termsAndConditions') }}
                             </Link>
                             <InputError class="mt-2" :message="form.errors.terms" />
                         </label>
@@ -148,9 +146,11 @@ const submit = () => {
                             :href="route('login')"
                             class="text-md text-gray-800 hover:text-gray-500 font-bold"
                         >
-                            Already registered?
+                            {{ $t('alreadyRegistered') }}
                         </Link>
-                        <PrimaryButton class="justify-self-end ml-8" :class="{ 'opacity-50': form.processing }" :disabled="form.processing">Sign up</PrimaryButton>
+                        <PrimaryButton class="justify-self-end ml-8" :class="{ 'opacity-50': form.processing }" :disabled="form.processing">
+                            {{ $t('register') }}
+                        </PrimaryButton>
                     </div>
                 </form>
             </div>

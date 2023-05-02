@@ -25,23 +25,25 @@ const submit = () => {
 </script>
 
 <template>
-    <Head><title>Log in</title></Head>
-    <div class="relative" style="z-index: 1">
-        <NavBarSimple></NavBarSimple>
-    </div>
+    <Head><title>{{ $t('loginTitle') }}</title></Head>
+    <NavBarSimple></NavBarSimple>
 
     <div id="login-grid" class="grid grid-cols-2 relative">
         <img id="login-img" class="absolute" style="right: 15%; height: 120%; top: -10%; z-index: 0" src="/svg_img/login.svg" alt="login image">
         <div class="flex flex-col items-center justify-center col-span-1" style="z-index: 1">
             <div class="py-16 text-2xl font-bold text-gray-800">
-                <Link class="py-2 mr-10 text-highlightBlue border-b-2 border-highlightBlue" :href="route('login')">Log in</Link>
-                <Link class="py-2 ml-10" :href="route('register')">Sign up</Link>
+                <Link class="py-2 mr-10 text-highlightBlue border-b-2 border-highlightBlue" :href="route('login')">
+                    {{ $t('login') }}
+                </Link>
+                <Link class="py-2 ml-10" :href="route('register')">
+                    {{ $t('register') }}
+                </Link>
             </div>
 
             <div class="pb-16">
                 <form class="flex flex-col items-center" @submit.prevent="submit">
                     <div class="max-w-[22rem] w-[100vw]">
-                        <InputLabel for="credential" value="Username or Email" />
+                        <InputLabel for="credential" :value="$t('loginUsernameEmail')" />
                         <TextInput
                             id="credential"
                             type="text"
@@ -55,7 +57,7 @@ const submit = () => {
                     </div>
 
                     <div class="mt-4 max-w-[22rem] w-[100vw]">
-                        <InputLabel for="password" value="Password" />
+                        <InputLabel for="password" :value="$t('password')" />
                         <TextInput
                             id="password"
                             type="password"
@@ -71,19 +73,19 @@ const submit = () => {
                         <Link
                             v-if="canResetPassword"
                             :href="route('password.request')"
-                            class="text-md text-gray-800 hover:text-gray-500 font-bold"
+                            class="max-w-[13vw] text-md text-gray-800 hover:text-gray-500 font-bold text-center"
                         >
-                            Forgot your password?
+                            {{ $t('forgotPassword') }}
                         </Link>
-                        <PrimaryButton class="justify-self-end ml-8" :class="{ 'opacity-50': form.processing }" :disabled="form.processing">Log in</PrimaryButton>
+                        <PrimaryButton class="justify-self-end ml-8" :class="{ 'opacity-50': form.processing }" :disabled="form.processing">
+                            {{ $t('login') }}
+                        </PrimaryButton>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <div class="relative" style="z-index: 1">
-        <Footer></Footer>
-    </div>
+    <Footer></Footer>
 </template>
 
 <style>
