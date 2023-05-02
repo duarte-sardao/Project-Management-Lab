@@ -12,28 +12,28 @@ import { Link } from "@inertiajs/vue3";
                     </Link>
                 </div>
                 <div>
-                    <span class="mb-5 text-gray-800 text-xl">Learn More</span>
+                    <span class="mb-5 text-gray-800 text-xl">{{ $t("learnMore") }}</span>
                     <ul>
                         <li class="mb-3">
                             <img class="inline pr-5" src="/svg_icons/link.svg" alt="link">
-                            <Link class="text-gray-600 normal-case text-md" :href="route('about')">About Us</Link>
+                            <Link class="text-gray-600 normal-case text-md" :href="route('about')">{{ $t("about") }}</Link>
                         </li>
                         <li class="mb-3">
                             <img class="inline pr-5" src="/svg_icons/link.svg" alt="link">
-                            <Link class="text-gray-600 normal-case text-md" :href="route('library')">Library</Link>
+                            <Link class="text-gray-600 normal-case text-md" :href="route('library')">{{ $t("library") }}</Link>
                         </li>
                         <li class="mb-3">
                             <img class="inline pr-5" src="/svg_icons/link.svg" alt="link">
-                            <Link class="text-gray-600 normal-case text-md" :href="'#'">Privacy Policy</Link>
+                            <Link class="text-gray-600 normal-case text-md" :href="'#'">{{ $t("privacyPolicy") }}</Link>
                         </li>
                         <li class="mb-3">
                             <img class="inline pr-5" src="/svg_icons/link.svg" alt="link">
-                            <Link class="text-gray-600 normal-case text-md" :href="'#'">Cookie Policy</Link>
+                            <Link class="text-gray-600 normal-case text-md" :href="'#'">{{ $t("cookiePolicy") }}</Link>
                         </li>
                     </ul>
                 </div>
                 <div>
-                    <span class="mb-5 text-gray-800 text-xl">Contact</span>
+                    <span class="mb-5 text-gray-800 text-xl">{{ $t("contact") }}</span>
                     <ul>
                         <li class="mb-3">
                             <img class="inline pr-5" src="/svg_icons/phone.svg" alt="phone">

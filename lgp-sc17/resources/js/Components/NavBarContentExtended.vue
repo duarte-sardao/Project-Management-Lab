@@ -11,9 +11,9 @@ if (usePage().props.auth.user && usePage().props.auth.user.profile_img_url) {
 
 <template>
     <div class="flex-1 ml-7">
-        <Link class="btn btn-ghost text-gray-600 normal-case text-xl" :href="route('homepage')">Home</Link>
-        <Link class="btn btn-ghost text-gray-600 normal-case text-xl" :href="route('library')">Library</Link>
-        <Link class="btn btn-ghost text-gray-600 normal-case text-xl" :href="route('about')">About Us</Link>
+        <Link class="btn btn-ghost text-gray-600 normal-case text-xl" :href="route('homepage')">{{ $t("home") }}</Link>
+        <Link class="btn btn-ghost text-gray-600 normal-case text-xl" :href="route('library')">{{ $t("library") }}</Link>
+        <Link class="btn btn-ghost text-gray-600 normal-case text-xl" :href="route('about')">{{ $t("about") }}</Link>
     </div>
     <div v-for="entry in languages">
         <button v-if="entry.language != i18n.global.locale.value" @click="changeLocale(entry.language)" class="transition mr-4 hover:scale-125 duration-300">
@@ -36,7 +36,7 @@ export default {
             languages: [
                 { flag: 'us', language: 'en' },
                 { flag: 'pt', language: 'pt' }
-        ],
+            ],
         }
     }
 }

@@ -16,13 +16,13 @@ if (usePage().props.auth.user && usePage().props.auth.user.profile_img_url) {
             </label>
             <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
                 <li class="my-2">
-                    <Link class="btn btn-ghost text-gray-600 normal-case text-xl rounded-full" :href="route('homepage')">Home</Link>
+                    <Link class="btn btn-ghost text-gray-600 normal-case text-xl rounded-full" :href="route('homepage')">{{ $t("home") }}</Link>
                 </li>
                 <li class="my-2">
-                    <Link class="btn btn-ghost text-gray-600 normal-case text-xl rounded-full" :href="route('library')">Library</Link>
+                    <Link class="btn btn-ghost text-gray-600 normal-case text-xl rounded-full" :href="route('library')">{{ $t("library") }}</Link>
                 </li>
                 <li class="my-2">
-                    <Link class="btn btn-ghost text-gray-600 normal-case text-xl rounded-full" :href="route('about')">About Us</Link>
+                    <Link class="btn btn-ghost text-gray-600 normal-case text-xl rounded-full" :href="route('about')">{{ $t("about") }}</Link>
                 </li>
                 <div v-for="entry in languages">
                     <li v-if="entry.language != i18n.global.locale.value">

@@ -39,7 +39,7 @@ const submit = () => {
                 window.location.reload();
             }
             if (form.errors.phone_number) {
-                form.phone_number = user.phone_number
+                form.phone_number = user.phone_number;
             }
             setTimeout(cleanToast, 3000);
         }
@@ -59,10 +59,14 @@ if (profile_img_url.value == null) {
 </script>
 
 <template>
-    <Head><title>Profile</title></Head>
+    <Head><title>{{ $t("profile") }}</title></Head>
     <NavBarSimple></NavBarSimple>
 
-    <MessageToast v-if="displayToast" :message="$page.props.flash.success_message" :error="$page.props.flash.error_message"></MessageToast>
+    <MessageToast
+        v-if="displayToast"
+        :message="$page.props.flash.success_message == undefined ? '':$t(`${$page.props.flash.success_message}`)"
+        :error="$page.props.flash.error_message == undefined ? '':$t(`${$page.props.flash.error_message}`)"
+    ></MessageToast>
 
     <form @submit.prevent="submit">
         <div id="profile-grid" class="mt-7 mb-14 grid grid-cols-8 relative">
@@ -72,34 +76,48 @@ if (profile_img_url.value == null) {
                     <button class="border-0" @click="edit = !edit" type="button">
                         <div v-if="!edit" class="ml-[4vw]">
                             <img src="/svg_icons/settings.svg" class="inline mr-3 pb-1" alt="Edit profile"/>
-                            <span>Edit info</span>
+                            <span>{{ $t("editButton") }}</span>
                         </div>
                         <div v-else class="bg-[#E67A79] border-2 px-3 py-2 text-white rounded-3xl">
-                            Cancel edition
+                            {{ $t("cancelButton") }}
                         </div>
                     </button>
                 </div>
                 <div class="ml-[4vw] text-gray-800 font-medium text-2xl">
                     <Link v-if="!isGuest" href="#">
                         <img src="/svg_icons/questionnaire.svg" class="inline mr-3 pb-1" alt="User questionnaire"/>
-                        Questionnaire
+                        {{ $t("questionnaire") }}
                     </Link>
                 </div>
                 <div class="ml-[4vw] text-error font-medium text-2xl mt-4 absolute bottom-[5vh]">
                     <Link :href="route('logout')" method="post" as="button">
                         <img src="/svg_icons/logout.svg" class="inline mr-3 pb-1" alt="Log out"/>
-                        Log out
+                        {{ $t("logout") }}
                     </Link>
                 </div>
             </div>
             <div class="col-span-6 border-2 border-[#E9EFFD] ml-[1vw] mr-[3vw] rounded-lg pt-[5vh] px-[3vw] shadow-md">
                 <div class="grid grid-cols-2">
                     <div class="col-span-1 h-fit">
-                        <ProfileTextBox :text="'Full Name'" v-model="form.name" :edit="edit" :isInput="edit" inputType="text" :errors="form.errors.name"/>
-                        <ProfileTextBox :text="'Username'" v-model="user.username" :edit="edit" :isInput="false" inputType="text" errors=""/>
+                        <ProfileTextBox
+                            :text="$t('fullName')"
+                            v-model="form.name"
+                            :edit="edit"
+                            :isInput="edit"
+                            inputType="text"
+                            :errors="form.errors.name"
+                        />
+                        <ProfileTextBox
+                            :text="'Username'"
+                            v-model="user.username"
+                            :edit="edit"
+                            :isInput="false"
+                            inputType="text"
+                            errors=""
+                        />
                         <ProfileTextBox
                             v-if="!isGuest"
-                            :text="status === 'Patient' ? 'Healthcare number':'License Number'"
+                            :text="status === 'Patient' ? $t('healthcareNumber'):$t('license')"
                             v-model="props.number"
                             :edit="edit"
                             :isInput="false"
@@ -107,20 +125,35 @@ if (profile_img_url.value == null) {
                         />
                     </div>
                     <div class="col-span-1 grid justify-items-end flex items-start h-fit">
-                        <ProfileTextBox :text="'Email'" v-model="user.email" :edit="edit" :isInput="false" inputType="email" errors=""/>
-                        <ProfileTextBox :text="'Phone Number'" v-model="form.phone_number" :edit="edit" :isInput="edit" :required="false" inputType="number" :errors="form.errors.phone_number"/>
+                        <ProfileTextBox
+                            :text="'Email'"
+                            v-model="user.email"
+                            :edit="edit"
+                            :isInput="false"
+                            inputType="email"
+                            errors=""
+                        />
+                        <ProfileTextBox
+                            :text="$t('phoneNumber')"
+                            v-model="form.phone_number"
+                            :edit="edit"
+                            :isInput="edit"
+                            :required="false"
+                            inputType="number"
+                            :errors="(form.errors.phone_number == undefined) ? '':$t(`${form.errors.phone_number}`)"
+                        />
                     </div>
                 </div>
                 <div class="grid grid-cols-4 mt-10 mb-[20vh]">
                     <div class="col-span-3">
                         <div v-if="edit">
-                            <label for="image-input" class="pl-5 text-lg text-black/[.57] block">Profile Image</label>
+                            <label for="image-input" class="pl-5 text-lg text-black/[.57] block">{{ $t('profileImage') }}</label>
                             <input id="image-input" @change="inputFile" type="file" accept="image/*" class="file-input file-input-primary w-full max-w-md right-0 bottom-10" />
                         </div>
-                        <ProfileInfo :text="'Status'" :value="status" />
+                        <ProfileInfo :text="$t('status')" :value="status" />
                         <ProfileInfo v-if="!isGuest" :text="'Hospital'" :value="hospital" />
-                        <ProfileInfo v-if="!isGuest" :text="'Next appointment date'" :value="nextAppointment.date !== '' ? nextAppointment.date : 'No future appointment'" />
-                        <ProfileInfo v-if="!isGuest" :text="'Next appointment time'" :value="nextAppointment.time !== '' ? nextAppointment.time : 'No future appointment'" />
+                        <ProfileInfo v-if="!isGuest" :text="$t('nextAppointmentDate')" :value="nextAppointment.date !== '' ? nextAppointment.date : $t('noFutureAppointment')" />
+                        <ProfileInfo v-if="!isGuest" :text="$t('nextAppointmentDate')" :value="nextAppointment.time !== '' ? nextAppointment.time : $t('noFutureAppointment')" />
                     </div>
                     <div class="col-span-1 relative">
                         <button
@@ -128,7 +161,7 @@ if (profile_img_url.value == null) {
                             v-if="edit"
                             type="submit"
                         >
-                            Update Info
+                            {{ $t('updateProfileButton') }}
                         </button>
                     </div>
                 </div>

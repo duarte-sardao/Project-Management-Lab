@@ -35,27 +35,27 @@ const submit = () => {
         <div id="about-grid" class="grid grid-cols-2 space-evenly place-items-center mb-36">
             <img src="/svg_icons/vision.svg" alt="our vision">
             <div class="pl-16 basis-3/6 m-auto">
-                <div class="m-auto p-4 text-black font-bold text-center text-4xl">Our Vision</div>
+                <div class="m-auto p-4 text-black font-bold text-center text-4xl">{{ $t("ourVision") }}</div>
                 <div class="m-auto p-4 text-black text-center text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet magna aliquam eleifend. In eget sodales massa. Nulla bibendum, elit non ultricies vulputate, purus mauris molestie enim, ac dictum massa leo ultricies justo.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet magna aliquam eleifend. In eget sodales massa. Nulla bibendum, elit non ultricies vulputate, purus mauris molestie enim, ac dictum massa leo ultricies justo.</div>
             </div>
 
             <img id="first-about-pic" class="hidden" src="/svg_icons/howworks.svg" alt="how it works">
             <div class="pl-16 basis-3/6 m-auto">
-                <div class="m-auto p-4 text-black font-bold text-center text-4xl">How It Works</div>
+                <div class="m-auto p-4 text-black font-bold text-center text-4xl">{{ $t("howItWorks") }}</div>
                 <div class="m-auto p-4 text-black text-center text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet magna aliquam eleifend. In eget sodales massa. Nulla bibendum, elit non ultricies vulputate, purus mauris molestie enim, ac dictum massa leo ultricies justo.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet magna aliquam eleifend. In eget sodales massa. Nulla bibendum, elit non ultricies vulputate, purus mauris molestie enim, ac dictum massa leo ultricies justo.</div>
             </div>
             <img id="second-about-pic" src="/svg_icons/howworks.svg" alt="how it works">
 
             <img src="/svg_icons/howworks2.svg" alt="how it works">
             <div class="pl-16 basis-3/6 m-auto">
-                <div class="m-auto p-4 text-black font-bold text-center text-4xl">How It Works</div>
+                <div class="m-auto p-4 text-black font-bold text-center text-4xl">{{ $t("howItWorks") }}</div>
                 <div class="m-auto p-4 text-black text-center text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet magna aliquam eleifend. In eget sodales massa. Nulla bibendum, elit non ultricies vulputate, purus mauris molestie enim, ac dictum massa leo ultricies justo.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet magna aliquam eleifend. In eget sodales massa. Nulla bibendum, elit non ultricies vulputate, purus mauris molestie enim, ac dictum massa leo ultricies justo.</div>
             </div>
         </div>
 
         <div class="rounded-[50px] py-10 pl-10 pr-28 m-100 bg-[#E9EFFD] opacity-90 shadow-lg">
 
-            <div class="my-5 ml-4 text-black font-bold text-4xl">Get in touch!</div>
+            <div class="my-5 ml-4 text-black font-bold text-4xl">{{ $t("gotInTouch") }}</div>
             <div class="my-5 ml-4 text-black test-s">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet</div>
 
             <form @submit.prevent="submit">
@@ -64,7 +64,7 @@ const submit = () => {
                     <input
                         id="name"
                         type="text"
-                        placeholder="Name"
+                        :placeholder="$t('name')"
                         class="input input-ghost w-full"
                         v-model="form.name"
                         required
@@ -95,7 +95,7 @@ const submit = () => {
                     <input
                         id="subject"
                         type="text"
-                        placeholder="Message Subject"
+                        :placeholder="$t('messageSubject')"
                         class="input input-ghost w-full"
                         v-model="form.subject"
                         required
@@ -110,7 +110,7 @@ const submit = () => {
                     <textarea
                         id="message"
                         type="text"
-                        placeholder="Message"
+                        :placeholder="$t('message')"
                         class="textarea textarea-ghost w-full"
                         v-model="form.message"
                         required
@@ -123,7 +123,7 @@ const submit = () => {
                 <div class="flex items-center justify-end mt-4">
 
                     <PrimaryButton  class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                        Send
+                        {{ $t("send") }}
                         <svg aria-hidden="true" class="w-5 h-5 text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
                             d="M 20.25 11.5008 L 20.6526 11.2043 L 20.8709 11.5008 L 20.6526 11.7972 L 20.25 11.5008 Z M 6.75 12.0008 C 6.4739 12.0008 6.25 11.7769 6.25 11.5008 C 6.25 11.2246 6.4739 11.0008 6.75 11.0008 V 12.0008 Z M 16.1526 5.0932 L 20.6526 11.2043 L 19.8474 11.7972 L 15.3474 5.6861 L 16.1526 5.0932 Z M 20.6526 11.7972 L 16.1526 17.9083 L 15.3474 17.3154 L 19.8474 11.2043 L 20.6526 11.7972 Z M 20.25 12.0008 H 6.75 V 11.0008 H 20.25 V 12.0008 Z">
                         </path></svg>
