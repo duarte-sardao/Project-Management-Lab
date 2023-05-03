@@ -33,14 +33,14 @@ class ForumController extends Controller
     private static function getTimeString(Carbon $from, Carbon $to)
     {
         $days_elapsed = $to->diffInDays($from);
-        if ($days_elapsed > 0) return $days_elapsed . " day" . (($days_elapsed != 1) ? "s ":" ") . "ago";
+        if ($days_elapsed > 0) return ["quantity" => $days_elapsed, "type"=> "day" . (($days_elapsed != 1) ? "s":"") ];
         
         $hours_elapsed = $to->diffInHours($from);
-        if ($hours_elapsed > 0) return $hours_elapsed . " hour" . (($hours_elapsed != 1) ? "s ":" ") . "ago";
+        if ($hours_elapsed > 0) return ["quantity" => $hours_elapsed, "type" => "hour" . (($hours_elapsed != 1) ? "s":"") ];
 
         $minutes_elapsed = $to->diffInMinutes($from);
-        if ($minutes_elapsed > 0) return $minutes_elapsed . " minute"  . (($minutes_elapsed != 1) ? "s ":" ") . "ago";
-        return "Some seconds ago";
+        if ($minutes_elapsed > 0) return ["quantity" => $minutes_elapsed, "type" => "minute"  . (($minutes_elapsed != 1) ? "s":"")];
+        return ["type" => "seconds"];
     }
 
     /**
@@ -268,10 +268,14 @@ class ForumController extends Controller
                 'selected' => false,
             ]);
         }
-        if ($currentTopic > count($topics) || $currentTopic < 0) {
-            $currentTopic = 0;
+
+        $quantityTopics = count($topics);
+        if ($quantityTopics) {
+            if ($currentTopic > $quantityTopics || $currentTopic < 0 || $currentTopic == null) {
+                $currentTopic = 0;
+            }
+            $topics[$currentTopic]['selected'] = true;
         }
-        $topics[$currentTopic]['selected'] = true;
     
         $answers = array();
         foreach($forum_post->answers as $answer) {
