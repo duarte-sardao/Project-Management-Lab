@@ -56,6 +56,8 @@
     "name": "Name",
     "messageSubject": "Message subject",
     "message": "Message",
-    "send": "Send"
+    "send": "Send",
 
+    "librarySearch": "What are you searching for?",
+    "librarySearchHint": "Search for answers to your health questions",
 }

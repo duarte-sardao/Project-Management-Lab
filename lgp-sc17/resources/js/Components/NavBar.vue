@@ -14,7 +14,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <div class="relative" style="z-index: 2">
+    <div class="relative overflow-hidden" style="z-index: 2">
         <div class="p-7 bg-gradient-to-r from-mainBlue to-bgColor overflow-hidden">
             <img class="absolute" style="right: -100px; height: 900px; top: -200px; z-index: 0" src="/svg_img/polygons.svg" alt="polygons">
             <div class="relative navbar rounded-full px-7 bg-bgColor shadow-lg opacity-90" style="z-index: 2;">

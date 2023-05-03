@@ -22,9 +22,9 @@
     "patientRegister": "Registo - Paciente",
     "patient": "Paciente",
     "healthcareNumber": "Número de utente de saúde",
-    
+
     "about": "Sobre nós",
-    
+
     "library": "Biblioteca",
 
     "home": "Página Principal",
@@ -56,5 +56,8 @@
     "name": "Nome",
     "messageSubject": "Assunto da mensagem",
     "message": "Mensagem",
-    "send": "Enviar"
+    "send": "Enviar",
+
+    "librarySearch": "O que estás a procura?",
+    "librarySearchHint": "Procura respostas às tuas questões de saude"
 }
