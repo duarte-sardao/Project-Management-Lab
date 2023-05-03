@@ -28,7 +28,7 @@ const submit = () => {
         <div class="absolute top-0 left-0 h-[80vh] w-[100%] z-0" style="background: linear-gradient(243.54deg, #578AD6 -2.66%, rgba(87, 138, 214, 0) 112.25%);">
         </div>
         <img src="/svg_img/forum-polygons.svg" class="absolute top-0 left-0 z-0 max-h-[90vh]">
-        <NavBarSimple class="relative z-10" style="background: transparent !important"></NavBarSimple>
+        <NavBarSimple class="relative z-10" :background="false"></NavBarSimple>
         <div class="relative z-10 ml-[35%]">
             <div class="mt-[15vh] text-[#221F1C] text-6xl font-bold">{{ $t("forumTitle") }}</div>
             <div class="mt-[2vh] text-[#221F1C]/[.9] w-[30vw] font-bold text-xl">
