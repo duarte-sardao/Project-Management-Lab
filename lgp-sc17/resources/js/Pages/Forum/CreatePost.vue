@@ -32,7 +32,24 @@ const form = useForm({
     topics: [],
 })
 
+const titleError = ref(false);
+const contentError = ref(false);
 const submit = () => {
+    if (form.title.trim() == '') {
+        titleError.value = true;
+        contentError.value = false;
+        return;
+    } else if (titleError.value) {
+        titleError.value = false;
+    }
+
+    if (form.content.trim() == '') {
+        contentError.value = true;
+        return;
+    } else if (contentError.value) {
+        contentError.value = false;
+    }
+
     form.topics = topics.filter(t => t.selected);
     form.post(route('forum.create'));
 };
@@ -68,12 +85,14 @@ const topics = [
                 :placeholder="$t('addTitleOrQuestion')"
                 v-model="form.title"
             />
+            <InputError :message="titleError ?  $t('titleError'):''" />
             <textarea
                 id="post-content"
                 class="resize-none border-[#E9EFFD] w-[100%] h-[25vh] mt-[3vh] rounded-3xl py-2 px-4 text-lg text-black"
                 :placeholder="$t('addText')"
                 v-model="form.content"
             />
+            <InputError :message="contentError ?  $t('contentError'):''" />
             <div class="mt-[3vh] pl-[2vw] h-[30vh]">
                 <div :key="topicsSelected" class="text-[#6D6D6D] text-lg">
                     {{ $t("chooseTopics") }} ({{topicsSelected}}/4)
