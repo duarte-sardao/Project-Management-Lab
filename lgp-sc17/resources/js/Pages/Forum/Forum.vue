@@ -23,14 +23,14 @@ const submit = () => {
 </script>
 
 <template>
-    <Head><title>Post</title></Head>
+    <Head><title>{{ $t("forumTitle") }}</title></Head>
     <div class="relative h-[80vh]" style="z-index: 1">
         <div class="absolute top-0 left-0 h-[80vh] w-[100%] z-0" style="background: linear-gradient(243.54deg, #578AD6 -2.66%, rgba(87, 138, 214, 0) 112.25%);">
         </div>
         <img src="/svg_img/forum-polygons.svg" class="absolute top-0 left-0 z-0 max-h-[90vh]">
         <NavBarSimple class="relative z-10" style="background: transparent !important"></NavBarSimple>
         <div class="relative z-10 ml-[35%]">
-            <div class="mt-[15vh] text-[#221F1C] text-6xl font-bold">Forum</div>
+            <div class="mt-[15vh] text-[#221F1C] text-6xl font-bold">{{ $t("forumTitle") }}</div>
             <div class="mt-[2vh] text-[#221F1C]/[.9] w-[30vw] font-bold text-xl">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet
             </div>
@@ -38,7 +38,7 @@ const submit = () => {
                 <input
                     id="forum_search"
                     class="relative z-10 py-[1vh] pl-6 pr-[4vw] bg-[#FFF]/[.63] border-2 border-[#244D89] rounded-3xl w-[40vw] text-[#000]/[.57] text-lg focus-visible:outline-none"
-                    placeholder="Search in the forum"
+                    :placeholder="$t('forumSearchPlaceholder')"
                     v-model="form.search"
                 />
                 <div class="absolute top-0 left-[36.5vw] z-30 h-[100%]  border-[1px] border-[#244D89]"></div>
@@ -53,7 +53,7 @@ const submit = () => {
                 :href="route('forum.create')"
                 class="inline-block justify-self-end py-2 w-[45%] shadow-md bg-[#578AD6] rounded-3xl text-lg font-black text-[#FFF] text-center hover:brightness-90"
             >
-                Start a new discussion
+                {{ $t("startNewDiscussionButton") }}
             </Link>
         </div>
         <div class="grid grid-cols-10">
@@ -66,7 +66,7 @@ const submit = () => {
                 >
                     <ForumPost :data="post"/>
                 </Link>
-                <div v-else class="h-[100%] flex justify-center items-center text-2xl">There are no posts to display.</div>
+                <div v-else class="h-[100%] flex justify-center items-center text-2xl">{{ $t("noForumPostsToDisplay") }}</div>
                 <div class="h-[100%] border-[#221F1C]/[.42] border-2 rounded-3xl inline-block absolute right-0 top-0"></div>
             </div>
             <div class="col-span-2 pl-[2vw]">
@@ -78,7 +78,7 @@ const submit = () => {
                             class="inline-block align-middle max-h-[2.5rem]"
                         />
                         <div class="inline-block text-xl text-[#578AD6] ml-[1vw]" :class="props.currentForum === 0 ? 'text-[#578AD6]': 'text-[#6D6D6D]'">
-                            All discussions
+                            {{ $t("allDiscussions") }}
                         </div>  
                     </Link>
                     <Link :href="route('forum-following')" class="block mt-[4vh] hover:font-bold">
@@ -88,7 +88,7 @@ const submit = () => {
                             class="inline-block align-middle max-h-[2rem]"
                         />
                         <div class="inline-block text-xl text-[#578AD6] ml-[1vw]" :class="props.currentForum === 1 ? 'text-[#578AD6]': 'text-[#6D6D6D]'">
-                            Following
+                            {{ $t("followingDiscussions") }}
                         </div>  
                     </Link>
                     <Link :href="route('forum-my_discussions')" class="block mt-[4vh] hover:font-bold ">
@@ -98,7 +98,7 @@ const submit = () => {
                             class="inline-block align-middle max-h-[2.5rem]"
                         />
                         <div class="inline-block text-xl text-[#578AD6] ml-[1vw]" :class="props.currentForum === 2 ? 'text-[#578AD6]': 'text-[#6D6D6D]'">
-                            My discussions
+                            {{ $t("myDiscussions") }}
                         </div>  
                     </Link>
                 </div>

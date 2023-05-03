@@ -30,7 +30,9 @@ const forceRender = () => {
                         class="inline max-h-[1rem] align-top pl-1"
                     />
                 </div>
-                <div class="text-xs font-bold text-[#767676]">{{ answer.elapsed_time }}</div>
+                <div class="text-xs font-bold text-[#767676]">
+                    {{ $t(answer.elapsed_time.type, {quantity: answer.elapsed_time.quantity}) }}
+                </div>
             </div>
         </div>
         <button

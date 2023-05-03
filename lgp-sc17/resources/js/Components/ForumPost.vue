@@ -41,7 +41,9 @@ defineProps(['data']);
                     </div>
                     <div class="relative mt-[2vh] pl-1">
                         <img src="/svg_icons/answers.svg" alt="answers" class="inline max-h-[2rem]" />
-                        <div class="inline text-[#767676] text-sm font-light self-center ml-1 mr-[4vw]">{{ data.answers.quantity }} Comments</div>
+                        <div class="inline text-[#767676] text-sm font-light self-center ml-1 mr-[4vw]">
+                            {{ `${data.answers.quantity} ${$t("comments")}${data.answers.quantity == 1 ? '':'s'}` }}
+                        </div>
                         <img src="/svg_icons/settingsForum.svg" alt="settings" class="absolute right-[2vw] inline max-h-[1.25rem] top-[-1vh]">
                     </div>
                 </div>

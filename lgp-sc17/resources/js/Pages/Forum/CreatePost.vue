@@ -7,16 +7,16 @@ import TopicButton from "@/Components/TopicButton.vue";
 import InputError from "@/Components/InputError.vue";
 
 const topicsSelected = ref(0);
-const topicsError = ref('');
+const topicsError = ref(false);
 
 const clickTopic = (index) => {
     const selected = topics[index].selected;
     if (topicsSelected.value < 4 || selected) {
         topicsSelected.value += (selected) ? -1 : 1;
         topics[index].selected = !topics[index].selected;
-        if (topicsError.value) topicsError.value = '';
+        if (topicsError.value) topicsError.value = false;
     } else if (!topicsError.value) {
-        topicsError.value = 'A post can only have up to 4 topics associated. Please remove any additional topics before trying to add a new one.';
+        topicsError.value = true;
     }
 }
 
@@ -51,40 +51,40 @@ const topics = [
 </script>
 
 <template>
-    <Head><title>Post</title></Head>
+    <Head><title>{{ $t("newPostTitle") }}</title></Head>
     <div class="relative" style="z-index: 1">
         <NavBarSimple></NavBarSimple>
     </div>
 
     <div id="forum-new-post" class="grid px-[10vw] my-[8vh]">
         <div class="pb-3 border-b-[2px] border-[#221F1C]/[.21] text-black text-2xl font-bold">
-            Create a post
+            {{ $t("createAPost") }}
         </div>
         <form @submit.prevent="submit" class="grid mt-[6vh] tracking-wide border-b-[2px] border-[#221F1C]/[.21]">
             <input
                 id="post-title"
                 type="text"
                 class="rounded-3xl border-none bg-[#E9EFFD] w-[100%] px-4 text-lg text-black"
-                placeholder="Add a title or question"
+                :placeholder="$t('addTitleOrQuestion')"
                 v-model="form.title"
             />
             <textarea
                 id="post-content"
                 class="resize-none border-[#E9EFFD] w-[100%] h-[25vh] mt-[3vh] rounded-3xl py-2 px-4 text-lg text-black"
-                placeholder="Add text"
+                :placeholder="$t('addText')"
                 v-model="form.content"
             />
             <div class="mt-[3vh] pl-[2vw] h-[30vh]">
                 <div :key="topicsSelected" class="text-[#6D6D6D] text-lg">
-                    Choose one or more topics ({{topicsSelected}}/4)
+                    {{ $t("chooseTopics") }} ({{topicsSelected}}/4)
                 </div>
                 <div id="topics-area" class="max-h-[25vh] overflow-auto">
                     <TopicButton v-for="(topic, index) in topics" :topic="topic" :index="index" v-on:click="clickTopic(index)"/>
                 </div>
-                <InputError :message="topicsError" />
+                <InputError :message="topicsError ?  $t('numberOfTopicsError'):''" />
             </div>
             <button type="submit" class="shadow-md shadow-black/[.25] justify-self-end mt-[3vh] mb-[10vh] bg-[#578AD6] px-20 py-3 text-xl text-white font-bold rounded-3xl hover:brightness-90">
-                Post
+                {{ $t("submitPost") }}
             </button>
         </form>
     </div>

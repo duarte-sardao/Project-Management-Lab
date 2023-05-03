@@ -16,15 +16,16 @@ const form = useForm({
     content: '',
 });
 
-const answerError = ref('');
+const answerError = ref(false);
 const submit = () => {
     if (form.content == '') {
-        answerError.value = 'The answer cannot be empty.'
+        answerError.value = true;
         return;
     }
     form.post(route('forum.answer', {id:props.post.id}), {
         onFinish () {
             form.content = '';
+            if (answerError.value) answerError.value = false;
         }
     });
 };
@@ -67,7 +68,8 @@ const followHandler = () => {
             changeFollowButton.value = !changeFollowButton.value;
         })
         .catch((err) => console.error(err));
-}
+};
+
 </script>
 
 <template>
@@ -79,7 +81,7 @@ const followHandler = () => {
     <div id="forum-post" class="grid px-[10vw] mb-[20vh]">
         <div class="grid mt-[4vh]">
             <Link :href="route('forum')" class="justify-self-end py-2 px-14 shadow-md border-[#244D89] rounded-3xl border-2 text-lg font-black text-[#244D89] hover:bg-gray-200">
-                Back to forum
+                {{ $t("backToForum") }}
             </Link>
         </div>
         <div id="post-grid" class="relative bg-[#E9EFFD] shadow-md px-[5vw] mt-[8vh] mb-[10vh]" style="border-radius: 2.5rem">
@@ -98,7 +100,9 @@ const followHandler = () => {
                 />
                 <div class="flex flex-col items-start justify-center col-span-5 px-5">
                     <div class="text-xl font-bold text-[#221F1C]">{{ props.post.author.username }}</div>
-                    <div class="text-xs font-bold text-[#767676]">{{ props.post.elspsed_time }}</div>
+                    <div class="text-xs font-bold text-[#767676]">
+                        {{ $t(props.post.elspsed_time.type, {quantity: props.post.elspsed_time.quantity}) }}
+                    </div>
                 </div>
             </div>
             <div class="text-[#222222] py-[3vh] mb-[10vh] text-lg font-medium">
@@ -122,28 +126,30 @@ const followHandler = () => {
                             alt="favorite"
                             class="inline-block mr-2 max-h-[90%]"
                         />
-                        {{props.post.topics[currentTopic].userFollows ? 'Unfollow the topic':'Follow the topic'}}
+                        {{props.post.topics[currentTopic].userFollows ? $t('unfollowTopic'):$t('followTopic')}}
                     </button>
                 </div>
             </div>
         </div>
         <form @submit.prevent="submit" class="grid">
-            <div class="pl-[2vw] text-xl font-bold text-[#222222] mb-4">Write an answer</div>
+            <div class="pl-[2vw] text-xl font-bold text-[#222222] mb-4">{{ $t("writeAnswer") }}</div>
             <textarea
                 type="text"
                 id="answer-textarea"
                 class="rounded-3xl border-[#E9EFFD] h-[20vh] w-[100%] break-words resize-none py-3 px-4"
                 v-model="form.content"
             />
-            <InputError class=" mt-2 pl-[2vw]" :message="answerError" />
-            <button class="justify-self-end	mt-[4vh] py-2 px-12 bg-[#578AD6] rounded-3xl text-white font-bold text-lg hover:brightness-90" type="submit">Submit</button>
+            <InputError class=" mt-2 pl-[2vw]" :message="answerError ? $t('answerError'):''" />
+            <button class="justify-self-end	mt-[4vh] py-2 px-12 bg-[#578AD6] rounded-3xl text-white font-bold text-lg hover:brightness-90" type="submit">
+                {{ $t("submit") }}
+            </button>
         </form>
         <div class="mt-[8vh]">
             <div class="border-b-[1px] border-[#221F1C]/[.21] pl-[4vw] pb-2 text-black font-bold text-xl">
-                {{ props.post.answers.length }} {{ props.post.answers.length === 1 ? 'answer':'answers' }}
+                {{ props.post.answers.length }} {{ `${$t("answers")}${props.post.answers.length === 1 ? '':'s'}` }}
             </div>
             <ForumAnswer v-if="props.post.answers.length" v-for="(answer, index) in props.post.answers" @clickHandler="(n) => likeAnswer(index, n)" :answer="answer" />
-            <div v-else class="h-[25vh] flex items-center justify-center text-2xl">There are no answers to display.</div>
+            <div v-else class="h-[25vh] flex items-center justify-center text-2xl">{{ $t("noAnswers") }}</div>
         </div>
     </div>
     <div class="relative" style="z-index: 1">
