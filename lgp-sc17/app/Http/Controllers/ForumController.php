@@ -44,28 +44,29 @@ class ForumController extends Controller
     }
 
     /**
-     * Display forum posts according to a specific query
+     *
      */
-    public function search(Request $request) {
-        $ids = DB::table('forum_posts')
-                    ->leftJoin('topic_post', 'forum_posts.id', '=', 'topic_post.forum_post_id')
-                    ->leftJoin('topics', 'topic_post.topic_id', '=', 'topics.id')
-                    ->join('posts', 'forum_posts.post_id', '=', 'posts.id')
-                    ->join('users', 'posts.author', '=', 'users.id')
-                    ->where('title', 'like', '%' . $request->search . '%')
-                    ->orWhere('content', 'like', '%' . $request->search . '%')
-                    ->orWhere('username', 'like', '%' . $request->search . '%')
-                    ->orWhere('name', 'like', '%' . $request->search . '%')
-                    ->orWhere('topic', 'like', '%' . $request->search , '%')
-                    ->get('forum_posts.id')
-                    ->unique();
-
-        $forum_posts = array();
-        foreach($ids as $forum_post) {
-            array_push($forum_posts, ForumPost::find($forum_post->id));
+    private static function orderPosts($collection, $order)
+    {
+        switch ($order) {
+            case 'latestFirst':
+                return array_values($collection->sortByDesc('posted_at')->toArray());
+            case 'oldestFirst':
+                return array_values($collection->sortBy('posted_at')->toArray());
+            case 'mostLikesFirst':
+                return array_values($collection->sortByDesc('likes')->toArray());
+            case 'lessLikesFirst':
+                return array_values($collection->sortBy('likes')->toArray());
         }
+    }
+
+    /**
+     * 
+     */
+    private static function getForumPostsData($forum_posts)
+    {
         $topics_followed = Auth::user()->follow;
-        $result = array();
+        $result = collect([]);
         foreach($forum_posts as $forum_post) {
             $answers = $forum_post->answers;
             $profile_pictures = array();
@@ -73,8 +74,7 @@ class ForumController extends Controller
             for ($i = 0; $i < $quantity; $i++) {
                 array_push($profile_pictures, '/svg_icons/profile4.svg');
             }
-
-            array_push($result, [
+            $result->push([
                 'id' => $forum_post->id,
                 'title'=> $forum_post->title,
                 'content'=> $forum_post->post->content,
@@ -88,13 +88,56 @@ class ForumController extends Controller
                     'quantity' => count($answers),
                     'profile_pictures' => $profile_pictures,
                 ],
+                'likes' => count($forum_post->post->likes),
                 'follows' => count($topics_followed->intersect($forum_post->topics)) > 0,
             ]);
         }
+        return $result;
+    }
+
+    /**
+     * Display forum posts according to a specific query
+     */
+    public function search(Request $request)
+    {
+        $order = "latestFirst";
+        if ($request->selected) {
+            $order = $request->selected;
+        }
+
+        $searchContent = $request->search;
+        $ids = DB::table('forum_posts')
+                    ->leftJoin('topic_post', 'forum_posts.id', '=', 'topic_post.forum_post_id')
+                    ->leftJoin('topics', 'topic_post.topic_id', '=', 'topics.id')
+                    ->join('posts', 'forum_posts.post_id', '=', 'posts.id')
+                    ->join('users', 'posts.author', '=', 'users.id')
+                    ->where('title', 'like', '%' . $searchContent . '%')
+                    ->orWhere('content', 'like', '%' . $searchContent . '%')
+                    ->orWhere('username', 'like', '%' . $searchContent . '%')
+                    ->orWhere('name', 'like', '%' . $searchContent . '%')
+                    ->orWhere('topic', 'like', '%' . $searchContent , '%')
+                    ->get('forum_posts.id')
+                    ->unique();
+
+        $forum_posts = collect([]);
+        foreach($ids as $forum_post) {
+            $forum_posts->push(ForumPost::find($forum_post->id));
+        }
+        
+        $result = ForumController::orderPosts(
+            ForumController::getForumPostsData($forum_posts),
+            $order
+        );
 
         $topics = Topic::select('id', 'topic', 'color')->orderBy('topic')->get();
 
-        return Inertia::render('Forum/Forum', ['posts' => $result, 'topics' => $topics, 'currentForum' => -1]);
+        return Inertia::render('Forum/Forum', [
+            'posts' => $result,
+            'topics' => $topics,
+            'currentForum' => -1,
+            'search' => $searchContent,
+            'order' => 'latestFirst',
+        ]);
     }
 
     /**
@@ -102,73 +145,54 @@ class ForumController extends Controller
      */
     public function posts(Request $request): Response
     {
-        $topics_followed = Auth::user()->follow;
-        $forum_posts = ForumPost::all();
-        $result = array();
-        foreach($forum_posts as $forum_post) {
-            $answers = $forum_post->answers;
-            $profile_pictures = array();
-            $quantity = min(count($answers), 4);
-            for ($i = 0; $i < $quantity; $i++) {
-                array_push($profile_pictures, '/svg_icons/profile4.svg');
-            }
-
-            array_push($result, [
-                'id' => $forum_post->id,
-                'title'=> $forum_post->title,
-                'content'=> $forum_post->post->content,
-                'posted_at'=> $forum_post->post->posted_at,
-                'author' => [
-                    'username' => $forum_post->post->user->username,
-                    'image' => '/svg_icons/profile1.svg',
-                ],
-                'topics' => $forum_post->topics,
-                'answers' => [
-                    'quantity' => count($answers),
-                    'profile_pictures' => $profile_pictures,
-                ],
-                'follows' => count($topics_followed->intersect($forum_post->topics)) > 0,
-            ]);
+        $order = "latestFirst";
+        if ($request->selected) {
+            $order = $request->selected;
         }
+
+        $forum_posts = ForumPost::all();
+        $result = ForumController::orderPosts(
+            ForumController::getForumPostsData($forum_posts),
+            $order
+        );
 
         $topics = Topic::select('id', 'topic', 'color')->orderBy('topic')->get();
 
-        return Inertia::render('Forum/Forum', ['posts' => $result, 'topics' => $topics, 'currentForum' => 0]);
+        return Inertia::render('Forum/Forum', [
+            'posts' => $result,
+            'topics' => $topics,
+            'currentForum' => 0,
+            'order' => $order
+        ]);
     }
-
 
     /**
      * Display the forum page
      */
     public function following_posts(Request $request): Response
     {
+        $order = "latestFirst";
+        if ($request->selected) {
+            $order = $request->selected;
+        }
+
         $topics_followed = Auth::user()->follow;
-        $result = array();
+        $result = collect([]);
         foreach ($topics_followed as $topic) {
             $forum_posts = $topic->posts;
-            foreach($forum_posts as $forum_post) {
-                array_push($result, [
-                    'id' => $forum_post->id,
-                    'title'=> $forum_post->title,
-                    'content'=> $forum_post->post->content,
-                    'posted_at'=> $forum_post->post->posted_at,
-                    'author' => [
-                        'username' => $forum_post->post->user->username,
-                        'image' => '/svg_icons/profile1.svg',
-                    ],
-                    'topics' => $forum_post->topics,
-                    'answers' => [
-                        'quantity' => count($forum_post->answers),
-                        'profile_pictures' => [],
-                    ],
-                    'follows' => count($topics_followed->intersect($forum_post->topics)) > 0,
-                ]);
-            }
+            $result->push(ForumController::getForumPostsData($forum_posts));
         }
+
+        $result = ForumController::orderPosts($result, $order);
 
         $topics = Topic::select('id', 'topic', 'color')->orderBy('topic')->get();
 
-        return Inertia::render('Forum/Forum', ['posts' => $result, 'topics' => $topics, 'currentForum' => 1]);
+        return Inertia::render('Forum/Forum', [
+            'posts' => $result,
+            'topics' => $topics,
+            'currentForum' => 1,
+            'order' => $order
+        ]);
     }
 
     /**
@@ -176,32 +200,25 @@ class ForumController extends Controller
      */
     public function my_discussions(Request $request): Response
     {
-        $user = Auth::user();
-        $topics_followed = $user->follow;
-        $forum_posts = $user->posts;
-        $result = array();
-        foreach($forum_posts as $forum_post) {
-            array_push($result, [
-                'id' => $forum_post->id,
-                'title'=> $forum_post->title,
-                'content'=> $forum_post->post->content,
-                'posted_at'=> $forum_post->post->posted_at,
-                'author' => [
-                    'username' => $user->username,
-                    'image' => '/svg_icons/profile1.svg',
-                ],
-                'topics' => $forum_post->topics,
-                'answers' => [
-                    'quantity' => count($forum_post->answers),
-                    'profile_pictures' => [],
-                ],
-                'follows' => count($topics_followed->intersect($forum_post->topics)) > 0,
-            ]);
+        $order = "latestFirst";
+        if ($request->selected) {
+            $order = $request->selected;
         }
+
+        $forum_posts = Auth::user()->posts;
+        $result = ForumController::orderPosts(
+            ForumController::getForumPostsData($forum_posts),
+            $order
+        );
 
         $topics = Topic::select('id', 'topic', 'color')->orderBy('topic')->get();
 
-        return Inertia::render('Forum/Forum', ['posts' => $result, 'topics' => $topics, 'currentForum' => 2]);
+        return Inertia::render('Forum/Forum', [
+            'posts' => $result,
+            'topics' => $topics,
+            'currentForum' => 2,
+            'order' => $order
+        ]);
     }
 
     /**
@@ -213,32 +230,25 @@ class ForumController extends Controller
         if ($topic == null) {
             return back()->withErrors(['topic' => "There is no topic with id: " . $id])->with(['error' => 'An error has occurred']);
         }
-        
-        $topics_followed = Auth::user()->follow;
-        $forum_posts = $topic->posts;
-        $result = array();
-        foreach($forum_posts as $forum_post) {
-            array_push($result, [
-                'id' => $forum_post->id,
-                'title'=> $forum_post->title,
-                'content'=> $forum_post->post->content,
-                'posted_at'=> $forum_post->post->posted_at,
-                'author' => [
-                    'username' => $forum_post->post->user->username,
-                    'image' => '/svg_icons/profile1.svg',
-                ],
-                'topics' => $forum_post->topics,
-                'answers' => [
-                    'quantity' => count($forum_post->answers),
-                    'profile_pictures' => [],
-                ],
-                'follows' => count($topics_followed->intersect($forum_post->topics)) > 0,
-            ]);
+
+        $order = "latestFirst";
+        if ($request->selected) {
+            $order = $request->selected;
         }
+
+        $result = ForumController::orderPosts(
+            ForumController::getForumPostsData($topic->posts),
+            $order
+        );
 
         $topics = Topic::select('id', 'topic', 'color')->orderBy('topic')->get();
 
-        return Inertia::render('Forum/Forum', ['posts' => $result, 'topics' => $topics, 'currentTopic' => $id]);
+        return Inertia::render('Forum/Forum', [
+            'posts' => $result,
+            'topics' => $topics,
+            'currentTopic' => $id,
+            'order' => $order
+        ]);
     }
 
     /**

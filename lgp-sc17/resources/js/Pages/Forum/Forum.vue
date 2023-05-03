@@ -1,19 +1,24 @@
 <script setup>
-import { ref } from 'vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import NavBarSimple from "@/Components/NavBarSimple.vue";
 import Footer from "@/Components/Footer.vue";
 import ForumPost from "@/Components/ForumPost.vue";
+import OrderPostsDropdown from "@/Components/OrderPostsDropdown.vue";
 
 const props = defineProps({
     posts: Array,
     topics: Array,
     currentForum: Number,
     currentTopic: Number,
+    order: String,
+    search: {
+        type: String,
+        default: undefined,
+    }
 });
 
 const form = useForm({
-    search: '',
+    search: props.search !== undefined ? props.search:'',
 });
 
 const submit = () => {
@@ -48,10 +53,10 @@ const submit = () => {
     </div>
     <div id="forum-post" class="grid pl-[7vw] pr-[4vw] mb-[20vh]">
         <div class="grid  grid-cols-2 mt-[8vh] mb-[12.5vh]">
-            <button class="inline-block justify-self-start py-2 w-[45%] shadow-md bg-[#B9CEED] rounded-3xl text-lg font-black text-[#222222]">Latest First</button>
+            <OrderPostsDropdown :selected="order" :currentForum="currentForum" :currentTopic="currentTopic"></OrderPostsDropdown>
             <Link
                 :href="route('forum.create')"
-                class="inline-block justify-self-end py-2 w-[45%] shadow-md bg-[#578AD6] rounded-3xl text-lg font-black text-[#FFF] text-center hover:brightness-90"
+                class="inline-block justify-self-end py-3 w-[45%] shadow-md bg-[#578AD6] rounded-3xl text-lg font-black text-[#FFF] text-center hover:brightness-90"
             >
                 {{ $t("startNewDiscussionButton") }}
             </Link>

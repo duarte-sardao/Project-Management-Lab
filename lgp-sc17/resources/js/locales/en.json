@@ -89,6 +89,10 @@
     "hour": "{quantity} hour ago",
     "minutes": "{quantity} minutes ago",
     "minute": "{quantity} minute ago",
-    "seconds": "Some seconds ago"
+    "seconds": "Some seconds ago",
+    "latestFirst":"Latest first",
+    "oldestFirst": "Oldest first",
+    "mostLikesFirst": "Most likes first",
+    "lessLikesFirst": "Less likes first"
 
 }

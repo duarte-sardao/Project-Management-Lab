@@ -89,5 +89,10 @@
     "hour": "Há {quantity} hora",
     "minutes": "Há {quantity} minutos",
     "minute": "Há {quantity} minuto",
-    "seconds": "Há alguns segundos"
+    "seconds": "Há alguns segundos",
+    "latestFirst":"Mais recentes primeiro",
+    "oldestFirst": "Mais antigo primeiro",
+    "mostLikesFirst": "Com mais likes primeiro",
+    "lessLikesFirst": "Com menos likes primeiro"
+
 }
