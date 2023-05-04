@@ -12,47 +12,53 @@ const subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
         <template v-slot:content-bottom></template>
     </NavBar>
     <div class="flex mb-4 h-128 bg-gradient-to-r from-mainBlue to-bgColor relative px-20 py-16">
-        <img class="absolute transform rotate-180 z-10" style="left: -220px; height: 900px; top: -450px;" src="/svg_img/polygons.svg" alt="polygons">
-        <div class="w-3/4 pl-32 pr-8 py-28">
-            <div class="grid grid-rows-3">
-                <h1 class="normal-case text-4xl font-bold text-start pb-5 dark:text-black">Inspirational title or phrase</h1>
-                <p class="normal-case text-xl text-justify pb-5 dark:text-black">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet</p>
-                <div>
-                    <button type="button" class="btn btn-info bg-highlightBlue rounded-3xl capitalize text-lg border-none text-white" onclick="window.location='{{ url('home') }}'">Join the Community →</button>
+        <img class="absolute transform rotate-180 z-10" style="left: -220px; height: 900px; top: -450px;" src="/svg_img/polygons.svg" alt="polygons"/>
+        <div class="card lg:card-side gap-20 pl-32">
+            <div class="card-body">
+                <h1 class="normal-case pt-28 text-5xl font-bold text-start pb-8 dark:text-black break-words">Inspirational title or phrase</h1>
+                <p class="normal-case text-xl text-justify pb-5 dark:text-black break-words max-h-28">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet</p>
+                <div class="card-actions">
+                    <button type="button" class="px-8 btn btn-info bg-highlightBlue rounded-2xl capitalize text-lg border-none text-white" onclick="window.location='{{ url('home') }}'">Join the Community →</button>
                 </div>
             </div>
-        </div>
-        <div class="w-2/4">
-            <img src="/svg_img/homeIcon.svg"/>
+            <figure><img src="/svg_img/homeIcon.svg"/></figure>
         </div>
     </div>
     <div class="overflow-hidden px-20 py-16">
         <div class="mainFunctionalities bg-indigo rounded-[50px] pb-14 px-14 pt-8 shadow-lg opacity-90">
-            <div class="normal-case text-4xl font-bold text-center pb-5 dark:text-black">
+            <div class="normal-case text-4xl font-bold text-center pb-5 dark:text-black p-1 break-words">
                 Main functionalities in question form?
             </div>
-            <div class="flex w-full">
-                <div class="grid grid-cols-3 h-40 flex-grow card bg-base-300 rounded-box place-items-center bg-inherit">
-                    <h1 class="col-span-1 text-9xl text-highlightBlue font-extrabold">1</h1>
-                    <div class="grid grid-rows-[10%-90%] col-span-2">
-                        <p class="text-3xl font-extrabold text-justify dark:text-black flex">Explore</p>
-                        <p class="text-black text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <div class="carousel rounded-box">
+                <div class="flex w-full">
+                    <div class="carousel-item max-w-lg">
+                        <div class="card card-side place-items-center">
+                            <h1 class="col-span-1 text-9xl text-highlightBlue font-extrabold pl-3">1</h1>
+                            <div class="card-body px-3">
+                                <h2 class="card-title text-3xl">Explore</h2>
+                                <p class="break-words">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            </div>
+                        </div>
+                        <div class="divider divider-horizontal border-[1px] border-black w-[0.5px]"></div>
                     </div>
-                </div>
-                <div class="divider divider-horizontal border-[1px] border-black w-[0.5px]"></div>
-                <div class="grid grid-cols-3 h-40 flex-grow card bg-base-300 rounded-box place-items-center bg-inherit">
-                    <h1 class="col-span-1 text-9xl text-highlightBlue font-extrabold">2</h1>
-                    <div class="grid grid-rows-[10%-90%] col-span-2">
-                        <p class="text-3xl font-extrabold dark:text-black flex">Join the Disscusion</p>
-                        <p class="text-black text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <div class="carousel-item max-w-lg">
+                        <div class="card card-side place-items-center">
+                            <h1 class="col-span-1 text-9xl text-highlightBlue font-extrabold pl-3">2</h1>
+                            <div class="card-body px-3">
+                                <h2 class="card-title text-3xl">Join the Disscusion</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="divider divider-horizontal border-[1px] border-black w-[0.5px]"></div>
-                <div class="grid grid-cols-3 h-40 flex-grow card bg-base-300 rounded-box place-items-center bg-inherit">
-                    <h1 class="col-span-1 text-9xl text-highlightBlue font-extrabold">3</h1>
-                    <div class="grid grid-rows-[10%-90%] col-span-2">
-                        <p class="text-3xl font-extrabold dark:text-black flex">Chat with Doctors </p>
-                        <p class="text-black text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <div class="carousel-item max-w-lg">
+                        <div class="divider divider-horizontal border-[1px] border-black w-[0.5px]"></div>
+                        <div class="card card-side place-items-center">
+                            <h1 class="col-span-1 text-9xl text-highlightBlue font-extrabold pl-3">3</h1>
+                            <div class="card-body px-3">
+                                <h2 class="card-title text-3xl">Chat with Doctors </h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -67,7 +73,7 @@ const subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
                 <div class="card bg-base-100 rounded-3xl bg-white">
                     <div class="bg-cover bg-center h-[26rem] w-[16rem] rounded-[30px]" style="background-image: url('/svg_img/carr1.svg');">
                         <div class="card-body p-3 absolute inset-x-0 bottom-10">    
-                            <div class="card bg-base-100 rounded-3xl h-32 bg-opacity-20 backdrop-blur-md shadow-lg grid grid-cols-[70%_30%]">
+                            <div class="hover:bg-opacity-70 hover:text-black card bg-base-100 rounded-3xl h-32 bg-opacity-20 backdrop-blur-md shadow-lg grid grid-cols-[70%_30%]">
                                 <div>
                                     <h2 class="card-title pl-4 pt-3 font-bold text-2xl dark:text-black">Shoes!</h2>
                                     <p class="pl-4">If a dog chews shoes whose shoes does he choose?</p>
@@ -84,7 +90,7 @@ const subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
                 <div class="card bg-base-100 rounded-3xl bg-white">
                     <div class="bg-cover bg-center h-[26rem] w-[16rem] rounded-[30px]" style="background-image: url('/svg_img/carr2.svg');">
                         <div class="card-body p-3 pt-10">    
-                            <div class="card bg-base-100 rounded-3xl h-32 bg-opacity-20 backdrop-blur-md shadow-lg grid grid-cols-[70%_30%] bg-white">
+                            <div class="hover:bg-opacity-70 hover:text-black card bg-base-100 rounded-3xl h-32 bg-opacity-20 backdrop-blur-md shadow-lg grid grid-cols-[70%_30%] bg-white">
                                 <div>
                                     <h2 class="card-title pl-4 pt-3 font-bold text-2xl ">Shoes!</h2>
                                     <p class="pl-4">If a dog chews shoes whose shoes does he choose?</p>
@@ -101,7 +107,7 @@ const subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
                 <div class="card bg-base-100 rounded-3xl bg-white">
                     <div class="bg-cover bg-center h-[26rem] w-[16rem] rounded-[30px]" style="background-image: url('/svg_img/carr3.svg');">
                         <div class="card-body p-3 absolute inset-x-0 bottom-10">    
-                            <div class="card bg-base-100 rounded-3xl h-32 bg-opacity-20 backdrop-blur-md shadow-lg grid grid-cols-[70%_30%] bg-white">
+                            <div class="hover:bg-opacity-70 hover:text-black card bg-base-100 rounded-3xl h-32 bg-opacity-20 backdrop-blur-md shadow-lg grid grid-cols-[70%_30%] bg-white">
                                 <div>
                                     <h2 class="card-title pl-4 pt-3 font-bold text-2xl ">Shoes!</h2>
                                     <p class="pl-4">If a dog chews shoes whose shoes does he choose?</p>
@@ -118,7 +124,7 @@ const subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
                 <div class="card bg-base-100 rounded-3xl bg-white">
                     <div class="bg-cover bg-center h-[26rem] w-[16rem] rounded-[30px]" style="background-image: url('/svg_img/carr4.svg');">
                         <div class="card-body p-3 pt-10">    
-                            <div class="card bg-base-100 rounded-3xl h-32 bg-opacity-20 backdrop-blur-md shadow-lg grid grid-cols-[70%_30%] bg-white">
+                            <div class="hover:bg-opacity-70 hover:text-black card bg-base-100 rounded-3xl h-32 bg-opacity-20 backdrop-blur-md shadow-lg grid grid-cols-[70%_30%] bg-white">
                                 <div>
                                     <h2 class="card-title pl-4 pt-3 font-bold text-2xl ">Shoes!</h2>
                                     <p class="pl-4">If a dog chews shoes whose shoes does he choose?</p>
@@ -135,7 +141,7 @@ const subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
                 <div class="card bg-base-100 rounded-3xl bg-white">
                     <div class="bg-cover bg-center h-[26rem] w-[16rem] rounded-[30px]" style="background-image: url('/svg_img/carr1.svg');">
                         <div class="card-body p-3 absolute inset-x-0 bottom-10">    
-                            <div class="card bg-base-100 rounded-3xl h-32 bg-opacity-20 backdrop-blur-md shadow-lg grid grid-cols-[70%_30%] bg-white">
+                            <div class="hover:bg-opacity-70 hover:text-black card bg-base-100 rounded-3xl h-32 bg-opacity-20 backdrop-blur-md shadow-lg grid grid-cols-[70%_30%] bg-white">
                                 <div>
                                     <h2 class="card-title pl-4 pt-3 font-bold text-2xl ">Shoes!</h2>
                                     <p class="pl-4">If a dog chews shoes whose shoes does he choose?</p>
@@ -152,7 +158,7 @@ const subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
                 <div class="card bg-base-100 rounded-3xl bg-white">
                     <div class="bg-cover bg-center h-[26rem] w-[16rem] rounded-[30px]" style="background-image: url('/svg_img/carr2.svg');">
                         <div class="card-body p-3 pt-10">    
-                            <div class="card bg-base-100 rounded-3xl h-32 bg-opacity-20 backdrop-blur-md shadow-lg grid grid-cols-[70%_30%] bg-white">
+                            <div class="hover:bg-opacity-70 hover:text-black card bg-base-100 rounded-3xl h-32 bg-opacity-20 backdrop-blur-md shadow-lg grid grid-cols-[70%_30%] bg-white">
                                 <div>
                                     <h2 class="card-title pl-4 pt-3 font-bold text-2xl ">Shoes!</h2>
                                     <p class="pl-4">If a dog chews shoes whose shoes does he choose?</p>
@@ -169,7 +175,7 @@ const subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
                 <div class="card bg-base-100 rounded-3xl bg-white">
                     <div class="bg-cover bg-center h-[26rem] w-[16rem] rounded-[30px]" style="background-image: url('/svg_img/carr3.svg');">
                         <div class="card-body p-3 absolute inset-x-0 bottom-10">    
-                            <div class="card bg-base-100 rounded-3xl h-32 bg-opacity-20 backdrop-blur-md shadow-lg grid grid-cols-[70%_30%] bg-white">
+                            <div class="hover:bg-opacity-70 hover:text-black card bg-base-100 rounded-3xl h-32 bg-opacity-20 backdrop-blur-md shadow-lg grid grid-cols-[70%_30%] bg-white">
                                 <div>
                                     <h2 class="card-title pl-4 pt-3 font-bold text-2xl ">Shoes!</h2>
                                     <p class="pl-4">If a dog chews shoes whose shoes does he choose?</p>
@@ -184,17 +190,17 @@ const subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
             </div> 
         </div>
     </div>
-    <div class="bg-gradient-to-r from-skyBlue from-10% to-mainBlue to-90% px-5 grid grid-cols-[60%_40%] gap-3">
-        <div>
-            <img src="svg_img/computerGuy.svg" class="py-10"/>
-        </div>
-        <div class="grid grid-rows-3 px-4 py-16">
-           <h2 class="text-4xl font-extrabold dark:text-white self-end">Join the community and start the discussion</h2>
-           <h2 class="text-xl font-extrabold dark:text-white self-top pt-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet</h2>
-           <div class="grid grid-cols-2 gap-5 pt-3">
-                <button type="button" class="btn btn-info bg-lightBlue rounded-3xl capitalize text-lg border-none" onclick="window.location='{{ url('home') }}'">Log In</button>
-                <button class="btn btn-outline rounded-3xl capitalize text-lg text-white border-white border-2">Sign Up</button>
-           </div>
+    <div class="bg-gradient-to-r from-skyBlue from-10% to-mainBlue to-90% px-5">
+        <div class="card lg:card-side p-8">
+            <figure><img src="svg_img/computerGuy.svg"></figure>
+            <div class="card-body">
+                <h2 class="break-words text-4xl font-extrabold text-white pb-5 mt-5">Join the community and start the discussion</h2>
+                <p class="break-words text-lg text-white text-bold max-h-44 pt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet</p>   
+                <div class="flex gap-3 pt-5">
+                    <button type="button" class="flex-grow btn btn-info bg-lightBlue rounded-3xl capitalize text-lg border-none" onclick="window.location='{{ url('home') }}'">Log In</button>
+                    <button class="flex-grow btn btn-outline rounded-3xl capitalize text-lg text-white border-white border-2">Sign Up</button>
+                </div>
+            </div>
         </div>
     </div>
 
