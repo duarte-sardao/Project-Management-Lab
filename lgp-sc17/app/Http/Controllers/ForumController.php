@@ -89,6 +89,7 @@ class ForumController extends Controller
                     'profile_pictures' => $profile_pictures,
                 ],
                 'likes' => count($forum_post->post->likes),
+                'userLikes' => $forum_post->post->userLikes(Auth::user()->id),
                 'follows' => count($topics_followed->intersect($forum_post->topics)) > 0,
             ]);
         }

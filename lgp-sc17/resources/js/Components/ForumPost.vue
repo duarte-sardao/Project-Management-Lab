@@ -46,6 +46,12 @@ defineProps(['data']);
                         </div>
                         <img src="/svg_icons/settingsForum.svg" alt="settings" class="absolute right-[2vw] inline max-h-[1.25rem] top-[-1vh]">
                     </div>
+                    <div class="pl-1">
+                        <img :src="data.userLikes ? '/svg_icons/unlike.svg':'/svg_icons/like.svg'" alt="likes" class="inline-block max-h-[1.25rem] pl-1" />
+                        <div class="inline-block ml-2">
+                            {{ `${data.likes} Like${data.likes == 1 ? '':'s'}` }}
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="grid grid-flow-col gap-0 justify-end mr-[2vw]">
