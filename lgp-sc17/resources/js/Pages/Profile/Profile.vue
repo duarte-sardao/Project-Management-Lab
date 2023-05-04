@@ -64,8 +64,8 @@ if (profile_img_url.value == null) {
 
     <MessageToast
         v-if="displayToast"
-        :message="$page.props.flash.success_message == undefined ? '':$t(`${$page.props.flash.success_message}`)"
-        :error="$page.props.flash.error_message == undefined ? '':$t(`${$page.props.flash.error_message}`)"
+        :message="$page.props.flash.success_message === undefined ? '':$t(`${$page.props.flash.success_message}`)"
+        :error="$page.props.flash.error_message === undefined ? '':$t(`${$page.props.flash.error_message}`)"
     ></MessageToast>
 
     <form @submit.prevent="submit">
@@ -121,8 +121,8 @@ if (profile_img_url.value == null) {
                             v-model="props.number"
                             :edit="edit"
                             :isInput="false"
-                            errors=""
-                        />
+                            input-type="text"
+                            errors=""/>
                     </div>
                     <div class="col-span-1 grid justify-items-end flex items-start h-fit">
                         <ProfileTextBox
@@ -140,7 +140,7 @@ if (profile_img_url.value == null) {
                             :isInput="edit"
                             :required="false"
                             inputType="number"
-                            :errors="(form.errors.phone_number == undefined) ? '':$t(`${form.errors.phone_number}`)"
+                            :errors="(form.errors.phone_number === undefined) ? '':$t(`${form.errors.phone_number}`)"
                         />
                     </div>
                 </div>
