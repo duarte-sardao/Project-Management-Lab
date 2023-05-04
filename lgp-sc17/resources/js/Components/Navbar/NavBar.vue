@@ -1,7 +1,7 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
-import NavBarContentExtended from "@/Components/NavBarContentExtended.vue";
-import NavBarContentCollapsed from "@/Components/NavBarContentCollapsed.vue";
+import NavBarContentExtended from "@/Components/Navbar/NavBarContentExtended.vue";
+import NavBarContentCollapsed from "@/Components/Navbar/NavBarContentCollapsed.vue";
 
 const props = defineProps({
     title: {
@@ -19,8 +19,8 @@ const props = defineProps({
             <img class="absolute" style="right: -100px; height: 900px; top: -200px; z-index: 0" src="/svg_img/polygons.svg" alt="polygons">
             <div class="relative navbar rounded-full px-7 bg-bgColor shadow-lg opacity-90" style="z-index: 2;">
                 <label tabindex="0" class="btn btn-ghost">
-                    <Link href="/">
-                        <img src="/logo.png"  alt="default user"/>
+                    <Link href="/public">
+                        <img src="/logo.png" alt="default user"/>
                     </Link>
                 </label>
                 <NavBarContentExtended v-if="extended"></NavBarContentExtended>

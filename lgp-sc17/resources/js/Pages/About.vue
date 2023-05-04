@@ -1,5 +1,5 @@
 <script setup>
-import NavBar from "@/Components/NavBar.vue";
+import NavBar from "@/Components/Navbar/NavBar.vue";
 import Footer from "@/Components/Footer.vue";
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import GuestLayout from '@/Layouts/GuestLayout.vue';

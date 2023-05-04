@@ -1,5 +1,5 @@
 <script setup>
-import NavBar from "@/Components/NavBar.vue";
+import NavBar from "@/Components/Navbar/NavBar.vue";
 import Footer from "@/Components/Footer.vue";
 import LibrarySearch from "@/Components/Library/LibrarySearch.vue";
 import PostCard from "@/Components/Common/PostCard.vue";

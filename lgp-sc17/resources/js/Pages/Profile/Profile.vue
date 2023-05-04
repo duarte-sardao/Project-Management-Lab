@@ -2,7 +2,7 @@
 import ProfileTextBox from '@/Components/Profile/ProfileTextBox.vue';
 import ProfileInfo from '@/Components/Profile/ProfileInfo.vue';
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
-import NavBarSimple from "@/Components/NavBarSimple.vue";
+import NavBarSimple from "@/Components/Navbar/NavBarSimple.vue";
 import Footer from "@/Components/Footer.vue";
 import {ref} from "vue";
 import MessageToast from "@/Components/MessageToast.vue";
