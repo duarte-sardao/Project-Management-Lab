@@ -5,11 +5,13 @@ import NavBarSimple from "@/Components/NavBarSimple.vue";
 import Footer from "@/Components/Footer.vue";
 import ForumAnswer from "@/Components/ForumAnswer.vue";
 import TopicTag from "@/Components/TopicTag.vue";
+import OrderAnswersDropdown from '@/Components/OrderAnswersDropdown.vue';
 import InputError from "@/Components/InputError.vue";
 
 const props = defineProps({
     post: Object,
     currentTopic: Number,
+    order: String,
 });
 
 const form = useForm({
@@ -145,8 +147,9 @@ const followHandler = () => {
             </button>
         </form>
         <div class="mt-[8vh]">
-            <div class="border-b-[1px] border-[#221F1C]/[.21] pl-[4vw] pb-2 text-black font-bold text-xl">
-                {{ props.post.answers.length }} {{ `${$t("answers")}${props.post.answers.length === 1 ? '':'s'}` }}
+            <div class="grid grid-flow-col border-b-[1px] border-[#221F1C]/[.21] pl-[4vw] pb-2 text-black font-bold text-xl">
+                <span class="self-center justify-self-start">{{ props.post.answers.length }} {{ `${$t("answers")}${props.post.answers.length === 1 ? '':'s'}` }}</span>
+                <OrderAnswersDropdown :selected="order" :post_id="post.id" class="justify-self-end"></OrderAnswersDropdown>
             </div>
             <ForumAnswer v-if="props.post.answers.length" v-for="(answer, index) in props.post.answers" @clickHandler="(n) => likeAnswer(index, n)" :answer="answer" />
             <div v-else class="h-[25vh] flex items-center justify-center text-2xl">{{ $t("noAnswers") }}</div>

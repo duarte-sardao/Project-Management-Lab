@@ -256,6 +256,11 @@ class ForumController extends Controller
      */
     public function post(Request $request, $id): Response
     {
+        $order = "latestFirst";
+        if ($request->selected) {
+            $order = $request->selected;
+        }
+
         $user = Auth::user();
         $forum_post = ForumPost::find($id);
         if ($forum_post == null) {
@@ -287,9 +292,10 @@ class ForumController extends Controller
             $topics[$currentTopic]['selected'] = true;
         }
     
-        $answers = array();
+        $answers = collect([]);
         foreach($forum_post->answers as $answer) {
             $answer->content = $answer->post->content;
+            $answer->posted_at = $answer->post->posted_at; // used to order the answers
             $answer->elapsed_time = ForumController::getTimeString(now(), $answer->post->posted_at);
             $answer->user = [
                 'username' => $answer->post->user->username,
@@ -298,10 +304,10 @@ class ForumController extends Controller
             ];
             $answer->likes = count($answer->post->likes);
             $answer->userLikes = $answer->post->userLikes($user->id);
-            array_push($answers, $answer);
+            $answers->push($answer);
         }
     
-        return Inertia::render('Forum/Post', ['currentTopic' => $currentTopic, 'post' => [
+        return Inertia::render('Forum/Post', ['currentTopic' => $currentTopic, 'order' => $order, 'post' => [
             'id' => $forum_post->id,
             'title'=> $forum_post->title,
             'content'=> $forum_post->post->content,
@@ -311,7 +317,7 @@ class ForumController extends Controller
                 'image' => '/svg_icons/profile1.svg',
             ],
             'topics' => $topics,
-            'answers' => $answers,
+            'answers' => ForumController::orderPosts($answers, $order),
             'likes' => count($forum_post->post->likes),
             'userLikes' => $forum_post->post->userLikes(Auth::user()->id),
         ]]);
