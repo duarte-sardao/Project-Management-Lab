@@ -87,48 +87,48 @@ const followHandler = () => {
             </Link>
         </div>
         <div id="post-grid" class="relative bg-[#E9EFFD] shadow-md px-[5vw] mt-[8vh] mb-[10vh] max-w-[78.5vw]" style="border-radius: 2.5rem">
-            <div v-if="props.post.topics.length > 0" class="absolute w-[70vw] top-[-4vh]">
-                <TopicTag v-on:click="topicTagHandler(index)" :key="currentTopic" v-for="(item, index) in props.post.topics" :topic="item" :index="index"/>
+            <div v-if="post.topics.length > 0" class="absolute w-[70vw] top-[-4vh]">
+                <TopicTag v-on:click="topicTagHandler(index)" :key="currentTopic" v-for="(item, index) in post.topics" :topic="item" :index="index"/>
             </div>
             <div id="post-title" class="mt-[7vh] text-[#1E1B18] font-bold text-4xl text-center">
-                {{ props.post.title }}
+                {{ post.title }}
             </div>
             <div class="grid grid-cols-6 max-h-[5rem] my-[4vh] max-w-[30vw]">
                 <img 
                     id="author-image"
-                    :src="props.post.author.image"
+                    :src="post.author.image"
                     alt="author image"
                     class="rounded-full mix-blend-luminosity max-h-[5rem] cols-span-1"
                 />
                 <div class="flex flex-col items-start justify-center col-span-5 px-5">
-                    <div class="text-xl font-bold text-[#221F1C]">{{ props.post.author.username }}</div>
+                    <div class="text-xl font-bold text-[#221F1C]">{{ post.author.username }}</div>
                     <div class="text-xs font-bold text-[#767676]">
-                        {{ $t(props.post.elspsed_time.type, {quantity: props.post.elspsed_time.quantity}) }}
+                        {{ $t(post.elspsed_time.type, {quantity: post.elspsed_time.quantity}) }}
                     </div>
                 </div>
             </div>
             <div class="text-[#222222] py-[3vh] mb-[10vh] text-lg font-medium break-words">
-                {{ props.post.content }}
+                {{ post.content }}
             </div>
             <div class="grid grid-cols-2 w-[50%] mb-[5vh]">
                 <div>
                     <button :key="changeLikeButton" v-on:click="likeHandler" class="flex items-center text-[#E67A79] font-bold hover:brightness-75">
                         <img
-                            :src="props.post.userLikes ? '/svg_icons/unlike.svg':'/svg_icons/like.svg'"
+                            :src="post.userLikes ? '/svg_icons/unlike.svg':'/svg_icons/like.svg'"
                             alt="favorite"
                             class="inline-block mr-2 max-h-[90%]"
                         />
-                        {{ props.post.likes }} Like{{ props.post.likes === 1 ? '':'s' }}
+                        {{ post.likes }} Like{{ post.likes === 1 ? '':'s' }}
                     </button>
                 </div>
-                <div :key="currentTopic" v-if="props.post.topics.length > 0">
+                <div :key="currentTopic" v-if="post.topics.length > 0">
                     <button :key="changeFollowButton" v-on:click="followHandler" class="flex items-center text-[#C49960] font-bold hover:brightness-75">
                         <img
-                            :src="props.post.topics[currentTopic].userFollows ? '/svg_icons/unfollow.svg':'/svg_icons/follow.svg'"
+                            :src="post.topics[currentTopic].userFollows ? '/svg_icons/unfollow.svg':'/svg_icons/follow.svg'"
                             alt="favorite"
                             class="inline-block mr-2 max-h-[90%]"
                         />
-                        {{props.post.topics[currentTopic].userFollows ? $t('unfollowTopic'):$t('followTopic')}}
+                        {{post.topics[currentTopic].userFollows ? $t('unfollowTopic'):$t('followTopic')}}
                     </button>
                 </div>
             </div>
@@ -148,10 +148,10 @@ const followHandler = () => {
         </form>
         <div class="mt-[8vh]">
             <div class="grid grid-flow-col border-b-[1px] border-[#221F1C]/[.21] pl-[4vw] pb-2 text-black font-bold text-xl">
-                <span class="self-center justify-self-start">{{ props.post.answers.length }} {{ `${$t("answers")}${props.post.answers.length === 1 ? '':'s'}` }}</span>
+                <span class="self-center justify-self-start">{{ post.answers.length }} {{ `${$t("answers")}${post.answers.length === 1 ? '':'s'}` }}</span>
                 <OrderAnswersDropdown v-if="post.answers.length" :selected="order" :post_id="post.id" class="justify-self-end"></OrderAnswersDropdown>
             </div>
-            <ForumAnswer v-if="props.post.answers.length" v-for="(answer, index) in props.post.answers" @clickHandler="(n) => likeAnswer(index, n)" :answer="answer" />
+            <ForumAnswer v-if="post.answers.length" v-for="(answer, index) in post.answers" @clickHandler="(n) => likeAnswer(index, n)" :answer="answer" />
             <div v-else class="h-[25vh] flex items-center justify-center text-2xl">{{ $t("noAnswers") }}</div>
         </div>
     </div>

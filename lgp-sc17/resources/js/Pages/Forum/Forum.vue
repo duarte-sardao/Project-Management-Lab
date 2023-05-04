@@ -64,9 +64,9 @@ const submit = () => {
         <div class="grid grid-cols-10">
             <div class="relative col-span-8">
                 <Link
-                    v-if="props.posts.length"
-                    v-for="post in props.posts"
-                    :data="(props.currentTopic == null) ? {}:{'currentTopic':props.currentTopic}"
+                    v-if="posts.length"
+                    v-for="post in posts"
+                    :data="(currentTopic == null) ? {}:{'currentTopic':currentTopic}"
                     :href="route('forum.post', {id: post.id})"
                 >
                     <ForumPost :data="post"/>
@@ -78,43 +78,43 @@ const submit = () => {
                 <div class="px-[1vw]">
                     <Link :href="route('forum')" class="block hover:font-bold">
                         <img 
-                            :src="props.currentForum === 0 ? `/svg_icons/all_discussions_selected.svg`:`/svg_icons/all_discussions.svg`"
+                            :src="currentForum === 0 ? `/svg_icons/all_discussions_selected.svg`:`/svg_icons/all_discussions.svg`"
                             alt="All discussions"
                             class="inline-block align-middle max-h-[2.5rem]"
                         />
-                        <div class="inline-block text-xl text-[#578AD6] ml-[1vw]" :class="props.currentForum === 0 ? 'text-[#578AD6]': 'text-[#6D6D6D]'">
+                        <div class="inline-block text-xl text-[#578AD6] ml-[1vw]" :class="currentForum === 0 ? 'text-[#578AD6]': 'text-[#6D6D6D]'">
                             {{ $t("allDiscussions") }}
                         </div>  
                     </Link>
                     <Link :href="route('forum-following')" class="block mt-[4vh] hover:font-bold">
                         <img 
-                            :src="props.currentForum === 1 ? '/svg_icons/following_discussions_selected.svg':'/svg_icons/following_discussions.svg'"
+                            :src="currentForum === 1 ? '/svg_icons/following_discussions_selected.svg':'/svg_icons/following_discussions.svg'"
                             alt="Following discussions"
                             class="inline-block align-middle max-h-[2rem]"
                         />
-                        <div class="inline-block text-xl text-[#578AD6] ml-[1vw]" :class="props.currentForum === 1 ? 'text-[#578AD6]': 'text-[#6D6D6D]'">
+                        <div class="inline-block text-xl text-[#578AD6] ml-[1vw]" :class="currentForum === 1 ? 'text-[#578AD6]': 'text-[#6D6D6D]'">
                             {{ $t("followingDiscussions") }}
                         </div>  
                     </Link>
                     <Link :href="route('forum-my_discussions')" class="block mt-[4vh] hover:font-bold ">
                         <img
-                            :src="props.currentForum === 2 ? '/svg_icons/my_discussions_selected.svg':'/svg_icons/my_discussions.svg'"
+                            :src="currentForum === 2 ? '/svg_icons/my_discussions_selected.svg':'/svg_icons/my_discussions.svg'"
                             alt="My discussions"
                             class="inline-block align-middle max-h-[2.5rem]"
                         />
-                        <div class="inline-block text-xl text-[#578AD6] ml-[1vw]" :class="props.currentForum === 2 ? 'text-[#578AD6]': 'text-[#6D6D6D]'">
+                        <div class="inline-block text-xl text-[#578AD6] ml-[1vw]" :class="currentForum === 2 ? 'text-[#578AD6]': 'text-[#6D6D6D]'">
                             {{ $t("myDiscussions") }}
                         </div>  
                     </Link>
                 </div>
                 <div class="mt-[6vh] border-2 border-[#221F1C]/[.42] w-[100%] rounded-3xl"></div>
                 <div class="mt-[6vh] h-[100%] overflow-auto">
-                    <Link v-for="topic in props.topics" :href="route('forum-topic_posts', {id:topic.id})" class="block mt-[3vh] ml-2 hover:pl-2">
+                    <Link v-for="topic in topics" :href="route('forum-topic_posts', {id:topic.id})" class="block mt-[3vh] ml-2 hover:pl-2">
                         <div
                             class="inline-block align-middle rounded-full w-[25px] h-[25px] mb-[3px] mr-2"
-                            :style="`background: ${topic.color}; outline: 2px dashed ${props.currentTopic && (props.currentTopic == topic.id) ? '#578AD6':'transparent'};`">
+                            :style="`background: ${topic.color}; outline: 2px dashed ${currentTopic && (currentTopic == topic.id) ? '#578AD6':'transparent'};`">
                         </div>
-                        <span class="ml-[1.25vw] text-lg font-bold" :class="(props.currentTopic && (props.currentTopic == topic.id)) ? 'text-[#578AD6]': 'text-[#6D6D6D]'">{{ topic.topic }}</span>
+                        <span class="ml-[1.25vw] text-lg font-bold" :class="(currentTopic && (currentTopic == topic.id)) ? 'text-[#578AD6]': 'text-[#6D6D6D]'">{{ topic.topic }}</span>
                     </Link>
                 </div>
             </div>
