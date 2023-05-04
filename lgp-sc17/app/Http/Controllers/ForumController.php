@@ -74,10 +74,16 @@ class ForumController extends Controller
             for ($i = 0; $i < $quantity; $i++) {
                 array_push($profile_pictures, '/svg_icons/profile4.svg');
             }
+
+            $content = $forum_post->post->content;
+            if (strlen($content > 180)) {
+                $content = substr($content, 0, 177) . '...';
+            }
+
             $result->push([
                 'id' => $forum_post->id,
                 'title'=> $forum_post->title,
-                'content'=> $forum_post->post->content,
+                'content'=> $content,
                 'posted_at'=> $forum_post->post->posted_at,
                 'author' => [
                     'username' => $forum_post->post->user->username,

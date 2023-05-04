@@ -5,7 +5,7 @@ defineProps(['data']);
 </script>
 
 <template>
-    <div id="posts-grid" class="relative bg-[#E9EFFD] shadow-md px-[2vw] pt-[1vh] pb-[4vh] mb-[6vh] mr-[7vw] hover:brightness-95" style="border-radius: 2.25rem">
+    <div :id="`posts-grid-${data.id}`" class="relative max-h-[35vh] bg-[#E9EFFD] shadow-md px-[2vw] pt-[1vh] pb-[4vh] mb-[6vh] mr-[7vw] hover:brightness-95" style="border-radius: 2.25rem">
             <img v-if="data.follows" src="/svg_icons/topic_followed.svg" alt="followed" class="absolute max-h-[2rem] top-[-4%] left-[0.75%]" />
             <div class="grid grid-cols-7 my-[5vh]">
                 <img 
@@ -18,7 +18,7 @@ defineProps(['data']);
                     <div id="post-title" class="text-[#221F1C]/[.76] font-bold text-xl mb-[1.5vh]">
                         {{ data.title }}
                     </div>
-                    <div class="text-sm text-[#767676]">
+                    <div class="forumPostContent text-sm text-[#767676] break-words max-h-[10vh] overflow-auto">
                         {{ data.content }}
                     </div>
                 </div>
@@ -62,3 +62,27 @@ defineProps(['data']);
             </div>
         </div>
 </template>
+
+<style>
+.forumPostContent::-webkit-scrollbar {
+    width: 6px;
+    border-radius: 50px;
+}
+
+/* Track */
+.forumPostContent::-webkit-scrollbar-track {
+  background: none;
+  border-radius: 10px;
+}
+
+/* Handle */
+.forumPostContent::-webkit-scrollbar-thumb {
+  background: #cbcbcb;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+.forumPostContent::-webkit-scrollbar-thumb:hover {
+  background: rgb(154, 153, 153);
+}
+</style>

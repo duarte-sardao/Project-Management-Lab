@@ -80,13 +80,13 @@ const followHandler = () => {
         <NavBarSimple></NavBarSimple>
     </div>
 
-    <div id="forum-post" class="grid px-[10vw] mb-[20vh]">
+    <div id="forum-post" class="grid mx-[10vw] mb-[20vh]">
         <div class="grid mt-[4vh]">
             <Link :href="route('forum')" class="justify-self-end py-2 px-14 shadow-md border-[#244D89] rounded-3xl border-2 text-lg font-black text-[#244D89] hover:bg-gray-200">
                 {{ $t("backToForum") }}
             </Link>
         </div>
-        <div id="post-grid" class="relative bg-[#E9EFFD] shadow-md px-[5vw] mt-[8vh] mb-[10vh]" style="border-radius: 2.5rem">
+        <div id="post-grid" class="relative bg-[#E9EFFD] shadow-md px-[5vw] mt-[8vh] mb-[10vh] max-w-[78.5vw]" style="border-radius: 2.5rem">
             <div v-if="props.post.topics.length > 0" class="absolute w-[70vw] top-[-4vh]">
                 <TopicTag v-on:click="topicTagHandler(index)" :key="currentTopic" v-for="(item, index) in props.post.topics" :topic="item" :index="index"/>
             </div>
@@ -107,7 +107,7 @@ const followHandler = () => {
                     </div>
                 </div>
             </div>
-            <div class="text-[#222222] py-[3vh] mb-[10vh] text-lg font-medium">
+            <div class="text-[#222222] py-[3vh] mb-[10vh] text-lg font-medium break-words">
                 {{ props.post.content }}
             </div>
             <div class="grid grid-cols-2 w-[50%] mb-[5vh]">
