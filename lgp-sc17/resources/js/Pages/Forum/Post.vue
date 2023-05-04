@@ -149,7 +149,7 @@ const followHandler = () => {
         <div class="mt-[8vh]">
             <div class="grid grid-flow-col border-b-[1px] border-[#221F1C]/[.21] pl-[4vw] pb-2 text-black font-bold text-xl">
                 <span class="self-center justify-self-start">{{ props.post.answers.length }} {{ `${$t("answers")}${props.post.answers.length === 1 ? '':'s'}` }}</span>
-                <OrderAnswersDropdown :selected="order" :post_id="post.id" class="justify-self-end"></OrderAnswersDropdown>
+                <OrderAnswersDropdown v-if="post.answers.length" :selected="order" :post_id="post.id" class="justify-self-end"></OrderAnswersDropdown>
             </div>
             <ForumAnswer v-if="props.post.answers.length" v-for="(answer, index) in props.post.answers" @clickHandler="(n) => likeAnswer(index, n)" :answer="answer" />
             <div v-else class="h-[25vh] flex items-center justify-center text-2xl">{{ $t("noAnswers") }}</div>

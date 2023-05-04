@@ -53,7 +53,7 @@ const submit = () => {
     </div>
     <div id="forum-post" class="grid pl-[7vw] pr-[4vw] mb-[20vh]">
         <div class="grid  grid-cols-2 mt-[8vh] mb-[12.5vh]">
-            <OrderPostsDropdown :selected="order" :currentForum="currentForum" :currentTopic="currentTopic"></OrderPostsDropdown>
+            <OrderPostsDropdown v-if="posts.length" :selected="order" :currentForum="currentForum" :currentTopic="currentTopic"></OrderPostsDropdown>
             <Link
                 :href="route('forum.create')"
                 class="inline-block justify-self-end py-3 w-[45%] shadow-md bg-[#578AD6] rounded-3xl text-lg font-black text-[#FFF] text-center hover:brightness-90"
