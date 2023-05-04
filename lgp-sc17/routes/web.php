@@ -27,8 +27,12 @@ Route::get('/', function () {
 })->name('homepage');
 
 Route::get('/library', function () {
-    return Inertia::render('Library');
+    return Inertia::render('Library/Library');
 })->name('library');
+
+Route::get('/library/{id}', function () {
+    return Inertia::render('Library/LibraryPost');
+})->name('libraryPost');
 
 Route::get('/about', function () {
     return Inertia::render('About');
