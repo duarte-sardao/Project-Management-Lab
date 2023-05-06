@@ -216,6 +216,7 @@ class ForumController extends Controller
             $forum_posts = $topic->posts;
             $result = $result->merge($forum_posts);
         }
+        $result = $result->unique('id');
 
         return ForumController::getPosts($request, $result, 1);
     }
