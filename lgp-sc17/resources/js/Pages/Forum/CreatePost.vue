@@ -105,7 +105,7 @@ const topics = [
                 </div>
                 <InputError :message="topicsError ?  $t('numberOfTopicsError'):''" />
             </div>
-            <button type="submit" class="shadow-md shadow-black/[.25] justify-self-end mt-[3vh] mb-[10vh] bg-[#578AD6] px-20 py-3 text-xl text-white font-bold rounded-3xl hover:brightness-90">
+            <button type="submit" class="shadow-md shadow-black/[.25] justify-self-end mt-[2vh] mb-[10vh] bg-[#578AD6] px-20 py-3 text-xl text-white font-bold rounded-3xl hover:brightness-90">
                 {{ $t("submitPost") }}
             </button>
         </form>
