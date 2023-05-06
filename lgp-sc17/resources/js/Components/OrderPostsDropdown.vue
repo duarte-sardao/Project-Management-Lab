@@ -1,38 +1,11 @@
 <script setup>
-import { useForm } from '@inertiajs/vue3';
-
 const props = defineProps({
-    selected: String,
-    currentTopic: Number,
-    currentForum: Number,
-    search: {
-        type: String,
-        default: undefined,
-    },
+    selected: String
 });
-
-let whichForum = '';
-switch (props.currentForum) {
-    case 1: whichForum = route('forum.search'); break;
-    case 0: whichForum = route('forum'); break;
-    case 1: whichForum = route('forum-following'); break;
-    case 1: whichForum = route('forum-my_discussions'); break;
-    case undefined:
-        if (props.curentTopic !== undefined) route('forum-topic_posts', { id: props.currentTopic });
-}
-
-const form = useForm({
-    selected: props.selected,
-});
-
-const reorder = (how) => {
-    if (props.search !== undefined) {
-        form.search = props.search;
-    }
-    form.selected = how;
-    form.get(whichForum);
-}
-
+const emit = defineEmits(['orderChanged']);
+const reorder = (order) => {
+    emit('orderChanged', order);
+};
 </script>
 
 <template>

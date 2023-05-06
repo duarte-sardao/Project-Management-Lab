@@ -12,6 +12,10 @@ use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Carbon;
 
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
+
 use Illuminate\Support\Facades\DB;
 
 use App\Models\User;
@@ -26,7 +30,6 @@ use App\Models\TopicPost;
 
 class ForumController extends Controller
 {
-
     /**
      * Get the elapsed time between two timestamps
      */
@@ -44,24 +47,34 @@ class ForumController extends Controller
     }
 
     /**
-     *
+     * Paginate a collection of items
+     */
+    private static function paginate($items, $perPage = 5, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+    }
+
+    /**
+     * Order a collection of posts in a specific order
      */
     private static function orderPosts($collection, $order)
     {
         switch ($order) {
             case 'latestFirst':
-                return array_values($collection->sortByDesc('posted_at')->toArray());
+                return $collection->sortByDesc('posted_at');
             case 'oldestFirst':
-                return array_values($collection->sortBy('posted_at')->toArray());
+                return $collection->sortBy('posted_at');
             case 'mostLikesFirst':
-                return array_values($collection->sortByDesc('likes')->toArray());
+                return $collection->sortByDesc('likes');
             case 'lessLikesFirst':
-                return array_values($collection->sortBy('likes')->toArray());
+                return $collection->sortBy('likes');                
         }
     }
 
     /**
-     * 
+     * Retrieve the data of each post given a collection of posts
      */
     private static function getForumPostsData($forum_posts)
     {
@@ -103,15 +116,65 @@ class ForumController extends Controller
     }
 
     /**
-     * Display forum posts according to a specific query
+     * Retrieve a specific page of a collection of posts ordered as specified
      */
-    public function search(Request $request)
+    private static function getPaginator($forum_posts, $order, $page)
+    {
+        $paginator = ForumController::paginate(
+            ForumController::orderPosts(
+                ForumController::getForumPostsData($forum_posts),
+                $order
+            ),
+            5,
+            $page
+        );
+
+        return [
+            "currentPagePosts" => array_values($paginator->items()),
+            "currentPage" => $paginator->currentPage(),
+            "lastPage" => $paginator->lastPage(),
+        ];
+    }
+
+    /**
+     * Get the forum page according to some filters
+     */
+    private static function getPosts(Request $request, $forum_posts, $currentForum = null, $currentTopic = null)
     {
         $order = "latestFirst";
         if ($request->selected) {
             $order = $request->selected;
         }
 
+        $page = null;
+        if ($request->page) {
+            $page = $request->page;
+        }
+
+        $paginator = ForumController::getPaginator($forum_posts, $order, $page);
+
+        $topics = Topic::select('id', 'topic', 'color')->orderBy('topic')->get();
+
+        $result = [
+            'posts' => $paginator['currentPagePosts'],
+            'currentPage' => $paginator['currentPage'],
+            'lastPage' => $paginator['lastPage'],
+            'topics' => $topics,
+            'order' => $order
+        ];
+        if (!is_null($currentForum)) $result['currentForum'] = $currentForum;
+        else $result['currentTopic'] = $currentTopic;
+        
+        if (!is_null($request->search)) $result['search'] = $request->search;
+
+        return Inertia::render('Forum/Forum', $result);
+    }
+
+    /**
+     * Get forum posts according to a specific query
+     */
+    public function search(Request $request)
+    {
         $searchContent = $request->search;
         $ids = DB::table('forum_posts')
                     ->leftJoin('topic_post', 'forum_posts.id', '=', 'topic_post.forum_post_id')
@@ -130,106 +193,43 @@ class ForumController extends Controller
         foreach($ids as $forum_post) {
             $forum_posts->push(ForumPost::find($forum_post->id));
         }
-        
-        $result = ForumController::orderPosts(
-            ForumController::getForumPostsData($forum_posts),
-            $order
-        );
 
-        $topics = Topic::select('id', 'topic', 'color')->orderBy('topic')->get();
-
-        return Inertia::render('Forum/Forum', [
-            'posts' => $result,
-            'topics' => $topics,
-            'currentForum' => -1,
-            'search' => $searchContent,
-            'order' => 'latestFirst',
-        ]);
+        return ForumController::getPosts($request, $forum_posts, -1);
     }
 
     /**
-     * Display the forum page
+     * Get the forum page
      */
     public function posts(Request $request): Response
     {
-        $order = "latestFirst";
-        if ($request->selected) {
-            $order = $request->selected;
-        }
-
-        $forum_posts = ForumPost::all();
-        $result = ForumController::orderPosts(
-            ForumController::getForumPostsData($forum_posts),
-            $order
-        );
-
-        $topics = Topic::select('id', 'topic', 'color')->orderBy('topic')->get();
-
-        return Inertia::render('Forum/Forum', [
-            'posts' => $result,
-            'topics' => $topics,
-            'currentForum' => 0,
-            'order' => $order
-        ]);
+        return ForumController::getPosts($request, ForumPost::all(), 0);
     }
 
     /**
-     * Display the forum page
+     * Get the forum page, displaying only forum posts associated with the topics which the user follows
      */
     public function following_posts(Request $request): Response
     {
-        $order = "latestFirst";
-        if ($request->selected) {
-            $order = $request->selected;
-        }
-
         $topics_followed = Auth::user()->follow;
         $result = collect([]);
         foreach ($topics_followed as $topic) {
             $forum_posts = $topic->posts;
-            $result->push(ForumController::getForumPostsData($forum_posts));
+            $result = $result->merge($forum_posts);
         }
 
-        $result = ForumController::orderPosts($result, $order);
-
-        $topics = Topic::select('id', 'topic', 'color')->orderBy('topic')->get();
-
-        return Inertia::render('Forum/Forum', [
-            'posts' => $result,
-            'topics' => $topics,
-            'currentForum' => 1,
-            'order' => $order
-        ]);
+        return ForumController::getPosts($request, $result, 1);
     }
 
     /**
-     * Display the forum page
+     * Get the forum posts, displaying only the forum posts authored by the user
      */
     public function my_discussions(Request $request): Response
     {
-        $order = "latestFirst";
-        if ($request->selected) {
-            $order = $request->selected;
-        }
-
-        $forum_posts = Auth::user()->posts;
-        $result = ForumController::orderPosts(
-            ForumController::getForumPostsData($forum_posts),
-            $order
-        );
-
-        $topics = Topic::select('id', 'topic', 'color')->orderBy('topic')->get();
-
-        return Inertia::render('Forum/Forum', [
-            'posts' => $result,
-            'topics' => $topics,
-            'currentForum' => 2,
-            'order' => $order
-        ]);
+        return ForumController::getPosts($request, Auth::user()->posts, 2);
     }
 
     /**
-     * Display the forum page
+     * Get the forum posts, displaying only the forum posts associated with a specific topic
      */
     public function topic_posts(Request $request, $id): Response
     {
@@ -238,24 +238,7 @@ class ForumController extends Controller
             return back()->withErrors(['topic' => "There is no topic with id: " . $id])->with(['error' => 'An error has occurred']);
         }
 
-        $order = "latestFirst";
-        if ($request->selected) {
-            $order = $request->selected;
-        }
-
-        $result = ForumController::orderPosts(
-            ForumController::getForumPostsData($topic->posts),
-            $order
-        );
-
-        $topics = Topic::select('id', 'topic', 'color')->orderBy('topic')->get();
-
-        return Inertia::render('Forum/Forum', [
-            'posts' => $result,
-            'topics' => $topics,
-            'currentTopic' => $id,
-            'order' => $order
-        ]);
+        return ForumController::getPosts($request, $topic->posts, currentTopic:$id);
     }
 
     /**
@@ -277,7 +260,7 @@ class ForumController extends Controller
         $currentTopic = $request->get('currentTopic');
         $topics = array();
         foreach ($forum_post->topics as $index => $topic) {
-            if ($currentTopic == null && $topic->userFollows($user->id) != null) {
+            if ($currentTopic == null && !is_null($topic->userFollows($user->id))) {
                 $currentTopic = $index;
             } else if ($topic->id == $request->get('currentTopic')) {
                 $currentTopic = $index;
@@ -286,7 +269,7 @@ class ForumController extends Controller
                 'topic_id' => $topic->id,
                 'topic' => $topic->topic,
                 'color' => $topic->color,
-                'userFollows' =>  $topic->userFollows($user->id) != null,
+                'userFollows' =>  !is_null($topic->userFollows($user->id)),
                 'selected' => false,
             ]);
         }
@@ -431,7 +414,7 @@ class ForumController extends Controller
         }
 
         $userLikes = $forum_post->post->userLikes($user->id);
-        if ($userLikes != null) {
+        if (!is_null($userLikes)) {
             $userLikes->delete();
             return response()->json(['action' => 'unlike', 'likes' => count($forum_post->post->likes)]);
         }
@@ -455,7 +438,7 @@ class ForumController extends Controller
         }
 
         $userLikes = $answer->post->userLikes($user->id);
-        if ($userLikes != null) {
+        if (!is_null($userLikes)) {
             $userLikes->delete();
             return response()->json(['action' => 'unlike', 'likes' => count($answer->post->likes)]);
         }
@@ -479,7 +462,7 @@ class ForumController extends Controller
         }
         
         $userFollows = $topic->userFollows($user->id);
-        if ($userFollows != null) {
+        if (!is_null($userFollows)) {
             $userFollows->delete();
             return response()->json(['action' => 'unfollow']);
         }

@@ -4,6 +4,7 @@ import NavBarSimple from "@/Components/NavBarSimple.vue";
 import Footer from "@/Components/Footer.vue";
 import ForumPost from "@/Components/ForumPost.vue";
 import OrderPostsDropdown from "@/Components/OrderPostsDropdown.vue";
+import Pagination from "@/Components/Pagination.vue";
 
 const props = defineProps({
     posts: Array,
@@ -11,6 +12,8 @@ const props = defineProps({
     currentForum: Number,
     currentTopic: Number,
     order: String,
+    lastPage: Number,
+    currentPage: Number,
     search: {
         type: String,
         default: undefined,
@@ -23,6 +26,23 @@ const form = useForm({
 
 const submit = () => {
     form.get(route('forum.search'));
+};
+
+const onPageChange = ({ next_page = currentPage, order: order } = {}) => {
+    let whichForum = '';
+    const currentForm = useForm({
+        page: next_page || props.currentPage,
+        selected: order || props.order,
+    });
+    switch (props.currentForum) {
+        case 1: whichForum = route('forum.search'); currentForm.search = form.search; break;
+        case 0: whichForum = route('forum'); break;
+        case 1: whichForum = route('forum-following'); break;
+        case 1: whichForum = route('forum-my_discussions'); break;
+        case undefined:
+            if (props.curentTopic !== undefined) route('forum-topic_posts', { id: props.currentTopic });
+    }
+    currentForm.get(whichForum);
 };
 
 </script>
@@ -52,11 +72,18 @@ const submit = () => {
         </div>
     </div>
     <div id="forum-post" class="grid pl-[7vw] pr-[4vw] mb-[20vh]">
-        <div class="grid  grid-cols-2 mt-[8vh] mb-[12.5vh]">
-            <OrderPostsDropdown v-if="posts.length" :selected="order" :currentForum="currentForum" :currentTopic="currentTopic"></OrderPostsDropdown>
+        <div class="grid grid-cols-2 mt-[8vh] mb-[12.5vh]">
+            <OrderPostsDropdown
+                v-if="posts.length"
+                :selected="order"
+                :currentForum="currentForum"
+                :currentTopic="currentTopic"
+                @orderChanged="(value) => onPageChange({next_page:currentPage, order:value})"
+            />
             <Link
                 :href="route('forum.create')"
                 class="inline-block justify-self-end py-3 w-[45%] shadow-md bg-[#578AD6] rounded-3xl text-lg font-black text-[#FFF] text-center hover:brightness-90"
+                :class="!posts.length && 'col-span-2 w-[22.5%]'"
             >
                 {{ $t("startNewDiscussionButton") }}
             </Link>
@@ -72,6 +99,13 @@ const submit = () => {
                     <ForumPost :data="post"/>
                 </Link>
                 <div v-else class="h-[100%] flex justify-center items-center text-2xl">{{ $t("noForumPostsToDisplay") }}</div>
+                <Pagination
+                    v-if="posts.length"
+                    class="flex w-[100%] justify-center mt-[10vh] pr-[7vw]"
+                    :totalPages="lastPage"
+                    :currentPage="currentPage"
+                    @pageChanged="(value) => onPageChange({next_page:value, order:order})"
+                />
                 <div class="h-[100%] border-[#221F1C]/[.42] border-2 rounded-3xl inline-block absolute right-0 top-0"></div>
             </div>
             <div class="col-span-2 pl-[2vw]">
