@@ -73,9 +73,12 @@ const topics = [
         <NavBarSimple></NavBarSimple>
     </div>
 
-    <div id="forum-new-post" class="grid px-[10vw] my-[8vh]">
-        <div class="pb-3 border-b-[2px] border-[#221F1C]/[.21] text-black text-2xl font-bold">
-            {{ $t("createAPost") }}
+    <div id="forum-new-post" class="grid px-[10vw] mt-[4vh] mb-[8vh]">
+        <div class="grid grid-flow-col pb-3 border-b-[2px] border-[#221F1C]/[.21] text-black text-2xl font-bold">
+            <span class="inline-block self-center">{{ $t("createAPost") }}</span>
+            <Link :href="route('forum')" class="inline-block justify-self-end py-2 px-14 shadow-md border-[#244D89] rounded-3xl border-2 text-lg font-black text-[#244D89] hover:bg-gray-200">
+                {{ $t("backToForum") }}
+            </Link>
         </div>
         <form @submit.prevent="submit" class="grid mt-[6vh] tracking-wide border-b-[2px] border-[#221F1C]/[.21]">
             <input
