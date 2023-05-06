@@ -34,21 +34,34 @@ const submit = () => {
 
 const changeLikeButton = ref(props.post.userLikes);
 const likeHandler = () => {
+    // To be more responsive, change and change again with the confirmation
+    props.post.userLikes = !props.post.userLikes;
+    props.post.likes = props.post.likes + (props.post.userLikes ? 1:-1);
+    changeLikeButton.value = !changeLikeButton.value;
     axios.post(route('forum.like-post', { id: props.post.id }), form)
         .then((res) => {
-            props.post.userLikes = res.data.action == "like";
-            props.post.likes = res.data.likes;
-            changeLikeButton.value = res.data.action == "like";
+            if (props.post.userLikes != res.data.action == "like") {
+                props.post.userLikes = res.data.action == "like";
+                props.post.likes = res.data.likes;
+                changeLikeButton.value = res.data.action == "like";
+            }
         })
         .catch((err) => console.error(err));
 }
 
 const likeAnswer = (index) => {
+    // To be more responsive, change and change again with the confirmation
+    props.post.answers[index].userLikes = !props.post.answers[index].userLikes;
+    props.post.answers[index].likes = props.post.answers[index].likes + (props.post.answers[index].userLikes ? 1:-1) ;
+    changeLikeButton.value = !changeLikeButton.value;
+
     axios.post(route('forum.like-answer', { id: props.post.answers[index].id }), form)
         .then((res) => {
-            props.post.answers[index].userLikes = res.data.action == "like";
-            props.post.answers[index].likes = res.data.likes;
-            changeLikeButton.value = res.data.action == "like";
+            if (props.post.answers[index].userLikes != res.data.action == "like") {
+                props.post.answers[index].userLikes = res.data.action == "like";
+                props.post.answers[index].likes = res.data.likes;
+                changeLikeButton.value = res.data.action == "like";
+            }
         })
         .catch((err) => console.error(err));
 }
@@ -62,12 +75,18 @@ const topicTagHandler = (index) => {
 
 const changeFollowButton = ref(false);
 const followHandler = () => {
-    console.log(props.post.topics[currentTopic.value]);
-    axios.post(route('forum.follow', { id: props.post.topics[currentTopic.value].topic_id }))
+    const followCurrentTopic = currentTopic.value; // avoid changes on an incorrect topic if currentTopic changes
+
+    // To be more responsive, change and change again with the confirmation
+    props.post.topics[followCurrentTopic].userFollows = !props.post.topics[followCurrentTopic].userFollows;;
+    changeFollowButton.value = !changeFollowButton.value;
+
+    axios.post(route('forum.follow', { id: props.post.topics[followCurrentTopic].topic_id }))
         .then((res) => {
-            console.log(res.data.action);
-            props.post.topics[currentTopic.value].userFollows = res.data.action == "follow";;
-            changeFollowButton.value = !changeFollowButton.value;
+            if (props.post.topics[followCurrentTopic].userFollows != res.data.action == "follow") {
+                props.post.topics[followCurrentTopic].userFollows = res.data.action == "follow";
+                changeFollowButton.value = !changeFollowButton.value;
+            }
         })
         .catch((err) => console.error(err));
 };
