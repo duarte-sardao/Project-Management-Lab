@@ -1,5 +1,6 @@
 <script setup>
-import NavBar from "@/Components/NavBarSimple.vue";
+import { Link } from "@inertiajs/vue3";
+import NavBarSimple from "@/Components/NavBarSimple.vue";
 import Footer from "@/Components/Footer.vue";
 
 const title="Inspirational title or phrase"
@@ -7,21 +8,20 @@ const subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
 </script>
 
 <template>
-    <NavBar :title="title" :subtitle="subtitle">
-        <template v-slot:content-right></template>
-        <template v-slot:content-bottom></template>
-    </NavBar>
-    <div class="flex mb-4 h-128 bg-gradient-to-r from-mainBlue to-bgColor relative px-20 py-16">
-        <img class="absolute transform rotate-180 z-10" style="left: -220px; height: 900px; top: -450px;" src="/svg_img/polygons.svg" alt="polygons"/>
-        <div class="card lg:card-side gap-20 pl-32">
-            <div class="card-body">
-                <h1 class="normal-case pt-28 text-5xl font-bold text-start pb-8 dark:text-black break-words">Inspirational title or phrase</h1>
-                <p class="normal-case text-xl text-justify pb-5 dark:text-black break-words max-h-28">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet</p>
-                <div class="card-actions">
-                    <button type="button" class="px-8 btn btn-info bg-highlightBlue rounded-2xl capitalize text-lg border-none text-white" onclick="window.location='{{ url('home') }}'">Join the Community →</button>
+    <div class="relative">
+        <NavBarSimple :title="title" :subtitle="subtitle"/>
+        <div class="flex mb-4 h-128 bg-gradient-to-r from-mainBlue to-bgColor relative px-20 py-16">
+            <!--img class="absolute transform rotate-180 z-10" style="left: -220px; height: 900px; top: -450px;" src="/svg_img/polygons.svg" alt="polygons"/-->
+            <div class="card lg:card-side gap-20 pl-32">
+                <div class="card-body">
+                    <h1 class="normal-case pt-28 text-5xl font-bold text-start pb-8 dark:text-black break-words">Inspirational title or phrase</h1>
+                    <p class="normal-case text-xl text-justify pb-5 dark:text-black break-words max-h-28">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet</p>
+                    <div class="card-actions">
+                        <Link :href="route('login')" class="px-8 btn btn-info bg-highlightBlue rounded-2xl capitalize text-lg border-none text-white">Join the Community →</Link>
+                    </div>
                 </div>
+                <figure><img id="home-img" src="/svg_img/homeIcon.svg" alt="Home"/></figure>
             </div>
-            <figure><img src="/svg_img/homeIcon.svg"/></figure>
         </div>
     </div>
     <div class="overflow-hidden px-20 py-16">
@@ -68,137 +68,137 @@ const subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
         <div class="normal-case text-4xl font-bold text-center pb-5 dark:text-black">
             Want to find our more about the disease?
         </div>
-        <div class="carousel carousel-center p-6 space-x-16 bg-bgColor h-[28rem]"> 
+        <div class="carousel carousel-center p-6 space-x-16 bg-bgColor h-[28rem]">
             <div class="carousel-item w-60">
                 <div class="card bg-base-100 rounded-3xl bg-white">
                     <div class="bg-cover bg-center h-[26rem] w-[16rem] rounded-[30px]" style="background-image: url('/svg_img/carr1.svg');">
-                        <div class="card-body p-3 absolute inset-x-0 bottom-10">    
+                        <div class="card-body p-3 absolute inset-x-0 bottom-10">
                             <div class="hover:bg-opacity-70 hover:text-black card bg-base-100 rounded-3xl h-32 bg-opacity-20 backdrop-blur-md shadow-lg grid grid-cols-[70%_30%]">
                                 <div>
                                     <h2 class="card-title pl-4 pt-3 font-bold text-2xl dark:text-black">Shoes!</h2>
                                     <p class="pl-4">If a dog chews shoes whose shoes does he choose?</p>
                                 </div>
                                 <div class="card-actions items-end pb-3 pl-2">
-                                    <button class="btn btn-circle bg-stone text-black text-xl font-thin border-none">❯</button>   
+                                    <Link :href="route('homepage')" class="btn btn-circle bg-stone text-black text-xl font-thin border-none">❯</Link>
                                 </div>
-                            </div>         
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
             <div class="carousel-item w-60">
                 <div class="card bg-base-100 rounded-3xl bg-white">
                     <div class="bg-cover bg-center h-[26rem] w-[16rem] rounded-[30px]" style="background-image: url('/svg_img/carr2.svg');">
-                        <div class="card-body p-3 pt-10">    
+                        <div class="card-body p-3 pt-10">
                             <div class="hover:bg-opacity-70 hover:text-black card bg-base-100 rounded-3xl h-32 bg-opacity-20 backdrop-blur-md shadow-lg grid grid-cols-[70%_30%] bg-white">
                                 <div>
                                     <h2 class="card-title pl-4 pt-3 font-bold text-2xl ">Shoes!</h2>
                                     <p class="pl-4">If a dog chews shoes whose shoes does he choose?</p>
                                 </div>
                                 <div class="card-actions items-end pb-3 pl-2">
-                                    <button class="btn btn-circle bg-stone text-black text-xl font-thin border-none">❯</button>   
+                                    <Link :href="route('homepage')" class="btn btn-circle bg-stone text-black text-xl font-thin border-none">❯</Link>
                                 </div>
-                            </div>         
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
             <div class="carousel-item w-60">
                 <div class="card bg-base-100 rounded-3xl bg-white">
                     <div class="bg-cover bg-center h-[26rem] w-[16rem] rounded-[30px]" style="background-image: url('/svg_img/carr3.svg');">
-                        <div class="card-body p-3 absolute inset-x-0 bottom-10">    
+                        <div class="card-body p-3 absolute inset-x-0 bottom-10">
                             <div class="hover:bg-opacity-70 hover:text-black card bg-base-100 rounded-3xl h-32 bg-opacity-20 backdrop-blur-md shadow-lg grid grid-cols-[70%_30%] bg-white">
                                 <div>
                                     <h2 class="card-title pl-4 pt-3 font-bold text-2xl ">Shoes!</h2>
                                     <p class="pl-4">If a dog chews shoes whose shoes does he choose?</p>
                                 </div>
                                 <div class="card-actions items-end pb-3 pl-2">
-                                    <button class="btn btn-circle bg-stone text-black text-xl font-thin border-none">❯</button>   
+                                    <Link :href="route('homepage')" class="btn btn-circle bg-stone text-black text-xl font-thin border-none">❯</Link>
                                 </div>
-                            </div>         
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
             <div class="carousel-item w-60">
                 <div class="card bg-base-100 rounded-3xl bg-white">
                     <div class="bg-cover bg-center h-[26rem] w-[16rem] rounded-[30px]" style="background-image: url('/svg_img/carr4.svg');">
-                        <div class="card-body p-3 pt-10">    
+                        <div class="card-body p-3 pt-10">
                             <div class="hover:bg-opacity-70 hover:text-black card bg-base-100 rounded-3xl h-32 bg-opacity-20 backdrop-blur-md shadow-lg grid grid-cols-[70%_30%] bg-white">
                                 <div>
                                     <h2 class="card-title pl-4 pt-3 font-bold text-2xl ">Shoes!</h2>
                                     <p class="pl-4">If a dog chews shoes whose shoes does he choose?</p>
                                 </div>
                                 <div class="card-actions items-end pb-3 pl-2">
-                                    <button class="btn btn-circle bg-stone text-black text-xl font-thin border-none">❯</button>   
+                                    <Link :href="route('homepage')" class="btn btn-circle bg-stone text-black text-xl font-thin border-none">❯</Link>
                                 </div>
-                            </div>         
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
             <div class="carousel-item w-60">
                 <div class="card bg-base-100 rounded-3xl bg-white">
                     <div class="bg-cover bg-center h-[26rem] w-[16rem] rounded-[30px]" style="background-image: url('/svg_img/carr1.svg');">
-                        <div class="card-body p-3 absolute inset-x-0 bottom-10">    
+                        <div class="card-body p-3 absolute inset-x-0 bottom-10">
                             <div class="hover:bg-opacity-70 hover:text-black card bg-base-100 rounded-3xl h-32 bg-opacity-20 backdrop-blur-md shadow-lg grid grid-cols-[70%_30%] bg-white">
                                 <div>
                                     <h2 class="card-title pl-4 pt-3 font-bold text-2xl ">Shoes!</h2>
                                     <p class="pl-4">If a dog chews shoes whose shoes does he choose?</p>
                                 </div>
                                 <div class="card-actions items-end pb-3 pl-2">
-                                    <button class="btn btn-circle bg-stone text-black text-xl font-thin border-none">❯</button>   
+                                    <Link :href="route('homepage')" class="btn btn-circle bg-stone text-black text-xl font-thin border-none">❯</Link>
                                 </div>
-                            </div>         
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
             <div class="carousel-item w-60">
                 <div class="card bg-base-100 rounded-3xl bg-white">
                     <div class="bg-cover bg-center h-[26rem] w-[16rem] rounded-[30px]" style="background-image: url('/svg_img/carr2.svg');">
-                        <div class="card-body p-3 pt-10">    
+                        <div class="card-body p-3 pt-10">
                             <div class="hover:bg-opacity-70 hover:text-black card bg-base-100 rounded-3xl h-32 bg-opacity-20 backdrop-blur-md shadow-lg grid grid-cols-[70%_30%] bg-white">
                                 <div>
                                     <h2 class="card-title pl-4 pt-3 font-bold text-2xl ">Shoes!</h2>
                                     <p class="pl-4">If a dog chews shoes whose shoes does he choose?</p>
                                 </div>
                                 <div class="card-actions items-end pb-3 pl-2">
-                                    <button class="btn btn-circle bg-stone text-black text-xl font-thin border-none">❯</button>   
+                                    <Link :href="route('homepage')" class="btn btn-circle bg-stone text-black text-xl font-thin border-none">❯</Link>
                                 </div>
-                            </div>         
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
             <div class="carousel-item w-60 bg-bgColour">
                 <div class="card bg-base-100 rounded-3xl bg-white">
                     <div class="bg-cover bg-center h-[26rem] w-[16rem] rounded-[30px]" style="background-image: url('/svg_img/carr3.svg');">
-                        <div class="card-body p-3 absolute inset-x-0 bottom-10">    
+                        <div class="card-body p-3 absolute inset-x-0 bottom-10">
                             <div class="hover:bg-opacity-70 hover:text-black card bg-base-100 rounded-3xl h-32 bg-opacity-20 backdrop-blur-md shadow-lg grid grid-cols-[70%_30%] bg-white">
                                 <div>
                                     <h2 class="card-title pl-4 pt-3 font-bold text-2xl ">Shoes!</h2>
                                     <p class="pl-4">If a dog chews shoes whose shoes does he choose?</p>
                                 </div>
                                 <div class="card-actions items-end pb-3 pl-2">
-                                    <button class="btn btn-circle bg-stone text-black text-xl font-thin border-none">❯</button>   
+                                    <Link :href="route('homepage')" class="btn btn-circle bg-stone text-black text-xl font-thin border-none">❯</Link>
                                 </div>
-                            </div>         
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
         </div>
     </div>
     <div class="bg-gradient-to-r from-skyBlue from-10% to-mainBlue to-90% px-5">
         <div class="card lg:card-side p-8">
-            <figure><img src="svg_img/computerGuy.svg"></figure>
+            <figure><img src="/svg_img/computerGuy.svg" alt="Computer Guy"></figure>
             <div class="card-body">
                 <h2 class="break-words text-4xl font-extrabold text-white pb-5 mt-5">Join the community and start the discussion</h2>
-                <p class="break-words text-lg text-white text-bold max-h-44 pt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet</p>   
+                <p class="break-words text-lg text-white text-bold max-h-44 pt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet</p>
                 <div class="flex gap-3 pt-5">
-                    <button type="button" class="flex-grow btn btn-info bg-lightBlue rounded-3xl capitalize text-lg border-none" onclick="window.location='{{ url('home') }}'">Log In</button>
-                    <button class="flex-grow btn btn-outline rounded-3xl capitalize text-lg text-white border-white border-2">Sign Up</button>
+                    <Link :href="route('login')" class="flex-grow btn btn-info bg-lightBlue rounded-3xl capitalize text-lg border-none">Log In</Link>
+                    <Link :href="route('register')" class="flex-grow btn btn-outline rounded-3xl capitalize text-lg text-white border-white border-2">Sign Up</Link>
                 </div>
             </div>
         </div>
@@ -208,14 +208,14 @@ const subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
         <div class="normal-case text-4xl font-bold text-center pb-5 dark:text-black">
             What our users are saying
         </div>
-        <div class="carousel carousel-center p-6 space-x-16 h-[28rem]"> 
+        <div class="carousel carousel-center p-6 space-x-16 h-[28rem]">
             <div class="carousel-item w-96 bg-inherit">
                 <div class="card bg-base-100 rounded-3xl bg-inherit">
-                    <img class="mask mask-hexagon" src="/svg_img/polygon.svg" />
+                    <img class="mask mask-hexagon" src="/svg_img/polygon.svg"  alt="Polygon"/>
                     <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center grid grid-rows">
                         <div class="avatar flex items-center justify-center pt-5">
                             <div class="w-24 rounded-full">
-                            <img src="/svg_img/woman.svg" />
+                            <img src="/svg_img/woman.svg" alt="Woman"/>
                             </div>
                         </div>
                         <p class="text-white text-3xl font-extrabold text-justify dark:text-white flex items-start justify-center">Name</p>
@@ -225,11 +225,11 @@ const subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
             </div>
             <div class="carousel-item w-96">
                 <div class="card bg-base-100 rounded-3xl bg-inherit">
-                    <img class="mask mask-hexagon" src="/svg_img/polygonDark.svg" />
+                    <img class="mask mask-hexagon" src="/svg_img/polygonDark.svg"  alt="Dark polygon"/>
                     <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center grid grid-rows">
                         <div class="avatar flex items-center justify-center pt-5">
                             <div class="w-24 rounded-full">
-                            <img src="/svg_img/woman.svg" />
+                            <img src="/svg_img/woman.svg" alt="Woman"/>
                             </div>
                         </div>
                         <p class="text-white text-3xl font-extrabold text-justify dark:text-white flex items-start justify-center">Name</p>
@@ -239,11 +239,11 @@ const subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
             </div>
             <div class="carousel-item w-96">
                 <div class="card bg-base-100 rounded-3xl bg-inherit">
-                    <img class="mask mask-hexagon" src="/svg_img/polygon.svg" />
+                    <img class="mask mask-hexagon" src="/svg_img/polygon.svg"  alt="Polygon"/>
                     <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center grid grid-rows">
                         <div class="avatar flex items-center justify-center pt-5">
                             <div class="w-24 rounded-full">
-                            <img src="/svg_img/woman.svg" />
+                                <img src="/svg_img/woman.svg" alt="Woman"/>
                             </div>
                         </div>
                         <p class="text-white text-3xl font-extrabold text-justify dark:text-white flex items-start justify-center">Name</p>
@@ -253,25 +253,11 @@ const subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
             </div>
             <div class="carousel-item w-96">
                 <div class="card bg-base-100 rounded-3xl bg-inherit">
-                    <img class="mask mask-hexagon" src="/svg_img/polygonDark.svg" />
+                    <img class="mask mask-hexagon" src="/svg_img/polygonDark.svg"  alt="Dark polygon"/>
                     <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center grid grid-rows">
                         <div class="avatar flex items-center justify-center pt-5">
                             <div class="w-24 rounded-full">
-                            <img src="/svg_img/woman.svg" />
-                            </div>
-                        </div>
-                        <p class="text-white text-3xl font-extrabold text-justify dark:text-white flex items-start justify-center">Name</p>
-                        <p class="text-white text-lg font-bold flex text-center items-start justify-center px-10 pb-16">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet magna aliquam eleifend. In eget sodales massa. Nulla bibendum, elit non</p>
-                    </div>
-                </div>
-            </div> 
-            <div class="carousel-item w-96">
-                <div class="card bg-base-100 rounded-3xl bg-inherit">
-                    <img class="mask mask-hexagon" src="/svg_img/polygon.svg" />
-                    <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center grid grid-rows">
-                        <div class="avatar flex items-center justify-center pt-5">
-                            <div class="w-24 rounded-full">
-                            <img src="/svg_img/woman.svg" />
+                                <img src="/svg_img/woman.svg" alt="Woman"/>
                             </div>
                         </div>
                         <p class="text-white text-3xl font-extrabold text-justify dark:text-white flex items-start justify-center">Name</p>
@@ -281,11 +267,25 @@ const subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
             </div>
             <div class="carousel-item w-96">
                 <div class="card bg-base-100 rounded-3xl bg-inherit">
-                    <img class="mask mask-hexagon" src="/svg_img/polygonDark.svg" />
+                    <img class="mask mask-hexagon" src="/svg_img/polygon.svg"  alt="Polygon"/>
                     <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center grid grid-rows">
                         <div class="avatar flex items-center justify-center pt-5">
                             <div class="w-24 rounded-full">
-                            <img src="/svg_img/woman.svg" />
+                                <img src="/svg_img/woman.svg" alt="Woman"/>
+                            </div>
+                        </div>
+                        <p class="text-white text-3xl font-extrabold text-justify dark:text-white flex items-start justify-center">Name</p>
+                        <p class="text-white text-lg font-bold flex text-center items-start justify-center px-10 pb-16">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet magna aliquam eleifend. In eget sodales massa. Nulla bibendum, elit non</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item w-96">
+                <div class="card bg-base-100 rounded-3xl bg-inherit">
+                    <img class="mask mask-hexagon" src="/svg_img/polygonDark.svg"  alt="Dark polygon"/>
+                    <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center grid grid-rows">
+                        <div class="avatar flex items-center justify-center pt-5">
+                            <div class="w-24 rounded-full">
+                                <img src="/svg_img/woman.svg" alt="Woman"/>
                             </div>
                         </div>
                         <p class="text-white text-3xl font-extrabold text-justify dark:text-white flex items-start justify-center">Name</p>
@@ -306,5 +306,9 @@ export default {
 </script>
 
 <style scoped>
-
+@media all and (max-width: 1000px) {
+    #home-img{
+        display: none
+    }
+}
 </style>
