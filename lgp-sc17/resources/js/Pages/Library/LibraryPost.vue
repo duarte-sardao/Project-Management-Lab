@@ -9,7 +9,7 @@ import Footer from "@/Components/Footer.vue";
 const post = {
     title: "Shoes!",
     subtitle: "If a dog chews shoes whose shoes does he choose?",
-    description: "If a dog chews shoes whose shoes does he choose?",
+    description: "<h2 class='text-2xl text-red-600 font-bold'>If a dog chews shoes whose shoes does he choose?</h2>",
     img_url: null
 };
 
@@ -33,6 +33,10 @@ const title="Title of an Article"
                 <img class="max-h-full" :src="post.img_url === null ? '/svg_img/default-post.jpg' : post.img_url">
             </div>
         </div>
+
+        <div class="py-6"></div>
+
+        <div v-html="post.description"></div>
     </div>
 
     <Footer/>
