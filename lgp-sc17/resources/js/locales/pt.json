@@ -59,5 +59,9 @@
     "send": "Enviar",
 
     "librarySearch": "O que estás a procura?",
-    "librarySearchHint": "Procura respostas às tuas questões de saude"
+    "librarySearchHint": "Procura respostas às tuas questões de saude",
+
+    "administration": "Administração",
+    "isAdmin": "Conta de Administração",
+    "users": "Utilizadores"
 }

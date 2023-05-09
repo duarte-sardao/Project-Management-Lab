@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MailController;
 use Illuminate\Foundation\Application;
@@ -42,6 +43,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::middleware('admin')->group(function () {
+        Route::get('/administration', [AdminController::class, 'index'])->name('administration');
+        Route::get('/administration/users', [AdminController::class, 'usersIndex'])->name('users_administration');
+        Route::get('/administration/library', [AdminController::class, 'libraryIndex'])->name('library_administration');
+        Route::get('/administration/forum', [AdminController::class, 'forumIndex'])->name('forum_administration');
+    });
 });
 
 Route::post('about-form', [MailController::class, 'sendEmail'])->name('about-form');
