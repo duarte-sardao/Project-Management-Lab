@@ -1,6 +1,6 @@
 <script setup>
 import { Link } from "@inertiajs/vue3";
-import NavBarSimple from "@/Components/NavBarSimple.vue";
+import NavBarSimple from "@/Components/Navbar/NavBarSimple.vue";
 import Footer from "@/Components/Footer.vue";
 
 const title="Inspirational title or phrase"
@@ -301,7 +301,7 @@ const subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
 
 <script>
 export default {
-    name: "Library"
+    name: "Home"
 }
 </script>
 
