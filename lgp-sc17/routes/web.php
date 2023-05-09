@@ -45,10 +45,18 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::middleware('admin')->group(function () {
-        Route::get('/administration', [AdminController::class, 'index'])->name('administration');
-        Route::get('/administration/users', [AdminController::class, 'usersIndex'])->name('users_administration');
-        Route::get('/administration/library', [AdminController::class, 'libraryIndex'])->name('library_administration');
-        Route::get('/administration/forum', [AdminController::class, 'forumIndex'])->name('forum_administration');
+        //Dashboard
+        Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+
+        //Users
+        Route::get('/admin/users', [AdminController::class, 'usersIndex'])->name('admin.users');
+
+        //Library
+        Route::get('/admin/library', [AdminController::class, 'libraryIndex'])->name('admin.library');
+        Route::get('/admin/library/new', [AdminController::class, 'libraryIndex'])->name('admin.library.new');
+
+        //Forum
+        Route::get('/admin/forum', [AdminController::class, 'forumIndex'])->name('admin.forum');
     });
 });
 

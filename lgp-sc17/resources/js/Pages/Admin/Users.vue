@@ -3,7 +3,7 @@ import AdministrationLayout from "@/Layouts/AdministrationLayout.vue";
 </script>
 
 <template>
-    <AdministrationLayout>
+    <AdministrationLayout page="users">
         Users
     </AdministrationLayout>
 </template>
