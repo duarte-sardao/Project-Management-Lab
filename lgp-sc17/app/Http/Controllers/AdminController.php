@@ -19,6 +19,10 @@ class AdminController extends Controller
         return Inertia::render('Admin/Library');
     }
 
+    function libraryNew() {
+        return Inertia::render('Admin/LibraryNewPost');
+    }
+
     function forumIndex() {
         return Inertia::render('Admin/Forum');
     }

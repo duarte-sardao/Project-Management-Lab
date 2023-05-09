@@ -63,6 +63,8 @@
     "librarySearchHint": "Procura respostas às tuas questões de saude",
     "libraryContent": "Conteúdo na Biblioteca",
     "libraryContentHint": "Visualização e edição da Biblioteca",
+    "libraryButtonCreate": "Nova Publicação",
+    "libraryCreate": "Criação de nova publicação",
     "title": "Título",
     "date": "Data",
     "state": "Estado",

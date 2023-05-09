@@ -17,7 +17,8 @@ import { Link } from '@inertiajs/vue3';
             </div>
         </div>
         <div class="pb-4 flex justify-center">
-            <Link :href="route('admin.library.new')" class="btn btn-wide hover:bg-lightBlue bg-mainBlue text-white border-0 rounded-full">Create New</Link>
+            <Link :href="route('admin.library.new')" class="btn btn-wide hover:bg-lightBlue bg-mainBlue text-white border-0 rounded-full">
+                {{ $t('libraryButtonCreate') }}</Link>
         </div>
 
         <div class="overflow-x-auto">

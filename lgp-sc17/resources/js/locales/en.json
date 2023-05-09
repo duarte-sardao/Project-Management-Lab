@@ -63,6 +63,8 @@
     "librarySearchHint": "Search for answers to your health questions",
     "libraryContent": "Library Content",
     "libraryContentHint": "See and edit the library",
+    "libraryButtonCreate": "Create Post",
+    "libraryCreate": "Create a new post",
     "title": "Title",
     "date": "Date",
     "state": "State",

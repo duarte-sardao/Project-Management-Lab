@@ -53,7 +53,7 @@ Route::middleware('auth')->group(function () {
 
         //Library
         Route::get('/admin/library', [AdminController::class, 'libraryIndex'])->name('admin.library');
-        Route::get('/admin/library/new', [AdminController::class, 'libraryIndex'])->name('admin.library.new');
+        Route::get('/admin/library/new', [AdminController::class, 'libraryNew'])->name('admin.library.new');
 
         //Forum
         Route::get('/admin/forum', [AdminController::class, 'forumIndex'])->name('admin.forum');
