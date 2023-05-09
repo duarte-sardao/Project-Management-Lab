@@ -23,6 +23,8 @@ module.exports = {
                 stone: '#fafaf9',
                 black: '#0a0a0a',
                 skyBlue: '#dbeafe',
+                adminMainBlue: '#7BA3DF',
+                adminBackground: '#C6D2E3'
             }
         },
     },

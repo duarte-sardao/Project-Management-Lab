@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MailController;
 use Illuminate\Foundation\Application;
@@ -22,8 +23,12 @@ Route::get('/', function () {
 })->name('homepage');
 
 Route::get('/library', function () {
-    return Inertia::render('Library');
+    return Inertia::render('Library/Library');
 })->name('library');
+
+Route::get('/library/{id}', function () {
+    return Inertia::render('Library/LibraryPost');
+})->name('libraryPost');
 
 Route::get('/about', function () {
     return Inertia::render('About');
@@ -33,15 +38,18 @@ Route::get('/Terms&Conditions', function () {
     return Inertia::render('About');
 })->name('Terms&Conditions');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'visualize'])->name('profile');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::middleware('admin')->group(function () {
+        Route::get('/administration', [AdminController::class, 'index'])->name('administration');
+        Route::get('/administration/users', [AdminController::class, 'usersIndex'])->name('users_administration');
+        Route::get('/administration/library', [AdminController::class, 'libraryIndex'])->name('library_administration');
+        Route::get('/administration/forum', [AdminController::class, 'forumIndex'])->name('forum_administration');
+    });
 });
 
 Route::post('about-form', [MailController::class, 'sendEmail'])->name('about-form');

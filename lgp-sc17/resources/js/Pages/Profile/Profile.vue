@@ -2,7 +2,7 @@
 import ProfileTextBox from '@/Components/Profile/ProfileTextBox.vue';
 import ProfileInfo from '@/Components/Profile/ProfileInfo.vue';
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
-import NavBarSimple from "@/Components/NavBarSimple.vue";
+import NavBarSimple from "@/Components/Navbar/NavBarSimple.vue";
 import Footer from "@/Components/Footer.vue";
 import {ref} from "vue";
 import MessageToast from "@/Components/MessageToast.vue";
@@ -64,8 +64,8 @@ if (profile_img_url.value == null) {
 
     <MessageToast
         v-if="displayToast"
-        :message="$page.props.flash.success_message == undefined ? '':$t(`${$page.props.flash.success_message}`)"
-        :error="$page.props.flash.error_message == undefined ? '':$t(`${$page.props.flash.error_message}`)"
+        :message="$page.props.flash.success_message === undefined ? '':$t(`${$page.props.flash.success_message}`)"
+        :error="$page.props.flash.error_message === undefined ? '':$t(`${$page.props.flash.error_message}`)"
     ></MessageToast>
 
     <form @submit.prevent="submit">
@@ -121,8 +121,8 @@ if (profile_img_url.value == null) {
                             v-model="props.number"
                             :edit="edit"
                             :isInput="false"
-                            errors=""
-                        />
+                            input-type="text"
+                            errors=""/>
                     </div>
                     <div class="col-span-1 grid justify-items-end flex items-start h-fit">
                         <ProfileTextBox
@@ -140,7 +140,7 @@ if (profile_img_url.value == null) {
                             :isInput="edit"
                             :required="false"
                             inputType="number"
-                            :errors="(form.errors.phone_number == undefined) ? '':$t(`${form.errors.phone_number}`)"
+                            :errors="(form.errors.phone_number === undefined) ? '':$t(`${form.errors.phone_number}`)"
                         />
                     </div>
                 </div>
@@ -154,6 +154,9 @@ if (profile_img_url.value == null) {
                         <ProfileInfo v-if="!isGuest" :text="'Hospital'" :value="hospital" />
                         <ProfileInfo v-if="!isGuest" :text="$t('nextAppointmentDate')" :value="nextAppointment.date !== '' ? nextAppointment.date : $t('noFutureAppointment')" />
                         <ProfileInfo v-if="!isGuest" :text="$t('nextAppointmentDate')" :value="nextAppointment.time !== '' ? nextAppointment.time : $t('noFutureAppointment')" />
+                        <div v-if="user.is_admin" class="my-5 text-xl">
+                            <label class="text-error pr-1">{{ $t('isAdmin') }}</label>
+                        </div>
                     </div>
                     <div class="col-span-1 relative">
                         <button
