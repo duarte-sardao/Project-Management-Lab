@@ -26,11 +26,4 @@ class AdminController extends Controller
     function forumIndex() {
         return Inertia::render('Admin/Forum');
     }
-
-    public function uploadImage(Request $request){
-        $file = $request->file('file');
-        $fileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . date("YmdHms") .'.'. $file->extension();
-        $file->move(public_path('/images'), $fileName);
-        return response()->json(['location'=>'/images/'.$fileName]);
-    }
 }
