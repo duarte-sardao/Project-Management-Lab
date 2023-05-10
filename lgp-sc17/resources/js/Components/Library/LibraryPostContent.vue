@@ -1,5 +1,5 @@
 <script setup>
-
+import Editor from '@tinymce/tinymce-vue'
 </script>
 
 <template>
@@ -15,7 +15,17 @@
 
     <div class="form-control">
         <label class="label"><span class="label-text font-bold">Body Content</span></label>
-        <textarea class="textarea textarea-bordered" placeholder="Add subtitle"></textarea>
+        <Editor
+            tinymce-script-src="/tinymce/tinymce.min.js"
+            :init="{
+                plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+                toolbar: 'undo redo | blocks fontsize | forecolor backcolor | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+                promotion: false,
+                image_title: true,
+                automatic_uploads: true,
+                images_upload_url: route('admin.upload.image'),
+            }"
+        />
     </div>
 </template>
 

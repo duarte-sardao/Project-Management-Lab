@@ -45,6 +45,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::middleware('admin')->group(function () {
+        Route::post('/admin/upload/image', [AdminController::class, 'uploadImage'])->name('admin.upload.image');
+
         //Dashboard
         Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 
