@@ -1,6 +1,7 @@
 <script setup>
 import AdministrationLayout from "@/Layouts/AdministrationLayout.vue";
 import { Link } from '@inertiajs/vue3';
+import LibraryPostContent from "@/Components/Library/LibraryPostContent.vue";
 </script>
 <template>
     <AdministrationLayout page="library">
@@ -11,9 +12,11 @@ import { Link } from '@inertiajs/vue3';
             </ul>
         </div>
 
-        <div class="pb-16 text-xl text-base-content">
+        <div class="pb-8 text-xl text-base-content">
             {{ $t('libraryCreate') }}
         </div>
+
+        <LibraryPostContent></LibraryPostContent>
     </AdministrationLayout>
 </template>
 
