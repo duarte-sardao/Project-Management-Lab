@@ -29,7 +29,7 @@ class LibraryController extends Controller
         $post->public = $request->public;
         $post->save();
 
-        return back();
+        return to_route('admin.library.post',['id' => $post->id])->with(['post' => $post]);
     }
 
     function edit($id, LibraryPostUpdateRequest $request) {
@@ -43,5 +43,11 @@ class LibraryController extends Controller
         $post->save();
 
         return back();
+    }
+
+    function delete($id, Request $request) {
+        $post = LibraryPost::find($id);
+        $post->delete();
+        return to_route('admin.library');
     }
 }

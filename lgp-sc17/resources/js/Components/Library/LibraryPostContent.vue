@@ -19,16 +19,21 @@ const form = useForm({
     public: props.public !== 0,
 });
 
-console.log(form.public);
-
 const submit = () => {
-    console.log(props.route_id);
-    if (props.route_id === null) {
+    if (!props.route_id === null) {
         form.post(route(props.route_name));
     } else {
         form.post(route(props.route_name, { id:props.route_id }));
     }
 };
+
+const deleteForm = useForm({});
+const deletePost = () => {
+    if (props.route_id !== null) {
+        console.log("asd");
+        deleteForm.delete(route(props.route_name, { id:props.route_id }));
+    }
+}
 
 </script>
 
@@ -52,16 +57,36 @@ const submit = () => {
             <InputError class="mt-2" :message="form.errors.body_content" />
         </div>
 
-        <div class="grid grid-cols-2 pt-4 px-4">
-            <div class="form-control">
-                <label class="label cursor-pointer justify-start w-fit">
-                    <span class="label-text font-bold">{{ $t('public') }}&nbsp;&nbsp;</span>
-                    <input type="checkbox" v-model="form.public" :checked="form.public" class="checkbox checkbox-lg checkbox-success focus:ring-transparent" />
-                </label>
+        <div v-if="route_id === null" id="options" class="grid grid-cols-2 px-4">
+            <div id="start_opt" class="flex justify-start">
+                <div  class="form-control pt-8 w-fit">
+                    <label class="label cursor-pointer">
+                        <span class="label-text font-bold">{{ $t('public') }}&nbsp;&nbsp;</span>
+                        <input type="checkbox" v-model="form.public" :checked="form.public" class="checkbox checkbox-lg checkbox-success focus:ring-transparent" />
+                    </label>
+                </div>
             </div>
-            <div class="flex justify-end">
+            <div id="end_opt" class="flex justify-end pt-8">
                 <button class="btn btn-success border-0" type="submit">{{ $t('save') }}</button>
             </div>
+        </div>
+        <div v-else id="options" class="grid grid-cols-3 px-4">
+            <div id="start_opt" class="flex justify-start">
+                <div  class="form-control pt-8 w-fit">
+                    <label class="label cursor-pointer">
+                        <span class="label-text font-bold">{{ $t('public') }}&nbsp;&nbsp;</span>
+                        <input type="checkbox" v-model="form.public" :checked="form.public" class="checkbox checkbox-lg checkbox-success focus:ring-transparent" />
+                    </label>
+                </div>
+            </div>
+            <div class="flex justify-center pt-8">
+                <button class="btn btn-success border-0" type="submit">{{ $t('save') }}</button>
+            </div>
+            <form @submit.prevent="deletePost">
+                <div id="end_opt" class="flex justify-end pt-8">
+                    <button class="btn btn-error border-0" type="submit">{{ $t('delete') }}</button>
+                </div>
+            </form>
         </div>
     </form>
 </template>
@@ -73,5 +98,15 @@ export default {
 </script>
 
 <style scoped>
-
+@media all and (max-width: 500px) {
+    #options {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+    #start_opt {
+        justify-content: center;
+    }
+    #end_opt {
+        justify-content: center;
+    }
+}
 </style>

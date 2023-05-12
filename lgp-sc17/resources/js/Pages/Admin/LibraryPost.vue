@@ -4,11 +4,7 @@ import { Link } from '@inertiajs/vue3';
 import LibraryPostContent from "@/Components/Library/LibraryPostContent.vue";
 
 defineProps({
-    id: { required: true },
-    title: { required: true },
-    subtitle: { required: true },
-    content: { required: true },
-    public: { required: true }
+    post: { required: true }
 });
 </script>
 
@@ -26,12 +22,12 @@ defineProps({
         </div>
 
         <LibraryPostContent
-            :title="title"
-            :subtitle="subtitle"
-            :content="content"
-            :public="public"
+            :title="post.title"
+            :subtitle="post.subtitle"
+            :content="post.content"
+            :public="post.public"
             route_name="admin.library.post"
-            :route_id="id"/>
+            :route_id="post.id"/>
     </AdministrationLayout>
 </template>
 

@@ -25,13 +25,8 @@ class AdminController extends Controller
     }
 
     function libraryPost($id) {
-        $post = LibraryPost::find($id);
         return Inertia::render('Admin/LibraryPost', [
-            'id' => $post->id,
-            'title' => $post->title,
-            'subtitle' => $post->subtitle,
-            'content' => $post->content,
-            'public' => $post->public,
+            'post' => LibraryPost::find($id)
         ]);
     }
 
