@@ -65,6 +65,8 @@
     "libraryContentHint": "See and edit the library",
     "libraryButtonCreate": "Create Post",
     "libraryCreate": "Create a new post",
+    "libraryPost": "Post",
+    "libraryPostEdit": "Edit a post",
     "title": "Title",
     "subtitle": "Subitle",
     "body": "Body Content",

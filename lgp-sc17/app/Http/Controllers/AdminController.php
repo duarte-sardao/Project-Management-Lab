@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LibraryPost;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -23,9 +24,15 @@ class AdminController extends Controller
         return Inertia::render('Admin/LibraryNewPost');
     }
 
-    function libraryCreate(Request $request) {
-        dd($request->input());
-        return back();
+    function libraryPost($id) {
+        $post = LibraryPost::find($id);
+        return Inertia::render('Admin/LibraryPost', [
+            'id' => $post->id,
+            'title' => $post->title,
+            'subtitle' => $post->subtitle,
+            'content' => $post->content,
+            'public' => $post->public,
+        ]);
     }
 
     function forumIndex() {

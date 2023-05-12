@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MailController;
 use Illuminate\Foundation\Application;
@@ -27,9 +28,7 @@ Route::get('/library', function () {
     return Inertia::render('Library/Library');
 })->name('library');
 
-Route::get('/library/{id}', function () {
-    return Inertia::render('Library/LibraryPost');
-})->name('libraryPost');
+Route::get('/library/{id}', [LibraryController::class, 'index'])->name('libraryPost');
 
 Route::get('/about', function () {
     return Inertia::render('About');
@@ -59,7 +58,10 @@ Route::middleware('auth')->group(function () {
         //Library
         Route::get('/admin/library', [AdminController::class, 'libraryIndex'])->name('admin.library');
         Route::get('/admin/library/new', [AdminController::class, 'libraryNew'])->name('admin.library.new');
-        Route::post('/admin/library/new', [AdminController::class, 'libraryCreate'])->name('admin.library.new');
+        Route::post('/admin/library/new', [LibraryController::class, 'create'])->name('admin.library.new');
+        Route::get('/admin/library/{id}', [AdminController::class, 'libraryPost'])->name('admin.library.post');
+        Route::post('/admin/library/{id}', [LibraryController::class, 'edit'])->name('admin.library.post');
+
 
         //Forum
         Route::get('/admin/forum', [AdminController::class, 'forumIndex'])->name('admin.forum');

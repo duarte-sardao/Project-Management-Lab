@@ -64,6 +64,8 @@
     "libraryContent": "Conteúdo na Biblioteca",
     "libraryContentHint": "Visualização e edição da Biblioteca",
     "libraryButtonCreate": "Nova Publicação",
+    "libraryPost": "Publicação",
+    "libraryPostEdit": "Edição da publicação",
     "libraryCreate": "Criação de nova publicação",
     "title": "Título",
     "subtitle": "Subítulo",
