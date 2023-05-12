@@ -23,6 +23,11 @@ class AdminController extends Controller
         return Inertia::render('Admin/LibraryNewPost');
     }
 
+    function libraryCreate(Request $request) {
+        dd($request->input());
+        return back();
+    }
+
     function forumIndex() {
         return Inertia::render('Admin/Forum');
     }

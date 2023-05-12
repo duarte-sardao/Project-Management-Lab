@@ -3,6 +3,7 @@ import AdministrationLayout from "@/Layouts/AdministrationLayout.vue";
 import { Link } from '@inertiajs/vue3';
 import LibraryPostContent from "@/Components/Library/LibraryPostContent.vue";
 </script>
+
 <template>
     <AdministrationLayout page="library">
         <div class="text-sm breadcrumbs">
@@ -16,7 +17,7 @@ import LibraryPostContent from "@/Components/Library/LibraryPostContent.vue";
             {{ $t('libraryCreate') }}
         </div>
 
-        <LibraryPostContent></LibraryPostContent>
+        <LibraryPostContent route_name="admin.library.new"></LibraryPostContent>
     </AdministrationLayout>
 </template>
 

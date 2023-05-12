@@ -1,12 +1,18 @@
 <script setup>
-import Editor from '@tinymce/tinymce-vue'
+import {ref, watch} from "vue";
+import Editor from '@tinymce/tinymce-vue';
 
 const props = defineProps({
     'content': {
         type: String,
-        default: ''
-    },
-})
+        default: '',
+    }
+});
+
+const emit = defineEmits(['update'])
+let content = ref(props.content);
+watch(content, () => emit('update', content.value));
+
 function file_picker(callback, value, meta) {
     let x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
     let y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
@@ -31,10 +37,12 @@ function file_picker(callback, value, meta) {
         }
     });
 }
+
 </script>
 
 <template>
     <Editor
+        id="editor"
         tinymce-script-src="/tinymce/tinymce.min.js"
         :init="{
                 plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
@@ -44,10 +52,9 @@ function file_picker(callback, value, meta) {
                 file_picker_types: 'file image media',
                 file_picker_callback : file_picker
             }"
-        v-model="props.content"
+        v-model="content"
     />
-</template>
-
+</template>input
 <script>
 export default {
     name: "Editor"
