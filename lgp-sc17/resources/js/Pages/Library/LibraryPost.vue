@@ -5,10 +5,11 @@ import CarouselCard from "@/Components/Common/CarouselCard.vue";
 
 const props = defineProps({
     post: { required: true },
-    img_url: { default:null }
+    img_url: { default:null },
+    posts: {},
 });
 
-const posts = [
+/*const posts = [
     {
         title: "Shoes!",
         subtitle: "If a dog chews shoes whose shoes does he choose?",
@@ -39,7 +40,7 @@ const posts = [
         subtitle: "If a dog chews shoes whose shoes does he choose?",
         img_url: null
     },
-];
+];*/
 </script>
 
 <template>
@@ -72,7 +73,9 @@ const posts = [
                     :is_text_top="index % 2 === 1"
                     :title="post.title"
                     :subtitle="post.subtitle"
-                    :img_url="post.img_url === null ? '/svg_img/default-post.jpg' : post.img_url"/>
+                    :img_url="'/svg_img/default-post.jpg'"
+                    :url="'/library/' + post.id"
+                />
             </div>
         </div>
     </div>

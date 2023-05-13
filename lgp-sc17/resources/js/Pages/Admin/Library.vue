@@ -14,11 +14,11 @@ const deletePost = (id) => {
     deleteForm.delete(route('admin.library.post', { id:id }));
 }
 
-const laravelData = ref(props.posts);
+const results = ref(props.posts);
 const getResults = async (page = 1) => {
     axios.get('/api/admin/library?page=' + page)
         .then(response => {
-            laravelData.value = response.data;
+            results.value = response.data;
         })
 }
 </script>
@@ -51,7 +51,7 @@ const getResults = async (page = 1) => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="post in laravelData.data">
+                    <tr v-for="post in results.data">
                         <td>{{ post.title }}</td>
                         <td>{{ moment(post.created_at).format('DD-MM-YYYY HH:mm:ss') }}</td>
                         <td class="text-center">{{ post.public ? $t('public') : $t('private') }}</td>
@@ -74,7 +74,7 @@ const getResults = async (page = 1) => {
             </table>
             <div class="flex justify-center">
                 <TailwindPagination
-                    :data="laravelData"
+                    :data="results"
                     @pagination-change-page="getResults"
                 />
             </div>

@@ -9,13 +9,20 @@ use Inertia\Inertia;
 
 class LibraryController extends Controller
 {
-    function index($id) {
+    function index() {
+        return Inertia::render('Library/Library', [
+            'posts' => LibraryPost::where('public','=', true)->orderBy('created_at', 'desc')->paginate(8)
+        ]);
+    }
+
+    function post($id) {
         $post = LibraryPost::find($id);
         if (!$post->public) {
             return back();
         }
         return Inertia::render('Library/LibraryPost', [
             'post' => $post,
+            'posts' => LibraryPost::where('public','=', true)->orderBy('created_at', 'desc')->limit(6)->get()
         ]);
     }
 

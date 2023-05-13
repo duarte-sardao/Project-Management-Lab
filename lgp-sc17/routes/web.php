@@ -25,11 +25,10 @@ Route::get('/', function () {
     return Inertia::render('Home');
 })->name('homepage');
 
-Route::get('/library', function () {
-    return Inertia::render('Library/Library');
-})->name('library');
+Route::get('/library', [LibraryController::class, 'index'])->name('library');
+Route::get('/api/library', [ApiController::class, 'libraryPosts']);
 
-Route::get('/library/{id}', [LibraryController::class, 'index'])->name('libraryPost');
+Route::get('/library/{id}', [LibraryController::class, 'post'])->name('libraryPost');
 
 Route::get('/about', function () {
     return Inertia::render('About');
@@ -58,7 +57,7 @@ Route::middleware('auth')->group(function () {
 
         //Library
         Route::get('/admin/library', [AdminController::class, 'libraryIndex'])->name('admin.library');
-        Route::get('/api/admin/library', [ApiController::class, 'libraryPosts']);
+        Route::get('/api/admin/library', [ApiController::class, 'libraryPostsAdmin']);
         Route::get('/admin/library/new', [AdminController::class, 'libraryNew'])->name('admin.library.new');
         Route::post('/admin/library/new', [LibraryController::class, 'create'])->name('admin.library.new');
         Route::get('/admin/library/{id}', [AdminController::class, 'libraryPost'])->name('admin.library.post');
