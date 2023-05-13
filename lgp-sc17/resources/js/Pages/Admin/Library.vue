@@ -2,7 +2,7 @@
 import moment from "moment";
 import { TailwindPagination } from 'laravel-vue-pagination';
 import AdministrationLayout from "@/Layouts/AdministrationLayout.vue";
-import Search from "@/Components/Common/Search.vue";
+import LibrarySearchAdmin from "@/Components/Library/LibrarySearchAdmin.vue";
 import {Link, useForm} from '@inertiajs/vue3';
 import {ref} from "vue";
 import axios from "axios";
@@ -15,8 +15,9 @@ const deletePost = (id) => {
 }
 
 const results = ref(props.posts);
+const search = ref('');
 const getResults = async (page = 1) => {
-    axios.get('/api/admin/library?page=' + page)
+    axios.get('/api/admin/library?page=' + page + '&search=' + search.value)
         .then(response => {
             results.value = response.data;
         })
@@ -31,7 +32,7 @@ const getResults = async (page = 1) => {
                 {{ $t('libraryContentHint') }}
             </div>
             <div>
-                <Search></Search>
+                <LibrarySearchAdmin v-model="search" @submit="getResults"></LibrarySearchAdmin>
             </div>
         </div>
         <div class="pb-4 flex justify-center">
