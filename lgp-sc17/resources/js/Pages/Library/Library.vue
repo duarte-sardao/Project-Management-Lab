@@ -7,15 +7,12 @@ import PostCard from "@/Components/Common/PostCard.vue";
 import {ref} from "vue";
 import axios from "axios";
 
-const props = defineProps({
-    posts: Array
-});
-
-console.log(props.posts);
+const props = defineProps(['posts']);
 
 const results = ref(props.posts);
+const search = ref('');
 const getResults = async (page = 1) => {
-    axios.get('/api/library?page=' + page)
+    axios.get('/api/library?page=' + page + '&search=' + search.value)
         .then(response => {
             results.value = response.data;
         })
@@ -31,7 +28,7 @@ const subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
         <template v-slot:content-bottom></template>
     </NavBar>
 
-    <LibrarySearch></LibrarySearch>
+    <LibrarySearch @submit="getResults" v-model="search"></LibrarySearch>
 
     <div class="px-[10%] pb-16 pt-5">
         <div id="posts" class="grid grid-cols-4 gap-6">
