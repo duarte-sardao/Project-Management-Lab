@@ -13,26 +13,26 @@ class AdminController extends Controller
     }
 
     function usersIndex() {
-        return Inertia::render('Admin/Users');
+        return Inertia::render('Admin/Users/Users');
     }
 
     function libraryIndex() {
-        return Inertia::render('Admin/Library', [
+        return Inertia::render('Admin/Library/Library', [
             'posts' => LibraryPost::orderBy('created_at', 'desc')->paginate(6)
         ]);
     }
 
     function libraryNew() {
-        return Inertia::render('Admin/LibraryNewPost');
+        return Inertia::render('Admin/Library/LibraryNewPost');
     }
 
     function libraryPost($id) {
-        return Inertia::render('Admin/LibraryPost', [
+        return Inertia::render('Admin/Library/LibraryPost', [
             'post' => LibraryPost::find($id)
         ]);
     }
 
     function forumIndex() {
-        return Inertia::render('Admin/Forum');
+        return Inertia::render('Admin/Forum/Forum');
     }
 }
