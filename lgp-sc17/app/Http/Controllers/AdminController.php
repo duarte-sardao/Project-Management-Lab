@@ -17,7 +17,9 @@ class AdminController extends Controller
     }
 
     function libraryIndex() {
-        return Inertia::render('Admin/Library');
+        return Inertia::render('Admin/Library', [
+            'posts' => LibraryPost::orderBy('created_at', 'desc')->paginate(6)
+        ]);
     }
 
     function libraryNew() {

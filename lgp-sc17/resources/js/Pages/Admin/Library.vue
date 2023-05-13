@@ -1,8 +1,26 @@
 <script setup>
+import moment from "moment";
+import { TailwindPagination } from 'laravel-vue-pagination';
 import AdministrationLayout from "@/Layouts/AdministrationLayout.vue";
 import Search from "@/Components/Common/Search.vue";
-import { Link } from '@inertiajs/vue3';
+import {Link, useForm} from '@inertiajs/vue3';
+import {ref} from "vue";
+import axios from "axios";
 
+const props = defineProps(['posts'])
+
+const deleteForm = useForm({});
+const deletePost = (id) => {
+    deleteForm.delete(route('admin.library.post', { id:id }));
+}
+
+const laravelData = ref(props.posts);
+const getResults = async (page = 1) => {
+    axios.get('/api/admin/library?page=' + page)
+        .then(response => {
+            laravelData.value = response.data;
+        })
+}
 </script>
 
 <template>
@@ -22,41 +40,44 @@ import { Link } from '@inertiajs/vue3';
         </div>
 
         <div class="overflow-x-auto">
-            <table class="table w-full">
-                <!-- head -->
+            <table class="table w-full my-8">
                 <thead>
-                <tr>
-                    <th class="w-5/12">{{ $t('title') }}</th>
-                    <th class="w-3/12">{{ $t('date') }}</th>
-                    <th class="w-2/12 text-center">{{ $t('state') }}</th>
-                    <th class="w-1/12 text-center">{{ $t('edit') }}</th>
-                    <th class="w-1/12 text-center">{{ $t('delete') }}</th>
-                </tr>
+                    <tr>
+                        <th class="w-5/12">{{ $t('title') }}</th>
+                        <th class="w-3/12">{{ $t('date') }}</th>
+                        <th class="w-2/12 text-center">{{ $t('state') }}</th>
+                        <th class="w-1/12 text-center">{{ $t('edit') }}</th>
+                        <th class="w-1/12 text-center">{{ $t('delete') }}</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Cy Ganderton</td>
-                    <td>Quality Control Specialist</td>
-                    <td class="text-center">{{ $t('public') }}</td>
-                    <td class="text-center"><Link class="flex justify-center"><img src="/svg_icons/pencil.svg" alt="our vision"></Link></td>
-                    <td class="text-center"><Link class="flex justify-center"><img src="/svg_icons/trash.svg" alt="our vision"></Link></td>
-                </tr>
-                <tr>
-                    <td>Hart Hagerty</td>
-                    <td>Desktop Support Technician</td>
-                    <td class="text-center">{{ $t('private') }}</td>
-                    <td class="text-center"><Link class="flex justify-center"><img src="/svg_icons/pencil.svg" alt="our vision"></Link></td>
-                    <td class="text-center"><Link class="flex justify-center"><img src="/svg_icons/trash.svg" alt="our vision"></Link></td>
-                </tr>
-                <tr>
-                    <td>Brice Swyre</td>
-                    <td>Tax Accountant</td>
-                    <td class="text-center">{{ $t('public') }}</td>
-                    <td class="text-center"><Link class="flex justify-center"><img src="/svg_icons/pencil.svg" alt="our vision"></Link></td>
-                    <td class="text-center"><Link class="flex justify-center"><img src="/svg_icons/trash.svg" alt="our vision"></Link></td>
-                </tr>
+                    <tr v-for="post in laravelData.data">
+                        <td>{{ post.title }}</td>
+                        <td>{{ moment(post.created_at).format('DD-MM-YYYY HH:mm:ss') }}</td>
+                        <td class="text-center">{{ post.public ? $t('public') : $t('private') }}</td>
+                        <td class="text-center">
+                            <Link class="flex justify-center" :href="route('admin.library.post', {id: post.id})">
+                                <img src="/svg_icons/pencil.svg" alt="our vision">
+                            </Link>
+                        </td>
+                        <td class="text-center">
+                            <form @submit.prevent="deletePost(post.id)">
+                                <div id="end_opt" class="flex justify-center">
+                                    <button class="" type="submit">
+                                        <img src="/svg_icons/trash.svg" alt="our vision">
+                                    </button>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
+            <div class="flex justify-center">
+                <TailwindPagination
+                    :data="laravelData"
+                    @pagination-change-page="getResults"
+                />
+            </div>
         </div>
     </AdministrationLayout>
 </template>

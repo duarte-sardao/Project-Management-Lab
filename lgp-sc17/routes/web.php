@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ApiController;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MailController;
@@ -57,6 +58,7 @@ Route::middleware('auth')->group(function () {
 
         //Library
         Route::get('/admin/library', [AdminController::class, 'libraryIndex'])->name('admin.library');
+        Route::get('/api/admin/library', [ApiController::class, 'libraryPosts']);
         Route::get('/admin/library/new', [AdminController::class, 'libraryNew'])->name('admin.library.new');
         Route::post('/admin/library/new', [LibraryController::class, 'create'])->name('admin.library.new');
         Route::get('/admin/library/{id}', [AdminController::class, 'libraryPost'])->name('admin.library.post');
