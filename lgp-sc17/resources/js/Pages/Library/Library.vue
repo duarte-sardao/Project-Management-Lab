@@ -11,6 +11,8 @@ const props = defineProps({
     posts: Array
 });
 
+console.log(props.posts);
+
 const results = ref(props.posts);
 const getResults = async (page = 1) => {
     axios.get('/api/library?page=' + page)
@@ -38,7 +40,7 @@ const subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
                     :is_text_top="index % 2 === 1"
                     :title="post.title"
                     :subtitle="post.subtitle"
-                    :img_url="'/svg_img/default-post.jpg'"
+                    :img_url="post.img_url === '' ? '/svg_img/default-post.jpg' : post.img_url"
                     :url="'/library/' + post.id"
                 />
             </template>

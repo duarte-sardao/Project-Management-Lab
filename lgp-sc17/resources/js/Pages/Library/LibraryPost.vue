@@ -5,42 +5,8 @@ import CarouselCard from "@/Components/Common/CarouselCard.vue";
 
 const props = defineProps({
     post: { required: true },
-    img_url: { default:null },
     posts: {},
 });
-
-/*const posts = [
-    {
-        title: "Shoes!",
-        subtitle: "If a dog chews shoes whose shoes does he choose?",
-        img_url: null
-    },
-    {
-        title: "Shoes!",
-        subtitle: "If a dog chews shoes whose shoes does he choose?",
-        img_url: null
-    },
-    {
-        title: "Shoes!",
-        subtitle: "If a dog chews shoes whose shoes does he choose?",
-        img_url: null
-    },
-    {
-        title: "Shoes!",
-        subtitle: "If a dog chews shoes whose shoes does he choose?",
-        img_url: null
-    },
-    {
-        title: "Shoes!",
-        subtitle: "If a dog chews shoes whose shoes does he choose?",
-        img_url: null
-    },
-    {
-        title: "Shoes!",
-        subtitle: "If a dog chews shoes whose shoes does he choose?",
-        img_url: null
-    },
-];*/
 </script>
 
 <template>
@@ -57,7 +23,7 @@ const props = defineProps({
                 </div>
             </div>
             <div class="h-full flex justify-center items-center overflow-hidden">
-                <img class="max-h-full" :src="props.img_url === null ? '/svg_img/default-post.jpg' : props.img_url" alt="Post image">
+                <img class="max-h-full" :src="props.post.img_url === '' ? '/svg_img/default-post.jpg' : props.post.img_url" alt="Post image">
             </div>
         </div>
 
@@ -73,7 +39,7 @@ const props = defineProps({
                     :is_text_top="index % 2 === 1"
                     :title="post.title"
                     :subtitle="post.subtitle"
-                    :img_url="'/svg_img/default-post.jpg'"
+                    :img_url="post.img_url === '' ? '/svg_img/default-post.jpg' : post.img_url"
                     :url="'/library/' + post.id"
                 />
             </div>

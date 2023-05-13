@@ -70,6 +70,7 @@
     "title": "Título",
     "subtitle": "Subítulo",
     "body": "Corpo da publicação",
+    "postImage": "Imagem da publicação",
     "date": "Data",
     "state": "Estado",
     "edit": "Editar",

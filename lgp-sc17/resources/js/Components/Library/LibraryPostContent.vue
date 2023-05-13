@@ -2,11 +2,13 @@
 import TinyMCEditor from "@/Components/TinyMCE/TinyMCEditor.vue";
 import { useForm } from '@inertiajs/vue3';
 import InputError from "@/Components/InputError.vue";
+import {ref} from "vue";
 
 const props = defineProps({
     title: { default: '' },
     subtitle: { default: '' },
     content: { default: '' },
+    img_url: { default: '' },
     public: { default: true },
     route_name: { required: true },
     route_id: { default: null }
@@ -17,6 +19,7 @@ const form = useForm({
     subtitle: props.subtitle,
     body_content: props.content,
     public: props.public !== 0,
+    img: null
 });
 
 const submit = () => {
@@ -30,15 +33,27 @@ const submit = () => {
 const deleteForm = useForm({});
 const deletePost = () => {
     if (props.route_id !== null) {
-        console.log("asd");
         deleteForm.delete(route(props.route_name, { id:props.route_id }));
     }
 }
 
+function inputFile(event) {
+    form.img = event.target.files[0];
+}
 </script>
 
 <template>
     <form @submit.prevent="submit">
+        <div class="grid grid-cols-2">
+            <div class="form-control w-full justify-center">
+                <label class="label"><span class="label-text font-bold">{{ $t('postImage') }}</span></label>
+                <input id="image-input" @change="inputFile" type="file" accept="image/*" class="file-input file-input-bordered w-full max-w-xs right-0 bottom-10" />
+            </div>
+            <div class="h-full flex justify-center items-center overflow-hidden">
+                <img class="max-h-[150px]" :src="props.img_url === '' ? '/svg_img/default-post.jpg' : props.img_url" alt="Post image">
+            </div>
+        </div>
+
         <div class="form-control w-full">
             <label class="label"><span class="label-text font-bold">{{ $t('title') }}</span></label>
             <input v-model="form.title" type="text" placeholder="Add title" class="input input-bordered w-full max-w" />

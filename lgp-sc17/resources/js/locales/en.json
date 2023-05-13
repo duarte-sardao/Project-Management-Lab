@@ -70,6 +70,7 @@
     "title": "Title",
     "subtitle": "Subitle",
     "body": "Body Content",
+    "postImage": "Post image",
     "date": "Date",
     "state": "State",
     "edit": "Edit",

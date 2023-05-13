@@ -25,6 +25,7 @@ defineProps({
             :title="post.title"
             :subtitle="post.subtitle"
             :content="post.content"
+            :img_url="post.img_url"
             :public="post.public"
             route_name="admin.library.post"
             :route_id="post.id"/>

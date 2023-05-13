@@ -15,7 +15,7 @@ const props = defineProps({
         <input id="my-drawer" type="checkbox" class="drawer-toggle" />
         <div class="drawer-content flex flex-col bg-white">
             <label for="my-drawer" class="absolute bottom-4 left-4 btn border-0 bg-adminMainBlue hover:bg-mainBlue drawer-button lg:hidden">❯</label>
-            <main class="pt-20 px-16">
+            <main class="py-20 px-16">
                 <slot/>
             </main>
         </div>

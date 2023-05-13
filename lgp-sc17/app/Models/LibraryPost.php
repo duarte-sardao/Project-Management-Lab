@@ -15,6 +15,7 @@ class LibraryPost extends Model
         'title',
         'subtitle',
         'content',
-        'public'
+        'public',
+        'img_url'
     ];
 }
