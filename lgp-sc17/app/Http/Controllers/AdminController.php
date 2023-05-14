@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LibraryPost;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -13,7 +14,9 @@ class AdminController extends Controller
     }
 
     function usersIndex() {
-        return Inertia::render('Admin/Users/Users');
+        return Inertia::render('Admin/Users/Users', [
+            'users' => User::paginate(6)
+        ]);
     }
 
     function libraryIndex() {

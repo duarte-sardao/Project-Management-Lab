@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LibraryPost;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ApiController extends Controller
@@ -26,5 +27,12 @@ class ApiController extends Controller
         })
         ->orderBy('created_at', 'desc')
         ->paginate(6);
+    }
+
+    function userListAdmin(Request $request) {
+        return User::where(function ($query) use ($request) {
+            $query->where('name','like','%'.$request->search.'%')
+            ->orWhere('username','like','%'.$request->search.'%');
+        })->paginate(6);
     }
 }
