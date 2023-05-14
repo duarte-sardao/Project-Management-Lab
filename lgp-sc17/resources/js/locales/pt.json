@@ -22,6 +22,7 @@
     "patientRegister": "Registo - Paciente",
     "patient": "Paciente",
     "healthcareNumber": "Número de utente de saúde",
+    "search": "Procurar",
 
     "about": "Sobre nós",
 
@@ -60,6 +61,23 @@
 
     "librarySearch": "O que estás a procura?",
     "librarySearchHint": "Procura respostas às tuas questões de saude",
+    "libraryContent": "Conteúdo na Biblioteca",
+    "libraryContentHint": "Visualização e edição da Biblioteca",
+    "libraryButtonCreate": "Nova Publicação",
+    "libraryPost": "Publicação",
+    "libraryPostEdit": "Edição da publicação",
+    "libraryCreate": "Criação de nova publicação",
+    "title": "Título",
+    "subtitle": "Subítulo",
+    "body": "Corpo da publicação",
+    "postImage": "Imagem da publicação",
+    "date": "Data",
+    "state": "Estado",
+    "edit": "Editar",
+    "delete": "Remover",
+    "public": "Público",
+    "private": "Privado",
+    "save": "Guardar",
 
     "administration": "Administração",
     "isAdmin": "Conta de Administração",

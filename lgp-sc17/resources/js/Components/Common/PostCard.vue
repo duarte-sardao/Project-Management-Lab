@@ -1,4 +1,6 @@
 <script setup>
+import { Link } from '@inertiajs/vue3';
+
 const props = defineProps({
     'is_text_top': {
         type: Boolean,
@@ -13,6 +15,10 @@ const props = defineProps({
         required: true
     },
     'subtitle': {
+        type: String,
+        required: true
+    },
+    'url': {
         type: String,
         required: true
     }
@@ -30,7 +36,7 @@ const props = defineProps({
                         <p class="pl-4">{{ subtitle }}</p>
                     </div>
                     <div class="card-actions items-end pb-3 pl-2">
-                        <button class="btn btn-circle bg-white hover:bg-mainBlue text-gray-400 hover:text-white text-xl font-thin border-none">❯</button>
+                        <Link :href="url" class="btn btn-circle bg-white hover:bg-mainBlue text-gray-400 hover:text-white text-xl font-thin border-none">❯</Link>
                     </div>
                 </div>
             </div>
@@ -45,7 +51,7 @@ const props = defineProps({
                         <p class="pl-4">{{ subtitle }}</p>
                     </div>
                     <div class="card-actions items-end pb-3 pl-2">
-                        <button class="btn btn-circle bg-white hover:bg-mainBlue text-gray-400 hover:text-white text-xl font-thin border-none">❯</button>
+                        <Link :href="url" class="btn btn-circle bg-white hover:bg-mainBlue text-gray-400 hover:text-white text-xl font-thin border-none">❯</Link>
                     </div>
                 </div>
             </div>

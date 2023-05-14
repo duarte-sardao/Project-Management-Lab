@@ -1,6 +1,13 @@
 <script setup>
 import {Link} from '@inertiajs/vue3';
 import { i18n, changeLocale } from "@/plugins/i18n";
+
+const props = defineProps({
+    'page': {
+        type: String,
+        required: true,
+    }
+});
 </script>
 
 <template>
@@ -8,7 +15,7 @@ import { i18n, changeLocale } from "@/plugins/i18n";
         <input id="my-drawer" type="checkbox" class="drawer-toggle" />
         <div class="drawer-content flex flex-col bg-white">
             <label for="my-drawer" class="absolute bottom-4 left-4 btn border-0 bg-adminMainBlue hover:bg-mainBlue drawer-button lg:hidden">❯</label>
-            <main>
+            <main class="py-20 px-16">
                 <slot/>
             </main>
         </div>
@@ -17,10 +24,10 @@ import { i18n, changeLocale } from "@/plugins/i18n";
             <label for="my-drawer" class="drawer-overlay"></label>
             <ul class="menu p-4 w-80 space-y-4 bg-adminBackground text-base-content text-xl flex-col">
                 <li><Link class="justify-center" :href="route('homepage')"><img src="/logo.png" alt="default user"/></Link></li>
-                <li><Link class="justify-center" :href="route('administration')">Dashboard</Link></li>
-                <li><Link class="justify-center" :href="route('users_administration')">{{ $t("users") }}</Link></li>
-                <li><Link class="justify-center" :href="route('library_administration')">{{ $t("library") }}</Link></li>
-                <li><Link class="justify-center" :href="route('forum_administration')">Forum</Link></li>
+                <li><Link :class="{ 'bg-mainBlue text-white': props.page === 'dashboard' }" class="justify-center" :href="route('admin')">Dashboard</Link></li>
+                <li><Link :class="{ 'bg-mainBlue text-white': props.page === 'users' }" class="justify-center" :href="route('admin.users')">{{ $t("users") }}</Link></li>
+                <li><Link :class="{ 'bg-mainBlue text-white': props.page === 'library' }" class="justify-center" :href="route('admin.library')">{{ $t("library") }}</Link></li>
+                <li><Link :class="{ 'bg-mainBlue text-white': props.page === 'forum' }" class="justify-center" :href="route('admin.forum')">Forum</Link></li>
                 <template v-for="entry in languages">
                     <li v-if="entry.language != i18n.global.locale.value" style="margin-top: auto !important;">
                         <button @click="changeLocale(entry.language)" class="flex justify-center group">

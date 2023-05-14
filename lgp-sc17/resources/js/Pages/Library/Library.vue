@@ -1,35 +1,22 @@
 <script setup>
+import { TailwindPagination } from 'laravel-vue-pagination';
 import NavBar from "@/Components/Navbar/NavBar.vue";
 import Footer from "@/Components/Footer.vue";
 import LibrarySearch from "@/Components/Library/LibrarySearch.vue";
 import PostCard from "@/Components/Common/PostCard.vue";
+import {ref} from "vue";
+import axios from "axios";
 
-/*const props = defineProps({
-    posts: Array
-});*/
+const props = defineProps(['posts']);
 
-const posts = [
-    {
-        title: "Shoes!",
-        subtitle: "If a dog chews shoes whose shoes does he choose?",
-        img_url: null
-    },
-    {
-        title: "Shoes!",
-        subtitle: "If a dog chews shoes whose shoes does he choose?",
-        img_url: null
-    },
-    {
-        title: "Shoes!",
-        subtitle: "If a dog chews shoes whose shoes does he choose?",
-        img_url: null
-    },
-    {
-        title: "Shoes!",
-        subtitle: "If a dog chews shoes whose shoes does he choose?",
-        img_url: null
-    },
-];
+const results = ref(props.posts);
+const search = ref('');
+const getResults = async (page = 1) => {
+    axios.get('/api/library?page=' + page + '&search=' + search.value)
+        .then(response => {
+            results.value = response.data;
+        })
+}
 
 const title="Library"
 const subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet"
@@ -41,17 +28,25 @@ const subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
         <template v-slot:content-bottom></template>
     </NavBar>
 
-    <LibrarySearch></LibrarySearch>
+    <LibrarySearch @submit="getResults" v-model="search"></LibrarySearch>
 
     <div class="px-[10%] pb-16 pt-5">
         <div id="posts" class="grid grid-cols-4 gap-6">
-            <template v-for="(post, index) in posts">
+            <template v-for="(post, index) in results.data">
                 <PostCard
                     :is_text_top="index % 2 === 1"
                     :title="post.title"
                     :subtitle="post.subtitle"
-                    :img_url="post.img_url === null ? '/svg_img/default-post.jpg' : post.img_url"/>
+                    :img_url="post.img_url === '' ? '/svg_img/default-post.jpg' : post.img_url"
+                    :url="'/library/' + post.id"
+                />
             </template>
+        </div>
+        <div class="flex justify-center py-8">
+            <TailwindPagination
+                :data="results"
+                @pagination-change-page="getResults"
+            />
         </div>
     </div>
 

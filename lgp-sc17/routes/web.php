@@ -1,11 +1,14 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ApiController;
+use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MailController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use UniSharp\LaravelFilemanager\Lfm;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,13 +25,10 @@ Route::get('/', function () {
     return Inertia::render('Home');
 })->name('homepage');
 
-Route::get('/library', function () {
-    return Inertia::render('Library/Library');
-})->name('library');
+Route::get('/library', [LibraryController::class, 'index'])->name('library');
+Route::get('/api/library', [ApiController::class, 'libraryPosts']);
 
-Route::get('/library/{id}', function () {
-    return Inertia::render('Library/LibraryPost');
-})->name('libraryPost');
+Route::get('/library/{id}', [LibraryController::class, 'post'])->name('libraryPost');
 
 Route::get('/about', function () {
     return Inertia::render('About');
@@ -38,6 +38,10 @@ Route::get('/Terms&Conditions', function () {
     return Inertia::render('About');
 })->name('Terms&Conditions');
 
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+    Lfm::routes();
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'visualize'])->name('profile');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -45,10 +49,24 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::middleware('admin')->group(function () {
-        Route::get('/administration', [AdminController::class, 'index'])->name('administration');
-        Route::get('/administration/users', [AdminController::class, 'usersIndex'])->name('users_administration');
-        Route::get('/administration/library', [AdminController::class, 'libraryIndex'])->name('library_administration');
-        Route::get('/administration/forum', [AdminController::class, 'forumIndex'])->name('forum_administration');
+        //Dashboard
+        Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+
+        //Users
+        Route::get('/admin/users', [AdminController::class, 'usersIndex'])->name('admin.users');
+
+        //Library
+        Route::get('/admin/library', [AdminController::class, 'libraryIndex'])->name('admin.library');
+        Route::get('/api/admin/library', [ApiController::class, 'libraryPostsAdmin']);
+        Route::get('/admin/library/new', [AdminController::class, 'libraryNew'])->name('admin.library.new');
+        Route::post('/admin/library/new', [LibraryController::class, 'create'])->name('admin.library.new');
+        Route::get('/admin/library/{id}', [AdminController::class, 'libraryPost'])->name('admin.library.post');
+        Route::post('/admin/library/{id}', [LibraryController::class, 'edit'])->name('admin.library.post');
+        Route::delete('/admin/library/{id}', [LibraryController::class, 'delete'])->name('admin.library.post');
+
+
+        //Forum
+        Route::get('/admin/forum', [AdminController::class, 'forumIndex'])->name('admin.forum');
     });
 });
 

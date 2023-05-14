@@ -15,7 +15,7 @@ let is_admin = (usePage().props.auth.user && usePage().props.auth.user.is_admin)
         <Link class="btn btn-ghost text-gray-600 normal-case text-xl" :href="route('homepage')">{{ $t("home") }}</Link>
         <Link class="btn btn-ghost text-gray-600 normal-case text-xl" :href="route('library')">{{ $t("library") }}</Link>
         <Link class="btn btn-ghost text-gray-600 normal-case text-xl" :href="route('about')">{{ $t("about") }}</Link>
-        <Link v-if="is_admin" class="btn btn-ghost text-gray-600 normal-case text-xl" :href="route('administration')">{{ $t("administration") }}</Link>
+        <Link v-if="is_admin" class="btn btn-ghost text-gray-600 normal-case text-xl" :href="route('admin')">{{ $t("administration") }}</Link>
     </div>
     <div v-for="entry in languages">
         <button v-if="entry.language != i18n.global.locale.value" @click="changeLocale(entry.language)" class="transition mr-4 hover:scale-125 duration-300">

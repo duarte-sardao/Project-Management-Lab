@@ -22,6 +22,7 @@
     "patientRegister": "Register - Patient",
     "patient": "Patient",
     "healthcareNumber": "Healthcare number",
+    "search": "Search",
 
     "about": "About Us",
 
@@ -60,6 +61,23 @@
 
     "librarySearch": "What are you searching for?",
     "librarySearchHint": "Search for answers to your health questions",
+    "libraryContent": "Library Content",
+    "libraryContentHint": "See and edit the library",
+    "libraryButtonCreate": "Create Post",
+    "libraryCreate": "Create a new post",
+    "libraryPost": "Post",
+    "libraryPostEdit": "Edit a post",
+    "title": "Title",
+    "subtitle": "Subitle",
+    "body": "Body Content",
+    "postImage": "Post image",
+    "date": "Date",
+    "state": "State",
+    "edit": "Edit",
+    "delete": "Delete",
+    "public": "Public",
+    "private": "Private",
+    "save": "Save",
 
     "administration": "Administration",
     "isAdmin": "Admin account",
