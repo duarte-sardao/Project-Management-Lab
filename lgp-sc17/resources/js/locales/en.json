@@ -93,6 +93,15 @@
     "latestFirst":"Latest first",
     "oldestFirst": "Oldest first",
     "mostLikesFirst": "Most likes first",
-    "lessLikesFirst": "Less likes first"
+    "lessLikesFirst": "Less likes first",
+
+    "newTopicTitle": "New topic",
+    "createTopic": "Create a new topic",
+    "addTopicName": "Add the topic name",
+    "topicError": "The topic name cannot be empty",
+    "topicExists": "Already exists a topic with the specified name",
+    "pickColor": "Topic color:",
+    "colorError": "Already exists a topic with the specified color",
+    "submitTopic": "Create"
 
 }

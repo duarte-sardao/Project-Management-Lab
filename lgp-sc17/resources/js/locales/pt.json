@@ -93,6 +93,15 @@
     "latestFirst":"Mais recentes primeiro",
     "oldestFirst": "Mais antigo primeiro",
     "mostLikesFirst": "Com mais likes primeiro",
-    "lessLikesFirst": "Com menos likes primeiro"
+    "lessLikesFirst": "Com menos likes primeiro",
+
+    "newTopicTitle": "Novo tópico",
+    "createTopic": "Criar um novo tópico",
+    "addTopicName": "Adicione o nome do tópico",
+    "topicError": "O tópico tem de possuir um título",
+    "topicExists": "Já existe um tópico com o nome especificado",
+    "pickColor": "Cor do tópico:",
+    "colorError": "Já existe um tópico com a cor especificada",
+    "submitTopic": "Criar"
 
 }

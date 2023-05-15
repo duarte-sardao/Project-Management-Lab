@@ -7,6 +7,8 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 
 use App\Models\Post;
 use App\Policies\ForumPolicy;
+use App\Models\Topic;
+use App\Policies\TopicPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -18,6 +20,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
         Post::class => ForumPolicy::class,
+        Topic::class => TopicPolicy::class
     ];
 
     /**

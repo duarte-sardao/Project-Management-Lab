@@ -57,6 +57,8 @@ Route::middleware('auth')->group(function () {
     Route::post('forum/topic/{id}/follow', [ForumController::class, 'follow'])->name('forum.follow');
     Route::get('/forum/{id}', [ForumController::class, 'post'])->name('forum.post');
     Route::post('/forum/{id}', [ForumController::class, 'answer'])->name('forum.answer');
+    Route::get('/newTopic', [ForumController::class, 'createTopic'])->name('topic.new');
+    Route::post('/newTopic', [ForumController::class, 'storeTopic'])->name('topic.create');
     Route::get('/profile', [ProfileController::class, 'visualize'])->name('profile');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
