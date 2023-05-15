@@ -81,5 +81,13 @@
 
     "administration": "Administração",
     "isAdmin": "Conta de Administração",
-    "users": "Utilizadores"
+    "users": "Utilizadores",
+
+    "usersList": "Lista de Utilizadores",
+    "usersListHint": "Ver e administrar utilizadores",
+    "accType": "Tipo",
+    "user": "Utilizador",
+    "doctor": "Médico",
+    "userInfo": "Informação de Utilizador",
+    "userInfoEdit": "Atualizar informação de utilizador"
 }

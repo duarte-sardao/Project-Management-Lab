@@ -19,6 +19,12 @@ class AdminController extends Controller
         ]);
     }
 
+    function userInfo($id) {
+        return Inertia::render('Admin/Users/UserInfo', [
+            'post' => LibraryPost::find($id)
+        ]);
+    }
+
     function libraryIndex() {
         return Inertia::render('Admin/Library/Library', [
             'posts' => LibraryPost::orderBy('created_at', 'desc')->paginate(6)

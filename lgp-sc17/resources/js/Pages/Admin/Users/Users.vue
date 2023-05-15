@@ -9,11 +9,6 @@ import axios from "axios";
 
 const props = defineProps(['users'])
 
-const deleteForm = useForm({});
-const deletePost = (id) => {
-    deleteForm.delete(route('admin.library.post', { id:id }));
-}
-
 const results = ref(props.users);
 const search = ref('');
 const getResults = async (page = 1) => {
@@ -28,47 +23,33 @@ const getResults = async (page = 1) => {
     <AdministrationLayout page="users">
         <div class="grid grid-cols-2">
             <div class="pb-16 text-xl text-gray-400">
-                <div class="text-4xl text-black">{{ $t('libraryContent') }}</div>
-                {{ $t('libraryContentHint') }}
+                <div class="text-4xl text-black">{{ $t('usersList') }}</div>
+                {{ $t('usersListHint') }}
             </div>
             <div>
                 <LibrarySearchAdmin v-model="search" @submit="getResults"></LibrarySearchAdmin>
             </div>
-        </div>
-        <div class="pb-4 flex justify-center">
-            <Link :href="route('admin.library.new')" class="btn btn-wide hover:bg-lightBlue bg-mainBlue text-white border-0 rounded-full">
-                {{ $t('libraryButtonCreate') }}</Link>
         </div>
 
         <div class="overflow-x-auto">
             <table class="table w-full my-8">
                 <thead>
                     <tr>
-                        <th class="w-5/12">{{ $t('title') }}</th>
-                        <th class="w-3/12">{{ $t('date') }}</th>
-                        <th class="w-2/12 text-center">{{ $t('state') }}</th>
+                        <th class="w-5/12">Username</th>
+                        <th class="w-3/12">{{ $t('fullName') }}</th>
+                        <th class="w-2/12 text-center">{{ $t('accType') }}</th>
                         <th class="w-1/12 text-center">{{ $t('edit') }}</th>
-                        <th class="w-1/12 text-center">{{ $t('delete') }}</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="post in results.data">
-                        <td>{{ post.username }}</td>
-                        <td>{{ post.name}}</td>
-                        <td class="text-center">{{ post.status ? $t('public') : $t('private') }}</td>
+                    <tr v-for="user in results.data">
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.name}}</td>
+                        <td class="text-center">get status</td>
                         <td class="text-center">
-                            <Link class="flex justify-center" :href="route('admin.library.post', {id: post.id})">
-                                <img src="/svg_icons/pencil.svg" alt="our vision">
+                            <Link class="flex justify-center" :href="route('admin.users.info', {id: user.id})">
+                                <img src="/svg_icons/pencil.svg" alt="edit">
                             </Link>
-                        </td>
-                        <td class="text-center">
-                            <form @submit.prevent="deletePost(post.id)">
-                                <div id="end_opt" class="flex justify-center">
-                                    <button class="" type="submit">
-                                        <img src="/svg_icons/trash.svg" alt="our vision">
-                                    </button>
-                                </div>
-                            </form>
                         </td>
                     </tr>
                 </tbody>

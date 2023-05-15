@@ -55,6 +55,8 @@ Route::middleware('auth')->group(function () {
         //Users
         Route::get('/admin/users', [AdminController::class, 'usersIndex'])->name('admin.users');
         Route::get('/api/admin/users', [ApiController::class, 'userListAdmin']);
+        Route::get('/admin/users/{id}', [AdminController::class, 'userInfo'])->name('admin.users.info');
+        //Route::post('/admin/users/{id}', [LibraryController::class, 'edit'])->name('admin.library.post');
 
         //Library
         Route::get('/admin/library', [AdminController::class, 'libraryIndex'])->name('admin.library');
