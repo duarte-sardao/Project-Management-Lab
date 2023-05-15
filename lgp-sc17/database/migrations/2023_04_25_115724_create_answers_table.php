@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('answers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('post_id');
-            $table->foreign('post_id')->references('id')->on('posts');
+            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
             $table->unsignedBigInteger('forum_post_id');
-            $table->foreign('forum_post_id')->references('id')->on('forum_posts');
+            $table->foreign('forum_post_id')->references('id')->on('forum_posts')->onDelete('cascade');
             $table->timestamps();
         });
     }
