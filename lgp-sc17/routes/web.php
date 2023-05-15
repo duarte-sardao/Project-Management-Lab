@@ -57,6 +57,7 @@ Route::middleware('auth')->group(function () {
     Route::post('forum/topic/{id}/follow', [ForumController::class, 'follow'])->name('forum.follow');
     Route::get('/forum/{id}', [ForumController::class, 'post'])->name('forum.post');
     Route::delete('/forum/{id}', [ForumController::class, 'destroyPost'])->name('forum.post.destroy');
+    Route::delete('/forum/answer/{id}', [ForumController::class, 'destroyAnswer'])->name('forum.answer.destroy');
     Route::post('/forum/{id}', [ForumController::class, 'answer'])->name('forum.answer');
     Route::get('/newTopic', [ForumController::class, 'createTopic'])->name('topic.new');
     Route::post('/newTopic', [ForumController::class, 'storeTopic'])->name('topic.create');

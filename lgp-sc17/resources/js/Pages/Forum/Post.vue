@@ -94,7 +94,14 @@ const followHandler = () => {
 const deletePost = () => {
     const form = useForm({});
     form.delete(route('forum.post.destroy', { id: props.post.id }));
-}
+};
+
+const deleteAnswer = (answer_id) => {
+    const form = useForm({});
+    form.delete(route('forum.answer.destroy', { id: answer_id }), {
+        onError: (err) => console.log(err) // TODO
+    });
+};
 
 </script>
 
@@ -117,8 +124,9 @@ const deletePost = () => {
             <div id="post-title" class="mt-[7vh] text-[#1E1B18] font-bold text-4xl text-center">
                 {{ post.title }}
             </div>
+            <!-- Add is admin validation -->
             <img
-                v-if="post.isAuthor"
+                v-if="post.isAuthor" 
                 alt="Delete post"
                 src="/svg_icons/trash.svg"
                 class="absolute max-w-[2.5vw] w-[2.5vw] top-[1.5vw] right-[2vw] transition duration-200 hover:scale-110 hover:cursor-pointer"
@@ -182,7 +190,13 @@ const deletePost = () => {
                 <span class="self-center justify-self-start">{{ post.answers.length }} {{ `${$t("answers")}${post.answers.length === 1 ? '':'s'}` }}</span>
                 <OrderAnswersDropdown v-if="post.answers.length" :selected="order" :post_id="post.id" class="justify-self-end"></OrderAnswersDropdown>
             </div>
-            <ForumAnswer v-if="post.answers.length" v-for="(answer, index) in post.answers" @clickHandler="(n) => likeAnswer(index, n)" :answer="answer" />
+            <ForumAnswer
+                v-if="post.answers.length"
+                v-for="(answer, index) in post.answers"
+                @delete="deleteAnswer(answer.id)"
+                @clickHandler="(n) => likeAnswer(index, n)"
+                :answer="answer"
+            />
             <div v-else class="h-[25vh] flex items-center justify-center text-2xl">{{ $t("noAnswers") }}</div>
         </div>
     </div>

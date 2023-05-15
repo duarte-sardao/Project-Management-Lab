@@ -9,6 +9,8 @@ use App\Models\Post;
 use App\Policies\ForumPolicy;
 use App\Models\Topic;
 use App\Policies\TopicPolicy;
+use App\Models\Answer;
+use App\Policies\AnswerPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -20,7 +22,8 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
         Post::class => ForumPolicy::class,
-        Topic::class => TopicPolicy::class
+        Topic::class => TopicPolicy::class,
+        Answer::class => AnswerPolicy::class
     ];
 
     /**

@@ -425,6 +425,23 @@ class ForumController extends Controller
         return Redirect::route('forum')->with(['success' => 'Post deleted with success']);
     }
 
+    public function destroyAnswer(Request $request, $id): RedirectResponse
+    {
+        $user = Auth::user();
+        $answer = Answer::find($id);
+        
+        if ($answer == null) {
+            return back()->withErrors(['answer' => "Invalid answer id"]);
+        }
+        
+        if($user->cannot('delete', $answer)) {
+            return back()->withErrors(['answer' => "User not allowed to delete answer"]);
+        }
+
+        $answer->post->delete();
+        return back()->with(['success' => 'Answer deleted with success']);
+    }
+
     /**
      * Handle an incoming answer request
      */
