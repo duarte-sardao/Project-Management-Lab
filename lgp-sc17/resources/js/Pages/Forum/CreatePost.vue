@@ -48,7 +48,7 @@ const submit = () => {
         contentError.value = false;
     }
 
-    form.topics = topics.filter(t => t.selected);
+    form.topics = props.topics.filter(t => t.selected);
     form.post(route('forum.create'));
 };
 
