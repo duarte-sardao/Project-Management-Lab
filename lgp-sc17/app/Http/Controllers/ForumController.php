@@ -416,11 +416,11 @@ class ForumController extends Controller
             return back()->withErrors(['post' => "Invalid post id"]);
         }
 
-        error_log("here");
+
         if (!$forum_post->post->isAuthor($user->id) && !$this->authorize('delete', $forum_post)) {
             return back()->withErrors(['post' => "User not allowed to delete post " . $id]);
         }
-        error_log("here");
+
         $forum_post->post->delete();
         return Redirect::route('forum')->with(['success' => 'Post deleted with success']);
     }
