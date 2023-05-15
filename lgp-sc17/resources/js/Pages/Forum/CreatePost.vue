@@ -83,7 +83,7 @@ const submit = () => {
                 v-model="form.content"
             />
             <InputError :message="contentError ?  $t('contentError'):''" />
-            <div class="mt-[3vh] pl-[2vw] h-[30vh]">
+            <div class="mt-[3vh] pl-[2vw] h-[30vh]" v-if="topics.length">
                 <div :key="topicsSelected" class="text-[#6D6D6D] text-lg">
                     {{ $t("chooseTopics") }} ({{topicsSelected}}/4)
                 </div>
