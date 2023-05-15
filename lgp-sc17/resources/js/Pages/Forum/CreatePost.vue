@@ -9,22 +9,20 @@ import InputError from "@/Components/InputError.vue";
 const topicsSelected = ref(0);
 const topicsError = ref(false);
 
+const props = defineProps({
+    topics: Array
+});
+
 const clickTopic = (index) => {
-    const selected = topics[index].selected;
+    const selected = props.topics[index].selected;
     if (topicsSelected.value < 4 || selected) {
         topicsSelected.value += (selected) ? -1 : 1;
-        topics[index].selected = !topics[index].selected;
+        props.topics[index].selected = !props.topics[index].selected;
         if (topicsError.value) topicsError.value = false;
     } else if (!topicsError.value) {
         topicsError.value = true;
     }
 }
-
-defineProps({
-    canResetPassword: Boolean,
-    status: String,
-});
-
 
 const form = useForm({
     title: '',
@@ -53,17 +51,6 @@ const submit = () => {
     form.topics = topics.filter(t => t.selected);
     form.post(route('forum.create'));
 };
-
-const topics = [
-    { color: '#000000', topic: 'Topic1', selected: false },
-    { color: '#FFFF00', topic: 'Topic2', selected: false },
-    { color: '#00FFFF', topic: 'Topic3', selected: false },
-    { color: '#00FF00', topic: 'Topic4', selected: false },
-    { color: '#0000FF', topic: 'Topic5', selected: false },
-    { color: '#FF00FF', topic: 'Topic6', selected: false },
-    { color: '#F0F0F0', topic: 'Topic7', selected: false },
-    { color: '#0F0F0F', topic: 'Topic8', selected: false },
-];
 
 </script>
 

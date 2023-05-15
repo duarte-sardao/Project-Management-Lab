@@ -352,8 +352,9 @@ class ForumController extends Controller
      */
     public function create(Request $request): Response
     {
-
-        return Inertia::render('Forum/CreatePost');
+        return Inertia::render('Forum/CreatePost', [
+            'topics' => Topic::all()->map(function ($topic) { return array_merge($topic->only(['topic', 'color']), ['selected' => false]); })
+        ]);
     }
 
     /**
