@@ -415,9 +415,8 @@ class ForumController extends Controller
         if ($forum_post == null) {
             return back()->withErrors(['post' => "Invalid post id"]);
         }
-
-
-        if (!$forum_post->post->isAuthor($user->id) && !$this->authorize('delete', $forum_post)) {
+        
+        if ($user->cannot('delete', $forum_post)) {
             return back()->withErrors(['post' => "User not allowed to delete post " . $id]);
         }
 
