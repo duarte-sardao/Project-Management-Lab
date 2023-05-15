@@ -32,4 +32,8 @@ class Post extends Model
     public function userLikes($user_id) {
         return $this->hasMany(Like::class)->where('user_id',$user_id)->first();
     }
+
+    public function isAuthor($user_id) {
+        return $this->author == $user_id;
+    }
 }

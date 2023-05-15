@@ -91,6 +91,11 @@ const followHandler = () => {
         .catch((err) => console.error(err));
 };
 
+const deletePost = () => {
+    const form = useForm({});
+    form.delete(route('forum.post.destroy', { id: props.post.id }));
+}
+
 </script>
 
 <template>
@@ -112,6 +117,13 @@ const followHandler = () => {
             <div id="post-title" class="mt-[7vh] text-[#1E1B18] font-bold text-4xl text-center">
                 {{ post.title }}
             </div>
+            <img
+                v-if="post.isAuthor"
+                alt="Delete post"
+                src="/svg_icons/trash.svg"
+                class="absolute max-w-[2.5vw] w-[2.5vw] top-[1.5vw] right-[2vw] transition duration-200 hover:scale-110 hover:cursor-pointer"
+                v-on:click="deletePost"
+            />
             <div class="grid grid-cols-6 max-h-[5rem] my-[4vh] max-w-[30vw]">
                 <img 
                     id="author-image"

@@ -336,6 +336,7 @@ class ForumController extends Controller
             'title'=> $forum_post->title,
             'content'=> $forum_post->post->content,
             'elspsed_time'=> ForumController::getTimeString(now(), $forum_post->post->posted_at),
+            'isAuthor' => $forum_post->post->user->id == $user->id,
             'author' => [
                 'username' => $forum_post->post->user->username,
                 'image' => '/svg_icons/profile1.svg',
@@ -404,6 +405,24 @@ class ForumController extends Controller
         }
 
         return Redirect::route('forum')->with(['success' => 'Post created with success']);
+    }
+
+    public function destroyPost(Request $request, $id): RedirectResponse
+    {
+        $user = Auth::user();
+        $forum_post = ForumPost::find($id);
+        
+        if ($forum_post == null) {
+            return back()->withErrors(['post' => "Invalid post id"]);
+        }
+
+        error_log("here");
+        if (!$forum_post->post->isAuthor($user->id) && !$this->authorize('delete', $forum_post)) {
+            return back()->withErrors(['post' => "User not allowed to delete post " . $id]);
+        }
+        error_log("here");
+        $forum_post->post->delete();
+        return Redirect::route('forum')->with(['success' => 'Post deleted with success']);
     }
 
     /**

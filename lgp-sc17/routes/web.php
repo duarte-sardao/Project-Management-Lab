@@ -56,6 +56,7 @@ Route::middleware('auth')->group(function () {
     Route::post('forum/answer/{id}/like', [ForumController::class, 'likeAnswer'])->name('forum.like-answer');
     Route::post('forum/topic/{id}/follow', [ForumController::class, 'follow'])->name('forum.follow');
     Route::get('/forum/{id}', [ForumController::class, 'post'])->name('forum.post');
+    Route::delete('/forum/{id}', [ForumController::class, 'destroyPost'])->name('forum.post.destroy');
     Route::post('/forum/{id}', [ForumController::class, 'answer'])->name('forum.answer');
     Route::get('/newTopic', [ForumController::class, 'createTopic'])->name('topic.new');
     Route::post('/newTopic', [ForumController::class, 'storeTopic'])->name('topic.create');
