@@ -81,7 +81,7 @@ const followHandler = () => {
     props.post.topics[followCurrentTopic].userFollows = !props.post.topics[followCurrentTopic].userFollows;;
     changeFollowButton.value = !changeFollowButton.value;
 
-    axios.post(route('forum.follow', { id: props.post.topics[followCurrentTopic].topic_id }))
+    axios.post(route('topic.follow', { id: props.post.topics[followCurrentTopic].topic_id }))
         .then((res) => {
             if (props.post.topics[followCurrentTopic].userFollows != res.data.action == "follow") {
                 props.post.topics[followCurrentTopic].userFollows = res.data.action == "follow";

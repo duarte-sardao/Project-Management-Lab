@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ForumController;
+use App\Http\Controllers\TopicController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MailController;
 use Illuminate\Foundation\Application;
@@ -54,13 +55,16 @@ Route::middleware('auth')->group(function () {
     Route::post('forum/new', [ForumController::class, 'store'])->name('forum.create');
     Route::post('forum/{id}/like', [ForumController::class, 'like'])->name('forum.like-post');
     Route::post('forum/answer/{id}/like', [ForumController::class, 'likeAnswer'])->name('forum.like-answer');
-    Route::post('forum/topic/{id}/follow', [ForumController::class, 'follow'])->name('forum.follow');
     Route::get('/forum/{id}', [ForumController::class, 'post'])->name('forum.post');
     Route::delete('/forum/{id}', [ForumController::class, 'destroyPost'])->name('forum.post.destroy');
     Route::delete('/forum/answer/{id}', [ForumController::class, 'destroyAnswer'])->name('forum.answer.destroy');
     Route::post('/forum/{id}', [ForumController::class, 'answer'])->name('forum.answer');
-    Route::get('/newTopic', [ForumController::class, 'createTopic'])->name('topic.new');
-    Route::post('/newTopic', [ForumController::class, 'storeTopic'])->name('topic.create');
+
+    Route::post('/topic/{id}', [TopicController::class, 'follow'])->name('topic.follow');
+    Route::delete('/topic/{id}', [TopicController::class, 'destroy'])->name('topic.destroy');
+    Route::get('/newTopic', [TopicController::class, 'create'])->name('topic.new');
+    Route::post('/newTopic', [TopicController::class, 'store'])->name('topic.create');
+
     Route::get('/profile', [ProfileController::class, 'visualize'])->name('profile');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');

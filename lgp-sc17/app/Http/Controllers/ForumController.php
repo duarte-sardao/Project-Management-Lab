@@ -30,39 +30,6 @@ use App\Models\TopicPost;
 
 class ForumController extends Controller
 {
-
-    public function createTopic(Request $request): Response
-    {
-        return Inertia::render('Admin/CreateTopic');
-    }
-
-    public function storeTopic(Request $request): RedirectResponse
-    {
-        $topic = new Topic();
-        $this->authorize('create', $topic);
-
-        $request->validate([
-            'topic' => 'required|string|max:32',
-            'color' => 'required|string|max:7',
-        ]);
-
-        if (!Topic::where('topic', $request->topic)->get()->isEmpty()) {
-            return back()->withErrors(['topic' => "topicExists"]);
-        }
-
-        if (!Topic::where('color', $request->color)->get()->isEmpty()) {
-            return back()->withErrors(['color' => "colorError"]);
-        }
-
-        $topic->topic = $request->topic;
-        $topic->color = $request->color;
-        $topic->save();
-
-        return Redirect::route('forum')->with(['success' => 'Post created with success']);
-    }
-
-
-
     /**
      * Get the elapsed time between two timestamps
      */
