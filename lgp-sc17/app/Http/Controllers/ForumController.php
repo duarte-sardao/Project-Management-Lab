@@ -89,7 +89,7 @@ class ForumController extends Controller
             }
 
             $content = $forum_post->post->content;
-            if (strlen($content > 180)) {
+            if (strlen($content) > 180) {
                 $content = substr($content, 0, 177) . '...';
             }
 
