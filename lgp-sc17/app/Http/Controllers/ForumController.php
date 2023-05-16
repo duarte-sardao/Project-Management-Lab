@@ -377,10 +377,7 @@ class ForumController extends Controller
         foreach ($request->topics as $topic) {
             $topic_obj = Topic::where('topic', $topic['topic'])->first();
             if ($topic_obj == null) {
-                $topic_obj = Topic::create([
-                    'topic' => $topic['topic'],
-                    'color' => $topic['color'],
-                ]);
+                // TODO: ERROR
             }
 
             $topic_post = TopicPost::create([
