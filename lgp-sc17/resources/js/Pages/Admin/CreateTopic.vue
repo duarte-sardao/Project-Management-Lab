@@ -58,14 +58,14 @@ const submit = () => {
                 :placeholder="$t('addTopicName')"
                 v-model="form.topic"
             />
-            <InputError class="pl-4" :message="topicError ?  $t(topicErrorString):''" />
+            <InputError :message="topicError ?  $t(topicErrorString):''" />
             
             <div class="mt-[3vh]">
                 <div class="flex">
                     <InputLabel class="inline" for="color" :value="$t('pickColor')" />
                     <input type="color" id="color" v-model="form.color" class="bg-transparent ml-[1vw] self-center hover:cursor-pointer"/>
                 </div>
-                <InputError class="pl-4" :message="colorError ?  $t('colorError'):''" />
+                <InputError :message="colorError ?  $t('colorError'):''" />
             </div>
             <button type="submit" class="shadow-md shadow-black/[.25] justify-self-end mt-[2vh] mb-[6vh] bg-[#578AD6] px-20 py-3 text-xl text-white font-bold rounded-3xl hover:brightness-90">
                 {{ $t("submitTopic") }}
