@@ -3,12 +3,12 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\ForumPost;
+use App\Models\Post;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Auth;
 
-class ForumPolicy
+class PostPolicy
 {
   use HandlesAuthorization;
 
@@ -21,10 +21,11 @@ class ForumPolicy
   }
 
   /**
-   * Only an admin user can delete a post
+   * 
    */
-  public function delete(User $user, ForumPost $forum_post)
+  public function reply(User $user)
   {
-    return Auth::check() && (/*$user->isAdmin() ||*/ $forum_post->post->isAuthor($user->id));
+    return Auth::check();
   }
+  
 }
