@@ -139,13 +139,15 @@ class ForumController extends Controller
     /**
      * Get the forum page according to some filters
      */
-    private static function getPosts(Request $request, $forum_posts, $currentForum = null, $currentTopic = null)
+    private static function getPosts(Request $request, $forum_posts, $currentForum = null, $currentTopic = null, $message = null)
     {
+        // check se order é alguma das ordens que existem
         $order = "latestFirst";
         if ($request->selected) {
             $order = $request->selected;
         }
 
+        // check $request->page > 0
         $page = null;
         if ($request->page) {
             $page = $request->page;
@@ -166,6 +168,8 @@ class ForumController extends Controller
         else $result['currentTopic'] = $currentTopic;
         
         if (!is_null($request->search)) $result['search'] = $request->search;
+
+        if (!is_null($message)) $result['message'] = $message;
 
         return Inertia::render('Forum/Forum', $result);
     }
@@ -202,7 +206,12 @@ class ForumController extends Controller
      */
     public function posts(Request $request): Response
     {
-        return ForumController::getPosts($request, ForumPost::all(), 0);
+        return ForumController::getPosts(
+            $request,
+            ForumPost::all(),
+            0,
+            message: $request->session()->get('success')
+        );
     }
 
     /**
@@ -297,22 +306,31 @@ class ForumController extends Controller
             $answer->userLikes = $answer->post->userLikes($user->id);
             $answers->push($answer);
         }
-    
-        return Inertia::render('Forum/Post', ['currentTopic' => $currentTopic, 'order' => $order, 'post' => [
-            'id' => $forum_post->id,
-            'title'=> $forum_post->title,
-            'content'=> $forum_post->post->content,
-            'elspsed_time'=> ForumController::getTimeString(now(), $forum_post->post->posted_at),
-            'isAuthor' => $forum_post->post->user->id == $user->id,
-            'author' => [
-                'username' => $forum_post->post->user->username,
-                'image' => '/svg_icons/profile1.svg',
+
+        $result =  [
+            'post' => [
+                'id' => $forum_post->id,
+                'title'=> $forum_post->title,
+                'content'=> $forum_post->post->content,
+                'elspsed_time'=> ForumController::getTimeString(now(), $forum_post->post->posted_at),
+                'isAuthor' => $forum_post->post->user->id == $user->id,
+                'author' => [
+                    'username' => $forum_post->post->user->username,
+                    'image' => '/svg_icons/profile1.svg',
+                ],
+                'topics' => $topics,
+                'answers' => array_values(ForumController::orderPosts($answers, $order)->toArray()),
+                'likes' => count($forum_post->post->likes),
+                'userLikes' => $forum_post->post->userLikes(Auth::user()->id),
             ],
-            'topics' => $topics,
-            'answers' => ForumController::orderPosts($answers, $order),
-            'likes' => count($forum_post->post->likes),
-            'userLikes' => $forum_post->post->userLikes(Auth::user()->id),
-        ]]);
+            'currentTopic' => $currentTopic,
+            'order' => $order,
+        ];
+        
+        $message = $request->session()->get('success');
+        if (!is_null($message)) $result['message'] = $message;
+    
+        return Inertia::render('Forum/Post', $result);
     }
 
     /**
@@ -371,9 +389,12 @@ class ForumController extends Controller
             ]);
         }
 
-        return Redirect::route('forum')->with(['success' => 'Post created with success']);
+        return Redirect::route('forum')->with(['success' => 'postSuccessfullyCreated']);
     }
 
+    /**
+     * 
+     */
     public function destroyPost(Request $request, $id): RedirectResponse
     {
         $user = Auth::user();
@@ -388,9 +409,12 @@ class ForumController extends Controller
         }
 
         $forum_post->post->delete();
-        return Redirect::route('forum')->with(['success' => 'Post deleted with success']);
+        return Redirect::route('forum')->with(['success' => 'postSuccessfullyDeleted']);
     }
 
+    /**
+     * 
+     */
     public function destroyAnswer(Request $request, $id): RedirectResponse
     {
         $user = Auth::user();
@@ -405,7 +429,7 @@ class ForumController extends Controller
         }
 
         $answer->post->delete();
-        return back()->with(['success' => 'Answer deleted with success']);
+        return back()->with(['success' => 'answerSuccessfullyDeleted']);
     }
 
     /**
@@ -435,7 +459,7 @@ class ForumController extends Controller
             'forum_post_id' => $id,
         ]);
 
-        return Redirect::route('forum.post', $id)->with(['success' => 'Post replied with success']);
+        return Redirect::route('forum.post', $id)->with(['success' => 'answerSuccessfullyCreated']);
     }
 
     /**

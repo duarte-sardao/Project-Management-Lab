@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+import DeleteModal from '@/Components/DeleteModal.vue';
 
 const props = defineProps(['answer']);
 const emit = defineEmits(['delete', 'clickHandler']);
@@ -8,11 +9,23 @@ const componentKey = ref(props.answer.userLikes);
 
 const forceRender = () => {
     componentKey.value = !componentKey.value;
-}
+};
+
+const confirmingAnswerDeletion = ref(false);
+const confirmAnswerDeletion = () => {
+    confirmingAnswerDeletion.value = true;
+};
 
 </script>
 
 <template>
+    <DeleteModal
+        message="deleteAnswerModal"
+        deleteButton="deleteAnswerButton"
+        :close="confirmingAnswerDeletion"
+        v-on:update:close="confirmingAnswerDeletion = $event"
+        @deleteAction="emit('delete')"
+    />
     <div class="relative grid ml-[4vw] border-b-[1px] border-[#221F1C]/[.21]">
         <div class="grid grid-cols-6 max-h-[5rem] mt-[6vh] max-w-[30vw]">
             <img 
@@ -48,7 +61,7 @@ const forceRender = () => {
             alt="Delete answer"
             class="absolute max-w-[2.5vw] w-[2.5vw] min-w-[30px] top-[3vh] right-[2vw] transition duration-200 hover:scale-110 hover:cursor-pointer"
             src="/svg_icons/trash.svg"
-            v-on:click="emit('delete')"
+            v-on:click="confirmAnswerDeletion"
         />
         <div class="text-[#222222] font-normal text-base mb-[10vh] mt-[3.25rem]">
             {{ answer.content }}

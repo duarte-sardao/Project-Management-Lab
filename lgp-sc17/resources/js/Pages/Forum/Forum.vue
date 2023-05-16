@@ -1,10 +1,12 @@
 <script setup>
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import { ref, onMounted } from 'vue';
+import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 import NavBarSimple from "@/Components/NavBarSimple.vue";
 import Footer from "@/Components/Footer.vue";
 import ForumPost from "@/Components/ForumPost.vue";
 import OrderPostsDropdown from "@/Components/OrderPostsDropdown.vue";
 import Pagination from "@/Components/Pagination.vue";
+import MessageToast from "@/Components/MessageToast.vue";
 
 const props = defineProps({
     posts: Array,
@@ -17,6 +19,23 @@ const props = defineProps({
     search: {
         type: String,
         default: undefined,
+    },
+    message: {
+        type: String,
+        default: undefined,
+    },
+});
+
+const displayToast = ref(false);
+function cleanToast() {
+    usePage().props.flash.success_message = null;
+    usePage().props.flash.error_message = null;
+    displayToast.value = false;
+}
+onMounted(() => {
+    if (props.message != undefined) {
+        displayToast.value = true;
+        setTimeout(cleanToast, 3000);
     }
 });
 
@@ -71,6 +90,13 @@ const onPageChange = ({ next_page = currentPage, order: order } = {}) => {
             </form>
         </div>
     </div>
+
+    <MessageToast
+        v-if="displayToast"
+        :message="$page.props.flash.success_message == undefined ? '':$t(`${$page.props.flash.success_message}`)"
+        :error="$page.props.flash.error_message == undefined ? '':$t(`${$page.props.flash.error_message}`)"
+    ></MessageToast>
+
     <div id="forum-post" class="grid pl-[7vw] pr-[4vw] mb-[20vh]">
         <div class="grid grid-cols-2 mt-[8vh] mb-[12.5vh]">
             <OrderPostsDropdown

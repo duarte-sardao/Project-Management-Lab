@@ -1,18 +1,51 @@
 <script setup>
 import { ref } from 'vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 import NavBarSimple from "@/Components/NavBarSimple.vue";
 import Footer from "@/Components/Footer.vue";
 import ForumAnswer from "@/Components/ForumAnswer.vue";
 import TopicTag from "@/Components/TopicTag.vue";
 import OrderAnswersDropdown from '@/Components/OrderAnswersDropdown.vue';
 import InputError from "@/Components/InputError.vue";
+import MessageToast from "@/Components/MessageToast.vue";
+import DeleteModal from '@/Components/DeleteModal.vue';
 
 const props = defineProps({
     post: Object,
     currentTopic: Number,
     order: String,
+    message: {
+        type: String,
+        default: undefined,
+    },
 });
+
+const confirmingPostDeletion = ref(false);
+const confirmPostDeletion = () => {
+    confirmingPostDeletion.value = true;
+};
+const deletePost = () => {
+    const form = useForm({});
+    form.delete(route('forum.post.destroy', { id: props.post.id }));
+};
+
+const displayToast = ref(false);
+function cleanToast() {
+    usePage().props.flash.success_message = null;
+    usePage().props.flash.error_message = null;
+    displayToast.value = false;
+};
+const displayToastAction = () => {
+    displayToast.value = true;
+    setTimeout(cleanToast, 3000);
+};
+const deleteAnswer = (answer_id) => {
+    const form = useForm({});
+    form.delete(route('forum.answer.destroy', { id: answer_id }), {
+        onFinish: displayToastAction,
+        onError: (err) => console.log(err) // TODO
+    });
+};
 
 const form = useForm({
     content: '',
@@ -25,7 +58,10 @@ const submit = () => {
         return;
     }
     form.post(route('forum.answer', {id:props.post.id}), {
-        onFinish () {
+        onFinish: () => {
+            if (props.message != undefined) {
+                displayToastAction();
+            }
             form.content = '';
             if (answerError.value) answerError.value = false;
         }
@@ -91,18 +127,6 @@ const followHandler = () => {
         .catch((err) => console.error(err));
 };
 
-const deletePost = () => {
-    const form = useForm({});
-    form.delete(route('forum.post.destroy', { id: props.post.id }));
-};
-
-const deleteAnswer = (answer_id) => {
-    const form = useForm({});
-    form.delete(route('forum.answer.destroy', { id: answer_id }), {
-        onError: (err) => console.log(err) // TODO
-    });
-};
-
 </script>
 
 <template>
@@ -110,6 +134,20 @@ const deleteAnswer = (answer_id) => {
     <div class="relative" style="z-index: 1">
         <NavBarSimple></NavBarSimple>
     </div>
+
+    <MessageToast
+        v-if="displayToast"
+        :message="$page.props.flash.success_message == undefined ? '':$t(`${$page.props.flash.success_message}`)"
+        :error="$page.props.flash.error_message == undefined ? '':$t(`${$page.props.flash.error_message}`)"
+    ></MessageToast>
+
+    <DeleteModal
+        message="deletePostModal"
+        deleteButton="deletePostButton"
+        :close="confirmingPostDeletion"
+        v-on:update:close="confirmingPostDeletion = $event"
+        @deleteAction="deletePost"
+    />
 
     <div id="forum-post" class="grid mx-[10vw] mb-[20vh]">
         <div class="grid mt-[4vh]">
@@ -130,7 +168,7 @@ const deleteAnswer = (answer_id) => {
                 alt="Delete post"
                 src="/svg_icons/trash.svg"
                 class="absolute max-w-[2.5vw] w-[2.5vw] top-[1.5vw] right-[2vw] transition duration-200 hover:scale-110 hover:cursor-pointer"
-                v-on:click="deletePost"
+                v-on:click="confirmPostDeletion"
             />
             <div class="grid grid-cols-6 max-h-[5rem] my-[4vh] max-w-[30vw]">
                 <img 
