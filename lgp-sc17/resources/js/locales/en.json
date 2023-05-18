@@ -22,6 +22,7 @@
     "patientRegister": "Register - Patient",
     "patient": "Patient",
     "healthcareNumber": "Healthcare number",
+    "search": "Search",
 
     "about": "About Us",
 
@@ -112,6 +113,44 @@
     "topicExists": "Already exists a topic with the specified name",
     "pickColor": "Topic color:",
     "colorError": "Already exists a topic with the specified color",
-    "submitTopic": "Create"
+    "submitTopic": "Create",
 
+    "librarySearch": "What are you searching for?",
+    "librarySearchHint": "Search for answers to your health questions",
+    "libraryContent": "Library Content",
+    "libraryContentHint": "See and edit the library",
+    "libraryButtonCreate": "Create Post",
+    "libraryCreate": "Create a new post",
+    "libraryPost": "Post",
+    "libraryPostEdit": "Edit a post",
+    "title": "Title",
+    "subtitle": "Subitle",
+    "body": "Body Content",
+    "postImage": "Post image",
+    "date": "Date",
+    "state": "State",
+    "edit": "Edit",
+    "delete": "Delete",
+    "public": "Public",
+    "private": "Private",
+    "save": "Save",
+
+    "administration": "Administration",
+    "isAdmin": "Admin account",
+    "users": "Users",
+
+    "404_title": "Page not found",
+    "404_text": "Something's missing",
+    "404_subtext": "The page is missing or you assembled the link incorrectly",
+
+    "403_title": "Permission denied",
+    "403_text": "No permissions!",
+    "403_subtext": "You don't have permission to continue",
+
+    "500_title": "Internal server error",
+    "500_text": "Oops! Something went wrong",
+    "500_subtext": "There was an error on our servers! Hope everything is ok",
+
+    "goHome": "Go home",
+    "goBack": "Go back"
 }

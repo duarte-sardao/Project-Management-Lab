@@ -18,7 +18,13 @@ module.exports = {
                 bgColor: '#FFFCF9',
                 mainBlue: '#578AD6',
                 lightBlue: '#B9CEED',
-                highlightBlue: '#244D89'
+                highlightBlue: '#244D89',
+                indigo: '#dbeafe',
+                stone: '#fafaf9',
+                black: '#0a0a0a',
+                skyBlue: '#dbeafe',
+                adminMainBlue: '#7BA3DF',
+                adminBackground: '#C6D2E3'
             }
         },
     },

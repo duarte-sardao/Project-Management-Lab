@@ -21,13 +21,13 @@ class LoginController extends Controller
         if (Auth::attempt(['email' => $credentials['credential'], 'password' => $credentials['password']])) {
             $request->session()->regenerate();
 
-            return redirect()->intended('dashboard');
+            return redirect()->intended('login');
         }
 
         if (Auth::attempt(['username' => $credentials['credential'], 'password' => $credentials['password']])) {
             $request->session()->regenerate();
 
-            return redirect()->intended('dashboard');
+            return redirect()->intended('login');
         }
 
         return back()->withErrors([

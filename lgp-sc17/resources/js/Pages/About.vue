@@ -1,12 +1,9 @@
 <script setup>
-import NavBar from "@/Components/NavBar.vue";
+import NavBar from "@/Components/Navbar/NavBar.vue";
 import Footer from "@/Components/Footer.vue";
-import { Head, Link, useForm } from '@inertiajs/vue3';
-import GuestLayout from '@/Layouts/GuestLayout.vue';
+import { useForm } from '@inertiajs/vue3';
 import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
 
 const title="About Us"
 const subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet"

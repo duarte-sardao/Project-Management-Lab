@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
-import NavBarSimple from "@/Components/NavBarSimple.vue";
+import NavBarSimple from "@/Components/Navbar/NavBarSimple.vue";
 import Footer from "@/Components/Footer.vue";
 import ForumPost from "@/Components/ForumPost.vue";
 import OrderPostsDropdown from "@/Components/OrderPostsDropdown.vue";
@@ -137,24 +137,24 @@ const onPageChange = ({ next_page = currentPage, order: order } = {}) => {
             <div class="col-span-2 pl-[2vw]">
                 <div class="px-[1vw]">
                     <Link :href="route('forum')" class="block hover:font-bold">
-                        <img 
+                        <img
                             :src="currentForum === 0 ? `/svg_icons/all_discussions_selected.svg`:`/svg_icons/all_discussions.svg`"
                             alt="All discussions"
                             class="inline-block align-middle max-h-[2.5rem]"
                         />
                         <div class="inline-block text-xl text-[#578AD6] ml-[1vw]" :class="currentForum === 0 ? 'text-[#578AD6]': 'text-[#6D6D6D]'">
                             {{ $t("allDiscussions") }}
-                        </div>  
+                        </div>
                     </Link>
                     <Link :href="route('forum-following')" class="block mt-[4vh] hover:font-bold">
-                        <img 
+                        <img
                             :src="currentForum === 1 ? '/svg_icons/following_discussions_selected.svg':'/svg_icons/following_discussions.svg'"
                             alt="Following discussions"
                             class="inline-block align-middle max-h-[2rem]"
                         />
                         <div class="inline-block text-xl text-[#578AD6] ml-[1vw]" :class="currentForum === 1 ? 'text-[#578AD6]': 'text-[#6D6D6D]'">
                             {{ $t("followingDiscussions") }}
-                        </div>  
+                        </div>
                     </Link>
                     <Link :href="route('forum-my_discussions')" class="block mt-[4vh] hover:font-bold ">
                         <img
@@ -164,7 +164,7 @@ const onPageChange = ({ next_page = currentPage, order: order } = {}) => {
                         />
                         <div class="inline-block text-xl text-[#578AD6] ml-[1vw]" :class="currentForum === 2 ? 'text-[#578AD6]': 'text-[#6D6D6D]'">
                             {{ $t("myDiscussions") }}
-                        </div>  
+                        </div>
                     </Link>
                 </div>
                 <div class="mt-[6vh] border-2 border-[#221F1C]/[.42] w-[100%] rounded-3xl"></div>

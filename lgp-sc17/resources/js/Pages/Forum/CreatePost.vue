@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
-import NavBarSimple from "@/Components/NavBarSimple.vue";
+import NavBarSimple from "@/Components/Navbar/NavBarSimple.vue";
 import Footer from "@/Components/Footer.vue";
 import TopicButton from "@/Components/TopicButton.vue";
 import InputError from "@/Components/InputError.vue";

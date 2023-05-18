@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
-import NavBarSimple from "@/Components/NavBarSimple.vue";
+import NavBarSimple from "@/Components/Navbar/NavBarSimple.vue";
 import Footer from "@/Components/Footer.vue";
 import ForumAnswer from "@/Components/ForumAnswer.vue";
 import TopicTag from "@/Components/TopicTag.vue";
@@ -164,14 +164,14 @@ const followHandler = () => {
             </div>
             <!-- Add is admin validation -->
             <img
-                v-if="post.isAuthor" 
+                v-if="post.isAuthor"
                 alt="Delete post"
                 src="/svg_icons/trash.svg"
                 class="absolute max-w-[2.5vw] w-[2.5vw] top-[1.5vw] right-[2vw] transition duration-200 hover:scale-110 hover:cursor-pointer"
                 v-on:click="confirmPostDeletion"
             />
             <div class="grid grid-cols-6 max-h-[5rem] my-[4vh] max-w-[30vw]">
-                <img 
+                <img
                     id="author-image"
                     :src="post.author.image"
                     alt="author image"

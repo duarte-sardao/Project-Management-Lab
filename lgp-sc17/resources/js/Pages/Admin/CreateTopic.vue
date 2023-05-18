@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
-import NavBarSimple from "@/Components/NavBarSimple.vue";
+import NavBarSimple from "@/Components/Navbar/NavBarSimple.vue";
 import Footer from "@/Components/Footer.vue";
 import InputLabel from '@/Components/InputLabel.vue';
 import InputError from "@/Components/InputError.vue";
@@ -59,7 +59,7 @@ const submit = () => {
                 v-model="form.topic"
             />
             <InputError :message="topicError ?  $t(topicErrorString):''" />
-            
+
             <div class="mt-[3vh]">
                 <div class="flex">
                     <InputLabel class="inline" for="color" :value="$t('pickColor')" />
