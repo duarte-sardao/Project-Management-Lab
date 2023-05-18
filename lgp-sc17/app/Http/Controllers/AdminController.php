@@ -21,7 +21,7 @@ class AdminController extends Controller
 
     function userInfo($id) {
         return Inertia::render('Admin/Users/UserInfo', [
-            'post' => LibraryPost::find($id)
+            'user' => User::find($id)
         ]);
     }
 

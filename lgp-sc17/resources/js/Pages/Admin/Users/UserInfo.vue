@@ -7,10 +7,10 @@ const props = defineProps({
     user: { required: true }
 });
 
-/**const profile_img_url = ref(props.user.profile_img_url);
+const profile_img_url = ref(props.user.profile_img_url);
 if (profile_img_url.value == null) {
     profile_img_url.value = '/svg_icons/profile.svg';
-}**/
+}
 </script>
 
 <template>
@@ -26,21 +26,21 @@ if (profile_img_url.value == null) {
             {{ $t('userInfoEdit') }}
         </div>
 
-        <div class="grid grid-cols-2">
-            <img id="profile-img" class="rounded-full mx-auto mb-[7vh] h-fit w-[200px] h-[200px]" :src="'/svg_icons/profile.svg'" alt="profile image">
-            <div>
-                <p class="font-bold underline">{{$t('fullName')}}</p><p>Full Name</p>
-                <p class="font-bold underline">Username</p><p>Username</p>
-                <p class="font-bold underline">Email</p><p>Email</p>
-                <p class="font-bold underline">{{$t('phoneNumber')}}</p><p>999999999</p>
-                <div class="dropdown">
-                    <label tabindex="0" class="btn m-1">{{ $t('setStatus') }}</label>
-                    <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                        <li><a>Guest</a></li>
-                        <li><a>{{ $t('user') }}</a></li>
-                        <li><a>{{ $t('doctor') }}</a></li>
-                    </ul>
-                </div>
+        <div class="grid grid-cols-3">
+            <img id="profile-img" class="rounded-full mx-auto mb-[7vh] h-fit w-[200px] h-[200px]" :src="profile_img_url" alt="profile image">
+            <div class="col-span-2">
+                <p class="font-bold underline">{{$t('fullName')}}</p><p> {{props.user.name }}</p>
+                <p class="font-bold underline">Username</p><p> {{props.user.username}}</p>
+                <p class="font-bold underline">Email</p><p> {{props.user.email}}</p>
+                <p class="font-bold underline">{{$t('phoneNumber')}}</p><p> {{props.user.phone_number}}</p>
+            </div>
+            <div class="dropdown col-start-2">
+                <label tabindex="0" class="btn m-1">{{ $t('setStatus') }}</label>
+                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                    <li><a>Guest</a></li>
+                    <li><a>{{ $t('user') }}</a></li>
+                    <li><a>{{ $t('doctor') }}</a></li>
+                </ul>
             </div>
         </div>
     </AdministrationLayout>
