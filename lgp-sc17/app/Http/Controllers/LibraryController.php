@@ -52,7 +52,6 @@ class LibraryController extends Controller
         $post->public = $request->public;
         $this->setPostImage($request, $post);
         $post->save();
-
         return back();
     }
 

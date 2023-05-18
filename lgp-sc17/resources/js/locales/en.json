@@ -81,5 +81,20 @@
 
     "administration": "Administration",
     "isAdmin": "Admin account",
-    "users": "Users"
+    "users": "Users",
+
+    "404_title": "Page not found",
+    "404_text": "Something's missing",
+    "404_subtext": "The page is missing or you assembled the link incorrectly",
+
+    "403_title": "Permission denied",
+    "403_text": "No permissions!",
+    "403_subtext": "You don't have permission to continue",
+
+    "500_title": "Internal server error",
+    "500_text": "Oops! Something went wrong",
+    "500_subtext": "There was an error on our servers! Hope everything is ok",
+
+    "goHome": "Go home",
+    "goBack": "Go back"
 }
