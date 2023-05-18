@@ -28,7 +28,7 @@ if (!([403, 404, 500].includes(props.code))) {
 <template>
     <Head><title>{{ $t(`${code}_title`) }}</title></Head>
     <div class="h-[100vh] pt-[8vh]" style="background: linear-gradient(226.21deg, #578AD6 25.53%, rgba(87, 138, 214, 0) 99.6%);">
-        <label tabindex="0" class="ml-[5vw] btn btn-ghost">
+        <label tabindex="0" class="ml-[5vw] block">
             <Link href="/">
                 <img src="/logo.svg" alt="default user" class="max-h-[10vh]"/>
             </Link>
