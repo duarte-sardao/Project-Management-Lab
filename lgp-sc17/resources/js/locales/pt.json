@@ -89,5 +89,6 @@
     "user": "Utilizador",
     "doctor": "Médico",
     "userInfo": "Informação de Utilizador",
-    "userInfoEdit": "Atualizar informação de utilizador"
+    "userInfoEdit": "Atualizar informação de utilizador",
+    "setStatus": "Definir Status"
 }
