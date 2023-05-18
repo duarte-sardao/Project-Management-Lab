@@ -86,5 +86,15 @@
     "404_title": "Página não encontrada",
     "404_text": "Alguma coisa em falta",
     "404_subtext": "Ou página não existe ou o link está incorreto",
-    "404_button": "Home"
+
+    "403_title": "Permissão negada",
+    "403_text": "Não podes seguir em frente",
+    "403_subtext": "Não tens permissões para continuar com a ação que desejavas",
+
+    "500_title": "Erro do servidor",
+    "500_text": "Oops! Alguma coisa correu mal",
+    "500_subtext": "Ocorreu um erro nos nossos servidores! Esperemos que tudo se encontre ok",
+
+    "goHome": "Home",
+    "goBack": "Voltar"
 }
