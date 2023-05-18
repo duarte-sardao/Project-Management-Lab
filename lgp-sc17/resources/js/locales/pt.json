@@ -81,5 +81,10 @@
 
     "administration": "Administração",
     "isAdmin": "Conta de Administração",
-    "users": "Utilizadores"
+    "users": "Utilizadores",
+
+    "404_title": "Página não encontrada",
+    "404_text": "Alguma coisa em falta",
+    "404_subtext": "Ou página não existe ou o link está incorreto",
+    "404_button": "Home"
 }

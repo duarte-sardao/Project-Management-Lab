@@ -81,5 +81,10 @@
 
     "administration": "Administration",
     "isAdmin": "Admin account",
-    "users": "Users"
+    "users": "Users",
+
+    "404_title": "Page not found",
+    "404_text": "Something's missing",
+    "404_subtext": "The page is missing or you assembled the link incorrectly",
+    "404_button": "Go home"
 }
