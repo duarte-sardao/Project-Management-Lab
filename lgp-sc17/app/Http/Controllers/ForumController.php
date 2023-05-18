@@ -37,7 +37,7 @@ class ForumController extends Controller
     {
         $days_elapsed = $to->diffInDays($from);
         if ($days_elapsed > 0) return ["quantity" => $days_elapsed, "type"=> "day" . (($days_elapsed != 1) ? "s":"") ];
-        
+
         $hours_elapsed = $to->diffInHours($from);
         if ($hours_elapsed > 0) return ["quantity" => $hours_elapsed, "type" => "hour" . (($hours_elapsed != 1) ? "s":"") ];
 
@@ -69,7 +69,7 @@ class ForumController extends Controller
             case 'mostLikesFirst':
                 return $collection->sortByDesc('likes');
             case 'lessLikesFirst':
-                return $collection->sortBy('likes');                
+                return $collection->sortBy('likes');
         }
     }
 
@@ -85,7 +85,7 @@ class ForumController extends Controller
             $profile_pictures = array();
             $quantity = min(count($answers), 4);
             for ($i = 0; $i < $quantity; $i++) {
-                array_push($profile_pictures, '/svg_icons/profile4.svg');
+                array_push($profile_pictures, $answers[$i]->post->user->profile_img_url);
             }
 
             $content = $forum_post->post->content;
@@ -100,7 +100,7 @@ class ForumController extends Controller
                 'posted_at'=> $forum_post->post->posted_at,
                 'author' => [
                     'username' => $forum_post->post->user->username,
-                    'image' => '/svg_icons/profile1.svg',
+                    'image' => $forum_post->post->user->profile_img_url,
                 ],
                 'topics' => $forum_post->topics,
                 'answers' => [
@@ -166,7 +166,7 @@ class ForumController extends Controller
         ];
         if (!is_null($currentForum)) $result['currentForum'] = $currentForum;
         else $result['currentTopic'] = $currentTopic;
-        
+
         if (!is_null($request->search)) $result['search'] = $request->search;
 
         if (!is_null($message)) $result['message'] = $message;
@@ -291,7 +291,7 @@ class ForumController extends Controller
             }
             $topics[$currentTopic]['selected'] = true;
         }
-    
+
         $answers = collect([]);
         foreach($forum_post->answers as $answer) {
             $answer->content = $answer->post->content;
@@ -326,10 +326,10 @@ class ForumController extends Controller
             'currentTopic' => $currentTopic,
             'order' => $order,
         ];
-        
+
         $message = $request->session()->get('success');
         if (!is_null($message)) $result['message'] = $message;
-    
+
         return Inertia::render('Forum/Post', $result);
     }
 
@@ -390,17 +390,17 @@ class ForumController extends Controller
     }
 
     /**
-     * 
+     *
      */
     public function destroyPost(Request $request, $id): RedirectResponse
     {
         $user = Auth::user();
         $forum_post = ForumPost::find($id);
-        
+
         if ($forum_post == null) {
             return back()->withErrors(['post' => "Invalid post id"]);
         }
-        
+
         if ($user->cannot('delete', $forum_post)) {
             return back()->withErrors(['post' => "User not allowed to delete post " . $id]);
         }
@@ -410,17 +410,17 @@ class ForumController extends Controller
     }
 
     /**
-     * 
+     *
      */
     public function destroyAnswer(Request $request, $id): RedirectResponse
     {
         $user = Auth::user();
         $answer = Answer::find($id);
-        
+
         if ($answer == null) {
             return back()->withErrors(['answer' => "Invalid answer id"]);
         }
-        
+
         if($user->cannot('delete', $answer)) {
             return back()->withErrors(['answer' => "User not allowed to delete answer"]);
         }
@@ -462,7 +462,7 @@ class ForumController extends Controller
     /**
      * Handles the like/unlike request of a forum post
      */
-    public function like(Request $request, $id) 
+    public function like(Request $request, $id)
     {
 
         $user = Auth::user();
@@ -487,7 +487,7 @@ class ForumController extends Controller
     /**
      * Handles the like/unlike request of a forum post answer
      */
-    public function likeAnswer(Request $request, $id) 
+    public function likeAnswer(Request $request, $id)
     {
         $user = Auth::user();
         $answer = Answer::find($id);
@@ -518,7 +518,7 @@ class ForumController extends Controller
         if ($topic == null) {
             return response("There is no topic with id: " . $id, 404);
         }
-        
+
         $userFollows = $topic->userFollows($user->id);
         if (!is_null($userFollows)) {
             $userFollows->delete();

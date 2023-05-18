@@ -8,7 +8,7 @@ defineProps(['data']);
     <div :id="`posts-grid-${data.id}`" class="relative max-h-[35vh] bg-[#E9EFFD] shadow-md px-[2vw] pt-[1vh] pb-[4vh] mb-[6vh] mr-[7vw] hover:brightness-95" style="border-radius: 2.25rem">
             <img v-if="data.follows" src="/svg_icons/topic_followed.svg" alt="followed" class="absolute max-h-[2rem] top-[-4%] left-[0.75%]" />
             <div class="grid grid-cols-7 my-[5vh]">
-                <img 
+                <img
                     id="author-image"
                     :src="data.author.image"
                     alt="author image"
@@ -27,7 +27,7 @@ defineProps(['data']);
                         <img
                             v-for="(img, index) in data.answers.profile_pictures"
                             :src="img"
-                            class="relative max-h-[2.75rem] h-[2.75rem] inline border-[1px] border-[#000]/[.25] rounded-full"
+                            class="relative max-h-[2.75rem] h-[2.75rem] max-w-[2.75rem] inline border-[1px] border-[#000]/[.25] rounded-full"
                             :class="index > 0 && 'ml-[-6%]'"
                             :style="`z-index: ${(4 - index) * 10}`"
                             alt="user"
@@ -35,7 +35,7 @@ defineProps(['data']);
                         <img
                             v-if="data.answers.quantity > data.answers.profile_pictures.length"
                             src="/svg_icons/more-answers.svg"
-                            class="relative max-h-[2.75rem] h-[2.75rem] inline border-[1px] border-[#000]/[.25] rounded-full ml-[-6%]"
+                            class="relative max-h-[2.75rem] h-[2.75rem] max-w-[2.75rem] inline border-[1px] border-[#000]/[.25] rounded-full ml-[-6%]"
                             alt="user"
                         />
                     </div>
