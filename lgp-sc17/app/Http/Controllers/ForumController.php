@@ -299,7 +299,7 @@ class ForumController extends Controller
             $answer->elapsed_time = ForumController::getTimeString(now(), $answer->post->posted_at);
             $answer->user = [
                 'username' => $answer->post->user->username,
-                'image' => '/svg_icons/profile1.svg',
+                'image' => $answer->post->user->profile_img_url,
                 'role' => 'Patient',
             ];
             $answer->likes = count($answer->post->likes);
@@ -316,7 +316,7 @@ class ForumController extends Controller
                 'isAuthor' => $forum_post->post->user->id == $user->id,
                 'author' => [
                     'username' => $forum_post->post->user->username,
-                    'image' => '/svg_icons/profile1.svg',
+                    'image' => $forum_post->post->user->profile_img_url,
                 ],
                 'topics' => $topics,
                 'answers' => array_values(ForumController::orderPosts($answers, $order)->toArray()),

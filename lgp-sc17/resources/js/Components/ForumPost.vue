@@ -1,7 +1,7 @@
 <script setup>
-
-defineProps(['data']);
-
+const props = defineProps(['data']);
+let author = props.data.author.image;
+if (author == null) author = '/svg_icons/profile.svg';
 </script>
 
 <template>
@@ -10,9 +10,9 @@ defineProps(['data']);
             <div class="grid grid-cols-7 my-[5vh]">
                 <img
                     id="author-image"
-                    :src="data.author.image"
+                    :src="author"
                     alt="author image"
-                    class="rounded-full mix-blend-luminosity max-h-[4.5rem] h-[100%] justify-self-center self-center col-span-1"
+                    class="rounded-full max-h-[6rem] h-[100%] max-w-[6rem] w-[100%]  justify-self-center self-center col-span-1"
                 />
                 <div class="col-span-4 pl-[2vw] pr-[4vw]">
                     <div id="post-title" class="text-[#221F1C]/[.76] font-bold text-xl mb-[1.5vh]">
@@ -26,8 +26,8 @@ defineProps(['data']);
                     <div v-if="data.answers.quantity > 0">
                         <img
                             v-for="(img, index) in data.answers.profile_pictures"
-                            :src="img"
-                            class="relative max-h-[2.75rem] h-[2.75rem] max-w-[2.75rem] inline border-[1px] border-[#000]/[.25] rounded-full"
+                            :src="img == null ? '/svg_icons/profile.svg':img"
+                            class="relative max-h-[2.75rem] h-[2.75rem] max-w-[2.75rem] w-[2.75rem] inline border-[1px] border-[#000]/[.25] rounded-full"
                             :class="index > 0 && 'ml-[-6%]'"
                             :style="`z-index: ${(4 - index) * 10}`"
                             alt="user"

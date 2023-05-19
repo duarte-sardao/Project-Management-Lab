@@ -16,6 +16,9 @@ const confirmAnswerDeletion = () => {
     confirmingAnswerDeletion.value = true;
 };
 
+const author = props.answer.user.image;
+if (author == null) author = '/svg_icons/profile.svg';
+
 </script>
 
 <template>
@@ -32,7 +35,7 @@ const confirmAnswerDeletion = () => {
                 id="author-image"
                 :src="answer.user.image"
                 alt="author image"
-                class="rounded-full mix-blend-luminosity max-h-[5rem] cols-span-1"
+                class="rounded-full max-h-[5rem] max-w-[5rem] w-fit cols-span-1"
             />
             <div class="flex flex-col items-start justify-center col-span-5 px-5">
                 <div class="text-xl font-bold text-[#221F1C]">

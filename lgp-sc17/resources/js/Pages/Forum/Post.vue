@@ -20,6 +20,9 @@ const props = defineProps({
     },
 });
 
+let author = props.post.author.image;
+if (author == null) author = '/svg_icons/profile.svg';
+
 const confirmingPostDeletion = ref(false);
 const confirmPostDeletion = () => {
     confirmingPostDeletion.value = true;
@@ -173,9 +176,9 @@ const followHandler = () => {
             <div class="grid grid-cols-6 max-h-[5rem] my-[4vh] max-w-[30vw]">
                 <img
                     id="author-image"
-                    :src="post.author.image"
+                    :src="author"
                     alt="author image"
-                    class="rounded-full mix-blend-luminosity max-h-[5rem] cols-span-1"
+                    class="rounded-full max-w-[5rem] max-h-[5rem] w-fit h-[5rem] cols-span-1"
                 />
                 <div class="flex flex-col items-start justify-center col-span-5 px-5">
                     <div class="text-xl font-bold text-[#221F1C]">{{ post.author.username }}</div>
