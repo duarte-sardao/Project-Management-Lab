@@ -9,7 +9,11 @@ use Inertia\Inertia;
 class AdminController extends Controller
 {
     function index() {
-        return Inertia::render('Admin/Dashboard');
+        return Inertia::render('Admin/Dashboard', [
+            'users' => [],
+            'library_posts' => LibraryPost::orderBy('created_at', 'desc')->limit(4)->get(),
+            'forum_posts' => []
+        ]);
     }
 
     function usersIndex() {
