@@ -20,8 +20,31 @@ class AdminController extends Controller
     }
 
     function userInfo($id) {
+
+        $user = User::find($id);
+        $number = null;
+        $hospital = null;
+        if ($user->isPatient()) {
+            $patient = Patient::where('user_id','=',$user->id)->first();
+            $number = $patient->healthcare_number;
+            $hospital = $patient->hospital->name;
+        } elseif ($user->isMedic()) {
+            $medic = Medic::where('user_id','=',$user->id)->first();
+            $number = $medic->license_number;
+            $hospital = $medic->hospital->name;
+        }
+
         return Inertia::render('Admin/Users/UserInfo', [
-            'user' => User::find($id)
+            'user' => $user,
+            'isGuest' => $user->isGuest(),
+            'status' => $user->status(),
+            'banned' => $user->isBanned(),
+            'number' => $number,
+            'hospital' => $hospital,
+            'nextAppointment' => [
+                'date' => '',
+                'time' => ''
+            ],
         ]);
     }
 

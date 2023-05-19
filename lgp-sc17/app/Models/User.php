@@ -42,6 +42,10 @@ class User extends Authenticatable
         return 'Guest';
     }
 
+    public function isBanned(): bool {
+        return false; //implement
+    }
+
     public function isGuest(): bool {
         return !($this->isPatient() || $this->isMedic());
     }

@@ -85,11 +85,11 @@
 
     "usersList": "User Listing",
     "usersListHint": "See and manage users",
-    "accType": "Type",
-    "user": "User",
-    "doctor": "Doctor",
+    "accType": "Status",
+    "medic": "Medic",
     "userInfo": "User info",
     "userInfoEdit": "Update user info",
     "setStatus": "Set Status",
-    "ban": "Ban"
+    "ban": "Ban",
+    "unban": "Unban"
 }

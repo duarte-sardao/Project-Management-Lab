@@ -85,11 +85,11 @@
 
     "usersList": "Lista de Utilizadores",
     "usersListHint": "Ver e administrar utilizadores",
-    "accType": "Tipo",
-    "user": "Utilizador",
-    "doctor": "Médico",
+    "accType": "Estado",
+    "medic": "Médico",
     "userInfo": "Informação de Utilizador",
     "userInfoEdit": "Atualizar informação de utilizador",
-    "setStatus": "Definir Status",
-    "ban": "Banir"
+    "setStatus": "Definir Estado",
+    "ban": "Banir",
+    "unban": "Desbanir"
 }
