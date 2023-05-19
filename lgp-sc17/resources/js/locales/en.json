@@ -90,5 +90,6 @@
     "doctor": "Doctor",
     "userInfo": "User info",
     "userInfoEdit": "Update user info",
-    "setStatus": "Set Status"
+    "setStatus": "Set Status",
+    "ban": "Ban"
 }

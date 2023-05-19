@@ -42,6 +42,9 @@ if (profile_img_url.value == null) {
                     <li><a>{{ $t('doctor') }}</a></li>
                 </ul>
             </div>
+            <div class="dropdown col-start-2">  
+                <label class="btn btn-error">{{ $t('ban') }}</label> <!-- unban button if banned?-->
+            </div>
         </div>
     </AdministrationLayout>
 </template>

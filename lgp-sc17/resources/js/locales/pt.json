@@ -90,5 +90,6 @@
     "doctor": "Médico",
     "userInfo": "Informação de Utilizador",
     "userInfoEdit": "Atualizar informação de utilizador",
-    "setStatus": "Definir Status"
+    "setStatus": "Definir Status",
+    "ban": "Banir"
 }
