@@ -16,6 +16,11 @@ const confirmAnswerDeletion = () => {
     confirmingAnswerDeletion.value = true;
 };
 
+const deleteAnswer = () => {
+    confirmingAnswerDeletion.value = false;
+    emit('delete')
+};
+
 const author = props.answer.user.image;
 if (author == null) author = '/svg_icons/profile.svg';
 
@@ -27,7 +32,7 @@ if (author == null) author = '/svg_icons/profile.svg';
         deleteButton="deleteAnswerButton"
         :close="confirmingAnswerDeletion"
         v-on:update:close="confirmingAnswerDeletion = $event"
-        @deleteAction="emit('delete')"
+        @deleteAction="deleteAnswer"
     />
     <div class="relative grid ml-[4vw] border-b-[1px] border-[#221F1C]/[.21]">
         <div class="grid grid-cols-6 max-h-[5rem] mt-[6vh] max-w-[30vw]">
