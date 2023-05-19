@@ -34,7 +34,7 @@ if (usePage().props.auth.user && usePage().props.auth.user.profile_img_url) {
                 <li class="my-2">
                     <Link v-if="$page.props.auth.user === null" :href="route('login')" class="btn bg-lightBlue hover:bg-mainBlue hover:text-gray-200 text-gray-600 border-0 normal-case text-xl rounded-full">Log in</Link>
                     <Link v-else :href="route('profile')" class="btn p-0 border-0 normal-case text-xl rounded-full bg-transparent hover:bg-lightBlue">
-                        <img id="profile-img" class="rounded-full mx-auto h-fit w-[48px] h-[48px]" :src="profile_img_url" alt="profile image">
+                        <img id="profile-img" class="rounded-full mx-auto h-fit w-[48px] h-[48px] w-fit max-h-[48px]" :src="profile_img_url" alt="profile image">
                     </Link>
                 </li>
             </ul>
