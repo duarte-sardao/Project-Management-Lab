@@ -20,8 +20,8 @@ const props = defineProps({
     <AdministrationLayout page="dashboard">
         <div class="py-6 bg-[#E9EFFD] w-full flex flex-col mb-6">
             <div class="flex justify-center text-4xl font-bold py-4">{{ $t('users') }}</div>
-            <div class="flex justify-center pb-6 overflow-x-auto">
-                <table class="table w-[80%]">
+            <div class="overflow-x-auto mx-8">
+                <table class="table w-full">
                     <thead>
                     <tr>
                         <th class="w-5/12">{{ $t('users') }}</th>
@@ -53,54 +53,58 @@ const props = defineProps({
                     </tbody>
                 </table>
             </div>
-            <div class="flex justify-center">
+            <div class="flex justify-center pt-6">
                 <Link :href="route('admin.users')" class="btn btn-wide hover:bg-lightBlue bg-mainBlue text-white border-0 rounded-full">
                     {{ $t('seeMore') }}</Link>
             </div>
         </div>
         <div id="grid" class="w-full grid grid-cols-2">
-            <div id="library-posts" class="flex py-6 flex-col mr-4 justify-center bg-[#E9EFFD]">
+            <div id="library-posts" class="flex py-6 flex-col mr-4 justify-center bg-[#E9EFFD] w-full">
                 <div class="flex justify-center text-4xl font-bold py-4">{{ $t('library') }}</div>
-                <div class="flex justify-center pb-6 overflow-x-auto">
-                    <table class="table w-[80%]">
+                <div class="overflow-x-auto mx-8">
+                    <table class="table w-full">
                         <thead>
                         <tr>
+                            <th class="p-0"></th>
                             <th class="w-8/12">{{ $t('title') }}</th>
                             <th class="w-4/12 text-center">{{ $t('date') }}</th>
                         </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="library_post in library_posts">
-                                <td>{{ library_post.title }}</td>
-                                <td class="text-center">{{ moment(library_post.created_at).format('DD-MM-YYYY HH:mm:ss') }}</td>
-                            </tr>
+                        <tr v-for="library_post in library_posts">
+                            <td class="p-0"></td>
+                            <td class="w-[20px] break-words">{{ library_post.title }}</td>
+                            <td class="text-center">{{ moment(library_post.created_at).format('DD-MM-YYYY HH:mm:ss') }}</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="flex justify-center">
+                <div class="flex justify-center pt-6">
                     <Link :href="route('admin.library')" class="btn btn-wide hover:bg-lightBlue bg-mainBlue text-white border-0 rounded-full">
                         {{ $t('seeMore') }}</Link>
                 </div>
             </div>
             <div id="forum-posts" class="flex py-6 flex-col ml-4 bg-[#E9EFFD]">
                 <div class="flex justify-center text-4xl font-bold py-4">Forum</div>
-                <div class="flex justify-center pb-6 overflow-x-auto">
-                    <table class="table w-[80%]">
+                <div class="overflow-x-auto mx-8">
+                    <table class="table w-full">
                         <thead>
                         <tr>
+                            <th class="p-0"></th>
                             <th class="w-8/12">{{ $t('title') }}</th>
                             <th class="w-4/12 text-center">{{ $t('date') }}</th>
                         </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="forum_post in forum_posts">
-                                <td>{{ forum_post.title }}</td>
-                                <td class="text-center">{{ moment(forum_post.created_at).format('DD-MM-YYYY HH:mm:ss') }}</td>
-                            </tr>
+                        <tr v-for="forum_post in forum_posts">
+                            <td class="p-0"></td>
+                            <td class="w-[20px] break-words">{{ forum_post.title }}</td>
+                            <td class="text-center">{{ moment(forum_post.created_at).format('DD-MM-YYYY HH:mm:ss') }}</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="flex justify-center">
+                <div class="flex justify-center pt-6">
                     <Link :href="route('admin.forum')" class="btn btn-wide hover:bg-lightBlue bg-mainBlue text-white border-0 rounded-full">
                         {{ $t('seeMore') }}</Link>
                 </div>
