@@ -27,12 +27,11 @@ const form = useForm({
 
 const displayToast = ref(false);
 function cleanToast() {
+    displayToast.value = false;
     usePage().props.flash.success_message = null;
     usePage().props.flash.error_message = null;
-    displayToast.value = false;
 }
 const submit = () => {
-    displayToast.value = true;
     form.post(route('profile.update'), {
         onFinish () {
             if (form.profile_img != null) {
@@ -41,6 +40,7 @@ const submit = () => {
             if (form.errors.phone_number) {
                 form.phone_number = user.phone_number;
             }
+            displayToast.value = true;
             setTimeout(cleanToast, 3000);
         }
     });

@@ -3,15 +3,22 @@ import moment from "moment";
 import { TailwindPagination } from 'laravel-vue-pagination';
 import AdministrationLayout from "@/Layouts/AdministrationLayout.vue";
 import LibrarySearchAdmin from "@/Components/Library/LibrarySearchAdmin.vue";
-import {Link, useForm} from '@inertiajs/vue3';
+import {Link, useForm, usePage} from '@inertiajs/vue3';
 import {ref} from "vue";
 import axios from "axios";
+import MessageToast from "@/Components/MessageToast.vue";
 
 const props = defineProps(['posts'])
 
 const deleteForm = useForm({});
 const deletePost = (id) => {
-    deleteForm.delete(route('admin.library.post', { id:id }));
+    deleteForm.delete(route('admin.library.post', { id:id }), {
+        onFinish () {
+            displayToast.value = true;
+            setTimeout(cleanToast, 3000);
+            getResults()
+        }
+    });
 }
 
 const results = ref(props.posts);
@@ -22,9 +29,27 @@ const getResults = async (page = 1) => {
             results.value = response.data;
         })
 }
+
+const displayToast = ref(false);
+function cleanToast() {
+    displayToast.value = false;
+    usePage().props.flash.success_message = undefined;
+    usePage().props.flash.error_message = undefined;
+}
+
+if (usePage().props.flash.success_message || usePage().props.flash.error_message) {
+    displayToast.value = true;
+    setTimeout(cleanToast, 3000);
+}
 </script>
 
 <template>
+    <MessageToast
+        v-if="displayToast"
+        :message="$page.props.flash.success_message === undefined ? undefined:$t(`${$page.props.flash.success_message}`)"
+        :error="$page.props.flash.error_message === undefined ? undefined:$t(`${$page.props.flash.error_message}`)"
+    ></MessageToast>
+
     <AdministrationLayout page="library">
         <div class="grid grid-cols-2">
             <div class="pb-16 text-xl text-gray-400">
