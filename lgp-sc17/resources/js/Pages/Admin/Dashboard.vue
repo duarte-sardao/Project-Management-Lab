@@ -31,25 +31,7 @@ const props = defineProps({
                     </tr>
                     </thead>
                     <tbody>
-                    <!--tr v-for="post in results.data">
-                        <td>{{ post.title }}</td>
-                        <td>{{ moment(post.created_at).format('DD-MM-YYYY HH:mm:ss') }}</td>
-                        <td class="text-center">{{ post.public ? $t('public') : $t('private') }}</td>
-                        <td class="text-center">
-                            <Link class="flex justify-center" :href="route('admin.library.post', {id: post.id})">
-                                <img src="/svg_icons/pencil.svg" alt="our vision">
-                            </Link>
-                        </td>
-                        <td class="text-center">
-                            <form @submit.prevent="deletePost(post.id)">
-                                <div id="end_opt" class="flex justify-center">
-                                    <button class="" type="submit">
-                                        <img src="/svg_icons/trash.svg" alt="our vision">
-                                    </button>
-                                </div>
-                            </form>
-                        </td>
-                    </tr-->
+                        <!-- TODO -->
                     </tbody>
                 </table>
             </div>
@@ -73,7 +55,7 @@ const props = defineProps({
                         <tbody>
                         <tr v-for="library_post in library_posts">
                             <td class="p-0"></td>
-                            <td class="w-[20px] break-words">{{ library_post.title }}</td>
+                            <td class="max-w-[400px] overflow-x-hidden">{{ library_post.title }}</td>
                             <td class="text-center">{{ moment(library_post.created_at).format('DD-MM-YYYY HH:mm:ss') }}</td>
                         </tr>
                         </tbody>
@@ -98,7 +80,7 @@ const props = defineProps({
                         <tbody>
                         <tr v-for="forum_post in forum_posts">
                             <td class="p-0"></td>
-                            <td class="w-[20px] break-words">{{ forum_post.title }}</td>
+                            <td class="max-w-[400px] overflow-x-hidden">{{ forum_post.title }}</td>
                             <td class="text-center">{{ moment(forum_post.created_at).format('DD-MM-YYYY HH:mm:ss') }}</td>
                         </tr>
                         </tbody>
