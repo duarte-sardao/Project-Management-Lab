@@ -51,7 +51,7 @@ class TopicController extends Controller
         $topic->color = $request->color;
         $topic->save();
 
-        return Redirect::route('forum')->with(['success' => 'topicSuccessfullyCreated']);
+        return Redirect::route('admin.forum')->with(['success' => 'topicSuccessfullyCreated']);
     }
 
     /**
@@ -71,8 +71,8 @@ class TopicController extends Controller
         }
 
         $topic->delete();
-        // TODO : Redirect to admin page
-        return Redirect::route('forum')->with(['success' => 'postSuccessfullyDeleted']);
+
+        return Redirect::route('admin.forum')->with(['success' => 'topicSuccessfullyDeleted']);
     }
 
     /**
