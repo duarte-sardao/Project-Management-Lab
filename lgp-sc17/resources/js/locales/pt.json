@@ -9,7 +9,7 @@
     "loginUsernameEmail": "Username ou Email",
     "password": "Palavra-passe",
     "forgotPassword": "Esqueceu-se da sua palavra-passe?",
-    "guest": "",
+    "guest": "Guest",
     "fullName": "Nome completo",
     "repeatPassword": "Repetir palavra-passe",
     "iAgree": "Aceito os ",
@@ -91,5 +91,9 @@
     "userInfoEdit": "Atualizar informação de utilizador",
     "setStatus": "Definir Estado",
     "ban": "Banir",
-    "unban": "Desbanir"
+    "unban": "Desbanir",
+    "confirmAction": "Confirmar ação em utilizador: ",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "actionStatus": "Definir utilizador como "
 }

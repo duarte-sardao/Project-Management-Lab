@@ -82,16 +82,16 @@ if (profile_img_url.value == null) {
                     <div v-if="!user.is_admin" class="dropdown h-fit">
                         <label tabindex="0" class="btn m-1">{{ $t('setStatus') }}</label>
                         <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                            <li v-if="status != 'Guest'"><a>Guest</a></li>
-                            <li v-if="status != 'Patient'"><a>{{ $t('patient') }}</a></li>
-                            <li v-if="status != 'Medic'"><a>{{ $t('medic') }}</a></li>
+                            <li v-if="status != 'Guest'"><label for="guest-modal">{{$t('guest')}}</label></li>
+                            <li v-if="status != 'Patient'"><label for="patient-modal">{{ $t('patient') }}</label></li>
+                            <li v-if="status != 'Medic'"><label for="medic-modal">{{ $t('medic') }}</label></li>
                         </ul>
                     </div>
                     <div v-if="!user.is_admin && !banned" class="h-fit">  
-                        <label class="btn btn-error">{{ $t('ban') }}</label>
+                        <label for="ban-modal" class="btn btn-error">{{ $t('ban') }}</label>
                     </div>
                     <div v-if="!user.is_admin && banned" class="h-fit">  
-                        <label class="btn btn-error">{{ $t('unban') }}</label>
+                        <label for="unban-modal" class="btn btn-error">{{ $t('unban') }}</label>
                     </div>
                 </div>
             </div>
@@ -170,6 +170,61 @@ if (profile_img_url.value == null) {
         </div>
     </form>
     </AdministrationLayout>
+
+    <input type="checkbox" id="ban-modal" class="modal-toggle" />
+    <div class="modal">
+    <div class="modal-box">
+        <p class="py-4">{{ $t("confirmAction")}} {{  $t('ban') }}</p>
+        <div class="modal-action">
+        <label for="ban-modal" class="btn">{{ $t('cancel') }}</label>
+        <label class="btn btn-error">{{ $t('confirm') }}</label> <!--ban-->
+        </div>
+    </div>
+    </div>
+
+    <input type="checkbox" id="unban-modal" class="modal-toggle" />
+    <div class="modal">
+    <div class="modal-box">
+        <p class="py-4">{{ $t("confirmAction")}} {{  $t('unban') }}</p>
+        <div class="modal-action">
+        <label for="unban-modal" class="btn">{{ $t('cancel') }}</label>
+        <label class="btn btn-error">{{ $t('confirm') }}</label> <!--unban-->
+        </div>
+    </div>
+    </div>
+
+    <input type="checkbox" id="guest-modal" class="modal-toggle" />
+    <div class="modal">
+    <div class="modal-box">
+        <p class="py-4">{{ $t("confirmAction")}} {{  $t('actionStatus') }} {{ $t('guest') }}</p>
+        <div class="modal-action">
+        <label for="guest-modal" class="btn">{{ $t('cancel') }}</label>
+        <label class="btn btn-error">{{ $t('confirm') }}</label> <!--set guest-->
+        </div>
+    </div>
+    </div>
+
+    <input type="checkbox" id="patient-modal" class="modal-toggle" />
+    <div class="modal">
+    <div class="modal-box">
+        <p class="py-4">{{ $t("confirmAction")}} {{  $t('actionStatus') }} {{ $t('patient') }}</p>
+        <div class="modal-action">
+        <label for="patient-modal" class="btn">{{ $t('cancel') }}</label>
+        <label class="btn btn-error">{{ $t('confirm') }}</label> <!--set patient-->
+        </div>
+    </div>
+    </div>
+
+    <input type="checkbox" id="medic-modal" class="modal-toggle" />
+    <div class="modal">
+    <div class="modal-box">
+        <p class="py-4">{{ $t("confirmAction")}} {{  $t('actionStatus') }} {{ $t('medic') }}</p>
+        <div class="modal-action">
+        <label for="medic-modal" class="btn">{{ $t('cancel') }}</label>
+        <label class="btn btn-error">{{ $t('confirm') }}</label> <!--set medic-->
+        </div>
+    </div>
+    </div>
 </template>
 
 <script>

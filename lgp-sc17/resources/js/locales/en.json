@@ -91,5 +91,9 @@
     "userInfoEdit": "Update user info",
     "setStatus": "Set Status",
     "ban": "Ban",
-    "unban": "Unban"
+    "unban": "Unban",
+    "confirmAction": "Confirm action on user: ",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "actionStatus": "Set user to "
 }
