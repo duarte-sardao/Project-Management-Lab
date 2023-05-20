@@ -6,6 +6,8 @@ use App\Models\ForumPost;
 use App\Models\Topic;
 use App\Models\LibraryPost;
 
+use Illuminate\Support\Facades\DB;
+
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -36,20 +38,13 @@ class AdminController extends Controller
     }
 
     function forumIndex(Request $request) {
-        $forum_posts = ForumPost::all();
-        $posts = collect([]);
-        foreach ($forum_posts as $forum_post) {
-            $posts->push([
-                "id" => $forum_post->id,
-                "title" => $forum_post->title,
-                "date" => $forum_post->post->posted_at->format('d/m/Y'),
-            ]);
-        }
-
         $result = [
             'topics' => Topic::select('id', 'topic', 'color')->get(),
-            'posts' => $posts,  
-        ];
+            'posts' => ForumPost::join('posts', 'post_id', '=', 'posts.id')
+                ->orderBy('posted_at', 'desc')
+                ->select('forum_posts.id', 'title', DB::raw("DATE_FORMAT(posted_at, '%d/%m/%Y') as date"))
+                ->paginate(6),
+            ];
 
         $message = $request->session()->get('success');
         if (!is_null($message)) $result['message'] = $message;

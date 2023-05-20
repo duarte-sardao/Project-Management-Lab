@@ -34,6 +34,6 @@ class ApiController extends Controller
             ->join('posts', 'forum_posts.post_id', '=', 'posts.id')
             ->select('forum_posts.id', 'forum_posts.title', DB::raw("DATE_FORMAT(posts.posted_at, '%d/%m/%Y') as date"))
             ->where('forum_posts.title', 'like', '%'.$request->search.'%')
-            ->orderBy('date')->get();
+            ->orderBy('date', 'desc')->paginate(6);
     }
 }

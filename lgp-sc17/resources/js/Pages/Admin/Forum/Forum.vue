@@ -1,10 +1,11 @@
 <script setup>
 import { ref, onMounted } from 'vue';
+import DeleteModal from '@/Components/DeleteModal.vue';
+import MessageToast from "@/Components/MessageToast.vue";
+import { TailwindPagination } from 'laravel-vue-pagination';
+import SearchAdmin from "@/Components/Admin/SearchAdmin.vue";
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 import AdministrationLayout from "@/Layouts/AdministrationLayout.vue";
-import SearchAdmin from "@/Components/Admin/SearchAdmin.vue";
-import MessageToast from "@/Components/MessageToast.vue";
-import DeleteModal from '@/Components/DeleteModal.vue';
 
 const props = defineProps({
     topics: Array,
@@ -79,11 +80,9 @@ const search = ref('');
 const getResults = async (page = 1) => {
     axios.get(route('admin.forum.search', { page: page, search: search.value }))
         .then(response => {
-            console.log(response.data);
             postsToDisplay.value = response.data;
         })
         .catch((err) => {
-            console.log(err);
             messageToast.message = "errorOccurred";
             displayToastAction();
         })
@@ -119,7 +118,7 @@ const getResults = async (page = 1) => {
                     </div>
                 </div>
 
-                <div v-if="postsToDisplay.length" class="overflow-x-auto">
+                <div v-if="postsToDisplay.data.length" class="overflow-x-auto">
                     <table class="table w-full my-10">
                         <thead>
                             <tr>
@@ -129,7 +128,7 @@ const getResults = async (page = 1) => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="post in postsToDisplay" class="border-b-2 border-[#F2F2F2]">
+                            <tr v-for="post in postsToDisplay.data" class="border-b-2 border-[#F2F2F2]">
                                 <td class="bg-transparent text-[#808080]">{{ post.title }}</td>
                                 <td class="bg-transparent text-[#808080] text-left">
                                     {{ post.date }}
@@ -146,9 +145,10 @@ const getResults = async (page = 1) => {
                             </tr>
                         </tbody>
                     </table>
-                    <div class="flex justify-center">
+                    <div class="flex justify-center overflow-auto">
                         <TailwindPagination
-                            :data="results"
+                            :limit="1"
+                            :data="postsToDisplay"
                             @pagination-change-page="getResults"
                         />
                     </div>
