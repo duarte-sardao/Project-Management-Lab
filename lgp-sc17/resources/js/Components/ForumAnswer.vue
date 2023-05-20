@@ -1,9 +1,12 @@
 <script setup>
 import { ref } from 'vue';
+import { usePage } from '@inertiajs/vue3';
 import DeleteModal from '@/Components/DeleteModal.vue';
 
 const props = defineProps(['answer']);
 const emit = defineEmits(['delete', 'clickHandler']);
+
+let is_admin = (usePage().props.auth.user && usePage().props.auth.user.is_admin);
 
 const componentKey = ref(props.answer.userLikes);
 
@@ -64,8 +67,8 @@ if (author == null) author = '/svg_icons/profile.svg';
             <img :src="answer.userLikes ? '/svg_icons/unlike.svg':'/svg_icons/like.svg'" alt="Like" class="h-[2rem]"/>
             <div class="mt-2 text-[#E67A79] text-sm">{{ answer.likes }} {{ answer.likes === 1 ? 'Like' : 'Likes' }}</div>
         </button>
-        <!-- Add isAdmin validation -->
         <img
+            v-if="answer.isAuthor || is_admin"
             alt="Delete answer"
             class="absolute max-w-[2.5vw] w-[2.5vw] min-w-[30px] top-[3vh] right-[2vw] transition duration-200 hover:scale-110 hover:cursor-pointer"
             src="/svg_icons/trash.svg"

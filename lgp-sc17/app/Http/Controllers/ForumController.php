@@ -312,6 +312,7 @@ class ForumController extends Controller
                 'username' => $answer->post->user->username,
                 'image' => $answer->post->user->profile_img_url,
                 'role' => 'Patient',
+                'isAuthor' => $answer->post->user->id == $user->id,
             ];
             $answer->likes = count($answer->post->likes);
             $answer->userLikes = $answer->post->userLikes($user->id);

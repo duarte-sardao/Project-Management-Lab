@@ -21,6 +21,8 @@ const props = defineProps({
     },
 });
 
+let is_admin = (usePage().props.auth.user && usePage().props.auth.user.is_admin);
+
 let author = props.post.author.image;
 if (author == null) author = '/svg_icons/profile.svg';
 
@@ -174,9 +176,8 @@ const followHandler = () => {
             <div id="post-title" class="mt-[7vh] text-[#1E1B18] font-bold text-4xl text-center">
                 {{ post.title }}
             </div>
-            <!-- Add is admin validation -->
             <img
-                v-if="post.isAuthor"
+                v-if="post.isAuthor || is_admin"
                 alt="Delete post"
                 src="/svg_icons/trash.svg"
                 class="absolute max-w-[2.5vw] w-[2.5vw] top-[1.5vw] right-[2vw] transition duration-200 hover:scale-110 hover:cursor-pointer"

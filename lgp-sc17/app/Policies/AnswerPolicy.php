@@ -22,7 +22,6 @@ class AnswerPolicy
 
     /**
      * Only an admin user can delete a post
-     * TODO
      */
     public function delete(User $user, Answer $answer)
     {
