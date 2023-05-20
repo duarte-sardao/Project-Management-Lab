@@ -30,9 +30,16 @@ class ApiController extends Controller
     }
 
     function userListAdmin(Request $request) {
-        return User::where(function ($query) use ($request) {
+        $users = User::where(function ($query) use ($request) {
             $query->where('name','like','%'.$request->search.'%')
             ->orWhere('username','like','%'.$request->search.'%');
-        })->paginate(6); //idfk como adicionar o status aqui
+        })->paginate(6);
+
+
+        foreach($users as $key => $user){
+            $users[$key]['status'] = User::find($user['id'])->status();
+        }
+
+        return $users;
     }
 }

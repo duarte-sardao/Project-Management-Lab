@@ -45,7 +45,7 @@ const getResults = async (page = 1) => {
                     <tr v-for="user in results.data">
                         <td>{{ user.username }}</td>
                         <td>{{ user.name}}</td>
-                        <td class="text-center">{{ user }}</td>
+                        <td class="text-center">{{ user.status }}</td>
                         <td class="text-center">
                             <Link class="flex justify-center" :href="route('admin.users.info', {id: user.id})">
                                 <img src="/svg_icons/pencil.svg" alt="edit">
