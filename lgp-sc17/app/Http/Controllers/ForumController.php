@@ -69,6 +69,8 @@ class ForumController extends Controller
                 return $collection->sortByDesc('likes');
             case 'lessLikesFirst':
                 return $collection->sortBy('likes');
+            default:
+                return $collection;
         }
     }
 
