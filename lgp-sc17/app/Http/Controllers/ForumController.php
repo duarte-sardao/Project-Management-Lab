@@ -406,7 +406,7 @@ class ForumController extends Controller
         }
 
         $forum_post->post->delete();
-        return Redirect::route('forum')->with(['success' => 'postSuccessfullyDeleted']);
+        return to_route(Auth::user()->is_admin ? 'admin.forum':'forum')->with(['success' => 'postSuccessfullyDeleted']);
     }
 
     /**
