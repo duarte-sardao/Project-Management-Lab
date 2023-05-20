@@ -87,6 +87,7 @@ Route::middleware('auth')->group(function () {
 
         //Forum
         Route::get('/admin/forum', [AdminController::class, 'forumIndex'])->name('admin.forum');
+        Route::get('/api/admin/forum', [ApiController::class, 'forumPostsAdmin'])->name('admin.forum.search');
     });
 });
 
