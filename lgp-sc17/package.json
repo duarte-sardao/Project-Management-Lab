@@ -20,8 +20,10 @@
         "@intlify/unplugin-vue-i18n": "^0.10.0",
         "@tinymce/tinymce-vue": "^5.1.0",
         "daisyui": "^2.51.5",
+        "laravel-echo": "^1.15.1",
         "laravel-vue-pagination": "^4.1.0",
         "moment": "^2.29.4",
+        "pusher-js": "^8.0.2",
         "vue-flag-icon": "^2.1.0",
         "vue-i18n": "^9.2.2"
     }
