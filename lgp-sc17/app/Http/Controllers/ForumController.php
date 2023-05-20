@@ -61,9 +61,8 @@ class ForumController extends Controller
      */
     private static function orderPosts($collection, $order)
     {
+        $collection = $collection->sortByDesc('posted_at'); // double ordered, latestFirst
         switch ($order) {
-            case 'latestFirst':
-                return $collection->sortByDesc('posted_at');
             case 'oldestFirst':
                 return $collection->sortBy('posted_at');
             case 'mostLikesFirst':
@@ -118,11 +117,11 @@ class ForumController extends Controller
     /**
      * Retrieve a specific page of a collection of posts ordered as specified
      */
-    private static function getPaginator($forum_posts, $order, $page)
+    private static function getPaginator($posts, $order, $page)
     {
         $paginator = ForumController::paginate(
             ForumController::orderPosts(
-                ForumController::getForumPostsData($forum_posts),
+                $posts,
                 $order
             ),
             5,
@@ -153,7 +152,11 @@ class ForumController extends Controller
             $page = $request->page;
         }
 
-        $paginator = ForumController::getPaginator($forum_posts, $order, $page);
+        $paginator = ForumController::getPaginator(
+            ForumController::getForumPostsData($forum_posts),
+            $order,
+            $page
+        );
 
         $topics = Topic::select('id', 'topic', 'color')->orderBy('topic')->get();
 
@@ -261,6 +264,12 @@ class ForumController extends Controller
             $order = $request->selected;
         }
 
+        // page >
+        $page = null;
+        if ($request->page) {
+            $page = $request->page;
+        }
+
         $user = Auth::user();
         $forum_post = ForumPost::find($id);
         if ($forum_post == null) {
@@ -307,6 +316,9 @@ class ForumController extends Controller
             $answers->push($answer);
         }
 
+        $quantity = count($answers);
+        $paginator = ForumController::getPaginator($answers, $order, $page);
+
         $result =  [
             'post' => [
                 'id' => $forum_post->id,
@@ -319,7 +331,12 @@ class ForumController extends Controller
                     'image' => $forum_post->post->user->profile_img_url,
                 ],
                 'topics' => $topics,
-                'answers' => array_values(ForumController::orderPosts($answers, $order)->toArray()),
+                'answers' => [
+                    'answers' => $paginator['currentPagePosts'],
+                    'quantity' => $quantity,
+                    'currentPage' => $paginator['currentPage'],
+                    'lastPage' => $paginator['lastPage'],
+                ],
                 'likes' => count($forum_post->post->likes),
                 'userLikes' => $forum_post->post->userLikes(Auth::user()->id),
             ],

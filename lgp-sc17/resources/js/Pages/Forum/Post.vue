@@ -9,6 +9,7 @@ import OrderAnswersDropdown from '@/Components/OrderAnswersDropdown.vue';
 import InputError from "@/Components/InputError.vue";
 import MessageToast from "@/Components/MessageToast.vue";
 import DeleteModal from '@/Components/DeleteModal.vue';
+import Pagination from "@/Components/Pagination.vue";
 
 const props = defineProps({
     post: Object,
@@ -22,6 +23,14 @@ const props = defineProps({
 
 let author = props.post.author.image;
 if (author == null) author = '/svg_icons/profile.svg';
+
+const onPageChange = ({ next_page = currentPage, order: order } = {}) => {
+    const currentForm = useForm({
+        page: next_page || props.post.answers.currentPage,
+        selected: order || props.order,
+    });
+    currentForm.get(route('forum.post', {id: props.post.id}));
+};
 
 const confirmingPostDeletion = ref(false);
 const confirmPostDeletion = () => {
@@ -90,15 +99,15 @@ const likeHandler = () => {
 
 const likeAnswer = (index) => {
     // To be more responsive, change and change again with the confirmation
-    props.post.answers[index].userLikes = !props.post.answers[index].userLikes;
-    props.post.answers[index].likes = props.post.answers[index].likes + (props.post.answers[index].userLikes ? 1:-1) ;
+    props.post.answers.answers[index].userLikes = !props.post.answers.answers[index].userLikes;
+    props.post.answers.answers[index].likes = props.post.answers.answers[index].likes + (props.post.answers.answers[index].userLikes ? 1:-1) ;
     changeLikeButton.value = !changeLikeButton.value;
 
-    axios.post(route('forum.like-answer', { id: props.post.answers[index].id }), form)
+    axios.post(route('forum.like-answer', { id: props.post.answers.answers[index].id }), form)
         .then((res) => {
-            if (props.post.answers[index].userLikes != res.data.action == "like") {
-                props.post.answers[index].userLikes = res.data.action == "like";
-                props.post.answers[index].likes = res.data.likes;
+            if (props.post.answers.answers[index].userLikes != res.data.action == "like") {
+                props.post.answers.answers[index].userLikes = res.data.action == "like";
+                props.post.answers.answers[index].likes = res.data.likes;
                 changeLikeButton.value = res.data.action == "like";
             }
         })
@@ -228,17 +237,25 @@ const followHandler = () => {
         </form>
         <div class="mt-[8vh]">
             <div class="grid grid-flow-col border-b-[1px] border-[#221F1C]/[.21] pl-[4vw] pb-2 text-black font-bold text-xl">
-                <span class="self-center justify-self-start">{{ post.answers.length }} {{ `${$t("answers")}${post.answers.length === 1 ? '':'s'}` }}</span>
-                <OrderAnswersDropdown v-if="post.answers.length" :selected="order" :post_id="post.id" class="justify-self-end"></OrderAnswersDropdown>
+                <span class="self-center justify-self-start">{{ post.answers.quantity }} {{ `${$t("answers")}${post.answers.quantity === 1 ? '':'s'}` }}</span>
+                <OrderAnswersDropdown v-if="post.answers.answers.length" :selected="order" :post_id="post.id" class="justify-self-end"></OrderAnswersDropdown>
             </div>
             <ForumAnswer
-                v-if="post.answers.length"
-                v-for="(answer, index) in post.answers"
+                v-if="post.answers.answers.length"
+                v-for="(answer, index) in post.answers.answers"
                 @delete="deleteAnswer(answer.id)"
                 @clickHandler="(n) => likeAnswer(index, n)"
                 :answer="answer"
             />
             <div v-else class="h-[25vh] flex items-center justify-center text-2xl">{{ $t("noAnswers") }}</div>
+            <Pagination
+                v-if="post.answers.answers.length"
+                :key="post.answers.currentPage"
+                class="flex w-[100%] justify-center mt-[10vh] pr-[7vw]"
+                :totalPages="post.answers.lastPage"
+                :currentPage="post.answers.currentPage"
+                @pageChanged="(value) => onPageChange({next_page:value})"
+            />
         </div>
     </div>
     <div class="relative" style="z-index: 1">
