@@ -26,6 +26,6 @@ class AnswerPolicy
      */
     public function delete(User $user, Answer $answer)
     {
-        return Auth::check() && (/*$user->isAdmin() ||*/ $user->id == $answer->post->author);
+        return Auth::check() && ($user->is_admin || $user->id == $answer->post->author);
     }
 }

@@ -25,6 +25,6 @@ class ForumPolicy
    */
   public function delete(User $user, ForumPost $forum_post)
   {
-    return Auth::check() && (/*$user->isAdmin() ||*/ $forum_post->post->isAuthor($user->id));
+    return Auth::check() && ($user->is_admin || $forum_post->post->isAuthor($user->id));
   }
 }

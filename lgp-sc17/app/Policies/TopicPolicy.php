@@ -17,7 +17,7 @@ class TopicPolicy
    */
   public function create(User $user)
   {
-    return Auth::check() /* && $user->isAdmin()*/;
+    return Auth::check() && $user->is_admin;
   }
 
   /**
@@ -25,6 +25,6 @@ class TopicPolicy
    */
   public function delete(User $user)
   {
-    return Auth::check() /*&& $user->isAdmin()*/;
+    return Auth::check() && $user->is_admin;
   }
 }
