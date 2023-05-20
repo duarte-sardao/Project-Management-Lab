@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue';
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 import AdministrationLayout from "@/Layouts/AdministrationLayout.vue";
-import LibrarySearchAdmin from "@/Components/Library/LibrarySearchAdmin.vue";
+import SearchAdmin from "@/Components/Admin/SearchAdmin.vue";
 import MessageToast from "@/Components/MessageToast.vue";
 import DeleteModal from '@/Components/DeleteModal.vue';
 
@@ -115,7 +115,7 @@ const getResults = async (page = 1) => {
                         {{ $t('forumContentHint') }}
                     </div>
                     <div>
-                        <LibrarySearchAdmin v-model="search" @submit="getResults"></LibrarySearchAdmin>
+                        <SearchAdmin v-model="search" @submit="getResults"></SearchAdmin>
                     </div>
                 </div>
 
