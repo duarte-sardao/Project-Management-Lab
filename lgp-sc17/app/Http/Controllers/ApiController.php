@@ -32,8 +32,9 @@ class ApiController extends Controller
     function forumPostsAdmin(Request $request) {
         return DB::table('forum_posts')
             ->join('posts', 'forum_posts.post_id', '=', 'posts.id')
-            ->select('forum_posts.id', 'forum_posts.title', DB::raw("DATE_FORMAT(posts.posted_at, '%d/%m/%Y') as date"))
             ->where('forum_posts.title', 'like', '%'.$request->search.'%')
-            ->orderBy('date', 'desc')->paginate(6);
+            ->orderBy('posted_at', 'desc')
+            ->select('forum_posts.id', 'forum_posts.title', DB::raw("DATE_FORMAT(posts.posted_at, '%d/%m/%Y') as date"))
+            ->paginate(6);
     }
 }
