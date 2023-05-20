@@ -21,7 +21,7 @@ class TopicController extends Controller
      */
     public function create(Request $request): Response
     {
-        return Inertia::render('Admin/CreateTopic');
+        return Inertia::render('Admin/Forum/CreateTopic');
     }
 
     /**
