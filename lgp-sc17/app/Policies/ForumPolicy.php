@@ -13,9 +13,17 @@ class ForumPolicy
   use HandlesAuthorization;
 
   /**
-   * 
+   * Only logged users can create a post
    */
   public function create(User $user)
+  {
+    return Auth::check();
+  }
+
+  /**
+   * Only logged users can like forum posts
+   */
+  public function like(User $user)
   {
     return Auth::check();
   }

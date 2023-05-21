@@ -13,9 +13,17 @@ class AnswerPolicy
     use HandlesAuthorization;
 
     /**
-     * 
+   * Only logged users can create an answer
      */
     public function create(User $user)
+    {
+        return Auth::check();
+    }
+
+    /**
+     * Only logged users can like answers
+     */
+    public function like(User $user)
     {
         return Auth::check();
     }
