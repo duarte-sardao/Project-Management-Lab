@@ -59,6 +59,7 @@
     "message": "Message",
     "send": "Send",
 
+    "forum": "Forum",
     "forumTitle": "Forum",
     "forumSearchPlaceholder": "Search in the forum",
     "noForumPostsToDisplay": "There are no posts to display",
