@@ -30,6 +30,8 @@ use App\Models\TopicPost;
 
 class ForumController extends Controller
 {
+    private static $items_per_page = 5;
+
     /**
      * Get the elapsed time between two timestamps
      */
@@ -61,6 +63,10 @@ class ForumController extends Controller
      */
     private static function orderPosts($collection, $order)
     {
+        if (!in_array($order, array('latestFirst', 'oldestFirst', 'mostLikesFirst', 'lessLikesFirst'))) {
+            abort(404, 'Invalid way of ordering posts');
+        }
+
         $collection = $collection->sortByDesc('posted_at'); // double ordered, latestFirst
         switch ($order) {
             case 'oldestFirst':
@@ -121,12 +127,22 @@ class ForumController extends Controller
      */
     private static function getPaginator($posts, $order, $page)
     {
+        if (!is_null($page)) {
+            if (!(is_numeric($page) && intval($page) > 0)) {
+                abort(400, 'Invalid page number');
+            }
+            $page = intval($page);
+            if ((intdiv(count($posts), ForumController::$items_per_page) + 1) < $page) {
+                abort(400, 'There are no items to be retrieved on page ' . $page);
+            }
+        }
+
         $paginator = ForumController::paginate(
             ForumController::orderPosts(
                 $posts,
                 $order
             ),
-            5,
+            ForumController::$items_per_page,
             $page
         );
 
@@ -142,13 +158,11 @@ class ForumController extends Controller
      */
     private static function getPosts(Request $request, $forum_posts, $currentForum = null, $currentTopic = null, $message = null)
     {
-        // check se order é alguma das ordens que existem
         $order = "latestFirst";
         if ($request->selected) {
             $order = $request->selected;
         }
 
-        // check $request->page > 0
         $page = null;
         if ($request->page) {
             $page = $request->page;
@@ -169,6 +183,7 @@ class ForumController extends Controller
             'topics' => $topics,
             'order' => $order
         ];
+
         if (!is_null($currentForum)) $result['currentForum'] = $currentForum;
         else $result['currentTopic'] = $currentTopic;
 
@@ -250,7 +265,7 @@ class ForumController extends Controller
     {
         $topic = Topic::find($id);
         if ($topic == null) {
-            return back()->withErrors(['topic' => "There is no topic with id: " . $id])->with(['error' => 'An error has occurred']);
+            return abort(404, "There is no topic with id: " . $id);
         }
 
         return ForumController::getPosts($request, $topic->posts, currentTopic:$id);
@@ -266,16 +281,16 @@ class ForumController extends Controller
             $order = $request->selected;
         }
 
-        // page >
         $page = null;
         if ($request->page) {
             $page = $request->page;
         }
 
         $user = Auth::user();
+
         $forum_post = ForumPost::find($id);
         if ($forum_post == null) {
-            return back()->withErrors(['post' => "There is no forum post with id: " . $id])->with(['error' => 'An error has occurred']);
+            abort(404, 'There is no forum post with id: ' . $id);
         }
 
         $currentTopic = $request->get('currentTopic');
@@ -359,7 +374,7 @@ class ForumController extends Controller
     public function create(Request $request): Response
     {
         return Inertia::render('Forum/CreatePost', [
-            'topics' => Topic::all()->map(function ($topic) { return array_merge($topic->only(['topic', 'color']), ['selected' => false]); })
+            'topics' => Topic::all()->map(function ($topic) { return array_merge($topic->only(['id', 'topic', 'color']), ['selected' => false]); })
         ]);
     }
 
@@ -371,16 +386,23 @@ class ForumController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $post = new Post();
-        $this->authorize('create', $post);
+
+        if(Auth::user()->cannot('create', $post)) {
+            abort(401, "User not allowed to create a post");
+        }
 
         $request->validate([
-            'title' => 'required|string|max:64',
+            'title' => 'required|string',
             'content' => 'required|string',
             'topics' => 'array',
         ]);
 
+        if (strlen($request->title) > 64) {
+            return back()->withErrors(['titleError' => 'postTitleLengthError']);
+        }
+
         if (count($request->topics) > 4) {
-            return back()->withErrors(['topics' => "Invalid number of topics"])->with(['error' => 'An error has occurred']);
+            return back()->withErrors(['topicsError' => "Invalid number of topics"]);
         }
 
         $post->content = $request->content;
@@ -393,11 +415,10 @@ class ForumController extends Controller
             'post_id' => $post->id,
         ]);
 
-
         foreach ($request->topics as $topic) {
-            $topic_obj = Topic::where('topic', $topic['topic'])->first();
+            $topic_obj = Topic::find($topic['id']);
             if ($topic_obj == null) {
-                // TODO: ERROR
+                abort(404, "No topic satisfies the request");
             }
 
             $topic_post = TopicPost::create([
@@ -410,19 +431,19 @@ class ForumController extends Controller
     }
 
     /**
-     *
+     * Handle the request to delete a specific post
      */
-    public function destroyPost(Request $request, $id): RedirectResponse
+    public function deletePost(Request $request, $id): RedirectResponse
     {
         $user = Auth::user();
         $forum_post = ForumPost::find($id);
 
         if ($forum_post == null) {
-            return back()->withErrors(['post' => "Invalid post id"]);
+            abort(404, "Invalid post id");
         }
 
         if ($user->cannot('delete', $forum_post)) {
-            return back()->withErrors(['post' => "User not allowed to delete post " . $id]);
+            abort(401, "User not allowed to delete post " . $id);
         }
 
         $forum_post->post->delete();
@@ -430,19 +451,19 @@ class ForumController extends Controller
     }
 
     /**
-     *
+     * Handle the request to delete a specific answer
      */
-    public function destroyAnswer(Request $request, $id): RedirectResponse
+    public function deleteAnswer(Request $request, $id): RedirectResponse
     {
         $user = Auth::user();
         $answer = Answer::find($id);
 
         if ($answer == null) {
-            return back()->withErrors(['answer' => "Invalid answer id"]);
+            abort(404, "Invalid answer id");
         }
 
         if($user->cannot('delete', $answer)) {
-            return back()->withErrors(['answer' => "User not allowed to delete answer"]);
+            abort(401, "User not allowed to delete answer");
         }
 
         $answer->post->delete();
@@ -454,11 +475,15 @@ class ForumController extends Controller
      */
     public function answer(Request $request, $id): RedirectResponse
     {
+        $user = Auth::user();
         $answer = new Post();
-        $this->authorize('reply', $answer);
+
+        if($user->cannot('reply', $answer)) {
+            abort(401, "User not allowed to reply");
+        }
 
         if (!ForumPost::find($id)) {
-            return back()->withErrors(['answer' => "There is no forum post with id: " . $id])->with(['error' => 'An error has occurred']);
+            abort(404, "There is no forum post with id: " . $id);
         }
 
         $request->validate([
@@ -467,7 +492,7 @@ class ForumController extends Controller
 
         $answer->content = $request->content;
         $answer->posted_at = now();
-        $answer->author = Auth::user()->id;
+        $answer->author = $user->id;
 
         $answer->save();
 
@@ -488,7 +513,11 @@ class ForumController extends Controller
         $user = Auth::user();
         $forum_post = ForumPost::find($id);
         if ($forum_post == null) {
-            return response("There is no post with id: " . $id, 404);
+            return abort(404, "There is no post with id: " . $id);
+        }
+        
+        if($user->cannot('like', $forum_post)) {
+            abort(401, "User not allowed to like a post");
         }
 
         $userLikes = $forum_post->post->userLikes($user->id);
@@ -512,7 +541,11 @@ class ForumController extends Controller
         $user = Auth::user();
         $answer = Answer::find($id);
         if ($answer == null) {
-            return response("There is no answer post with id: " . $id, 404);
+            return abort(404, "There is no answer post with id: " . $id);
+        }
+
+        if($user->cannot('like', $answer)) {
+            abort(401, "User not allowed to like an answer");
         }
 
         $userLikes = $answer->post->userLikes($user->id);
@@ -527,29 +560,4 @@ class ForumController extends Controller
         ]);
         return response()->json(['action' => 'like', 'likes' => count($answer->post->likes)]);
     }
-
-    /**
-     * Handle the follow/unfollow request of a specific topic
-     */
-    public function follow(Request $request, $id)
-    {
-        $user = Auth::user();
-        $topic = Topic::find($id);
-        if ($topic == null) {
-            return response("There is no topic with id: " . $id, 404);
-        }
-
-        $userFollows = $topic->userFollows($user->id);
-        if (!is_null($userFollows)) {
-            $userFollows->delete();
-            return response()->json(['action' => 'unfollow']);
-        }
-
-        Follow::create([
-            'user_id' => $user->id,
-            'topic_id' =>$id,
-        ]);
-        return response()->json(['action' => 'follow']);
-    }
-
 }

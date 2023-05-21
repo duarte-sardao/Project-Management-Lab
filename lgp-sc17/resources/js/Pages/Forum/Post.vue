@@ -40,7 +40,7 @@ const confirmPostDeletion = () => {
 };
 const deletePost = () => {
     const form = useForm({});
-    form.delete(route('forum.post.destroy', { id: props.post.id }));
+    form.delete(route('forum.post.delete', { id: props.post.id }));
 };
 
 const displayToast = ref(false);
@@ -55,7 +55,7 @@ const displayToastAction = () => {
 };
 const deleteAnswer = (answer_id) => {
     const form = useForm({});
-    form.delete(route('forum.answer.destroy', { id: answer_id }), {
+    form.delete(route('forum.answer.delete', { id: answer_id }), {
         onFinish: displayToastAction,
         onError: (err) => console.log(err) // TODO
     });

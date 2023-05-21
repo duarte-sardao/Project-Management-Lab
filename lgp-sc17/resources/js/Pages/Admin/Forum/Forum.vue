@@ -9,7 +9,7 @@ import AdministrationLayout from "@/Layouts/AdministrationLayout.vue";
 
 const props = defineProps({
     topics: Array,
-    posts: Array,
+    posts: Object,
     message: {
         type: String,
         default: undefined,
@@ -58,7 +58,7 @@ const displayToastAction = () => {
 
 const deletePost = () => {
     const form = useForm({});
-    form.delete(route('forum.post.destroy', { id: currentDeletion.value }), {
+    form.delete(route('forum.post.delete', { id: currentDeletion.value }), {
         onFinish: () => {
             closeModal();
             displayToastAction();
@@ -68,7 +68,7 @@ const deletePost = () => {
 
 const deleteTopic = () => {
     const form = useForm({});
-    form.delete(route('topic.destroy', { id: currentDeletion.value }), {
+    form.delete(route('topic.delete', { id: currentDeletion.value }), {
         onFinish: () => {
             closeModal();
             displayToastAction();

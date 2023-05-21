@@ -54,12 +54,12 @@ Route::middleware('auth')->group(function () {
     Route::post('forum/{id}/like', [ForumController::class, 'like'])->name('forum.like-post');
     Route::post('forum/answer/{id}/like', [ForumController::class, 'likeAnswer'])->name('forum.like-answer');
     Route::get('/forum/{id}', [ForumController::class, 'post'])->name('forum.post');
-    Route::delete('/forum/{id}', [ForumController::class, 'destroyPost'])->name('forum.post.destroy');
-    Route::delete('/forum/answer/{id}', [ForumController::class, 'destroyAnswer'])->name('forum.answer.destroy');
+    Route::delete('/forum/{id}', [ForumController::class, 'deletePost'])->name('forum.post.delete');
+    Route::delete('/forum/answer/{id}', [ForumController::class, 'deleteAnswer'])->name('forum.answer.delete');
     Route::post('/forum/{id}', [ForumController::class, 'answer'])->name('forum.answer');
 
     Route::post('/topic/{id}', [TopicController::class, 'follow'])->name('topic.follow');
-    Route::delete('/topic/{id}', [TopicController::class, 'destroy'])->name('topic.destroy');
+    Route::delete('/topic/{id}', [TopicController::class, 'delete'])->name('topic.delete');
     Route::get('/newTopic', [TopicController::class, 'create'])->name('topic.new');
     Route::post('/newTopic', [TopicController::class, 'store'])->name('topic.create');
 
