@@ -24,8 +24,8 @@ const deleteAnswer = () => {
     emit('delete')
 };
 
-const author = props.answer.user.image;
-if (author == null) author = '/svg_icons/profile.svg';
+let autorImage = props.answer.user.image;
+if (autorImage == null) autorImage = '/svg_icons/profile.svg';
 
 </script>
 
@@ -41,7 +41,7 @@ if (author == null) author = '/svg_icons/profile.svg';
         <div class="grid grid-cols-6 max-h-[5rem] mt-[6vh] max-w-[30vw]">
             <img 
                 id="author-image"
-                :src="answer.user.image"
+                :src="autorImage"
                 alt="author image"
                 class="rounded-full max-h-[5rem] max-w-[5rem] w-fit cols-span-1"
             />
