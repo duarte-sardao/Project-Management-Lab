@@ -17,6 +17,7 @@ const getResults = async (page = 1) => {
             results.value = response.data;
         })
 }
+getResults(); //hacky but we need to run userAdminList to get status and this does it
 </script>
 
 <template>
