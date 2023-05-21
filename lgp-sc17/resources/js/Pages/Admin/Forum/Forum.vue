@@ -60,12 +60,15 @@ const displayToastAction = () => {
     setTimeout(cleanToast, 3000);
 };
 
+let postsToDisplay = ref(props.posts);
+
 const deletePost = () => {
     const form = useForm({});
     form.delete(route('forum.post.delete', { id: currentDeletion.value }), {
         onFinish: () => {
             closeModal();
             displayToastAction();
+            postsToDisplay = ref(props.posts);
         }
     });
 };
@@ -79,7 +82,7 @@ const deleteTopic = () => {
         },
     });
 };
-const postsToDisplay = ref(props.posts);
+
 const search = ref('');
 const getResults = async (page = 1) => {
     axios.get(route('admin.forum.search', { page: page, search: search.value }))
