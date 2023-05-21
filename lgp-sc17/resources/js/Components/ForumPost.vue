@@ -18,7 +18,7 @@ if (author == null) author = '/svg_icons/profile.svg';
                     <div
                         id="post-title"
                         class="text-[#221F1C]/[.76] font-bold text-xl mb-[1.5vh]"
-                        style="line-break: anywhere;"    
+                        style="line-break: anywhere;"
                     >
                         {{ data.title }}
                     </div>
@@ -48,7 +48,6 @@ if (author == null) author = '/svg_icons/profile.svg';
                         <div class="inline text-[#767676] text-sm font-light self-center ml-1 mr-[4vw]">
                             {{ `${data.answers.quantity} ${$t("comments")}${data.answers.quantity == 1 ? '':'s'}` }}
                         </div>
-                        <img src="/svg_icons/settingsForum.svg" alt="settings" class="absolute right-[2vw] inline max-h-[1.25rem] top-[-1vh]">
                     </div>
                     <div class="pl-1">
                         <img :src="data.userLikes ? '/svg_icons/unlike.svg':'/svg_icons/like.svg'" alt="likes" class="inline-block max-h-[1.25rem] pl-1" />
