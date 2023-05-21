@@ -44,10 +44,12 @@ const deletePost = () => {
 };
 
 const displayToast = ref(false);
+const toastError = ref(null);
 function cleanToast() {
     usePage().props.flash.success_message = null;
     usePage().props.flash.error_message = null;
     displayToast.value = false;
+    toastError.value = null;
 };
 const displayToastAction = () => {
     displayToast.value = true;
@@ -57,7 +59,6 @@ const deleteAnswer = (answer_id) => {
     const form = useForm({});
     form.delete(route('forum.answer.delete', { id: answer_id }), {
         onFinish: displayToastAction,
-        onError: (err) => console.log(err) // TODO
     });
 };
 
@@ -86,7 +87,7 @@ const changeLikeButton = ref(props.post.userLikes);
 const likeHandler = () => {
     // To be more responsive, change and change again with the confirmation
     props.post.userLikes = !props.post.userLikes;
-    props.post.likes = props.post.likes + (props.post.userLikes ? 1:-1);
+    props.post.likes = props.post.likes + (props.post.userLikes ? 1 : -1);
     changeLikeButton.value = !changeLikeButton.value;
     axios.post(route('forum.like-post', { id: props.post.id }), form)
         .then((res) => {
@@ -96,7 +97,13 @@ const likeHandler = () => {
                 changeLikeButton.value = res.data.action == "like";
             }
         })
-        .catch((err) => console.error(err));
+        .catch((_error) => {
+            props.post.userLikes = !props.post.userLikes;
+            props.post.likes = props.post.likes + (props.post.userLikes ? 1 : -1);
+            changeLikeButton.value = !changeLikeButton.value;
+            toastError.value = 'errorOccurred';
+            displayToastAction();
+        });
 }
 
 const likeAnswer = (index) => {
@@ -113,7 +120,13 @@ const likeAnswer = (index) => {
                 changeLikeButton.value = res.data.action == "like";
             }
         })
-        .catch((err) => console.error(err));
+        .catch((_error) => {
+            props.post.answers.answers[index].userLikes = !props.post.answers.answers[index].userLikes;
+            props.post.answers.answers[index].likes = props.post.answers.answers[index].likes + (props.post.answers.answers[index].userLikes ? 1:-1) ;
+            changeLikeButton.value = !changeLikeButton.value;
+            toastError.value = 'errorOccurred';
+            displayToastAction();
+        });
 }
 
 const currentTopic = ref((props.currentTopic !== null ? props.currentTopic : 0));
@@ -138,7 +151,12 @@ const followHandler = () => {
                 changeFollowButton.value = !changeFollowButton.value;
             }
         })
-        .catch((err) => console.error(err));
+        .catch((_error) => {
+            props.post.topics[followCurrentTopic].userFollows = !props.post.topics[followCurrentTopic].userFollows;;
+            changeFollowButton.value = !changeFollowButton.value;
+            toastError.value = 'errorOccurred';
+            displayToastAction();
+        });
 };
 
 </script>
@@ -152,7 +170,7 @@ const followHandler = () => {
     <MessageToast
         v-if="displayToast"
         :message="$page.props.flash.success_message == undefined ? '':$t(`${$page.props.flash.success_message}`)"
-        :error="$page.props.flash.error_message == undefined ? '':$t(`${$page.props.flash.error_message}`)"
+        :error="toastError == null ? '':$t(`${toastError}`)"
     ></MessageToast>
 
     <DeleteModal

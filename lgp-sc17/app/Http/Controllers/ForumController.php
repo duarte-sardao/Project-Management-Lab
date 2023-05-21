@@ -515,7 +515,7 @@ class ForumController extends Controller
         if ($forum_post == null) {
             return abort(404, "There is no post with id: " . $id);
         }
-        
+
         if($user->cannot('like', $forum_post)) {
             abort(401, "User not allowed to like a post");
         }

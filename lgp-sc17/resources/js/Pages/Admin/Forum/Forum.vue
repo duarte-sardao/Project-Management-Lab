@@ -44,14 +44,18 @@ const closeModal = () => {
 };
 
 const displayToast = ref(false);
-const messageToast = ref(undefined);
+const messageToast = ref(null);
+const toastError = ref(null);
 function cleanToast() {
     usePage().props.flash.success_message = null;
     usePage().props.flash.error_message = null;
     displayToast.value = false;
+    toastError.value = null;
+    messageToast.value = null;
 };
 const displayToastAction = () => {
-    messageToast.value = props.message;
+    if (toastError.value == null)
+        messageToast.value = props.message;
     displayToast.value = true;
     setTimeout(cleanToast, 3000);
 };
@@ -82,8 +86,8 @@ const getResults = async (page = 1) => {
         .then(response => {
             postsToDisplay.value = response.data;
         })
-        .catch((err) => {
-            messageToast.message = "errorOccurred";
+        .catch((_error) => {
+            toastError.value = "errorOccurred";
             displayToastAction();
         })
 };
@@ -95,8 +99,8 @@ const getResults = async (page = 1) => {
     <AdministrationLayout page="forum">
         <MessageToast
             v-if="displayToast"
-            :message="message == undefined ? '':$t(`${message}`)"
-            :error="$page.props.flash.error_message == undefined ? '':$t(`${$page.props.flash.error_message}`)"
+            :message="messageToast == null ? '':$t(`${messageToast}`)"
+            :error="toastError == null ? '':$t(`${toastError}`)"
         />
 
         <DeleteModal
