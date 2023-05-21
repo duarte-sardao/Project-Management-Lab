@@ -173,7 +173,11 @@ const followHandler = () => {
             <div v-if="post.topics.length > 0" class="absolute w-[70vw] top-[-4vh]">
                 <TopicTag v-on:click="topicTagHandler(index)" :key="currentTopic" v-for="(item, index) in post.topics" :topic="item" :index="index"/>
             </div>
-            <div id="post-title" class="mt-[7vh] text-[#1E1B18] font-bold text-4xl text-center">
+            <div
+                id="post-title"
+                class="mt-[7vh] text-[#1E1B18] font-bold text-4xl text-center"
+                style="line-break: anywhere;"
+            >
                 {{ post.title }}
             </div>
             <img

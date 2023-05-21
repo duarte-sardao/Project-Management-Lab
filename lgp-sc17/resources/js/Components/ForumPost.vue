@@ -15,7 +15,11 @@ if (author == null) author = '/svg_icons/profile.svg';
                     class="rounded-full max-h-[6rem] h-[100%] max-w-[6rem] w-[100%]  justify-self-center self-center col-span-1"
                 />
                 <div class="col-span-4 pl-[2vw] pr-[4vw]">
-                    <div id="post-title" class="text-[#221F1C]/[.76] font-bold text-xl mb-[1.5vh]">
+                    <div
+                        id="post-title"
+                        class="text-[#221F1C]/[.76] font-bold text-xl mb-[1.5vh]"
+                        style="line-break: anywhere;"    
+                    >
                         {{ data.title }}
                     </div>
                     <div class="forumPostContent text-sm text-[#767676] break-words max-h-[10vh] overflow-auto">
