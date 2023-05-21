@@ -50,7 +50,7 @@ const submit = () => {
                 {{ $t("goBack") }}
             </Link>
         </div>
-        <form @submit.prevent="submit" class="grid mt-[6vh] tracking-wide border-b-[2px] border-[#221F1C]/[.21]">
+        <form @submit.prevent="submit" class="relative grid mt-[6vh] tracking-wide border-b-[2px] border-[#221F1C]/[.21]">
             <input
                 id="topic"
                 type="text"
@@ -58,6 +58,9 @@ const submit = () => {
                 :placeholder="$t('addTopicName')"
                 v-model="form.topic"
             />
+            <div class="absolute right-[10px] top-[10px]" :class="form.topic.length > 32 && 'text-red-600'">
+                ({{ form.topic.length }}/32)
+            </div>
             <InputError :message="topicError ?  $t(topicErrorString):''" />
 
             <div class="mt-[3vh]">
