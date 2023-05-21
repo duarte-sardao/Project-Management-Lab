@@ -25,14 +25,17 @@ class TopicController extends Controller
     }
 
     /**
-     * Handle an incoming post request
+     * Handle an incoming topic request
      * 
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request): RedirectResponse
     {
         $topic = new Topic();
-        $this->authorize('create', $topic);
+
+        if(Auth::user()->cannot('create', $topic)) {
+            abort(401, "User not allowed to create a topic");
+        }
 
         $request->validate([
             'topic' => 'required|string|max:32',
@@ -55,23 +58,22 @@ class TopicController extends Controller
     }
 
     /**
-     * Handle the request to destroy a specific topic
+     * Handle the request to delete a specific topic
      */
-    public function destroy(Request $request, $id): RedirectResponse
+    public function delete(Request $request, $id): RedirectResponse
     {
         $user = Auth::user();
         $topic = Topic::find($id);
         
         if ($topic == null) {
-            return back()->withErrors(['topic' => "Invalid topic id"]);
+            abort(404, "Invalid topic id");
         }
         
         if ($user->cannot('delete', $topic)) {
-            return back()->withErrors(['topic' => "User not allowed to delete topic " . $id]);
+            abort(401, "User not allowed to delete topic " . $id);
         }
 
         $topic->delete();
-
         return Redirect::route('admin.forum')->with(['success' => 'topicSuccessfullyDeleted']);
     }
 
@@ -83,9 +85,13 @@ class TopicController extends Controller
         $user = Auth::user();
         $topic = Topic::find($id);
         if ($topic == null) {
-            return response("There is no topic with id: " . $id, 404);
+            abort(404, "There is no topic with id: " . $id);
         }
-        
+
+        if($user->cannot('follow', $topic)) {
+            abort(401, "User is not allowed to follow a topic");
+        }
+
         $userFollows = $topic->userFollows($user->id);
         if (!is_null($userFollows)) {
             $userFollows->delete();
