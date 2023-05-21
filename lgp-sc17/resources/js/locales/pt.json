@@ -155,9 +155,13 @@
     "404_text": "Alguma coisa em falta",
     "404_subtext": "Ou página não existe ou o link está incorreto",
 
+    "401_title": "Permissão negada",
+    "401_text": "Não tens permissões!",
+    "401_subtext": "Não tens permissões para continuar",
+
     "403_title": "Permissão negada",
     "403_text": "Não podes seguir em frente",
-    "403_subtext": "Não tens permissões para continuar com a ação que desejavas",
+    "403_subtext": "Não tens permissões para continuar",
 
     "500_title": "Erro do servidor",
     "500_text": "Oops! Alguma coisa correu mal",

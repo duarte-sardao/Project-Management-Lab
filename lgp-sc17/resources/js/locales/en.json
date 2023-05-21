@@ -156,6 +156,10 @@
     "404_text": "Something's missing",
     "404_subtext": "The page is missing or you assembled the link incorrectly",
 
+    "401_title": "Permission denied",
+    "401_text": "No permissions!",
+    "401_subtext": "You don't have permission to continue",
+
     "403_title": "Permission denied",
     "403_text": "No permissions!",
     "403_subtext": "You don't have permission to continue",
