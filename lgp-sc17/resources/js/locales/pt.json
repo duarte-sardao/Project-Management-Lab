@@ -100,5 +100,7 @@
     "500_subtext": "Ocorreu um erro nos nossos servidores! Esperemos que tudo se encontre ok",
 
     "goHome": "Home",
-    "goBack": "Voltar"
+    "goBack": "Voltar",
+
+    "null": ""
 }

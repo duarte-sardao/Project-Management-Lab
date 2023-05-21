@@ -100,5 +100,7 @@
     "500_subtext": "There was an error on our servers! Hope everything is ok",
 
     "goHome": "Go home",
-    "goBack": "Go back"
+    "goBack": "Go back",
+
+    "null": ""
 }
