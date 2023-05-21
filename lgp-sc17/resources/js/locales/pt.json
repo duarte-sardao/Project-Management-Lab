@@ -29,6 +29,16 @@
     "library": "Biblioteca",
 
     "home": "Página Principal",
+    "homeTitle": "Viver com DM1",
+    "homeJoinCommunity": "Junta-te à comunidade",
+    "homeMainFeatures": "Funcionalidades principais",
+    "homeLibrary": "Explora a biblioteca",
+    "homeForum": "Junta-te ao fórum",
+    "homeChat": "Conversa com médicos",
+    "homeSearch": "Queres saber mais sobre a doença?",
+    "homeJoinCommunityAndForum": "Junta-te à discussão na nossa comunidade",
+    "homeUsersReview": "Opinião dos nossos utilizadores",
+    "homeUserName": "Nome",
 
     "profile": "Perfil",
     "editButton": "Editar informações",

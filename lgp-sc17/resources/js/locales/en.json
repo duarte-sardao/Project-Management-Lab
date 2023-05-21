@@ -29,6 +29,16 @@
     "library": "Library",
 
     "home": "Home",
+    "homeTitle": "Live with DM1",
+    "homeJoinCommunity": "Join The Community",
+    "homeMainFeatures": "Main functionalities",
+    "homeLibrary": "Explore the library",
+    "homeForum": "Join the forum",
+    "homeChat": "Chat with doctors",
+    "homeSearch": "Want to find out more about the disease?",
+    "homeJoinCommunityAndForum": "Join the community and start the discussion",
+    "homeUsersReview": "What our users are saying",
+    "homeUserName": "Name",
 
     "profile": "Profile",
     "editButton": "Edit info",
