@@ -70,6 +70,7 @@
     "createAPost": "Create a post",
     "addTitleOrQuestion": "Add title or question",
     "titleError": "The title cannot be empty",
+    "postTitleLengthError": "The title should have less than 64 characters",
     "addText": "Add text",
     "contentError": "The post content cannot be empty",
     "chooseTopics": "Choose some topics",

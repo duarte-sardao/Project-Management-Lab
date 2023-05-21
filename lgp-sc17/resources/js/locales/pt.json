@@ -70,6 +70,7 @@
     "createAPost": "Criar um novo post",
     "addTitleOrQuestion": "Adicione um título ou pergunta",
     "titleError": "O post tem de possuir um título",
+    "postTitleLengthError": "O títutlo deve possuir menos que 64 caracteres",
     "addText": "Adicione texto",
     "contentError": "O conteúdo do post não pode estar vazio",
     "chooseTopics": "Associe tópicos ao seu novo post",

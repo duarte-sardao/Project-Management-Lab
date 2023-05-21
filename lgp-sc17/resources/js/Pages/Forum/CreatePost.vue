@@ -30,15 +30,15 @@ const form = useForm({
     topics: [],
 })
 
-const titleError = ref(false);
+const titleError = ref(null);
 const contentError = ref(false);
 const submit = () => {
     if (form.title.trim() == '') {
-        titleError.value = true;
+        titleError.value = 'titleError';
         contentError.value = false;
         return;
     } else if (titleError.value) {
-        titleError.value = false;
+        titleError.value = null;
     }
 
     if (form.content.trim() == '') {
@@ -49,7 +49,13 @@ const submit = () => {
     }
 
     form.topics = props.topics.filter(t => t.selected);
-    form.post(route('forum.create'));
+    form.post(route('forum.create'), {
+        onError: (err) => {
+            if (err.titleError) titleError.value = err.titleError;
+            else if (err.contentError) contentError.value = true;
+            else if (err.topicsError) topicsError.value = true;
+        }
+    });
 };
 
 </script>
@@ -67,15 +73,18 @@ const submit = () => {
                 {{ $t("backToForum") }}
             </Link>
         </div>
-        <form @submit.prevent="submit" class="grid mt-[6vh] tracking-wide border-b-[2px] border-[#221F1C]/[.21]">
+        <form @submit.prevent="submit" class="relative grid mt-[6vh] tracking-wide border-b-[2px] border-[#221F1C]/[.21]">
             <input
                 id="post-title"
                 type="text"
-                class="rounded-3xl border-none bg-[#E9EFFD] w-[100%] px-4 text-lg text-black"
+                class="rounded-3xl border-none bg-[#E9EFFD] w-[100%] pl-4 pr-[70px] text-lg text-black"
                 :placeholder="$t('addTitleOrQuestion')"
                 v-model="form.title"
             />
-            <InputError :message="titleError ?  $t('titleError'):''" />
+            <div class="absolute right-[10px] top-[10px]" :class="form.title.length > 64 && 'text-red-600'">
+                ({{ form.title.length }}/64)
+            </div>
+            <InputError :message="titleError != null ?  $t(titleError):''" />
             <textarea
                 id="post-content"
                 class="resize-none border-[#E9EFFD] w-[100%] h-[25vh] mt-[3vh] rounded-3xl py-2 px-4 text-lg text-black"
