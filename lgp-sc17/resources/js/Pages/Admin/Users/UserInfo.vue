@@ -7,6 +7,11 @@ import Footer from "@/Components/Footer.vue";
 import {ref} from "vue";
 import MessageToast from "@/Components/MessageToast.vue";
 import AdministrationLayout from "@/Layouts/AdministrationLayout.vue";
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
+import TextInput from '@/Components/TextInput.vue';
+import InputError from '@/Components/InputError.vue';
+import InputLabel from '@/Components/InputLabel.vue';
 
 const props = defineProps({
     user: { required: true },
@@ -23,10 +28,19 @@ const props = defineProps({
 
 const user = props.user;
 const form = useForm({
-    name: user.name,
-    phone_number: user.phone_number,
-    profile_img: null
+    license_number: '',
+    healthcare_number: ''
 });
+
+const submitMedic = () => {
+    form.post(route('admin.register.medic', { id:user.id }), {
+    });
+};
+
+const submitPatient = () => {
+    form.post(route('admin.register.patient', { id:user.id }), {
+    });
+};
 
 const displayToast = ref(false);
 function cleanToast() {
@@ -82,9 +96,8 @@ if (profile_img_url.value == null) {
                     <div v-if="!user.is_admin" class="dropdown h-fit">
                         <label tabindex="0" class="btn m-1">{{ $t('setStatus') }}</label>
                         <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                            <li v-if="status != 'Guest'"><label for="guest-modal">{{$t('guest')}}</label></li>
-                            <li v-if="status != 'Patient'"><label for="patient-modal">{{ $t('patient') }}</label></li>
-                            <li v-if="status != 'Medic'"><label for="medic-modal">{{ $t('medic') }}</label></li>
+                            <li v-if="status == 'Guest'"><label for="patient-modal">{{ $t('patient') }}</label></li>
+                            <li v-if="status == 'Guest'"><label for="medic-modal">{{ $t('medic') }}</label></li>
                         </ul>
                     </div>
                     <div v-if="!user.is_admin && !banned" class="h-fit">  
@@ -101,7 +114,7 @@ if (profile_img_url.value == null) {
                     <div class="col-span-1 h-fit">
                         <ProfileTextBox
                             :text="$t('fullName')"
-                            v-model="form.name"
+                            v-model="user.name"
                             :edit="edit"
                             :isInput="edit"
                             inputType="text"
@@ -133,7 +146,7 @@ if (profile_img_url.value == null) {
                         />
                         <ProfileTextBox
                             :text="$t('phoneNumber')"
-                            v-model="form.phone_number"
+                            v-model="user.phone_number"
                             :edit="edit"
                             :isInput="edit"
                             :required="false"
@@ -193,36 +206,53 @@ if (profile_img_url.value == null) {
     </div>
     </div>
 
-    <input type="checkbox" id="guest-modal" class="modal-toggle" />
-    <div class="modal">
-    <div class="modal-box">
-        <p class="py-4">{{ $t("confirmAction")}} {{  $t('actionStatus') }} {{ $t('guest') }}</p>
-        <div class="modal-action">
-        <label for="guest-modal" class="btn">{{ $t('cancel') }}</label>
-        <label class="btn btn-error">{{ $t('confirm') }}</label> <!--set guest-->
-        </div>
-    </div>
-    </div>
-
     <input type="checkbox" id="patient-modal" class="modal-toggle" />
     <div class="modal">
     <div class="modal-box">
+    <form @submit.prevent="submitPatient">
         <p class="py-4">{{ $t("confirmAction")}} {{  $t('actionStatus') }} {{ $t('patient') }}</p>
+        <div class="mt-3 w-full">
+            <InputLabel for="healthcare" :value="$t('healthcareNumber')" />
+            <TextInput
+                id="healthcare"
+                type="number"
+                class="mt-1 input-bordered border-mainBlue rounded-full text-gray-800 w-full"
+                v-model="form.healthcare_number"
+                required
+                autocomplete="new-password"
+            />
+            <InputError class="mt-2" :message="form.errors.healthcare_number" />
+        </div>
         <div class="modal-action">
         <label for="patient-modal" class="btn">{{ $t('cancel') }}</label>
-        <label class="btn btn-error">{{ $t('confirm') }}</label> <!--set patient-->
+        <PrimaryButton :disabled="form.processing">{{ $t('confirm') }}</PrimaryButton>
         </div>
+    </form>
     </div>
     </div>
 
     <input type="checkbox" id="medic-modal" class="modal-toggle" />
     <div class="modal">
     <div class="modal-box">
+    <form @submit.prevent="submitMedic">
         <p class="py-4">{{ $t("confirmAction")}} {{  $t('actionStatus') }} {{ $t('medic') }}</p>
+        <div class="mt-3 w-full">
+            <InputLabel for="license" :value="$t('licenseNumber')" />
+            <TextInput
+                id="license"
+                type="number"
+                class="mt-1 input-bordered border-mainBlue rounded-full text-gray-800 w-full"
+                v-model="form.license_number"
+                required
+                autocomplete="new-password"
+            />
+            <InputError class="mt-2" :message="form.errors.license_number" />
+        </div>
         <div class="modal-action">
         <label for="medic-modal" class="btn">{{ $t('cancel') }}</label>
-        <label class="btn btn-error">{{ $t('confirm') }}</label> <!--set medic-->
+        <PrimaryButton :disabled="form.processing">{{ $t('confirm') }}</PrimaryButton>
         </div>
+    </form>
     </div>
     </div>
 </template>

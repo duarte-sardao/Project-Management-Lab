@@ -63,4 +63,19 @@ class RegisteredMedicController extends Controller
 
         return redirect(RouteServiceProvider::HOME);
     }
+
+    /**
+     * Handle an incoming registration request to an existing user
+     *
+     */
+    public function storeFromUser(Request $request, $id)
+    {
+
+        Medic::create([
+            'user_id' => $id,
+            'license_number' => $request->license_number,
+        ]);
+
+        return;
+    }
 }

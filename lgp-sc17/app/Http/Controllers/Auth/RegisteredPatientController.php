@@ -63,4 +63,19 @@ class RegisteredPatientController extends Controller
 
         return redirect(RouteServiceProvider::HOME);
     }
+
+    /**
+     * Handle an incoming registration request to an existing user
+     *
+     */
+    public function storeFromUser(Request $request, $id)
+    {
+
+        Patient::create([
+            'user_id' => $id,
+            'healthcare_number' => $request->healthcare_number,
+        ]);
+
+        return;
+    }
 }
