@@ -11,7 +11,7 @@ const props = defineProps(['posts'])
 
 const deleteForm = useForm({});
 const deletePost = (id) => {
-    deleteForm.delete(route('admin.library.post', { id:id }));
+    deleteForm.delete(route('admin.library.delete', { id:id }));
 }
 
 const results = ref(props.posts);
@@ -36,7 +36,7 @@ const getResults = async (page = 1) => {
             </div>
         </div>
         <div class="pb-4 flex justify-center">
-            <Link :href="route('admin.library.new')" class="btn btn-wide hover:bg-lightBlue bg-mainBlue text-white border-0 rounded-full">
+            <Link :href="route('admin.library.create')" class="btn btn-wide hover:bg-lightBlue bg-mainBlue text-white border-0 rounded-full">
                 {{ $t('libraryButtonCreate') }}</Link>
         </div>
 

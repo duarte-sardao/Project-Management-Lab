@@ -78,12 +78,11 @@ Route::middleware('auth')->group(function () {
         //Library
         Route::get('/admin/library', [AdminController::class, 'libraryIndex'])->name('admin.library');
         Route::get('/api/admin/library', [ApiController::class, 'libraryPostsAdmin']);
-        Route::get('/admin/library/new', [AdminController::class, 'libraryNew'])->name('admin.library.new');
+        Route::get('/admin/library/new', [AdminController::class, 'libraryNew'])->name('admin.library.create');
         Route::post('/admin/library/new', [LibraryController::class, 'create'])->name('admin.library.new');
         Route::get('/admin/library/{id}', [AdminController::class, 'libraryPost'])->name('admin.library.post');
-        Route::post('/admin/library/{id}', [LibraryController::class, 'edit'])->name('admin.library.post');
-        Route::delete('/admin/library/{id}', [LibraryController::class, 'delete'])->name('admin.library.post');
-
+        Route::post('/admin/library/{id}', [LibraryController::class, 'edit'])->name('admin.library.edit');
+        Route::delete('/admin/library/{id}', [LibraryController::class, 'delete'])->name('admin.library.delete');
 
         //Forum
         Route::get('/admin/forum', [AdminController::class, 'forumIndex'])->name('admin.forum');

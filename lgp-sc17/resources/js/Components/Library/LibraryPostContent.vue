@@ -2,7 +2,6 @@
 import TinyMCEditor from "@/Components/TinyMCE/TinyMCEditor.vue";
 import { useForm } from '@inertiajs/vue3';
 import InputError from "@/Components/InputError.vue";
-import {ref} from "vue";
 
 const props = defineProps({
     title: { default: '' },
