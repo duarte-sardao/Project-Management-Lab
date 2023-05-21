@@ -9,19 +9,21 @@ import axios from "axios";
 import MessageToast from "@/Components/MessageToast.vue";
 
 const props = defineProps(['posts'])
+let results = ref(props.posts);
 
 const deleteForm = useForm({});
 const deletePost = (id) => {
     deleteForm.delete(route('admin.library.post', { id:id }), {
         onFinish () {
+            // force update of results
+            results.value = null;
+            results = ref(props.posts);
             displayToast.value = true;
             setTimeout(cleanToast, 3000);
-            getResults()
         }
     });
 }
 
-const results = ref(props.posts);
 const search = ref('');
 const getResults = async (page = 1) => {
     axios.get('/api/admin/library?page=' + page + '&search=' + search.value)
