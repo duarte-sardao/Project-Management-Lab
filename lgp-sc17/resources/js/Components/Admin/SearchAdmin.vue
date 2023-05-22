@@ -19,7 +19,7 @@ defineExpose({ focus: () => input.value.focus() });
             <input
                 id="search"
                 type="text"
-                class="input inline-block w-full text-sm text-gray-900 input-bordered border-mainBlue rounded-full"
+                class="input inline-block w-full text-sm text-gray-900 input-bordered border-mainBlue rounded-full bg-transparent"
                 :value="modelValue"
                 @input="$emit('update:modelValue', $event.target.value)"
                 :placeholder="$t('search')"
