@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\LibraryPost;
+use App\Models\Patient;
+use App\Models\Medic;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;

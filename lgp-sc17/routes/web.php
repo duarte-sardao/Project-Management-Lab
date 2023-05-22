@@ -58,10 +58,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/users', [AdminController::class, 'usersIndex'])->name('admin.users');
         Route::get('/api/admin/users', [ApiController::class, 'userListAdmin']);
         Route::get('/admin/users/{id}', [AdminController::class, 'userInfo'])->name('admin.users.info');
-        //Route::post('/admin/users/{id}', [RegisteredMedicController::class, 'storeFromUser'])->name('admin.register.medic'); //this didnt work
+        Route::post('/admin/users/{id}', [RegisteredMedicController::class, 'storeFromUser'])->name('admin.register.medic');
         Route::post('/admin/users/{id}', [RegisteredPatientController::class, 'storeFromUser'])->name('admin.register.patient');
-        Route::post('/admin/users/{id}', [RegisteredMedicController::class, 'storeFromUser'])->name('admin.register.medic'); //wrote it again and it worked
-
+        //keeps missing the admin.register.medic and patient routes idk
         //Library
         Route::get('/admin/library', [AdminController::class, 'libraryIndex'])->name('admin.library');
         Route::get('/api/admin/library', [ApiController::class, 'libraryPostsAdmin']);

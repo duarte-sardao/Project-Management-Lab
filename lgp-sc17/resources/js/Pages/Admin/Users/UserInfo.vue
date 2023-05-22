@@ -93,7 +93,7 @@ if (profile_img_url.value == null) {
             <div class="col-span-2 bg-[#E9EFFD] ml-[1vw] mr-[1vw] rounded-3xl shadow-md pt-[5vh] relative">
                 <img id="profile-img" class="rounded-full mx-auto mb-[7vh] h-fit w-[200px] h-[200px]" :src="profile_img_url" alt="profile image">
                 <div class="flex items-center flex-col">
-                    <div v-if="!user.is_admin" class="dropdown h-fit">
+                    <div v-if="!user.is_admin && status == 'Guest'" class="dropdown h-fit">
                         <label tabindex="0" class="btn m-1">{{ $t('setStatus') }}</label>
                         <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
                             <li v-if="status == 'Guest'"><label for="patient-modal">{{ $t('patient') }}</label></li>
@@ -225,7 +225,7 @@ if (profile_img_url.value == null) {
         </div>
         <div class="modal-action">
         <label for="patient-modal" class="btn">{{ $t('cancel') }}</label>
-        <PrimaryButton :disabled="form.processing">{{ $t('confirm') }}</PrimaryButton>
+        <PrimaryButton :disabled="form.processing">{{ $t('confirm') }}</PrimaryButton> <!--should close modal-->
         </div>
     </form>
     </div>
@@ -250,7 +250,7 @@ if (profile_img_url.value == null) {
         </div>
         <div class="modal-action">
         <label for="medic-modal" class="btn">{{ $t('cancel') }}</label>
-        <PrimaryButton :disabled="form.processing">{{ $t('confirm') }}</PrimaryButton>
+        <PrimaryButton :disabled="form.processing">{{ $t('confirm') }}</PrimaryButton> <!--and this too-->
         </div>
     </form>
     </div>
