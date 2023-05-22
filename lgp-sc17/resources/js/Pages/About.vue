@@ -1,11 +1,10 @@
 <script setup>
 import NavBar from "@/Components/Navbar/NavBar.vue";
 import Footer from "@/Components/Footer.vue";
-import { useForm } from '@inertiajs/vue3';
+import { Head, useForm } from '@inertiajs/vue3';
 import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 
-const title="About Us"
 const subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet"
 
 const form = useForm({
@@ -23,7 +22,8 @@ const submit = () => {
 </script>
 
 <template>
-    <NavBar :title="title" :subtitle="subtitle">
+    <Head><title>{{ $t('about') }}</title></Head>
+    <NavBar :title="$t('about')" :subtitle="subtitle">
         <template v-slot:content-right></template>
         <template v-slot:content-bottom></template>
     </NavBar>

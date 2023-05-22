@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ForumPost;
+use App\Models\Topic;
 use App\Models\LibraryPost;
+
+use Illuminate\Support\Facades\DB;
+
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -36,7 +41,18 @@ class AdminController extends Controller
         ]);
     }
 
-    function forumIndex() {
-        return Inertia::render('Admin/Forum/Forum');
+    function forumIndex(Request $request) {
+        $result = [
+            'topics' => Topic::select('id', 'topic', 'color')->get(),
+            'posts' => ForumPost::join('posts', 'post_id', '=', 'posts.id')
+                ->orderBy('posted_at', 'desc')
+                ->select('forum_posts.id', 'title', DB::raw("DATE_FORMAT(posted_at, '%d/%m/%Y') as date"))
+                ->paginate(6),
+            ];
+
+        $message = $request->session()->get('success');
+        if (!is_null($message)) $result['message'] = $message;
+
+        return Inertia::render('Admin/Forum/Forum', $result);
     }
 }

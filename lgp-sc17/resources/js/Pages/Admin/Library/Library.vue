@@ -2,7 +2,7 @@
 import moment from "moment";
 import { TailwindPagination } from 'laravel-vue-pagination';
 import AdministrationLayout from "@/Layouts/AdministrationLayout.vue";
-import LibrarySearchAdmin from "@/Components/Library/LibrarySearchAdmin.vue";
+import SearchAdmin from "@/Components/Admin/SearchAdmin.vue";
 import {Link, useForm} from '@inertiajs/vue3';
 import {ref} from "vue";
 import axios from "axios";
@@ -11,7 +11,7 @@ const props = defineProps(['posts'])
 
 const deleteForm = useForm({});
 const deletePost = (id) => {
-    deleteForm.delete(route('admin.library.post', { id:id }));
+    deleteForm.delete(route('admin.library.delete', { id:id }));
 }
 
 const results = ref(props.posts);
@@ -32,11 +32,11 @@ const getResults = async (page = 1) => {
                 {{ $t('libraryContentHint') }}
             </div>
             <div>
-                <LibrarySearchAdmin v-model="search" @submit="getResults"></LibrarySearchAdmin>
+                <SearchAdmin v-model="search" @submit="getResults"></SearchAdmin>
             </div>
         </div>
         <div class="pb-4 flex justify-center">
-            <Link :href="route('admin.library.new')" class="btn btn-wide hover:bg-lightBlue bg-mainBlue text-white border-0 rounded-full">
+            <Link :href="route('admin.library.create')" class="btn btn-wide hover:bg-lightBlue bg-mainBlue text-white border-0 rounded-full">
                 {{ $t('libraryButtonCreate') }}</Link>
         </div>
 

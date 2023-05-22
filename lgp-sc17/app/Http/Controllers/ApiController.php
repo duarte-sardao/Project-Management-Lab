@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\LibraryPost;
 use Illuminate\Http\Request;
 
@@ -26,5 +27,14 @@ class ApiController extends Controller
         })
         ->orderBy('created_at', 'desc')
         ->paginate(6);
+    }
+
+    function forumPostsAdmin(Request $request) {
+        return DB::table('forum_posts')
+            ->join('posts', 'forum_posts.post_id', '=', 'posts.id')
+            ->where('forum_posts.title', 'like', '%'.$request->search.'%')
+            ->orderBy('posted_at', 'desc')
+            ->select('forum_posts.id', 'forum_posts.title', DB::raw("DATE_FORMAT(posts.posted_at, '%d/%m/%Y') as date"))
+            ->paginate(6);
     }
 }
