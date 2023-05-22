@@ -17,7 +17,10 @@ class AdminController extends Controller
         return Inertia::render('Admin/Dashboard', [
             'users' => [],
             'library_posts' => LibraryPost::orderBy('created_at', 'desc')->limit(4)->get(),
-            'forum_posts' => []
+            'forum_posts' => ForumPost::join('posts', 'post_id', '=', 'posts.id')
+                ->orderBy('posted_at', 'desc')
+                ->select('forum_posts.id', 'title', DB::raw("DATE_FORMAT(posted_at, '%d/%m/%Y') as date"))
+                ->limit(4)->get()
         ]);
     }
 
