@@ -129,6 +129,10 @@
     "libraryCreate": "Create a new post",
     "libraryPost": "Post",
     "libraryPostEdit": "Edit a post",
+    "libraryPostCreated": "Post created with success",
+    "libraryPostUpdated": "Post updated with success",
+    "libraryPostDeleted": "Post deleted with success",
+    "libraryPostError": "Error has occurred",
     "title": "Title",
     "subtitle": "Subitle",
     "body": "Body Content",
@@ -188,5 +192,5 @@
     "confirmAction": "Confirm action on user: ",
     "confirm": "Confirm",
     "actionStatus": "Set user to "
+    "null": ""
 }
-
