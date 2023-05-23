@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ForumController;
+use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ApiController;
@@ -87,6 +88,12 @@ Route::middleware('auth')->group(function () {
         //Forum
         Route::get('/admin/forum', [AdminController::class, 'forumIndex'])->name('admin.forum');
         Route::get('/api/admin/forum', [ApiController::class, 'forumPostsAdmin'])->name('admin.forum.search');
+
+        //Hospitals
+        Route::get('/admin/hospitals', [AdminController::class, 'hospitalsIndex'])->name('admin.hospitals');
+        Route::get('/api/admin/hospitals', [ApiController::class, 'hospitals']);
+        Route::post('/admin/hospitals/new', [HospitalController::class, 'create'])->name('admin.hospitals.create');
+        Route::delete('/admin/hospitals/{id}', [HospitalController::class, 'delete'])->name('admin.hospitals.delete');
     });
 });
 

@@ -152,6 +152,11 @@
     "adminTopicCreate": "Adicionar um tópico",
     "adminNoTopicsToDisplay": "Não existem tópicos para gerir",
 
+    "hospitals": "Hospitais",
+    "hospitalsContent": "Gestão dos hospitais",
+    "hospitalsContentHint": "Criar e gerir hospitais",
+    "hospitalCreate": "Criar hospital",
+
     "404_title": "Página não encontrada",
     "404_text": "Alguma coisa em falta",
     "404_subtext": "Ou página não existe ou o link está incorreto",

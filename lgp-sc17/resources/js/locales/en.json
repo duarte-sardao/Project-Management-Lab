@@ -153,6 +153,11 @@
     "adminTopicCreate": "Add new topic",
     "adminNoTopicsToDisplay": "There are no topics to display",
 
+    "hospitals": "Hospitals",
+    "hospitalsContent": "Hospitals management",
+    "hospitalsContentHint": "Create and manage hospitals",
+    "hospitalCreate": "Create hospital",
+
     "404_title": "Page not found",
     "404_text": "Something's missing",
     "404_subtext": "The page is missing or you assembled the link incorrectly",
