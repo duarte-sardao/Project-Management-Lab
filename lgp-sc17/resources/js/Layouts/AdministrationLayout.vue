@@ -48,7 +48,7 @@ const props = defineProps({
                     </li>
                 </template>
                 <li>
-                    <Link class="justify-center text-error" :href="route('logout')">
+                    <Link class="justify-center text-error" method="post" as="button" :href="route('logout')">
                         <img src="/svg_icons/logout.svg" class="inline mr-3 pb-1" alt="Log out"/>
                         {{ $t("logout") }}
                     </Link>
