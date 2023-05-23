@@ -50,6 +50,19 @@ class AdminController extends Controller
         ]);
     }
 
+    function ban($id) {
+
+        $user = User::find($id);
+        $user->setBan(true);
+    }
+
+    
+    function unban($id) {
+
+        $user = User::find($id);
+        $user->setBan(false);
+    }
+
     function libraryIndex() {
         return Inertia::render('Admin/Library/Library', [
             'posts' => LibraryPost::orderBy('created_at', 'desc')->paginate(6)

@@ -19,6 +19,7 @@
     "medicalStaffRegister": "Register - Medical Staff",
     "medicalStaff": "Medical Staff",
     "licenseNumber": "License number",
+    "hospitalID": "Hospital ID",
     "patientRegister": "Register - Patient",
     "patient": "Patient",
     "healthcareNumber": "Healthcare number",

@@ -72,14 +72,10 @@ class RegisteredMedicController extends Controller
     public function storeFromUser(Request $request, $id)
     {
 
-        Hospital::create([
-            'name' => 'test_hosp',
-        ]);
-
         Medic::create([
             'user_id' => $id,
             'license_number' => $request->license_number,
-            'hospital_id' => 1,
+            'hospital_id' => $request->hospital_id,
         ]);
 
         return;

@@ -20,7 +20,8 @@ class User extends Authenticatable
         'phone_number',
         'password',
         'profile_img_url',
-        'is_admin'
+        'is_admin',
+        'banned'
     ];
 
     protected $hidden = [
@@ -43,7 +44,7 @@ class User extends Authenticatable
     }
 
     public function isBanned(): bool {
-        return false; //implement
+        return $this->banned;
     }
 
     public function isGuest(): bool {
@@ -56,5 +57,9 @@ class User extends Authenticatable
 
     public function isMedic(): bool {
         return Medic::where('user_id','=',$this->id)->exists();
+    }
+
+    public function setBan($b_bool) {
+        $this->banned = $b_bool;
     }
 }

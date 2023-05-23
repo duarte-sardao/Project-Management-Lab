@@ -60,6 +60,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/users/{id}', [AdminController::class, 'userInfo'])->name('admin.users.info');
         Route::post('/admin/users/{id}', [RegisteredMedicController::class, 'storeFromUser'])->name('admin.register.medic');
         Route::post('/admin/users/{id}', [RegisteredPatientController::class, 'storeFromUser'])->name('admin.register.patient');
+        Route::post('/admin/users/{id}', [AdminController::class, 'ban'])->name('admin.ban');
+        Route::post('/admin/users/{id}', [AdminController::class, 'unban'])->name('admin.unban');
         //keeps missing the admin.register.medic and patient routes idk
         //Library
         Route::get('/admin/library', [AdminController::class, 'libraryIndex'])->name('admin.library');

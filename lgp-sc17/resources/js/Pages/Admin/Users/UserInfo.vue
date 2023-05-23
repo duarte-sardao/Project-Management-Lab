@@ -29,16 +29,35 @@ const props = defineProps({
 const user = props.user;
 const form = useForm({
     license_number: '',
-    healthcare_number: ''
+    healthcare_number: '',
+    hospital_id: ''
 });
 
 const submitMedic = () => {
+    const checkbox = document.getElementById('medic-modal');
+    checkbox.checked = false;
     form.post(route('admin.register.medic', { id:user.id }), {
     });
 };
 
 const submitPatient = () => {
+    const checkbox = document.getElementById('patient-modal');
+    checkbox.checked = false;
     form.post(route('admin.register.patient', { id:user.id }), {
+    });
+};
+
+window.banFunc = () => {
+    const checkbox = document.getElementById('ban-modal');
+    checkbox.checked = false;
+    form.post(route('admin.ban', { id:user.id }), {
+    });
+};
+
+window.unbanFunc = () => {
+    const checkbox = document.getElementById('unban-modal');
+    checkbox.checked = false;
+    form.post(route('admin.unban', { id:user.id }), {
     });
 };
 
@@ -93,7 +112,7 @@ if (profile_img_url.value == null) {
             <div class="col-span-2 bg-[#E9EFFD] ml-[1vw] mr-[1vw] rounded-3xl shadow-md pt-[5vh] relative">
                 <img id="profile-img" class="rounded-full mx-auto mb-[7vh] h-fit w-[200px] h-[200px]" :src="profile_img_url" alt="profile image">
                 <div class="flex items-center flex-col">
-                    <div v-if="!user.is_admin && status == 'Guest'" class="dropdown h-fit">
+                    <div v-if="status == 'Guest'" class="dropdown h-fit">
                         <label tabindex="0" class="btn m-1">{{ $t('setStatus') }}</label>
                         <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
                             <li v-if="status == 'Guest'"><label for="patient-modal">{{ $t('patient') }}</label></li>
@@ -190,7 +209,7 @@ if (profile_img_url.value == null) {
         <p class="py-4">{{ $t("confirmAction")}} {{  $t('ban') }}</p>
         <div class="modal-action">
         <label for="ban-modal" class="btn">{{ $t('cancel') }}</label>
-        <label class="btn btn-error">{{ $t('confirm') }}</label> <!--ban-->
+        <label class="btn btn-error" onclick="banFunc()">{{ $t('confirm') }}</label> <!--ban-->
         </div>
     </div>
     </div>
@@ -201,7 +220,7 @@ if (profile_img_url.value == null) {
         <p class="py-4">{{ $t("confirmAction")}} {{  $t('unban') }}</p>
         <div class="modal-action">
         <label for="unban-modal" class="btn">{{ $t('cancel') }}</label>
-        <label class="btn btn-error">{{ $t('confirm') }}</label> <!--unban-->
+        <label class="btn btn-error" onclick="unbanFunc()">{{ $t('confirm') }}</label> <!--unban-->
         </div>
     </div>
     </div>
@@ -222,6 +241,18 @@ if (profile_img_url.value == null) {
                 autocomplete="new-password"
             />
             <InputError class="mt-2" :message="form.errors.healthcare_number" />
+        </div>
+        <div class="mt-3 w-full">
+            <InputLabel for="hospital" :value="$t('hospitalID')" />
+            <TextInput
+                id="hospital"
+                type="number"
+                class="mt-1 input-bordered border-mainBlue rounded-full text-gray-800 w-full"
+                v-model="form.hospital_id"
+                required
+                autocomplete="new-password"
+            />
+            <InputError class="mt-2" :message="form.errors.hospital_id" />
         </div>
         <div class="modal-action">
         <label for="patient-modal" class="btn">{{ $t('cancel') }}</label>
@@ -247,6 +278,18 @@ if (profile_img_url.value == null) {
                 autocomplete="new-password"
             />
             <InputError class="mt-2" :message="form.errors.license_number" />
+        </div>
+        <div class="mt-3 w-full">
+            <InputLabel for="hospital" :value="$t('hospitalID')" />
+            <TextInput
+                id="hospital"
+                type="number"
+                class="mt-1 input-bordered border-mainBlue rounded-full text-gray-800 w-full"
+                v-model="form.hospital_id"
+                required
+                autocomplete="new-password"
+            />
+            <InputError class="mt-2" :message="form.errors.hospital_id" />
         </div>
         <div class="modal-action">
         <label for="medic-modal" class="btn">{{ $t('cancel') }}</label>

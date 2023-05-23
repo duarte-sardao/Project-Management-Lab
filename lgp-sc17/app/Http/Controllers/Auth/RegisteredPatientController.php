@@ -72,14 +72,10 @@ class RegisteredPatientController extends Controller
     public function storeFromUser(Request $request, $id)
     {
 
-        Hospital::create([
-            'name' => 'test_hosp',
-        ]);
-
         Patient::create([
             'user_id' => $id,
             'healthcare_number' => $request->healthcare_number,
-            'hospital_id' => 1,
+            'hospital_id' => $request->hospital_id,
         ]);
 
         return;
