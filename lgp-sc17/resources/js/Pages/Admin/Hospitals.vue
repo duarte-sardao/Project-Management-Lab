@@ -8,6 +8,7 @@ import {useForm, usePage} from "@inertiajs/vue3";
 import axios from "axios";
 import InputError from "@/Components/InputError.vue";
 import { TailwindPagination } from 'laravel-vue-pagination';
+import DeleteModal from "@/Components/DeleteModal.vue";
 
 const props = defineProps({
     hospitals: { default: null }
@@ -30,12 +31,13 @@ const getResults = async (page = 1) => {
 }
 
 const deleteForm = useForm({});
-const deleteHospital = (id) => {
-    deleteForm.delete(route('admin.hospitals.delete', { id:id }), {
+const deleteHospital = () => {
+    deleteForm.delete(route('admin.hospitals.delete', { id:confirmingPostDeletion.id }), {
         onFinish () {
             results.value = null;
             results = ref(props.hospitals);
             displayToast.value = true;
+            confirmingPostDeletion.value = false;
             setTimeout(cleanToast, 3000);
         }
     });
@@ -54,6 +56,12 @@ const createHospital = (id) => {
         }
     });
 }
+
+const confirmingPostDeletion = ref(false);
+const confirmPostDeletion = (id) => {
+    confirmingPostDeletion.value = true;
+    confirmingPostDeletion.id = id;
+};
 </script>
 
 <template>
@@ -64,13 +72,13 @@ const createHospital = (id) => {
             :error="$page.props.flash.error_message === undefined ? '':$t(`${$page.props.flash.error_message}`)"
         ></MessageToast>
 
-        <!--DeleteModal
-            :message="isDeletePost ? 'deletePostModal':'deleteTopicModal'"
-            :deleteButton="isDeletePost ? 'deletePostButton':'deleteTopicButton'"
+        <DeleteModal
+            message="deleteHospital"
+            deleteButton="deleteHospitalButton"
             :close="confirmingPostDeletion"
             v-on:update:close="confirmingPostDeletion = $event"
-            @deleteAction="isDeletePost ? deletePost() : deleteTopic()"
-        /-->
+            @deleteAction="deleteHospital"
+        />
 
         <div class="grid grid-cols-12">
             <div class="col-span-8 mr-3">
@@ -102,7 +110,7 @@ const createHospital = (id) => {
                                 {{ moment(hospital.created_at).format('DD-MM-YYYY HH:mm:ss') }}
                             </td>
                             <td class="bg-transparent text-[#808080] text-center">
-                                <form @submit.prevent="deleteHospital(hospital.id)">
+                                <form @submit.prevent="confirmPostDeletion(hospital.id)">
                                     <div id="end_opt" class="flex justify-center">
                                         <button class="" type="submit">
                                             <img src="/svg_icons/trash.svg" alt="delete">
