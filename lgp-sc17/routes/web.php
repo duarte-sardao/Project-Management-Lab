@@ -11,6 +11,8 @@ use App\Http\Controllers\MailController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use UniSharp\LaravelFilemanager\Lfm;
+use App\Http\Controllers\Auth\RegisteredPatientController;
+use App\Http\Controllers\Auth\RegisteredMedicController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,7 +76,11 @@ Route::middleware('auth')->group(function () {
 
         //Users
         Route::get('/admin/users', [AdminController::class, 'usersIndex'])->name('admin.users');
-
+        Route::get('/api/admin/users', [ApiController::class, 'userListAdmin']);
+        Route::get('/admin/users/{id}', [AdminController::class, 'userInfo'])->name('admin.users.info');
+        Route::post('/admin/users/{id}', [RegisteredMedicController::class, 'storeFromUser'])->name('admin.register.medic');
+        Route::post('/admin/users/{id}', [RegisteredPatientController::class, 'storeFromUser'])->name('admin.register.patient');
+        //keeps missing the admin.register.medic and patient routes idk
         //Library
         Route::get('/admin/library', [AdminController::class, 'libraryIndex'])->name('admin.library');
         Route::get('/api/admin/library', [ApiController::class, 'libraryPostsAdmin']);

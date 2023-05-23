@@ -174,5 +174,18 @@
 
     "seeMore": "See more",
     "confirmation": "Confirmation",
-    "blockUser": "Block"
+    "blockUser": "Block",
+
+    "usersList": "User Listing",
+    "usersListHint": "See and manage users",
+    "accType": "Status",
+    "medic": "Medic",
+    "userInfo": "User info",
+    "userInfoEdit": "Update user info",
+    "setStatus": "Set Status",
+    "ban": "Ban",
+    "unban": "Unban",
+    "confirmAction": "Confirm action on user: ",
+    "confirm": "Confirm",
+    "actionStatus": "Set user to "
 }
