@@ -9,7 +9,7 @@
     "loginUsernameEmail": "Username ou Email",
     "password": "Palavra-passe",
     "forgotPassword": "Esqueceu-se da sua palavra-passe?",
-    "guest": "",
+    "guest": "Guest",
     "fullName": "Nome completo",
     "repeatPassword": "Repetir palavra-passe",
     "iAgree": "Aceito os ",
@@ -187,5 +187,21 @@
     "goHome": "Home",
     "goBack": "Voltar",
 
+    "seeMore": "Ver mais",
+    "confirmation": "Confirmação",
+    "blockUser": "Bloquear",
+
+    "usersList": "Lista de Utilizadores",
+    "usersListHint": "Ver e administrar utilizadores",
+    "accType": "Estado",
+    "medic": "Médico",
+    "userInfo": "Informação de Utilizador",
+    "userInfoEdit": "Atualizar informação de utilizador",
+    "setStatus": "Definir Estado",
+    "ban": "Banir",
+    "unban": "Desbanir",
+    "confirmAction": "Confirmar ação em utilizador: ",
+    "confirm": "Confirmar",
+    "actionStatus": "Definir utilizador como ",
     "null": ""
 }

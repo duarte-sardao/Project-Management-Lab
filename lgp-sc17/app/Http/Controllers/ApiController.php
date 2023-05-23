@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\LibraryPost;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ApiController extends Controller
@@ -36,5 +37,19 @@ class ApiController extends Controller
             ->orderBy('posted_at', 'desc')
             ->select('forum_posts.id', 'forum_posts.title', DB::raw("DATE_FORMAT(posts.posted_at, '%d/%m/%Y') as date"))
             ->paginate(6);
+    }
+
+    function userListAdmin(Request $request) {
+        $users = User::where(function ($query) use ($request) {
+            $query->where('name','like','%'.$request->search.'%')
+            ->orWhere('username','like','%'.$request->search.'%');
+        })->paginate(6);
+
+
+        foreach($users as $key => $user){
+            $users[$key]['status'] = User::find($user['id'])->status();
+        }
+
+        return $users;
     }
 }
