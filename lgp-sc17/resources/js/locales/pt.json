@@ -157,6 +157,11 @@
     "hospitalsContentHint": "Criar e gerir hospitais",
     "hospitalCreate": "Criar hospital",
 
+    "hospitalCreated": "Hospital criado com sucesso",
+    "hospitalDeleted": "Hospital removido com sucesso",
+    "hospitalDeletedError": "Erro na remoção. Tem utilizadores associados",
+    "deleteHospitalButton": "Remover hospital",
+
     "404_title": "Página não encontrada",
     "404_text": "Alguma coisa em falta",
     "404_subtext": "Ou página não existe ou o link está incorreto",
