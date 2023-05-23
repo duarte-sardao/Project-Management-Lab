@@ -142,6 +142,8 @@
     "libraryPostUpdated": "Post alterado com sucesso",
     "libraryPostDeleted": "Post removido com sucesso",
     "libraryPostError": "Ocorreu um erro",
+    "deleteLibraryPost": "Remover publicação da biblioteca",
+    "deleteLibraryPostButton": "Remover publicação",
     "title": "Título",
     "subtitle": "Subítulo",
     "body": "Corpo da publicação",
