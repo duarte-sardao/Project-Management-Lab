@@ -144,6 +144,7 @@
     "libraryPostError": "Ocorreu um erro",
     "deleteLibraryPost": "Remover publicação da biblioteca",
     "deleteLibraryPostButton": "Remover publicação",
+    "noLibraryPostsToDisplay": "Não foi publicado nenhum post",
     "title": "Título",
     "subtitle": "Subítulo",
     "body": "Corpo da publicação",
@@ -192,6 +193,7 @@
     "blockUser": "Bloquear",
 
     "usersList": "Lista de Utilizadores",
+    "noUsersToDisplay": "Não existem utilizadores",
     "usersListHint": "Ver e administrar utilizadores",
     "accType": "Estado",
     "medic": "Médico",

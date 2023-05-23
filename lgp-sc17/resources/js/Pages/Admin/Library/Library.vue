@@ -84,7 +84,7 @@ const confirmPostDeletion = (id) => {
         </div>
 
         <div class="overflow-x-auto">
-            <table class="table w-full my-8">
+            <table v-if="results.data.length" class="table w-full my-8">
                 <thead>
                     <tr>
                         <th class="w-5/12">{{ $t('title') }}</th>
@@ -116,6 +116,9 @@ const confirmPostDeletion = (id) => {
                     </tr>
                 </tbody>
             </table>
+            <div v-else class="my-[10vh] text-center text-gray-400 text-lg">
+                {{ $t("noLibraryPostsToDisplay") }}
+            </div>
             <div class="flex justify-center">
                 <TailwindPagination
                     :data="results"
