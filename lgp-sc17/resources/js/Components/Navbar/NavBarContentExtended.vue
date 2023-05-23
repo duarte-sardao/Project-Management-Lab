@@ -24,7 +24,9 @@ let is_admin = (usePage().props.auth.user && usePage().props.auth.user.is_admin)
         </button>
     </div>
     <div class="flex-none gap-2">
-        <Link v-if="$page.props.auth.user === null" :href="route('login')" class="btn bg-lightBlue hover:bg-mainBlue hover:text-gray-200 text-gray-600 border-0 normal-case text-xl rounded-full">Log in</Link>
+        <Link v-if="$page.props.auth.user === null" :href="route('login')" class="btn bg-lightBlue hover:bg-mainBlue hover:text-gray-200 text-gray-600 border-0 normal-case text-xl rounded-full">
+            {{ $t("login") }}
+        </Link>
         <Link v-else :href="route('profile')" class="btn p-0 border-0 normal-case text-xl rounded-full bg-transparent hover:bg-lightBlue">
             <img id="profile-img" class="rounded-full mx-auto h-fit w-[48px] h-[48px] max-h-[48px] w-fit" :src="profile_img_url" alt="profile image">
         </Link>
