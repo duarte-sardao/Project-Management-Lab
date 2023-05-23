@@ -24,14 +24,16 @@ const props = defineProps({
                 <table class="table w-full">
                     <thead>
                     <tr>
-                        <th class="w-5/12">Username</th>
-                        <th class="w-3/12">{{ $t('fullName') }}</th>
+                        <th class="p-0"></th>
+                        <th class="w-3/12">Username</th>
+                        <th class="w-5/12">{{ $t('fullName') }}</th>
                         <th class="w-2/12 text-center">{{ $t('accType') }}</th>
-                        <th class="w-1/12 text-center">{{ $t('edit') }}</th>
+                        <th class="w-2/12 text-center">{{ $t('edit') }}</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr v-for="user in users">
+                        <td class="p-0"></td>
                         <td>{{ user.username }}</td>
                         <td>{{ user.name}}</td>
                         <td class="text-center">{{ user.status }}</td>
