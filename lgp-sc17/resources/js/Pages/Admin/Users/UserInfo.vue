@@ -30,34 +30,39 @@ const user = props.user;
 const form = useForm({
     license_number: '',
     healthcare_number: '',
-    hospital_id: ''
+    hospital_id: '',
+    action: ''
 });
 
 const submitMedic = () => {
     const checkbox = document.getElementById('medic-modal');
     checkbox.checked = false;
-    form.post(route('admin.register.medic', { id:user.id }), {
+    form.action = 'register_medic';
+    form.post(route('admin.users.update', {id:user.id}), {
     });
 };
 
 const submitPatient = () => {
     const checkbox = document.getElementById('patient-modal');
     checkbox.checked = false;
-    form.post(route('admin.register.patient', { id:user.id }), {
+    form.action = 'register_patient';
+    form.post(route('admin.users.update', {id:user.id}), {
     });
 };
 
 window.banFunc = () => {
     const checkbox = document.getElementById('ban-modal');
     checkbox.checked = false;
-    form.post(route('admin.ban', { id:user.id }), {
+    form.action = 'ban';
+    form.post(route('admin.users.update', {id:user.id}), {
     });
 };
 
 window.unbanFunc = () => {
     const checkbox = document.getElementById('unban-modal');
     checkbox.checked = false;
-    form.post(route('admin.unban', { id:user.id }), {
+    form.action = 'unban';
+    form.post(route('admin.users.update', {id:user.id}), {
     });
 };
 

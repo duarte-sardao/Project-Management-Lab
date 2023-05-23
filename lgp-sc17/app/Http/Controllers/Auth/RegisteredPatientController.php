@@ -69,7 +69,7 @@ class RegisteredPatientController extends Controller
      * Handle an incoming registration request to an existing user
      *
      */
-    public function storeFromUser(Request $request, $id)
+    /**public function storeFromUser(Request $request, $id)
     {
 
         Patient::create([
@@ -79,5 +79,5 @@ class RegisteredPatientController extends Controller
         ]);
 
         return;
-    }
+    }**/
 }

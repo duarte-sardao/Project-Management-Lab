@@ -6,8 +6,11 @@ use App\Models\LibraryPost;
 use App\Models\Patient;
 use App\Models\Medic;
 use App\Models\User;
+use App\Models\Hospital;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Http\Controllers\Auth\RegisteredPatientController;
+use App\Http\Controllers\Auth\RegisteredMedicController;
 
 class AdminController extends Controller
 {
@@ -53,14 +56,39 @@ class AdminController extends Controller
     function ban($id) {
 
         $user = User::find($id);
-        $user->setBan(true);
+        $user->setBan(True);
     }
 
     
     function unban($id) {
 
         $user = User::find($id);
-        $user->setBan(false);
+        $user->setBan(False);
+    }
+
+    function updateUser(Request $request, $id) {
+        switch ($request->action) {
+            case 'ban':
+                $this->ban($id);
+                break;
+            case 'unban':
+                $this->unban($id);
+                break;
+            case 'register_patient':
+                Patient::create([
+                    'user_id' => $id,
+                    'healthcare_number' => $request->healthcare_number,
+                    'hospital_id' => $request->hospital_id,
+                ]);
+                break;
+            case 'register_medic':
+                Medic::create([
+                    'user_id' => $id,
+                    'license_number' => $request->license_number,
+                    'hospital_id' => $request->hospital_id,
+                ]);
+                break;
+        }
     }
 
     function libraryIndex() {

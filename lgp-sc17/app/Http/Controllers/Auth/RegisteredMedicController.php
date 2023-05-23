@@ -69,7 +69,7 @@ class RegisteredMedicController extends Controller
      * Handle an incoming registration request to an existing user
      *
      */
-    public function storeFromUser(Request $request, $id)
+    /**public function storeFromUser(Request $request, $id)
     {
 
         Medic::create([
@@ -79,5 +79,5 @@ class RegisteredMedicController extends Controller
         ]);
 
         return;
-    }
+    }**/
 }
