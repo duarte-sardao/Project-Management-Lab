@@ -98,7 +98,7 @@ const getResults = async (page = 1) => {
 </script>
 
 <template>
-    <Head><title>{{ $t('forumAdmnistrationTitle') }}</title></Head>
+    <Head><title>{{ $t('forumAdministrationTitle') }}</title></Head>
     <AdministrationLayout page="forum">
         <MessageToast
             v-if="displayToast"
