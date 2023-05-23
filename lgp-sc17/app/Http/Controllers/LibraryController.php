@@ -36,10 +36,12 @@ class LibraryController extends Controller
         $post->content = $request->body_content;
         $post->public = $request->public;
         $post->save();
-        $this->setPostImage($request, $post);
+        if (!$this->setPostImage($request, $post)) {
+            return back()->with(['error' => 'libraryPostError']);
+        }
         $post->save();
 
-        return to_route('admin.library.post',['id' => $post->id])->with(['post' => $post]);
+        return to_route('admin.library.post',['id' => $post->id])->with(['post' => $post, 'success' => 'libraryPostCreated']);
     }
 
     function edit($id, LibraryPostUpdateRequest $request) {
@@ -50,15 +52,17 @@ class LibraryController extends Controller
         $post->subtitle = $request->subtitle;
         $post->content = $request->body_content;
         $post->public = $request->public;
-        $this->setPostImage($request, $post);
+        if (!$this->setPostImage($request, $post)) {
+            return back()->with(['error' => 'libraryPostError']);
+        }
         $post->save();
-        return back();
+        return back()->with(['success' => 'libraryPostUpdated']);
     }
 
     function delete($id, Request $request) {
         $post = LibraryPost::find($id);
         $post->delete();
-        return to_route('admin.library');
+        return to_route('admin.library')->with(['success' => 'libraryPostDeleted']);
     }
 
     /**
@@ -66,7 +70,7 @@ class LibraryController extends Controller
      * @param LibraryPost $post
      * @return void
      */
-    private function setPostImage(LibraryPostUpdateRequest $request, LibraryPost $post): void
+    private function setPostImage(LibraryPostUpdateRequest $request, LibraryPost $post): bool
     {
         $imageExtensions = ['jpg', 'jpeg', 'jpe', 'gif', 'png', 'svg', 'ico'];
         if ($request->file('img') && in_array($request->file('img')->getClientOriginalExtension(), $imageExtensions)) {
@@ -78,6 +82,8 @@ class LibraryController extends Controller
             $request->file('img')->move(public_path('/img/posts/'), $fileName);
 
             $post->img_url = '/img/posts/' . $fileName;
+            return true;
         }
+        return !$request->file('img') || false;
     }
 }

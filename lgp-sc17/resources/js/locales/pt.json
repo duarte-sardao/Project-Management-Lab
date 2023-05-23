@@ -128,6 +128,10 @@
     "libraryPost": "Publicação",
     "libraryPostEdit": "Edição da publicação",
     "libraryCreate": "Criação de nova publicação",
+    "libraryPostCreated": "Post criado com sucesso",
+    "libraryPostUpdated": "Post alterado com sucesso",
+    "libraryPostDeleted": "Post removido com sucesso",
+    "libraryPostError": "Ocorreu um erro",
     "title": "Título",
     "subtitle": "Subítulo",
     "body": "Corpo da publicação",
@@ -169,5 +173,7 @@
     "500_subtext": "Ocorreu um erro nos nossos servidores! Esperemos que tudo se encontre ok",
 
     "goHome": "Home",
-    "goBack": "Voltar"
+    "goBack": "Voltar",
+
+    "null": ""
 }
