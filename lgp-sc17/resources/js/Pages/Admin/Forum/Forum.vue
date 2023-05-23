@@ -52,7 +52,7 @@ function cleanToast() {
     displayToast.value = false;
     toastError.value = null;
     messageToast.value = null;
-};
+}
 const displayToastAction = () => {
     if (toastError.value == null)
         messageToast.value = props.message;

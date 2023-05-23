@@ -32,12 +32,12 @@ const getResults = async (page = 1) => {
 
 const deleteForm = useForm({});
 const deleteHospital = () => {
-    deleteForm.delete(route('admin.hospitals.delete', { id:confirmingPostDeletion.id }), {
+    deleteForm.delete(route('admin.hospitals.delete', { id:confirmingHospitalDeletion.id }), {
         onFinish () {
             results.value = null;
             results = ref(props.hospitals);
             displayToast.value = true;
-            confirmingPostDeletion.value = false;
+            confirmingHospitalDeletion.value = false;
             setTimeout(cleanToast, 3000);
         }
     });
@@ -57,10 +57,10 @@ const createHospital = (id) => {
     });
 }
 
-const confirmingPostDeletion = ref(false);
+const confirmingHospitalDeletion = ref(false);
 const confirmPostDeletion = (id) => {
-    confirmingPostDeletion.value = true;
-    confirmingPostDeletion.id = id;
+    confirmingHospitalDeletion.value = true;
+    confirmingHospitalDeletion.id = id;
 };
 </script>
 
@@ -75,8 +75,8 @@ const confirmPostDeletion = (id) => {
         <DeleteModal
             message="deleteHospital"
             deleteButton="deleteHospitalButton"
-            :close="confirmingPostDeletion"
-            v-on:update:close="confirmingPostDeletion = $event"
+            :close="confirmingHospitalDeletion"
+            v-on:update:close="confirmingHospitalDeletion = $event"
             @deleteAction="deleteHospital"
         />
 
