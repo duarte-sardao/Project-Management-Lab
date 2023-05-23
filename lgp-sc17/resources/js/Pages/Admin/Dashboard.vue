@@ -24,14 +24,23 @@ const props = defineProps({
                 <table class="table w-full">
                     <thead>
                     <tr>
-                        <th class="w-5/12">{{ $t('users') }}</th>
-                        <th class="w-2/12">{{ $t('status') }}</th>
-                        <th class="w-2/12 text-center">{{ $t('confirmation') }}</th>
-                        <th class="w-2/12 text-center">{{ $t('blockUser') }}</th>
+                        <th class="w-5/12">Username</th>
+                        <th class="w-3/12">{{ $t('fullName') }}</th>
+                        <th class="w-2/12 text-center">{{ $t('accType') }}</th>
+                        <th class="w-1/12 text-center">{{ $t('edit') }}</th>
                     </tr>
                     </thead>
                     <tbody>
-                        <!-- TODO -->
+                    <tr v-for="user in users">
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.name}}</td>
+                        <td class="text-center">{{ user.status }}</td>
+                        <td class="text-center">
+                            <Link class="flex justify-center" :href="route('admin.users.info', {id: user.id})">
+                                <img src="/svg_icons/pencil.svg" alt="edit">
+                            </Link>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>

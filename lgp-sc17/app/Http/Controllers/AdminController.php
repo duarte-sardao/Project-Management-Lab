@@ -17,8 +17,13 @@ use Inertia\Inertia;
 class AdminController extends Controller
 {
     function index() {
+        $users = User::orderBy('created_at', 'desc')->limit(4)->get();
+        foreach ($users as $user) {
+            $user['status'] = $user->status();
+        }
+
         return Inertia::render('Admin/Dashboard', [
-            'users' => [],
+            'users' => $users,
             'library_posts' => LibraryPost::orderBy('created_at', 'desc')->limit(4)->get(),
             'forum_posts' => ForumPost::join('posts', 'post_id', '=', 'posts.id')
                 ->orderBy('posted_at', 'desc')
