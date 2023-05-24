@@ -161,13 +161,24 @@
     "isAdmin": "Admin account",
     "users": "Users",
 
-    "forumAdmnistrationTitle": "Forum Admnistration",
+    "forumAdministrationTitle": "Forum Admnistration",
     "forumContent": "Forum management",
     "forumContentHint": "Manage forum posts and topics",
     "adminForumDateAdded": "Date added",
     "adminForumDelete": "Delete forum post",
     "adminTopicCreate": "Add new topic",
     "adminNoTopicsToDisplay": "There are no topics to display",
+
+    "hospitals": "Hospitals",
+    "hospitalsContent": "Hospitals management",
+    "hospitalsContentHint": "Create and manage hospitals",
+    "hospitalCreate": "Create hospital",
+
+    "hospitalCreated": "Hospital created with success",
+    "hospitalDeleted": "Hospital deleted with success",
+    "hospitalDeletedError": "Error on deletion. Some users are associated",
+    "deleteHospitalButton": "Delete hospital",
+
 
     "404_title": "Page not found",
     "404_text": "Something's missing",
