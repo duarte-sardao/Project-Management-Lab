@@ -129,6 +129,10 @@
     "libraryCreate": "Create a new post",
     "libraryPost": "Post",
     "libraryPostEdit": "Edit a post",
+    "libraryPostCreated": "Post created with success",
+    "libraryPostUpdated": "Post updated with success",
+    "libraryPostDeleted": "Post deleted with success",
+    "libraryPostError": "Error has occurred",
     "title": "Title",
     "subtitle": "Subitle",
     "body": "Body Content",
@@ -181,5 +185,7 @@
     "500_subtext": "There was an error on our servers! Hope everything is ok",
 
     "goHome": "Go home",
-    "goBack": "Go back"
+    "goBack": "Go back",
+
+    "null": ""
 }
