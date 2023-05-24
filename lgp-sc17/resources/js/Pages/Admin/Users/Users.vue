@@ -1,10 +1,67 @@
 <script setup>
+import moment from "moment";
+import { TailwindPagination } from 'laravel-vue-pagination';
 import AdministrationLayout from "@/Layouts/AdministrationLayout.vue";
+import SearchAdmin from "@/Components/Admin/SearchAdmin.vue";
+import {Link, useForm} from '@inertiajs/vue3';
+import {ref} from "vue";
+import axios from "axios";
+
+const props = defineProps(['users'])
+
+const results = ref(props.users);
+const search = ref('');
+const getResults = async (page = 1) => {
+    axios.get('/api/admin/users?page=' + page + '&search=' + search.value)
+        .then(response => {
+            results.value = response.data;
+        })
+}
+getResults(); //hacky but we need to run userAdminList to get status and this does it
 </script>
 
 <template>
     <AdministrationLayout page="users">
-        Users
+        <div class="grid grid-cols-2">
+            <div class="pb-16 text-xl text-gray-400">
+                <div class="text-4xl text-black">{{ $t('usersList') }}</div>
+                {{ $t('usersListHint') }}
+            </div>
+            <div>
+                <SearchAdmin v-model="search" @submit="getResults"></SearchAdmin>
+            </div>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="table w-full my-8">
+                <thead>
+                    <tr>
+                        <th class="w-5/12">Username</th>
+                        <th class="w-3/12">{{ $t('fullName') }}</th>
+                        <th class="w-2/12 text-center">{{ $t('accType') }}</th>
+                        <th class="w-1/12 text-center">{{ $t('edit') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="user in results.data">
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.name}}</td>
+                        <td class="text-center">{{ user.status }}</td>
+                        <td class="text-center">
+                            <Link class="flex justify-center" :href="route('admin.users.info', {id: user.id})">
+                                <img src="/svg_icons/pencil.svg" alt="edit">
+                            </Link>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="flex justify-center">
+                <TailwindPagination
+                    :data="results"
+                    @pagination-change-page="getResults"
+                />
+            </div>
+        </div>
     </AdministrationLayout>
 </template>
 
