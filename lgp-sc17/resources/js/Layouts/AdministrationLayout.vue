@@ -22,12 +22,24 @@ const props = defineProps({
 
         <div class="drawer-side">
             <label for="my-drawer" class="drawer-overlay"></label>
-            <ul class="menu p-4 w-80 space-y-4 bg-adminBackground text-base-content text-xl flex-col">
+            <ul class="menu p-4 w-80 space-y-4 bg-adminBackground text-base-content text-xl text-[#4A4A4A] flex-col">
                 <li><Link class="justify-center" :href="route('homepage')"><img src="/logo.png" alt="default user"/></Link></li>
-                <li><Link :class="{ 'bg-mainBlue text-white': props.page === 'dashboard' }" class="justify-center" :href="route('admin')">Dashboard</Link></li>
-                <li><Link :class="{ 'bg-mainBlue text-white': props.page === 'users' }" class="justify-center" :href="route('admin.users')">{{ $t("users") }}</Link></li>
-                <li><Link :class="{ 'bg-mainBlue text-white': props.page === 'library' }" class="justify-center" :href="route('admin.library')">{{ $t("library") }}</Link></li>
-                <li><Link :class="{ 'bg-mainBlue text-white': props.page === 'forum' }" class="justify-center" :href="route('admin.forum')">Forum</Link></li>
+                <li><Link :class="{ 'bg-mainBlue text-white': props.page === 'dashboard' }" class="pl-[25%] active:bg-mainBlue" :href="route('admin')">
+                    <img :src="`/svg_icons/adminDashboard${props.page === 'dashboard' ? 'Selected':''}.svg`" alt="Dashboard" class="max-h-[25px] h-[25px] w-fit"/>
+                    Dashboard
+                </Link></li>
+                <li><Link :class="{ 'bg-mainBlue text-white': props.page === 'users' }" class="pl-[25%] active:bg-mainBlue" :href="route('admin.users')">
+                    <img :src="`/svg_icons/adminUsers${props.page === 'users' ? 'Selected':''}.svg`" alt="Dashboard" class="max-h-[25px] h-[25px] w-fit"/>
+                    {{ $t("users") }}
+                </Link></li>
+                <li><Link :class="{ 'bg-mainBlue text-white': props.page === 'library' }" class="pl-[25%] active:bg-mainBlue" :href="route('admin.library')">
+                    <img :src="`/svg_icons/adminLibrary${props.page === 'library' ? 'Selected':''}.svg`" alt="Dashboard" class="max-h-[25px] h-[25px] w-fit"/>
+                    {{ $t("library") }}
+                </Link></li>
+                <li><Link :class="{ 'bg-mainBlue text-white': props.page === 'forum' }" class="pl-[25%] active:bg-mainBlue" :href="route('admin.forum')">
+                    <img :src="`/svg_icons/adminForum${props.page === 'forum' ? 'Selected':''}.svg`" alt="Dashboard" class="max-h-[25px] h-[25px] w-fit"/>
+                    {{ $t("forumTitle") }}
+                </Link></li>
                 <template v-for="entry in languages">
                     <li v-if="entry.language != i18n.global.locale.value" style="margin-top: auto !important;">
                         <button @click="changeLocale(entry.language)" class="flex justify-center group">
@@ -36,7 +48,7 @@ const props = defineProps({
                     </li>
                 </template>
                 <li>
-                    <Link class="justify-center text-error" :href="route('logout')">
+                    <Link class="justify-center text-error" method="post" as="button" :href="route('logout')">
                         <img src="/svg_icons/logout.svg" class="inline mr-3 pb-1" alt="Log out"/>
                         {{ $t("logout") }}
                     </Link>

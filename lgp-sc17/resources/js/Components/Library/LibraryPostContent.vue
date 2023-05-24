@@ -1,7 +1,8 @@
 <script setup>
 import TinyMCEditor from "@/Components/TinyMCE/TinyMCEditor.vue";
-import { useForm } from '@inertiajs/vue3';
+import {useForm, usePage} from '@inertiajs/vue3';
 import InputError from "@/Components/InputError.vue";
+import MessageToast from "@/Components/MessageToast.vue";
 import {ref} from "vue";
 
 const props = defineProps({
@@ -22,11 +23,28 @@ const form = useForm({
     img: null
 });
 
+const displayToast = ref(false);
+function cleanToast() {
+    displayToast.value = false;
+    usePage().props.flash.success_message = undefined;
+    usePage().props.flash.error_message = undefined;
+}
+
 const submit = () => {
     if (!props.route_id === null) {
-        form.post(route(props.route_name));
+        form.post(route(props.route_name), {
+            onFinish () {
+                displayToast.value = true;
+                setTimeout(cleanToast, 3000);
+            }
+        });
     } else {
-        form.post(route(props.route_name, { id:props.route_id }));
+        form.post(route(props.route_name, { id:props.route_id }), {
+            onFinish () {
+                displayToast.value = true;
+                setTimeout(cleanToast, 3000);
+            }
+        });
     }
 };
 
@@ -40,9 +58,20 @@ const deletePost = () => {
 function inputFile(event) {
     form.img = event.target.files[0];
 }
+
+if (usePage().props.flash.success_message || usePage().props.flash.error_message) {
+    displayToast.value = true;
+    setTimeout(cleanToast, 3000);
+}
 </script>
 
 <template>
+    <MessageToast
+        v-if="displayToast"
+        :message="$page.props.flash.success_message === undefined ? undefined:$t(`${$page.props.flash.success_message}`)"
+        :error="$page.props.flash.error_message === undefined ? undefined:$t(`${$page.props.flash.error_message}`)"
+    ></MessageToast>
+
     <form @submit.prevent="submit">
         <div class="grid grid-cols-2">
             <div class="form-control w-full justify-center">

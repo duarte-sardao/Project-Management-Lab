@@ -27,12 +27,11 @@ const form = useForm({
 
 const displayToast = ref(false);
 function cleanToast() {
+    displayToast.value = false;
     usePage().props.flash.success_message = null;
     usePage().props.flash.error_message = null;
-    displayToast.value = false;
 }
 const submit = () => {
-    displayToast.value = true;
     form.post(route('profile.update'), {
         onFinish () {
             if (form.profile_img != null) {
@@ -41,6 +40,7 @@ const submit = () => {
             if (form.errors.phone_number) {
                 form.phone_number = user.phone_number;
             }
+            displayToast.value = true;
             setTimeout(cleanToast, 3000);
         }
     });
@@ -75,7 +75,7 @@ if (profile_img_url.value == null) {
                 <div class="text-gray-800 font-medium text-2xl mb-[4vh]" :class="edit && 'text-center'">
                     <button class="border-0" @click="edit = !edit" type="button">
                         <div v-if="!edit" class="ml-[4vw]">
-                            <img src="/svg_icons/settings.svg" class="inline mr-3 pb-1" alt="Edit profile"/>
+                            <img src="/svg_icons/settingsProfile.svg" class="inline mr-3 pb-1" alt="Edit profile"/>
                             <span>{{ $t("editButton") }}</span>
                         </div>
                         <div v-else class="bg-[#E67A79] border-2 px-3 py-2 text-white rounded-3xl">
