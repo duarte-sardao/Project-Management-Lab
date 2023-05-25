@@ -202,7 +202,7 @@ const followHandler = () => {
                 v-if="post.isAuthor || is_admin"
                 alt="Delete post"
                 src="/svg_icons/trash.svg"
-                class="absolute max-w-[2.5vw] w-[2.5vw] top-[1.5vw] right-[2vw] transition duration-200 hover:scale-110 hover:cursor-pointer"
+                class="absolute max-w-[2.5vw] w-[2.5vw] top-[1.5vw] right-[2vw] transition duration-200 hover:scale-125 hover:cursor-pointer"
                 v-on:click="confirmPostDeletion"
             />
             <div class="grid grid-cols-6 max-h-[5rem] my-[4vh] max-w-[30vw]">

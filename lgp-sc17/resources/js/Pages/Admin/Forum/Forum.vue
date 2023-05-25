@@ -143,8 +143,8 @@ const getResults = async (page = 1) => {
                                 <td class="bg-transparent text-[#808080] text-center">
                                     <form @submit.prevent="confirmPostDeletion(post.id)">
                                         <div id="end_opt" class="flex justify-center">
-                                            <button class="" type="submit">
-                                                <img src="/svg_icons/trash.svg" alt="our vision">
+                                            <button class="transition duration-200 hover:scale-125" type="submit">
+                                                <img src="/svg_icons/trash.svg" alt="Delete post">
                                             </button>
                                         </div>
                                     </form>
@@ -179,7 +179,7 @@ const getResults = async (page = 1) => {
                                         <form @submit.prevent="confirmTopicDeletion(topic.id)">
                                             <div id="end_opt" class="flex justify-center">
                                                 <button class="transition duration-200 hover:scale-125" type="submit">
-                                                    <img src="/svg_icons/trash.svg" alt="our vision" class="min-w-[30px] max-h-[30px] h-[30px]">
+                                                    <img src="/svg_icons/trash.svg" alt="Delete topic" class="min-w-[30px] max-h-[30px] h-[30px]">
                                                 </button>
                                             </div>
                                         </form>

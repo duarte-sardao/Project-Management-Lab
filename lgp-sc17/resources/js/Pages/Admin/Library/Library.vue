@@ -107,8 +107,8 @@ const confirmPostDeletion = (id) => {
                         <td class="text-center">
                             <form @submit.prevent="confirmPostDeletion(post.id)">
                                 <div id="end_opt" class="flex justify-center">
-                                    <button class="" type="submit">
-                                        <img src="/svg_icons/trash.svg" alt="our vision">
+                                    <button class="transition duration-200 hover:scale-125" type="submit">
+                                        <img src="/svg_icons/trash.svg" alt="Delete post">
                                     </button>
                                 </div>
                             </form>

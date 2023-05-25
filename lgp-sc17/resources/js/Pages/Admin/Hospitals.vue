@@ -112,8 +112,8 @@ const confirmPostDeletion = (id) => {
                             <td class="bg-transparent text-[#808080] text-center">
                                 <form @submit.prevent="confirmPostDeletion(hospital.id)">
                                     <div id="end_opt" class="flex justify-center">
-                                        <button class="" type="submit">
-                                            <img src="/svg_icons/trash.svg" alt="delete">
+                                        <button class="transition duration-200 hover:scale-125" type="submit">
+                                            <img src="/svg_icons/trash.svg" alt="Delete hospital">
                                         </button>
                                     </div>
                                 </form>
