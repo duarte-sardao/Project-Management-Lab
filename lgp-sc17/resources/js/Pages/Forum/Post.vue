@@ -188,7 +188,7 @@ const followHandler = () => {
             </Link>
         </div>
         <div id="post-grid" class="relative bg-[#E9EFFD] shadow-md px-[5vw] mt-[8vh] mb-[10vh] max-w-[78.5vw]" style="border-radius: 2.5rem">
-            <div v-if="post.topics.length > 0" class="absolute w-[70vw] top-[-4vh]">
+            <div v-if="post.topics.length > 0" class="flex absolute w-[70vw] top-[-4vh]">
                 <TopicTag v-on:click="topicTagHandler(index)" :key="currentTopic" v-for="(item, index) in post.topics" :topic="item" :index="index"/>
             </div>
             <div
