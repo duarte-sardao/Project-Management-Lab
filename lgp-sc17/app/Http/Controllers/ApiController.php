@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Hospital;
+use App\Models\Medic;
+use App\Models\Patient;
 use Illuminate\Support\Facades\DB;
 use App\Models\LibraryPost;
 use App\Models\User;
@@ -58,6 +60,20 @@ class ApiController extends Controller
     function hospitals(Request $request) {
         return Hospital::where('name','like','%'.$request->search.'%')
             ->orderBy('created_at', 'desc')
+            ->paginate(6);
+    }
+
+    function chatPatients(Request $request) {
+        return Patient::join('users', 'users.id', '=', 'patients.user_id')
+            ->where('name','like','%'.$request->search.'%')
+            ->orderBy('patients.created_at', 'desc')
+            ->paginate(6);
+    }
+
+    function chatMedics(Request $request) {
+        return Medic::join('users', 'users.id', '=', 'medics.user_id')
+            ->where('name','like','%'.$request->search.'%')
+            ->orderBy('medics.created_at', 'desc')
             ->paginate(6);
     }
 }

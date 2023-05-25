@@ -215,5 +215,8 @@
     "confirmAction": "Confirm action on user: ",
     "confirm": "Confirm",
     "actionStatus": "Set user to ",
-    "null": ""
+    "null": "",
+
+    "chatContent": "Chat Management",
+    "chatContentHint": "Association of medics to patients"
 }

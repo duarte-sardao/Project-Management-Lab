@@ -213,5 +213,8 @@
     "confirmAction": "Confirmar ação em utilizador: ",
     "confirm": "Confirmar",
     "actionStatus": "Definir utilizador como ",
-    "null": ""
+    "null": "",
+
+    "chatContent": "Gestão do Chat",
+    "chatContentHint": "Associação de médicos a pacientes"
 }

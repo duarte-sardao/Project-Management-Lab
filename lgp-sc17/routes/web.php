@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\TopicController;
@@ -103,6 +104,9 @@ Route::middleware('auth')->group(function () {
 
         //Chat
         Route::get('/admin/chat', [AdminController::class, 'chatIndex'])->name('admin.chat');
+        Route::get('/admin/chat/{patient_id}/medics', [ChatController::class, 'chatMedics'])->name('admin.chat.medics');
+        Route::get('/api/admin/chat/patients', [ApiController::class, 'chatPatients']);
+        Route::get('/api/admin/chat/medics', [ApiController::class, 'chatMedics']);
     });
 });
 
