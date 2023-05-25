@@ -21,8 +21,4 @@ class Medic extends Model
     public function hospital(): BelongsTo {
         return $this->belongsTo(Hospital::class);
     }
-
-    public function team() {
-        return $this->hasMany(Team::class);
-    }
 }
