@@ -81,7 +81,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/users/{id}', [AdminController::class, 'userInfo'])->name('admin.users.info');
         Route::post('/admin/users/{id}', [RegisteredMedicController::class, 'storeFromUser'])->name('admin.register.medic');
         Route::post('/admin/users/{id}', [RegisteredPatientController::class, 'storeFromUser'])->name('admin.register.patient');
-        //keeps missing the admin.register.medic and patient routes idk
+
         //Library
         Route::get('/admin/library', [AdminController::class, 'libraryIndex'])->name('admin.library');
         Route::get('/api/admin/library', [ApiController::class, 'libraryPostsAdmin']);
@@ -100,6 +100,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/api/admin/hospitals', [ApiController::class, 'hospitals']);
         Route::post('/admin/hospitals/new', [HospitalController::class, 'create'])->name('admin.hospitals.create');
         Route::delete('/admin/hospitals/{id}', [HospitalController::class, 'delete'])->name('admin.hospitals.delete');
+
+        //Chat
+        Route::get('/admin/chat', [AdminController::class, 'chatIndex'])->name('admin.chat');
     });
 });
 
