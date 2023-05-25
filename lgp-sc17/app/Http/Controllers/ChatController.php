@@ -41,6 +41,9 @@ class ChatController extends Controller
     }
 
     function addMedicToPatient($patient_id, $medic_id, Request $request) {
+        if (!Patient::where('id','=',$patient_id)->exists() || !Medic::where('id','=',$medic_id)->exists()) {
+            return to_route('admin.chat', ['patient_id' => $patient_id]);
+        }
         $patient_medic = new PatientMedics();
         $patient_medic->patient_id = $patient_id;
         $patient_medic->medic_id = $medic_id;
@@ -49,6 +52,9 @@ class ChatController extends Controller
     }
 
     function removeMedicToPatient($patient_id, $medic_id, Request $request) {
+        if (!Patient::where('id','=',$patient_id)->exists() || !Medic::where('id','=',$medic_id)->exists()) {
+            return to_route('admin.chat', ['patient_id' => $patient_id]);
+        }
         $patient_medic = PatientMedics::where('patient_id','=',$patient_id)
             ->where('medic_id','=',$medic_id)->first();
         $patient_medic->delete();
