@@ -68,5 +68,6 @@ class User extends Authenticatable
 
     public function setBan($b_bool) {
         $this->banned = $b_bool;
+        $this->save();
     }
 }

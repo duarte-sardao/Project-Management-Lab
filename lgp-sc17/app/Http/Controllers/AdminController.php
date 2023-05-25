@@ -91,19 +91,27 @@ class AdminController extends Controller
             case 'unban':
                 $this->unban($id);
                 break;
-            case 'register_patient': //patient may already exist, update? //doctor may exist, delete?
-                Patient::create([
-                    'user_id' => $id,
-                    'healthcare_number' => $request->healthcare_number,
-                    'hospital_id' => $request->hospital_id,
-                ]);
+            case 'register_patient':
+                Medic::destroy($id);
+
+                Patient::updateOrCreate(
+                    ['user_id' => $id],
+                    [
+                        'healthcare_number' => $request->healthcare_number,
+                        'hospital_id' => $request->hospital_id,
+                    ]
+                );
                 break;
-            case 'register_medic': //same issue as patient
-                Medic::create([
-                    'user_id' => $id,
-                    'license_number' => $request->license_number,
-                    'hospital_id' => $request->hospital_id,
-                ]);
+            case 'register_medic':
+                Patient::destroy($id);
+                
+                Medic::updateOrCreate(
+                    ['user_id' => $id],
+                    [
+                        'license_number' => $request->license_number,
+                        'hospital_id' => $request->hospital_id,
+                    ]
+                );
                 break;
         }
     }
