@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ForumPost;
+use App\Models\Hospital;
 use App\Models\Topic;
 use App\Models\LibraryPost;
 
@@ -96,5 +97,11 @@ class AdminController extends Controller
         if (!is_null($message)) $result['message'] = $message;
 
         return Inertia::render('Admin/Forum/Forum', $result);
+    }
+
+    function hospitalsIndex(Request $request) {
+        return Inertia::render('Admin/Hospitals', [
+            'hospitals' => Hospital::orderBy('created_at', 'desc')->paginate(6)
+        ]);
     }
 }
