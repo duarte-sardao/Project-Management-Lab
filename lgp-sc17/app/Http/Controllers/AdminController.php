@@ -92,7 +92,7 @@ class AdminController extends Controller
                 $this->unban($id);
                 break;
             case 'register_patient':
-                Medic::destroy($id);
+                Medic::destroy($id); //not working?
 
                 Patient::updateOrCreate(
                     ['user_id' => $id],
@@ -103,7 +103,7 @@ class AdminController extends Controller
                 );
                 break;
             case 'register_medic':
-                Patient::destroy($id);
+                Patient::destroy($id); // remains patient after switching to medic
                 
                 Medic::updateOrCreate(
                     ['user_id' => $id],
