@@ -219,5 +219,9 @@
 
     "chatContent": "Chat Management",
     "chatContentHint": "Association of medics to patients",
-    "associated": "Associated"
+    "associated": "Associated",
+    "chatMedicAssociated": "Medic associated with success",
+    "chatMedicAssociatedError": "Association failed",
+    "chatMedicRemoved": "Medic removed with success",
+    "chatMedicRemovedError": "Removal failed"
 }

@@ -1,9 +1,10 @@
 <script setup>
 import AdministrationLayout from "@/Layouts/AdministrationLayout.vue";
 import SearchAdmin from "@/Components/Admin/SearchAdmin.vue";
-import {Link, useForm} from '@inertiajs/vue3';
+import {Link, useForm, usePage} from '@inertiajs/vue3';
 import {ref} from "vue";
 import axios from "axios";
+import MessageToast from "@/Components/MessageToast.vue";
 
 const props = defineProps({
     patients: {
@@ -45,6 +46,8 @@ const sendDelete = (patient_id, medic_id) => {
                 patientResults = ref(props.patients);
                 medicResults.value = null;
                 medicResults = ref(props.medics);
+                displayToast.value = true;
+                setTimeout(cleanToast, 3000);
             }
         });
     }
@@ -59,13 +62,34 @@ const sendPost = (patient_id, medic_id) => {
                 patientResults = ref(props.patients);
                 medicResults.value = null;
                 medicResults = ref(props.medics);
+                displayToast.value = true;
+                setTimeout(cleanToast, 3000);
             }
         });
     }
 }
+
+const displayToast = ref(false);
+function cleanToast() {
+    displayToast.value = false;
+    usePage().props.flash.success_message = undefined;
+    usePage().props.flash.error_message = undefined;
+}
+
+if (usePage().props.flash.success_message || usePage().props.flash.error_message) {
+    displayToast.value = true;
+    setTimeout(cleanToast, 3000);
+}
+
 </script>
 
 <template>
+    <MessageToast
+        v-if="displayToast"
+        :message="$page.props.flash.success_message === undefined ? undefined:$t(`${$page.props.flash.success_message}`)"
+        :error="$page.props.flash.error_message === undefined ? undefined:$t(`${$page.props.flash.error_message}`)"
+    ></MessageToast>
+
     <AdministrationLayout page="chat">
         <div id="grid" class="grid grid-cols-2">
             <div class="pb-16 text-xl text-gray-400">

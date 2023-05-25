@@ -217,5 +217,9 @@
 
     "chatContent": "Gestão do Chat",
     "chatContentHint": "Associação de médicos a pacientes",
-    "associated": "Associado"
+    "associated": "Associado",
+    "chatMedicAssociated": "Médico associado com successo",
+    "chatMedicAssociatedError": "Falha na associação",
+    "chatMedicRemoved": "Médico removido com successo",
+    "chatMedicRemovedError": "Falha na remoção"
 }

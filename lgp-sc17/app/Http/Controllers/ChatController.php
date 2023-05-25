@@ -11,6 +11,9 @@ use Inertia\Inertia;
 class ChatController extends Controller
 {
     function chatMedics($patient_id, Request $request) {
+        if (!Patient::where('id','=',$patient_id)->exists()) {
+            return to_route('admin.chat');
+        }
         $patients = Patient::select('patients.*', 'users.name', 'users.username')
             ->join('users', 'patients.user_id', '=', 'users.id')
             ->orderBy('patients.created_at', 'desc')
@@ -42,22 +45,22 @@ class ChatController extends Controller
 
     function addMedicToPatient($patient_id, $medic_id, Request $request) {
         if (!Patient::where('id','=',$patient_id)->exists() || !Medic::where('id','=',$medic_id)->exists()) {
-            return to_route('admin.chat', ['patient_id' => $patient_id]);
+            return to_route('admin.chat')->with(['error' => 'chatMedicAssociatedError']);
         }
         $patient_medic = new PatientMedics();
         $patient_medic->patient_id = $patient_id;
         $patient_medic->medic_id = $medic_id;
         $patient_medic->save();
-        return to_route('admin.chat.medics', ['patient_id' => $patient_id]);
+        return to_route('admin.chat.medics', ['patient_id' => $patient_id])->with(['success' => 'chatMedicAssociated']);
     }
 
     function removeMedicToPatient($patient_id, $medic_id, Request $request) {
         if (!Patient::where('id','=',$patient_id)->exists() || !Medic::where('id','=',$medic_id)->exists()) {
-            return to_route('admin.chat', ['patient_id' => $patient_id]);
+            return to_route('admin.chat')->with(['error' => 'chatMedicRemovedError']);
         }
         $patient_medic = PatientMedics::where('patient_id','=',$patient_id)
             ->where('medic_id','=',$medic_id)->first();
         $patient_medic->delete();
-        return to_route('admin.chat.medics', ['patient_id' => $patient_id]);
+        return to_route('admin.chat.medics', ['patient_id' => $patient_id])->with(['success' => 'chatMedicRemoved']);
     }
 }
