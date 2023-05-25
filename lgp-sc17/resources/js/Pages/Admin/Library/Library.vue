@@ -87,6 +87,7 @@ const confirmPostDeletion = (id) => {
             <table v-if="results.data.length" class="table w-full my-8">
                 <thead>
                     <tr>
+                        <th class="p-0"></th>
                         <th class="w-5/12">{{ $t('title') }}</th>
                         <th class="w-3/12">{{ $t('date') }}</th>
                         <th class="w-2/12 text-center">{{ $t('state') }}</th>
@@ -96,6 +97,7 @@ const confirmPostDeletion = (id) => {
                 </thead>
                 <tbody>
                     <tr v-for="post in results.data">
+                        <td class="p-0"></td>
                         <td>{{ post.title }}</td>
                         <td>{{ moment(post.created_at).format('DD-MM-YYYY HH:mm:ss') }}</td>
                         <td class="text-center">{{ post.public ? $t('public') : $t('private') }}</td>
