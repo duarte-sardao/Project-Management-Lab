@@ -24,6 +24,14 @@ class ChatsController extends Controller
         return Inertia::render('Chat/ChatPatient');
     }
 
+    function createChat() {
+        $user_is_medic = Medic::where('user_id','=',Auth::user())->exists();
+
+        if(!$user_is_medic) {
+            
+        }
+    }
+
     public function fetchMessages() {
         return Message::with('user')->get();
     }

@@ -57,4 +57,12 @@ class User extends Authenticatable
     public function messages() {
         return $this->hasMany(Message::class);
     }
+
+    public function chat() {
+        if($this->isPatient()) {
+            return $this->hasOne(Chat::class);
+        } else {
+            return $this->hasMany(Chat::class);
+        }
+    }
 }
