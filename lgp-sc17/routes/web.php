@@ -107,6 +107,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/chat/{patient_id}/medics', [ChatController::class, 'chatMedics'])->name('admin.chat.medics');
         Route::get('/api/admin/chat/patients', [ApiController::class, 'chatPatients']);
         Route::get('/api/admin/chat/medics', [ApiController::class, 'chatMedics']);
+        Route::post('/admin/chat/{patient_id}/medics/{medic_id}', [ChatController::class, 'addMedicToPatient'])->name('admin.chat.medics.associate');
+        Route::delete('/admin/chat/{patient_id}/medics/{medic_id}', [ChatController::class, 'removeMedicToPatient'])->name('admin.chat.medics.remove');
     });
 });
 

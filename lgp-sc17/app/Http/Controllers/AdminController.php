@@ -106,11 +106,13 @@ class AdminController extends Controller
     }
 
     function chatIndex(Request $request) {
-        $patients = Patient::join('users', 'users.id', '=', 'patients.user_id')
+        $patients = Patient::select('patients.*', 'users.name', 'users.username')
+            ->join('users', 'patients.user_id', '=', 'users.id')
             ->orderBy('patients.created_at', 'desc')
             ->paginate(6);
 
-        $medics = Medic::join('users', 'users.id', '=', 'medics.user_id')
+        $medics = Medic::select('medics.*', 'users.name')
+            ->join('users', 'users.id', '=', 'medics.user_id')
             ->orderBy('medics.created_at', 'desc')
             ->paginate(6);
 

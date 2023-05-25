@@ -1,7 +1,7 @@
 <script setup>
 import AdministrationLayout from "@/Layouts/AdministrationLayout.vue";
 import SearchAdmin from "@/Components/Admin/SearchAdmin.vue";
-import {Link} from '@inertiajs/vue3';
+import {Link, useForm} from '@inertiajs/vue3';
 import {ref} from "vue";
 import axios from "axios";
 
@@ -12,10 +12,13 @@ const props = defineProps({
     medics: {
         default: []
     },
+    patient_id: {
+      default: null
+    }
 });
 
-const patientResults = ref(props.patients);
-const medicResults = ref(props.medics);
+let patientResults = ref(props.patients);
+let medicResults = ref(props.medics);
 
 const searchMedic = ref('');
 const searchPatient = ref('');
@@ -32,11 +35,39 @@ const getMedics = async (page = 1) => {
             medicResults.value = response.data;
         })
 }
+
+const deleteForm = useForm({});
+const sendDelete = (patient_id, medic_id) => {
+    if (props.route_id !== null) {
+        deleteForm.delete(route('admin.chat.medics.remove', {patient_id: patient_id, medic_id: medic_id}), {
+            onFinish () {
+                patientResults.value = null;
+                patientResults = ref(props.patients);
+                medicResults.value = null;
+                medicResults = ref(props.medics);
+            }
+        });
+    }
+}
+
+const postForm = useForm({});
+const sendPost = (patient_id, medic_id) => {
+    if (props.route_id !== null) {
+        postForm.post(route('admin.chat.medics.associate', {patient_id: patient_id, medic_id: medic_id}), {
+            onFinish () {
+                patientResults.value = null;
+                patientResults = ref(props.patients);
+                medicResults.value = null;
+                medicResults = ref(props.medics);
+            }
+        });
+    }
+}
 </script>
 
 <template>
     <AdministrationLayout page="chat">
-        <div class="grid grid-cols-2">
+        <div id="grid" class="grid grid-cols-2">
             <div class="pb-16 text-xl text-gray-400">
                 <div class="text-4xl text-black">{{ $t('chatContent') }}</div>
                 {{ $t('chatContentHint') }}
@@ -54,7 +85,7 @@ const getMedics = async (page = 1) => {
                         <th class="w-3/12">{{ $t('username') }}</th>
                         <th class="w-5/12">{{ $t('name') }}</th>
                         <th class="w-2/12 text-center">{{ $t('healthcareNumber') }}</th>
-                        <th class="w-2/12 text-center">{{ $t('select') }}</th>
+                        <th class="w-2/12 text-center">{{ $t('state') }}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -64,7 +95,8 @@ const getMedics = async (page = 1) => {
                         <td class="text-center">{{ patient.healthcare_number }}</td>
                         <td class="text-center">
                             <Link class="flex justify-center" :href="route('admin.chat.medics', {id: patient.id})">
-                                <img src="/svg_icons/pencil.svg" alt="our vision">
+                                <img v-if="!patient_id" src="/svg_icons/pencil.svg" alt="our vision">
+                                <img v-else src="/svg_icons/check.svg" alt="our vision">
                             </Link>
                         </td>
                     </tr>
@@ -88,16 +120,26 @@ const getMedics = async (page = 1) => {
                     <tr>
                         <th class="w-6/12">{{ $t('name') }}</th>
                         <th class="w-3/12 text-center">{{ $t('licenseNumber') }}</th>
-                        <th class="w-3/12 text-center">{{ $t('state') }}</th>
+                        <th class="w-3/12 text-center">{{ $t('associated') }}</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr v-for="medic in medicResults.data">
                         <td>{{ medic.name }}</td>
                         <td class="text-center">{{ medic.license_number }}</td>
-                        <td class="text-center">
-                            <Link class="flex justify-center" :href="route('admin.library.post', {id: medic.id})">
-                                <img src="/svg_icons/pencil.svg" alt="our vision">
+                        <td v-if="!medic.state" class="text-center">
+                            <Link class="flex justify-center">
+                                <img src="/svg_icons/minus.svg" alt="our vision">
+                            </Link>
+                        </td>
+                        <td v-else-if="medic.state === 'associated_true'" class="text-center">
+                            <Link class="flex justify-center" @click="sendDelete(patient_id, medic.id)">
+                                <img src="/svg_icons/check.svg" alt="our vision">
+                            </Link>
+                        </td>
+                        <td v-else-if="medic.state === 'associated_false'" class="text-center">
+                            <Link class="flex justify-center" @click="sendPost(patient_id, medic.id)">
+                                <img src="/svg_icons/cross.svg" alt="our vision">
                             </Link>
                         </td>
                     </tr>
@@ -121,5 +163,9 @@ export default {
 </script>
 
 <style scoped>
-
+@media all and (max-width: 1000px) {
+    #grid{
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+}
 </style>

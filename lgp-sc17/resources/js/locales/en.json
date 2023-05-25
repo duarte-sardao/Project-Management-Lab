@@ -218,5 +218,6 @@
     "null": "",
 
     "chatContent": "Chat Management",
-    "chatContentHint": "Association of medics to patients"
+    "chatContentHint": "Association of medics to patients",
+    "associated": "Associated"
 }

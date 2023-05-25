@@ -64,15 +64,19 @@ class ApiController extends Controller
     }
 
     function chatPatients(Request $request) {
-        return Patient::join('users', 'users.id', '=', 'patients.user_id')
-            ->where('name','like','%'.$request->search.'%')
+        return Patient::select('patients.*', 'users.name', 'users.username')
+            ->join('users', 'users.id', '=', 'patients.user_id')
+            ->where('users.name','like','%'.$request->search.'%')
+            ->orWhere('users.username','like','%'.$request->search.'%')
             ->orderBy('patients.created_at', 'desc')
             ->paginate(6);
     }
 
     function chatMedics(Request $request) {
-        return Medic::join('users', 'users.id', '=', 'medics.user_id')
-            ->where('name','like','%'.$request->search.'%')
+        return Medic::select('medics.*', 'users.name', 'users.username')
+            ->join('users', 'users.id', '=', 'medics.user_id')
+            ->where('users.name','like','%'.$request->search.'%')
+            ->orWhere('users.username','like','%'.$request->search.'%')
             ->orderBy('medics.created_at', 'desc')
             ->paginate(6);
     }

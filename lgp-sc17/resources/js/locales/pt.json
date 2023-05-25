@@ -216,5 +216,6 @@
     "null": "",
 
     "chatContent": "Gestão do Chat",
-    "chatContentHint": "Associação de médicos a pacientes"
+    "chatContentHint": "Associação de médicos a pacientes",
+    "associated": "Associado"
 }
