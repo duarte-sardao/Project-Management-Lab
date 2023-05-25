@@ -95,8 +95,8 @@ const sendPost = (patient_id, medic_id) => {
                         <td class="text-center">{{ patient.healthcare_number }}</td>
                         <td class="text-center">
                             <Link class="flex justify-center" :href="route('admin.chat.medics', {id: patient.id})">
-                                <img v-if="!patient_id" src="/svg_icons/pencil.svg" alt="our vision">
-                                <img v-else src="/svg_icons/check.svg" alt="our vision">
+                                <img v-if="patient_id && patient_id == patient.id" src="/svg_icons/check.svg" alt="our vision">
+                                <img v-else src="/svg_icons/pencil.svg" alt="our vision">
                             </Link>
                         </td>
                     </tr>
