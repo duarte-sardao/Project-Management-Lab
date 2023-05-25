@@ -18,6 +18,7 @@ module.exports = {
                 bgColor: '#FFFCF9',
                 mainBlue: '#578AD6',
                 lightBlue: '#B9CEED',
+                lighterBlue: '#d5e3f8',
                 highlightBlue: '#244D89',
                 indigo: '#dbeafe',
                 stone: '#fafaf9',

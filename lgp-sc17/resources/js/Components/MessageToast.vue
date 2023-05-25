@@ -6,14 +6,14 @@ defineProps({
 </script>
 
 <template>
-    <div v-if="message">
+    <div v-if="message !== 'null'">
         <div class="toast toast-end" style="z-index: 99">
             <div class="alert alert-success text-white">
                 <span>{{ message }}</span>
             </div>
         </div>
     </div>
-    <div v-if="error">
+    <div v-else-if="error !== 'null'">
         <div class="toast toast-end" style="z-index: 99">
             <div class="alert alert-error text-white">
                 <span>{{ error }}</span>

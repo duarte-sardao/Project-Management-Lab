@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Medic;
+use App\Models\Hospital;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -62,5 +63,25 @@ class RegisteredMedicController extends Controller
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
+    }
+
+    /**
+     * Handle an incoming registration request to an existing user
+     *
+     */
+    public function storeFromUser(Request $request, $id)
+    {
+
+        Hospital::create([
+            'name' => 'test_hosp',
+        ]);
+
+        Medic::create([
+            'user_id' => $id,
+            'license_number' => $request->license_number,
+            'hospital_id' => 1,
+        ]);
+
+        return;
     }
 }

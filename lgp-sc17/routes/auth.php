@@ -20,13 +20,13 @@ Route::middleware('guest')->group(function () {
                 ->name('register');
     Route::post('register', [RegisteredUserController::class, 'store']);
 
-    Route::get('register/patient', [RegisteredPatientController::class, 'create'])
+    /**Route::get('register/patient', [RegisteredPatientController::class, 'create'])
                 ->name('register_patient');
     Route::post('register/patient', [RegisteredPatientController::class, 'store']);
 
     Route::get('register/medic', [RegisteredMedicController::class, 'create'])
                 ->name('register_medic');
-    Route::post('register/medic', [RegisteredMedicController::class, 'store']);
+    Route::post('register/medic', [RegisteredMedicController::class, 'store']);**/
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');

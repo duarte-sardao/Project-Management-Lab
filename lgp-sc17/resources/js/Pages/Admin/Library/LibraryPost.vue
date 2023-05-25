@@ -27,7 +27,7 @@ defineProps({
             :content="post.content"
             :img_url="post.img_url"
             :public="post.public"
-            route_name="admin.library.post"
+            route_name="admin.library.edit"
             :route_id="post.id"/>
     </AdministrationLayout>
 </template>

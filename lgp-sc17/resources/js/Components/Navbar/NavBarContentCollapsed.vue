@@ -16,13 +16,16 @@ if (usePage().props.auth.user && usePage().props.auth.user.profile_img_url) {
             </label>
             <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
                 <li class="my-2">
+                    <Link class="btn btn-ghost text-gray-600 normal-case text-xl rounded-full" :href="route('about')">{{ $t("about") }}</Link>
+                </li>
+                <li class="my-2">
+                    <Link class="btn btn-ghost text-gray-600 normal-case text-xl rounded-full" :href="route('forum')">{{ $t("forum") }}</Link>
+                </li>
+                <li class="my-2">
                     <Link class="btn btn-ghost text-gray-600 normal-case text-xl rounded-full" :href="route('homepage')">{{ $t("home") }}</Link>
                 </li>
                 <li class="my-2">
                     <Link class="btn btn-ghost text-gray-600 normal-case text-xl rounded-full" :href="route('library')">{{ $t("library") }}</Link>
-                </li>
-                <li class="my-2">
-                    <Link class="btn btn-ghost text-gray-600 normal-case text-xl rounded-full" :href="route('about')">{{ $t("about") }}</Link>
                 </li>
                 <template v-for="entry in languages">
                     <li v-if="entry.language != i18n.global.locale.value">
@@ -32,9 +35,11 @@ if (usePage().props.auth.user && usePage().props.auth.user.profile_img_url) {
                     </li>
                 </template>
                 <li class="my-2">
-                    <Link v-if="$page.props.auth.user === null" :href="route('login')" class="btn bg-lightBlue hover:bg-mainBlue hover:text-gray-200 text-gray-600 border-0 normal-case text-xl rounded-full">Log in</Link>
+                    <Link v-if="$page.props.auth.user === null" :href="route('login')" class="btn bg-lightBlue hover:bg-mainBlue hover:text-gray-200 text-gray-600 border-0 normal-case text-xl rounded-full">
+                        {{ $t("login") }}
+                    </Link>
                     <Link v-else :href="route('profile')" class="btn p-0 border-0 normal-case text-xl rounded-full bg-transparent hover:bg-lightBlue">
-                        <img id="profile-img" class="rounded-full mx-auto h-fit w-[48px] h-[48px]" :src="profile_img_url" alt="profile image">
+                        <img id="profile-img" class="rounded-full mx-auto h-fit w-[48px] h-[48px] w-fit max-h-[48px]" :src="profile_img_url" alt="profile image">
                     </Link>
                 </li>
             </ul>

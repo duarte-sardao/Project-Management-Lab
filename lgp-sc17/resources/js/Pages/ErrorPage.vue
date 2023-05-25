@@ -16,7 +16,7 @@ const props = defineProps({
 
 const code = ref(props.code);
 const button = ref(props.button);
-if (!([403, 404, 500].includes(props.code))) {
+if (!([401, 403, 404, 500].includes(props.code))) {
     code.value = 404;
     button.value = {
         route: "homepage",
