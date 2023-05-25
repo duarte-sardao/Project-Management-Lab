@@ -100,7 +100,7 @@ if (profile_img_url.value == null) {
                             <li><label for="medic-modal">{{ $t('medic') }}</label></li>
                         </ul>
                     </div>
-                    <div v-if="!user.is_admin && !banned" class="h-fit w-[75%] w-full absolute bottom-[4vh]">  
+                    <div v-if="!user.is_admin && !banned" class="h-fit w-[75%] absolute bottom-[4vh]">  
                         <label for="ban-modal" class="btn btn-error w-full">{{ $t('ban') }}</label>
                     </div>
                     <div v-if="!user.is_admin && banned" class="h-fit w-[75%] absolute bottom-[4vh]">  
