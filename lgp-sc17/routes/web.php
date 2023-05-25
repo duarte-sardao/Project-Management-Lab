@@ -42,7 +42,7 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
     Lfm::routes();
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'bancheck'])->group(function () {
     Route::get('forum/search', [ForumController::class, 'search'])->name('forum.search');
     Route::get('/forum', [ForumController::class, 'posts'])->name('forum');
     Route::get('/forum/my_discussions', [ForumController::class, 'my_discussions'])->name('forum-my_discussions');
