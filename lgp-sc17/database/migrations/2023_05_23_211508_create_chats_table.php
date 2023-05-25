@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('chats', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->integer('patient_id')->unsigned();
+            $table->integer('message_id')->unsigned();
         });
     }
 

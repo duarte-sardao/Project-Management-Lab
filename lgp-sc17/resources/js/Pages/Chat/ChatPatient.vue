@@ -116,10 +116,12 @@ export default {
       axios.post('/messages', message).then(response => {
         console.log(response.data);
       });
+      axios.post('/messages2', message).then(response => {
+        console.log(response.data);
+      })
       this.fetchMessages();
     },
     sendMessage() {
-      const message = "New message";
       this.addMessage(message);
     }
   }

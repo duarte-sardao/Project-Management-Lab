@@ -77,8 +77,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/chat', [ChatsController::class, 'index']);
-    Route::get('/messages', [ChatsController::class, 'fetchMessages']);
-    Route::post('/messages', [ChatsController::class, 'sendMessage']);
+    Route::get('/messages', [ChatsController::class, 'fetchMessagesPatient']);
+    Route::post('/messages', [ChatsController::class, 'sendMessagePatient']);
 
     Route::middleware('admin')->group(function () {
         //Dashboard

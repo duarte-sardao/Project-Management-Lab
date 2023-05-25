@@ -16,6 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->integer('user_id')->unsigned();
             $table->text('message');
+            $table->integer('patient_id')->unsigned();
         });
     }
 
