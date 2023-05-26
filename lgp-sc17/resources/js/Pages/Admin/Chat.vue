@@ -103,34 +103,39 @@ if (usePage().props.flash.success_message || usePage().props.flash.error_message
                     {{ $t('patient') }}
                     <SearchAdmin class="w-full" v-model="searchPatient" @submit="getPatients"></SearchAdmin>
                 </div>
-                <table class="table w-full my-8">
-                    <thead>
-                    <tr>
-                        <th class="w-3/12">{{ $t('username') }}</th>
-                        <th class="w-5/12">{{ $t('name') }}</th>
-                        <th class="w-2/12 text-center">{{ $t('healthcareNumber') }}</th>
-                        <th class="w-2/12 text-center">{{ $t('state') }}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="patient in patientResults.data">
-                        <td>{{ patient.username }}</td>
-                        <td>{{ patient.name }}</td>
-                        <td class="text-center">{{ patient.healthcare_number }}</td>
-                        <td class="text-center">
-                            <Link class="flex justify-center" :href="route('admin.chat.medics', {id: patient.id})">
-                                <img v-if="patient_id && patient_id == patient.id" src="/svg_icons/check.svg" alt="our vision">
-                                <img v-else src="/svg_icons/pencil.svg" alt="our vision">
-                            </Link>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <div class="flex justify-center">
-                    <TailwindPagination
-                        :data="patientResults"
-                        @pagination-change-page="getPatients"
-                    />
+                <div v-if="patientResults.data.length">
+                    <table class="table w-full my-8">
+                        <thead>
+                        <tr>
+                            <th class="w-3/12">{{ $t('username') }}</th>
+                            <th class="w-5/12">{{ $t('name') }}</th>
+                            <th class="w-2/12 text-center">{{ $t('healthcareNumber') }}</th>
+                            <th class="w-2/12 text-center">{{ $t('state') }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="patient in patientResults.data">
+                            <td>{{ patient.username }}</td>
+                            <td>{{ patient.name }}</td>
+                            <td class="text-center">{{ patient.healthcare_number }}</td>
+                            <td class="text-center">
+                                <Link class="flex justify-center transition duration-200 hover:scale-125" :href="route('admin.chat.medics', {id: patient.id})">
+                                    <img v-if="patient_id && patient_id == patient.id" src="/svg_icons/check.svg" alt="our vision">
+                                    <img v-else src="/svg_icons/pencil.svg" alt="our vision">
+                                </Link>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="flex justify-center">
+                        <TailwindPagination
+                            :data="patientResults"
+                            @pagination-change-page="getPatients"
+                        />
+                    </div>
+                </div>
+                <div v-else class="my-8 text-center text-lg">
+                    {{ $t("noPatientsToDisplay") }}
                 </div>
             </div>
 
@@ -139,41 +144,46 @@ if (usePage().props.flash.success_message || usePage().props.flash.error_message
                     {{ $t('medic') }}
                     <SearchAdmin class="w-full" v-model="searchMedic" @submit="getMedics"></SearchAdmin>
                 </div>
-                <table class="table w-full my-8">
-                    <thead>
-                    <tr>
-                        <th class="w-6/12">{{ $t('name') }}</th>
-                        <th class="w-3/12 text-center">{{ $t('licenseNumber') }}</th>
-                        <th class="w-3/12 text-center">{{ $t('associated') }}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="medic in medicResults.data">
-                        <td>{{ medic.name }}</td>
-                        <td class="text-center">{{ medic.license_number }}</td>
-                        <td v-if="!medic.state" class="text-center">
-                            <Link class="flex justify-center">
-                                <img src="/svg_icons/minus.svg" alt="our vision">
-                            </Link>
-                        </td>
-                        <td v-else-if="medic.state === 'associated_true'" class="text-center">
-                            <Link class="flex justify-center" @click="sendDelete(patient_id, medic.id)">
-                                <img src="/svg_icons/check.svg" alt="our vision">
-                            </Link>
-                        </td>
-                        <td v-else-if="medic.state === 'associated_false'" class="text-center">
-                            <Link class="flex justify-center" @click="sendPost(patient_id, medic.id)">
-                                <img src="/svg_icons/cross.svg" alt="our vision">
-                            </Link>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <div class="flex justify-center">
-                    <TailwindPagination
-                        :data="medicResults"
-                        @pagination-change-page="getMedics"
-                    />
+                <div v-if="medicResults.data.length">
+                    <table class="table w-full my-8">
+                        <thead>
+                        <tr>
+                            <th class="w-6/12">{{ $t('name') }}</th>
+                            <th class="w-3/12 text-center">{{ $t('licenseNumber') }}</th>
+                            <th class="w-3/12 text-center">{{ $t('associated') }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="medic in medicResults.data">
+                            <td>{{ medic.name }}</td>
+                            <td class="text-center">{{ medic.license_number }}</td>
+                            <td v-if="!medic.state" class="text-center">
+                                <Link class="flex justify-center transition duration-200 hover:scale-">
+                                    <img src="/svg_icons/minus.svg" alt="our vision">
+                                </Link>
+                            </td>
+                            <td v-else-if="medic.state === 'associated_true'" class="text-center">
+                                <Link class="flex justify-center transition duration-200 hover:scale-" @click="sendDelete(patient_id, medic.id)">
+                                    <img src="/svg_icons/check.svg" alt="our vision">
+                                </Link>
+                            </td>
+                            <td v-else-if="medic.state === 'associated_false'" class="text-center">
+                                <Link class="flex justify-center transition duration-200 hover:scale-" @click="sendPost(patient_id, medic.id)">
+                                    <img src="/svg_icons/cross.svg" alt="our vision">
+                                </Link>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="flex justify-center">
+                        <TailwindPagination
+                            :data="medicResults"
+                            @pagination-change-page="getMedics"
+                        />
+                    </div>
+                </div>
+                <div v-else class="my-8 text-center text-lg">
+                    {{ $t("noMedicsToDisplay") }}
                 </div>
             </div>
         </div>

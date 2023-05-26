@@ -218,6 +218,8 @@
     "null": "",
 
     "chatContent": "Chat Management",
+    "noPatientsToDisplay": "There are no patient to display",
+    "noMedicsToDisplay": "There are no medics to display",
     "chatContentHint": "Association of medics to patients",
     "associated": "Associated",
     "chatMedicAssociated": "Medic associated with success",
