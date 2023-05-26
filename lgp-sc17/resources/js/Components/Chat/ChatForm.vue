@@ -30,6 +30,7 @@
     },
     methods: {
         sendMessage() {
+          console.log(this.patient);
             //Emit a "messagesent" event including the user who sent the message along with the message content
           this.$emit("messagesent", {
             user: this.user,

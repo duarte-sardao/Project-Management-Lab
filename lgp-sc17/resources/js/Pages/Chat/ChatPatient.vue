@@ -21,50 +21,25 @@ if (profile_img_url.value == null) {
     <div class="pt-12 px-20 flex gap-3 pb-5">
         <div class="card lg:card-side bg-skyBlue shadow-xl w-2/6 rounded-4xl">  
             <div class="flex-row w-full">
-                <div class="card-body
-                ">
-                    <h1 class="card-title text-3xl">Patient</h1>
-                    <div class="card lg:card-side bg-base-100 shadow-xl">
+                <div class="card-body">
+                    <div class="card bg-stone lg:card-side bg-base-100 shadow-xl">
                         <figure><img :src="profile_img_url" alt="ProfileImage"/></figure>
                         <div class="card-body w-2/3">
-                            <h2 class="card-title">Rui Moreira</h2>
-                            <p>Paciente, 27 anos, vendedor de laticionios</p>
+                            <h2 class="card-title">{{user.name}}</h2>
+                            <p>Pacient</p>
                             <div class="card-actions justify-end">
                             </div>
                         </div>
                     </div>
                     <p></p>
-                    <div class="divider divider-horizontal border-[1px] border-black/30 w-[22rem]"></div>
                 </div>
+                <h2 class="text-center text-4xl text-black pb-2">Medic Team</h2>
                 <div class="overflow-auto h-[26rem]"> 
-                    <div class="card-body">
-                        <h2 class="card-title text-3xl">Team</h2>
-                        <div class="card lg:card-side bg-base-100 shadow-xl">
+                    <div v-for="medic in medics" class="pl-10 p-7">
+                        <div class="card bg-stone lg:card-side bg-base-100 shadow-2xl">
                             <figure><img :src="profile_img_url" alt="ProfileImage"/></figure>
                             <div class="card-body w-2/3">
-                                <h2 class="card-title">Antonio Variações</h2>
-                                <p>Médico</p>
-                                <div class="card-actions justify-end">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card lg:card-side bg-base-100 shadow-xl">
-                            <figure><img :src="profile_img_url" alt="ProfileImage"/></figure>
-                            <div class="card-body w-2/3">
-                                <h2 class="card-title">Antonio Mendes</h2>
-                                <p>Médico</p>
-                                <div class="card-actions justify-end">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card lg:card-side bg-base-100 shadow-xl">
-                            <figure><img :src="profile_img_url" alt="ProfileImage"/></figure>
-                            <div class="card-body w-2/3">
-                                <h2 class="card-title">Joaquim culatra</h2>
+                                <h2 class="card-title">{{medic[0].name}}</h2>
                                 <p>Médico</p>
                                 <div class="card-actions justify-end">
                                 </div>
@@ -91,10 +66,12 @@ export default {
   data() {
     return {
       messages: [],
+      medics: [],
     };
   },
   created() {
         this.fetchMessages();
+        this.fetchMedics();
 
         window.Echo.private('Chat')
             .listen('MessageSent', (e) => {
@@ -116,10 +93,13 @@ export default {
       axios.post('/messages', message).then(response => {
         console.log(response.data);
       });
-      axios.post('/messages2', message).then(response => {
-        console.log(response.data);
-      })
       this.fetchMessages();
+    },
+    async fetchMedics() {
+        axios.get('/getMedics').then(response => {
+                this.medics = response.data;
+                console.log(this.medics);
+        });
     },
     sendMessage() {
       this.addMessage(message);

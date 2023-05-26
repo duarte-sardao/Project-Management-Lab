@@ -79,6 +79,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/chat', [ChatsController::class, 'index']);
     Route::get('/messages', [ChatsController::class, 'fetchMessagesPatient']);
     Route::post('/messages', [ChatsController::class, 'sendMessagePatient']);
+    Route::get('/messagesMedic', [ChatsController::class, 'fetchMessagesMedic']);
+    Route::post('/messagesMedic', [ChatsController::class, 'sendMessageMedic']);
+
+    Route::get('/getMedics', [ChatsController::class, 'fetchMedics']);
+    Route::get('/getPatients', [ChatsController::class, 'fetchPatients']);
 
     Route::middleware('admin')->group(function () {
         //Dashboard
