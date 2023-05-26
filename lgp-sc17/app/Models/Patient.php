@@ -15,6 +15,7 @@ class Patient extends Model
     protected $fillable = [
         'user_id',
         'healthcare_number',
+        'questionnaire',
     ];
 
     public function hospital(): BelongsTo {

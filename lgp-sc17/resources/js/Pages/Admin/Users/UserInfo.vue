@@ -153,6 +153,16 @@ if (profile_img_url.value == null) {
                             inputType="number"
                             :errors="(form.errors.phone_number === undefined) ? '':$t(`${form.errors.phone_number}`)"
                         />
+                        <ProfileTextBox
+                            v-if="!isGuest"
+                            :text="$t('questionnaire')"
+                            v-model="user.questionnaire"
+                            :edit="edit"
+                            :isInput="edit"
+                            :required="false"
+                            inputType="url"
+                            :errors="(form.errors.questionnaire === undefined) ? '':$t(`${form.errors.questionnaire}`)"
+                        />
                     </div>
                 </div>
                 <div class="grid grid-cols-4 mt-10 mb-[20vh]">
