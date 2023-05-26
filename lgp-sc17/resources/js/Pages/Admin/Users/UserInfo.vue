@@ -51,7 +51,7 @@ const submitDate = () => {
     const checkbox = document.getElementById('date-modal');
     checkbox.checked = false;
     form.action = 'set_date';
-    form.post(route('admin.users.update', {id:user.id}), {
+    form.post(route('admin.users.update', {id:user.value.id}), {
     });
 };
 

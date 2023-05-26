@@ -115,6 +115,8 @@ class AdminController extends Controller
                     [
                         'healthcare_number' => $request->healthcare_number,
                         'hospital_id' => intval($request->hospital_id),
+                        'date' => '',
+                        'time' => ''
                     ]
                 );
                 break;
@@ -134,18 +136,20 @@ class AdminController extends Controller
                     [
                         'license_number' => $request->license_number,
                         'hospital_id' => intval($request->hospital_id),
+                        'date' => '',
+                        'time' => ''
                     ]
                 );
                 break;
             case 'set_date':
-                $usr = Medic::whereHas(
+                $usr = Patient::whereHas(
                     'user',
                     function($q) use ($id) {
                         return $q->where('id', '=', $id);
                     }
                 )->first();
                 if ($usr == null) {
-                    $usr = Patient::whereHas(
+                    $usr = Medic::whereHas(
                         'user',
                         function($q) use ($id) {
                             return $q->where('id', '=', $id);
