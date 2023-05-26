@@ -20,7 +20,8 @@ const props = defineProps({
     nextAppointment: {
         date: String,
         time: String
-    }
+    },
+    hospital_list: { required:true }
 });
 
 const user = ref(props.user);
@@ -293,15 +294,11 @@ const displayToastAction = () => {
             <InputError class="mt-2" :message="form.errors.healthcare_number" />
         </div>
         <div class="mt-3 w-full">
-            <InputLabel for="hospital" :value="$t('hospitalID')" />
-            <TextInput
-                id="hospital"
-                type="number"
-                class="mt-1 input-bordered border-mainBlue rounded-full text-gray-800 w-full"
-                v-model="form.hospital_id"
-                required
-                autocomplete="new-password"
-            />
+            <InputLabel for="hospital" value="Hospital" />
+            <select class="form-control mt-1 input-bordered border-mainBlue rounded-full text-gray-800 w-full" 
+            id="hospital" name="hospital" v-model="form.hospital_id" required focus>
+                <option v-for="hosp in hospital_list" :value=hosp.id  selected>{{hosp.name}}</option>  
+            </select>
             <InputError class="mt-2" :message="form.errors.hospital_id" />
         </div>
         <div class="modal-action">
@@ -330,19 +327,15 @@ const displayToastAction = () => {
             <InputError class="mt-2" :message="form.errors.license_number" />
         </div>
         <div class="mt-3 w-full">
-            <InputLabel for="hospital" :value="$t('hospitalID')" />
-            <TextInput
-                id="hospital"
-                type="number"
-                class="mt-1 input-bordered border-mainBlue rounded-full text-gray-800 w-full"
-                v-model="form.hospital_id"
-                required
-                autocomplete="new-password"
-            />
+            <InputLabel for="hospital" value="Hospital" />
+            <select class="form-control mt-1 input-bordered border-mainBlue rounded-full text-gray-800 w-full" 
+            id="hospital" name="hospital" v-model="form.hospital_id" required focus>
+                <option v-for="hosp in hospital_list" :value=hosp.id  selected>{{hosp.name}}</option>  
+            </select>
             <InputError class="mt-2" :message="form.errors.hospital_id" />
         </div>
         <div class="modal-action">
-        <label for="date-modal" class="btn">{{ $t('cancel') }}</label>
+        <label for="medic-modal" class="btn">{{ $t('cancel') }}</label>
         <PrimaryButton :disabled="form.processing">{{ $t('confirm') }}</PrimaryButton> <!--and this too-->
         </div>
     </form>
@@ -375,7 +368,7 @@ const displayToastAction = () => {
             <InputError class="mt-2" :message="form.errors.time" />
         </div>
         <div class="modal-action">
-        <label for="medic-modal" class="btn">{{ $t('cancel') }}</label>
+        <label for="date-modal" class="btn">{{ $t('cancel') }}</label>
         <PrimaryButton :disabled="form.processing">{{ $t('confirm') }}</PrimaryButton> <!--and this too-->
         </div>
     </form>
