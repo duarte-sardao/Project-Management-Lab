@@ -96,7 +96,7 @@ const submit = () => {
                 <div :key="topicsSelected" class="text-[#6D6D6D] text-lg">
                     {{ $t("chooseTopics") }} ({{topicsSelected}}/4)
                 </div>
-                <div id="topics-area" class="max-h-[25vh] overflow-auto">
+                <div id="topics-area" class="flex flex-wrap	max-h-[25vh] overflow-auto">
                     <TopicButton v-for="(topic, index) in topics" :topic="topic" :index="index" v-on:click="clickTopic(index)"/>
                 </div>
                 <InputError :message="topicsError ?  $t('numberOfTopicsError'):''" />

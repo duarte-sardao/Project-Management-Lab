@@ -12,6 +12,7 @@ const props = defineProps({
     number: String,
     status: String,
     hospital: String,
+    questionnaire: String,
     nextAppointment: {
         date: String,
         time: String
@@ -72,9 +73,9 @@ if (profile_img_url.value == null) {
         <div id="profile-grid" class="mt-7 mb-14 grid grid-cols-8 relative">
             <div class="col-span-2 bg-[#E9EFFD] ml-[3vw] mr-[1vw] rounded-3xl shadow-md pt-[5vh] relative">
                 <img id="profile-img" class="rounded-full mx-auto mb-[7vh] h-fit w-[200px] h-[200px]" :src="profile_img_url" alt="profile image">
-                <div class="text-gray-800 font-medium text-2xl mb-[4vh]" :class="edit && 'text-center'">
-                    <button class="border-0" @click="edit = !edit" type="button">
-                        <div v-if="!edit" class="ml-[4vw]">
+                <div class="text-gray-800 font-medium text-2xl mb-[4vh] grid justify-center" :class="edit && 'text-center'">
+                    <button class="border-0 py-2 px-4 rounded-full hover:bg-lighterBlue" @click="edit = !edit" type="button">
+                        <div v-if="!edit" class="">
                             <img src="/svg_icons/settingsProfile.svg" class="inline mr-3 pb-1" alt="Edit profile"/>
                             <span>{{ $t("editButton") }}</span>
                         </div>
@@ -83,14 +84,14 @@ if (profile_img_url.value == null) {
                         </div>
                     </button>
                 </div>
-                <div class="ml-[4vw] text-gray-800 font-medium text-2xl">
-                    <Link v-if="!isGuest" href="#">
+                <div class="text-gray-800 font-medium text-2xl w-full grid justify-center">
+                    <Link v-if="!isGuest && questionnaire != null" :href="questionnaire" class="py-2 px-4 rounded-full hover:bg-lighterBlue">
                         <img src="/svg_icons/questionnaire.svg" class="inline mr-3 pb-1" alt="User questionnaire"/>
                         {{ $t("questionnaire") }}
                     </Link>
                 </div>
-                <div class="ml-[4vw] text-error font-medium text-2xl mt-4 absolute bottom-[5vh]">
-                    <Link :href="route('logout')" method="post" as="button">
+                <div class="text-error font-medium text-2xl mt-4 absolute bottom-[5vh] w-full grid justify-center">
+                    <Link :href="route('logout')" method="post" as="button" class="py-2 px-4 rounded-full hover:bg-lighterBlue">
                         <img src="/svg_icons/logout.svg" class="inline mr-3 pb-1" alt="Log out"/>
                         {{ $t("logout") }}
                     </Link>
@@ -160,7 +161,7 @@ if (profile_img_url.value == null) {
                     </div>
                     <div class="col-span-1 relative">
                         <button
-                            class="bg-[#578AD6] rounded-3xl text-white/[.78] px-7 py-3 absolute bottom-4 right-0"
+                            class="bg-[#578AD6] rounded-3xl text-white/[.78] px-7 py-3 absolute bottom-4 right-0 hover:bg-adminMainBlue"
                             v-if="edit"
                             type="submit"
                         >
