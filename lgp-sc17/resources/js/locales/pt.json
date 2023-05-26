@@ -181,6 +181,7 @@
     "hospitalDeleted": "Hospital removido com sucesso",
     "hospitalDeletedError": "Erro na remoção. Tem utilizadores associados",
     "deleteHospitalButton": "Remover hospital",
+    "deleteHospital": "Tem a certeza que pertende eliminar este hospital?",
 
     "404_title": "Página não encontrada",
     "404_text": "Alguma coisa em falta",

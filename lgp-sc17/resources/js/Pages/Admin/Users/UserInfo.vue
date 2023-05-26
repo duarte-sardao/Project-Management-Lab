@@ -23,7 +23,7 @@ const props = defineProps({
     }
 });
 
-const user = props.user;
+const user = ref(props.user);
 const form = useForm({
     license_number: '',
     healthcare_number: '',
@@ -45,7 +45,7 @@ const submitMedic = () => {
     const checkbox = document.getElementById('medic-modal');
     checkbox.checked = false;
     form.action = 'register_medic';
-    form.post(route('admin.users.update', {id:user.id}), {
+    form.post(route('admin.users.update', {id:user.value.id}), {
     });
 };
 
@@ -53,7 +53,7 @@ const submitPatient = () => {
     const checkbox = document.getElementById('patient-modal');
     checkbox.checked = false;
     form.action = 'register_patient';
-    form.post(route('admin.users.update', {id:user.id}), {
+    form.post(route('admin.users.update', {id:user.value.id}), {
     });
 };
 
@@ -61,7 +61,7 @@ window.banFunc = () => {
     const checkbox = document.getElementById('ban-modal');
     checkbox.checked = false;
     form.action = 'ban';
-    form.post(route('admin.users.update', {id:user.id}), {
+    form.post(route('admin.users.update', {id:user.value.id}), {
     });
 };
 
@@ -69,7 +69,7 @@ window.unbanFunc = () => {
     const checkbox = document.getElementById('unban-modal');
     checkbox.checked = false;
     form.action = 'unban';
-    form.post(route('admin.users.update', {id:user.id}), {
+    form.post(route('admin.users.update', {id:user.value.id}), {
     });
 };
 
@@ -81,7 +81,7 @@ const submit = () => {
                 window.location.reload();
             }
             if (form.errors.phone_number) {
-                form.phone_number = user.phone_number;
+                form.phone_number = user.value.phone_number;
             }
             setTimeout(cleanToast, 3000);
         }
@@ -94,14 +94,17 @@ function inputFile(event) {
 }
 
 const edit = ref(false);
-const profile_img_url = ref(user.profile_img_url);
+const profile_img_url = ref(user.value.profile_img_url);
 if (profile_img_url.value == null) {
     profile_img_url.value = '/svg_icons/profile.svg';
 }
 
 const adminManagement = () => {
-    useForm({}).post(route(`admin.users.${props.user.is_admin ? 'un' : ''}setAdmin`, { id: props.user.id }), {
-        onFinish: displayToastAction,
+    useForm({}).post(route(`admin.users.${props.user.is_admin ? 'un' : ''}setAdmin`, { id: user.value.id }), {
+        onFinish: () => {
+            user.value = props.user;
+            displayToastAction();
+        },
     })
 };
 const displayToast = ref(false)
