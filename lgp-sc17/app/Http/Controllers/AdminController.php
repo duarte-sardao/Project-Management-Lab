@@ -48,14 +48,20 @@ class AdminController extends Controller
         $user = User::find($id);
         $number = null;
         $hospital = null;
+        $date = '';
+        $time = '';
         if ($user->isPatient()) {
             $patient = Patient::where('user_id','=',$user->id)->first();
             $number = $patient->healthcare_number;
             $hospital = $patient->hospital->name;
+            $date = $patient->getDate();
+            $time = $patient->getTime();
         } elseif ($user->isMedic()) {
             $medic = Medic::where('user_id','=',$user->id)->first();
             $number = $medic->license_number;
             $hospital = $medic->hospital->name;
+            $date = $medic->getDate();
+            $time = $medic->getTime();
         }
 
         return Inertia::render('Admin/Users/UserInfo', [
@@ -66,8 +72,8 @@ class AdminController extends Controller
             'number' => $number,
             'hospital' => $hospital,
             'nextAppointment' => [
-                'date' => '',
-                'time' => ''
+                'date' => $date,
+                'time' => $time
             ],
         ]);
     }
@@ -130,6 +136,23 @@ class AdminController extends Controller
                         'hospital_id' => $request->hospital_id,
                     ]
                 );
+                break;
+            case 'set_date':
+                $usr = Medic::whereHas(
+                    'user',
+                    function($q) use ($id) {
+                        return $q->where('id', '=', $id);
+                    }
+                )->first();
+                if ($usr == null) {
+                    $usr = Patient::whereHas(
+                        'user',
+                        function($q) use ($id) {
+                            return $q->where('id', '=', $id);
+                        }
+                    )->first();
+                }
+                $usr->setDate($request->date, $request->time);
                 break;
         }
     }

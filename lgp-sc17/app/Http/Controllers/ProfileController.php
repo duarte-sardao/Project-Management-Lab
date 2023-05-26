@@ -37,15 +37,21 @@ class ProfileController extends Controller
         $number = null;
         $hospital = null;
         $questionnaire = null;
+        $date = '';
+        $time = '';
         if ($user->isPatient()) {
             $patient = Patient::where('user_id','=',$user->id)->first();
             $number = $patient->healthcare_number;
             $hospital = $patient->hospital->name;
             $questionnaire = $patient->questionnaire;
+            $date = $patient->getDate();
+            $time = $patient->getTime();
         } elseif ($user->isMedic()) {
             $medic = Medic::where('user_id','=',$user->id)->first();
             $number = $medic->license_number;
             $hospital = $medic->hospital->name;
+            $date = $medic->getDate();
+            $time = $medic->getTime();
         }
 
         return Inertia::render('Profile/Profile', [
@@ -55,8 +61,8 @@ class ProfileController extends Controller
             'hospital' => $hospital,
             'questionnaire' => $questionnaire,
             'nextAppointment' => [
-                'date' => '',
-                'time' => ''
+                'date' => $date,
+                'time' => $time
             ],
         ]);
     }

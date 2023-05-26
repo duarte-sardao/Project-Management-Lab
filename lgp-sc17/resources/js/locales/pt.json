@@ -223,5 +223,7 @@
     "null": "",
     "setAdmin": "Definir administrador",
     "unsetAdmin": "Remover administrador",
-    "userUpdatedWithSuccess": "Utilizador atualizado com sucesso"
+    "userUpdatedWithSuccess": "Utilizador atualizado com sucesso",
+    "setDate": "Definir data de consulta",
+    "updateAppointment": "Atualizar data da próxima consulta"
 }
