@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\ForumPost;
-use App\Models\Hospital;
 use App\Models\Topic;
 use App\Models\LibraryPost;
 
