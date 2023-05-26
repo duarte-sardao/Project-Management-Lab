@@ -10,7 +10,6 @@ use App\Models\Patient;
 use App\Models\Chat;
 use App\Models\Medic;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use App\Events\MessageSent;
 
