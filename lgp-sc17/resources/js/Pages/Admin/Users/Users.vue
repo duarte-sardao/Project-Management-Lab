@@ -32,7 +32,7 @@ getResults(); //hacky but we need to run userAdminList to get status and this do
             </div>
         </div>
 
-        <div class="overflow-x-auto">
+        <div v-if="results.data.length" class="overflow-x-auto">
             <table class="table w-full my-8">
                 <thead>
                     <tr>
@@ -50,7 +50,7 @@ getResults(); //hacky but we need to run userAdminList to get status and this do
                         <td>{{ user.name}}</td>
                         <td class="text-center">{{ user.status }}</td>
                         <td class="text-center">
-                            <Link class="flex justify-center" :href="route('admin.users.info', {id: user.id})">
+                            <Link class="flex justify-center transition duration-200 hover:scale-125" :href="route('admin.users.info', {id: user.id})">
                                 <img src="/svg_icons/pencil.svg" alt="edit">
                             </Link>
                         </td>
@@ -63,6 +63,9 @@ getResults(); //hacky but we need to run userAdminList to get status and this do
                     @pagination-change-page="getResults"
                 />
             </div>
+        </div>
+        <div v-else class="my-[10vh] text-center text-gray-400 text-lg">
+            {{ $t("noUsersToDisplay") }}
         </div>
     </AdministrationLayout>
 </template>
