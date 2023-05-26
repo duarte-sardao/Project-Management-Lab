@@ -15,8 +15,8 @@ const props = defineProps({
 
 <template>
     <div class="relative overflow-hidden" style="z-index: 2">
-        <div class="p-7 bg-gradient-to-r from-mainBlue to-bgColor overflow-hidden">
-            <img class="absolute" style="right: -100px; height: 900px; top: -200px; z-index: 0" src="/svg_img/polygons.svg" alt="polygons">
+        <div class="px-7 pt-7 pb-16 bg-gradient-to-r from-mainBlue to-bgColor overflow-hidden">
+            <img class="absolute overflow-hidden" style="right: -100px; height: 900px; top: -200px; z-index: 0" src="/svg_img/polygons.svg" alt="polygons">
             <div class="relative navbar rounded-full px-7 bg-bgColor shadow-lg opacity-90" style="z-index: 2;">
                 <label tabindex="0" class="btn btn-ghost">
                     <Link href="/">
