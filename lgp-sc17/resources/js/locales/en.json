@@ -226,5 +226,7 @@
     "null": "",
     "setAdmin": "Set admin",
     "unsetAdmin": "Unset admin",
-    "userUpdatedWithSuccess": "The user was successfully updated"
+    "userUpdatedWithSuccess": "The user was successfully updated",
+    "setDate": "Set Appointment Date",
+    "updateAppointment": "Update next appointment date"
 }

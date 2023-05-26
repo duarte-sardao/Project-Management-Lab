@@ -29,9 +29,19 @@ const form = useForm({
     license_number: '',
     healthcare_number: '',
     hospital_id: '',
+    date: '',
+    time: '',
     action: '',
     questionnaire: props.questionnaire,
 });
+
+const submitDate = () => {
+    const checkbox = document.getElementById('date-modal');
+    checkbox.checked = false;
+    form.action = 'set_date';
+    form.post(route('admin.users.update', {id:user.id}), {
+    });
+};
 
 const submitMedic = () => {
     const checkbox = document.getElementById('medic-modal');
@@ -143,6 +153,9 @@ const displayToastAction = () => {
                             <li><label for="medic-modal">{{ $t('medic') }}</label></li>
                         </ul>
                     </div>
+                    <div v-if="!isGuest" class="mt-10 h-fit w-[75%]">  
+                        <label for="date-modal" class="btn w-full hover:opacity-70">{{ $t('setDate') }}</label>
+                    </div>
                     <div class="mt-10 h-fit w-[75%]">
                         <div class="btn w-full hover:opacity-70" v-on:click="adminManagement">
                             {{ $t(user.is_admin ? 'unsetAdmin':'setAdmin') }}
@@ -222,7 +235,7 @@ const displayToastAction = () => {
                         <ProfileInfo :text="$t('status')" :value="status" />
                         <ProfileInfo v-if="!isGuest" :text="'Hospital'" :value="hospital" />
                         <ProfileInfo v-if="!isGuest" :text="$t('nextAppointmentDate')" :value="nextAppointment.date !== '' ? nextAppointment.date : $t('noFutureAppointment')" />
-                        <ProfileInfo v-if="!isGuest" :text="$t('nextAppointmentDate')" :value="nextAppointment.time !== '' ? nextAppointment.time : $t('noFutureAppointment')" />
+                        <ProfileInfo v-if="!isGuest" :text="$t('nextAppointmentTime')" :value="nextAppointment.time !== '' ? nextAppointment.time : $t('noFutureAppointment')" />
                         <div v-if="user.is_admin" class="my-5 text-xl">
                             <label class="text-error pr-1">{{ $t('isAdmin') }}</label>
                         </div>
@@ -329,6 +342,39 @@ const displayToastAction = () => {
                 autocomplete="new-password"
             />
             <InputError class="mt-2" :message="form.errors.hospital_id" />
+        </div>
+        <div class="modal-action">
+        <label for="date-modal" class="btn">{{ $t('cancel') }}</label>
+        <PrimaryButton :disabled="form.processing">{{ $t('confirm') }}</PrimaryButton> <!--and this too-->
+        </div>
+    </form>
+    </div>
+    </div>
+
+    <input type="checkbox" id="date-modal" class="modal-toggle" />
+    <div class="modal">
+    <div class="modal-box">
+    <form @submit.prevent="submitDate">
+        <p class="py-4">{{ $t("updateAppointment")}}</p>
+        <div class="mt-3 w-full">
+            <TextInput
+                id="date"
+                type="date"
+                class="mt-1 input-bordered border-mainBlue rounded-full text-gray-800 w-full"
+                v-model="form.date"
+                required
+            />
+            <InputError class="mt-2" :message="form.errors.date" />
+        </div>
+        <div class="mt-3 w-full">
+            <TextInput
+                id="time"
+                type="time"
+                class="mt-1 input-bordered border-mainBlue rounded-full text-gray-800 w-full"
+                v-model="form.time"
+                required
+            />
+            <InputError class="mt-2" :message="form.errors.time" />
         </div>
         <div class="modal-action">
         <label for="medic-modal" class="btn">{{ $t('cancel') }}</label>

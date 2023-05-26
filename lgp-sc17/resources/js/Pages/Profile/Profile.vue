@@ -154,7 +154,7 @@ if (profile_img_url.value == null) {
                         <ProfileInfo :text="$t('status')" :value="status" />
                         <ProfileInfo v-if="!isGuest" :text="'Hospital'" :value="hospital" />
                         <ProfileInfo v-if="!isGuest" :text="$t('nextAppointmentDate')" :value="nextAppointment.date !== '' ? nextAppointment.date : $t('noFutureAppointment')" />
-                        <ProfileInfo v-if="!isGuest" :text="$t('nextAppointmentDate')" :value="nextAppointment.time !== '' ? nextAppointment.time : $t('noFutureAppointment')" />
+                        <ProfileInfo v-if="!isGuest" :text="$t('nextAppointmentTime')" :value="nextAppointment.time !== '' ? nextAppointment.time : $t('noFutureAppointment')" />
                         <div v-if="user.is_admin" class="my-5 text-xl">
                             <label class="text-error pr-1">{{ $t('isAdmin') }}</label>
                         </div>
