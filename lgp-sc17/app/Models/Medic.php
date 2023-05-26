@@ -15,6 +15,7 @@ class Medic extends Appointable
     protected $fillable = [
         'user_id',
         'license_number',
+        'hospital_id',
     ];
 
     public function user() {

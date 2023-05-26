@@ -16,6 +16,7 @@ class Patient extends Appointable
         'user_id',
         'healthcare_number',
         'questionnaire',
+        'hospital_id',
     ];
 
     public function user() {
