@@ -17,6 +17,7 @@ const props = defineProps({
     status: String,
     banned: Boolean,
     hospital: String,
+    questionnaire: String,
     nextAppointment: {
         date: String,
         time: String
@@ -31,7 +32,8 @@ const form = useForm({
     hospital_id: '',
     date: '',
     time: '',
-    action: ''
+    action: '',
+    questionnaire: props.questionnaire,
 });
 
 const submitDate = () => {
@@ -216,7 +218,7 @@ const displayToastAction = () => {
                         <ProfileTextBox
                             v-if="!isGuest && status == 'Patient'"
                             :text="$t('questionnaire')"
-                            v-model="user.questionnaire"
+                            v-model="form.questionnaire"
                             :edit="edit"
                             :isInput="edit"
                             :required="false"

@@ -48,11 +48,13 @@ class AdminController extends Controller
         $user = User::find($id);
         $number = null;
         $hospital = null;
+        $questionnaire = null;
         $appointment = null;
         if ($user->isPatient()) {
             $patient = Patient::where('user_id','=',$user->id)->first();
             $number = $patient->healthcare_number;
             $hospital = $patient->hospital->name;
+            $questionnaire = $patient->questionnaire;
             $appointment = $patient->nextAppointment();
         } elseif ($user->isMedic()) {
             $medic = Medic::where('user_id','=',$user->id)->first();
@@ -70,6 +72,7 @@ class AdminController extends Controller
             'banned' => $user->isBanned(),
             'number' => $number,
             'hospital' => $hospital,
+            'questionnaire' => $questionnaire,
             'nextAppointment' => $appointment,
             'hospital_list' => $hosps
         ]);

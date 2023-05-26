@@ -85,10 +85,10 @@ if (profile_img_url.value == null) {
                     </button>
                 </div>
                 <div class="text-gray-800 font-medium text-2xl w-full grid justify-center">
-                    <Link v-if="!isGuest && questionnaire != null" :href="questionnaire" class="py-2 px-4 rounded-full hover:bg-lighterBlue">
+                    <a v-if="!isGuest && questionnaire != null" :href="questionnaire" class="py-2 px-4 rounded-full hover:bg-lighterBlue">
                         <img src="/svg_icons/questionnaire.svg" class="inline mr-3 pb-1" alt="User questionnaire"/>
                         {{ $t("questionnaire") }}
-                    </Link>
+                    </a>
                 </div>
                 <div class="text-error font-medium text-2xl mt-4 absolute bottom-[5vh] w-full grid justify-center">
                     <Link :href="route('logout')" method="post" as="button" class="py-2 px-4 rounded-full hover:bg-lighterBlue">
