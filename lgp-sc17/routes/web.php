@@ -10,6 +10,8 @@ use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\ChatsController;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use UniSharp\LaravelFilemanager\Lfm;
@@ -46,6 +48,8 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
     Lfm::routes();
 });
 
+
+
 Route::middleware('auth')->group(function () {
     Route::get('forum/search', [ForumController::class, 'search'])->name('forum.search');
     Route::get('/forum', [ForumController::class, 'posts'])->name('forum');
@@ -71,6 +75,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/chat', [ChatsController::class, 'index']);
+    Route::get('/messages', [ChatsController::class, 'fetchMessagesPatient']);
+    Route::post('/messages', [ChatsController::class, 'sendMessagePatient']);
+    Route::get('/messagesMedic', [ChatsController::class, 'fetchMessagesMedic']);
+    Route::post('/messagesMedic', [ChatsController::class, 'sendMessageMedic']);
+
+    Route::get('/getMedics', [ChatsController::class, 'fetchMedics']);
+    Route::get('/getPatients', [ChatsController::class, 'fetchPatients']);
 
     Route::middleware('admin')->group(function () {
         //Dashboard
