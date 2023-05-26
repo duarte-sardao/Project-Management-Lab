@@ -2,13 +2,10 @@
 import ProfileTextBox from '@/Components/Profile/ProfileTextBox.vue';
 import ProfileInfo from '@/Components/Profile/ProfileInfo.vue';
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
-import NavBarSimple from "@/Components/Navbar/NavBarSimple.vue";
-import Footer from "@/Components/Footer.vue";
 import {ref} from "vue";
 import MessageToast from "@/Components/MessageToast.vue";
 import AdministrationLayout from "@/Layouts/AdministrationLayout.vue";
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
@@ -66,12 +63,6 @@ window.unbanFunc = () => {
     });
 };
 
-const displayToast = ref(false);
-function cleanToast() {
-    usePage().props.flash.success_message = null;
-    usePage().props.flash.error_message = null;
-    displayToast.value = false;
-}
 const submit = () => {
     displayToast.value = true;
     form.post(route('profile.update'), {
@@ -97,9 +88,32 @@ const profile_img_url = ref(user.profile_img_url);
 if (profile_img_url.value == null) {
     profile_img_url.value = '/svg_icons/profile.svg';
 }
+
+const adminManagement = () => {
+    useForm({}).post(route(`admin.users.${props.user.is_admin ? 'un' : ''}setAdmin`, { id: props.user.id }), {
+        onFinish: displayToastAction,
+    })
+};
+const displayToast = ref(false)
+function cleanToast() {
+    usePage().props.flash.success_message = null;
+    usePage().props.flash.error_message = null;
+    displayToast.value = false;
+};
+const displayToastAction = () => {
+    displayToast.value = true;
+    setTimeout(cleanToast, 3000);
+};
+
 </script>
 
 <template>
+    <MessageToast
+        v-if="displayToast"
+        :message="usePage().props.flash.success_message == null ? '':$t(`${usePage().props.flash.success_message}`)"
+        :error="usePage().props.flash.error_message == null ? '':$t(`${usePage().props.flash.error_message}`)"
+    />
+    <Head><title>{{ $t("adminUserInfoTitle") }}</title></Head>
     <AdministrationLayout page="users">
         <div class="text-sm breadcrumbs">
             <ul>
@@ -123,6 +137,11 @@ if (profile_img_url.value == null) {
                             <li><label for="patient-modal">{{ $t('patient') }}</label></li>
                             <li><label for="medic-modal">{{ $t('medic') }}</label></li>
                         </ul>
+                    </div>
+                    <div class="mt-10 h-fit w-[75%]">
+                        <div class="btn w-full" v-on:click="adminManagement">
+                            {{ $t(user.is_admin ? 'unsetAdmin':'setAdmin') }}
+                        </div>
                     </div>
                     <div v-if="!user.is_admin && !banned" class="h-fit w-[75%] absolute bottom-[4vh]">  
                         <label for="ban-modal" class="btn btn-error w-full">{{ $t('ban') }}</label>

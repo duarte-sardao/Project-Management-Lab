@@ -7,6 +7,8 @@ use App\Models\Topic;
 use App\Models\LibraryPost;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 use App\Models\Patient;
 use App\Models\Medic;
@@ -130,6 +132,44 @@ class AdminController extends Controller
                 );
                 break;
         }
+    }
+
+    function setAdmin(Request $request, $id) {
+        $user = User::find($id);
+        if ($user == null) {
+            abort(404, '');
+        }
+
+        if (Auth::user()->cannot('manageAdmins', $user)) {
+            return;
+        }
+
+        $user->is_admin = true;
+        $user->save();
+        return Redirect::route('admin.users.info', $id)->with(['success' => 'userUpdatedWithSuccess']);
+    }
+
+    function unsetAdmin(Request $request, $id) {
+        $user = User::find($id);
+        if ($user == null) {
+            abort(404, 'User not found');
+        }
+
+        if (Auth::user()->cannot('manageAdmins', $user)) {
+            abort(401, 'User no allowed to manage admins');
+        }
+
+        if (Auth::user()->id == $id) {
+            abort(403, 'An admin cannot unset itself from the admin list');
+        }
+
+        if (count(User::where('is_admin', '=', true)->get()) <= 1) {
+            abort(401, 'It must always exist an admin in the admin list');
+        }
+
+        $user->is_admin = false;
+        $user->save();
+        return Redirect::route('admin.users.info', $id)->with(['success' => 'userUpdatedWithSuccess']);
     }
 
     function libraryIndex() {

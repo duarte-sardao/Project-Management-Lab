@@ -199,6 +199,7 @@
     "usersListHint": "See and manage users",
     "accType": "Status",
     "medic": "Medic",
+    "adminUserInfoTitle": "Update user infor",
     "userInfo": "User info",
     "userInfoEdit": "Update user info",
     "setStatus": "Set Status",
@@ -207,5 +208,8 @@
     "confirmAction": "Confirm action on user: ",
     "confirm": "Confirm",
     "actionStatus": "Set user to ",
-    "null": ""
+    "null": "",
+    "setAdmin": "Set admin",
+    "unsetAdmin": "Unset admin",
+    "userUpdatedWithSuccess": "The user was successfully updated"
 }

@@ -198,13 +198,17 @@
     "usersListHint": "Ver e administrar utilizadores",
     "accType": "Estado",
     "medic": "Médico",
+    "adminUserInfoTitle": "Atualizar informação do utilizador",
     "userInfo": "Informação de Utilizador",
-    "userInfoEdit": "Atualizar informação de utilizador",
+    "userInfoEdit": "Atualizar informação do utilizador",
     "setStatus": "Definir Estado",
     "ban": "Banir",
     "unban": "Desbanir",
     "confirmAction": "Confirmar ação em utilizador: ",
     "confirm": "Confirmar",
     "actionStatus": "Definir utilizador como ",
-    "null": ""
+    "null": "",
+    "setAdmin": "Definir administrador",
+    "unsetAdmin": "Remover administrador",
+    "userUpdatedWithSuccess": "Utilizador atualizado com sucesso"
 }

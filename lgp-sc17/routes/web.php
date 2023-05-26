@@ -76,6 +76,8 @@ Route::middleware(['auth', 'bancheck'])->group(function () {
         Route::get('/admin/users', [AdminController::class, 'usersIndex'])->name('admin.users');
         Route::get('/api/admin/users', [ApiController::class, 'userListAdmin']);
         Route::get('/admin/users/{id}', [AdminController::class, 'userInfo'])->name('admin.users.info');
+        Route::post('/admin/users/setAdmin/{id}', [AdminController::class, 'setAdmin'])->name('admin.users.setAdmin');
+        Route::post('/admin/users/unsetAdmin/{id}', [AdminController::class, 'unsetAdmin'])->name('admin.users.unsetAdmin');
         //Route::post('/admin/users/{id}', [RegisteredMedicController::class, 'storeFromUser'])->name('admin.register.medic');
         //Route::post('/admin/users/{id}', [RegisteredPatientController::class, 'storeFromUser'])->name('admin.register.patient');
         Route::post('/admin/users/{id}', [AdminController::class, 'updateUser'])->name('admin.users.update');
