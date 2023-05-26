@@ -168,10 +168,10 @@ const onPageChange = ({ next_page = currentPage, order: order } = {}) => {
                     </Link>
                 </div>
                 <div class="mt-[6vh] border-2 border-[#221F1C]/[.42] w-[100%] rounded-3xl"></div>
-                <div class="mt-[6vh] h-[100%] overflow-auto">
-                    <Link v-for="topic in topics" :href="route('forum-topic_posts', {id:topic.id})" class="block mt-[3vh] ml-2 hover:pl-2">
+                <div class="mt-[3vh] h-[100%] overflow-auto">
+                    <Link v-for="topic in topics" :href="route('forum-topic_posts', {id:topic.id})" class="flex items-center mt-[3vh] ml-2 hover:pl-2">
                         <div
-                            class="inline-block align-middle rounded-full w-[25px] h-[25px] mb-[3px] mr-2"
+                            class="inline-block align-middle rounded-full w-[25px] min-w-[25px] h-[25px] min-h-[25px] mb-[3px] mr-2"
                             :style="`background: ${topic.color}; outline: 2px dashed ${currentTopic && (currentTopic == topic.id) ? '#578AD6':'transparent'};`">
                         </div>
                         <span class="ml-[1.25vw] text-lg font-bold" :class="(currentTopic && (currentTopic == topic.id)) ? 'text-[#578AD6]': 'text-[#6D6D6D]'">{{ topic.topic }}</span>
