@@ -4,7 +4,7 @@ import AdministrationLayout from "@/Layouts/AdministrationLayout.vue";
 import SearchAdmin from "@/Components/Admin/SearchAdmin.vue";
 import {ref} from "vue";
 import MessageToast from "@/Components/MessageToast.vue";
-import {useForm, usePage} from "@inertiajs/vue3";
+import {useForm, Head, usePage} from "@inertiajs/vue3";
 import axios from "axios";
 import InputError from "@/Components/InputError.vue";
 import { TailwindPagination } from 'laravel-vue-pagination';
@@ -65,6 +65,7 @@ const confirmPostDeletion = (id) => {
 </script>
 
 <template>
+    <Head><title>{{ $t('hospitalsAdministrationTitle') }}</title></Head>
     <AdministrationLayout page="hospitals">
         <MessageToast
             v-if="displayToast"
@@ -92,7 +93,7 @@ const confirmPostDeletion = (id) => {
                     </div>
                 </div>
 
-                <div v-if="hospitals" class="overflow-x-auto">
+                <div v-if="hospitals.data.length" class="overflow-x-auto">
                     <table class="table w-full my-10">
                         <thead>
                         <tr>
@@ -129,8 +130,8 @@ const confirmPostDeletion = (id) => {
                         />
                     </div>
                 </div>
-                <div v-else class="my-[10vh] text-center text-lg">
-                    {{ $t("noForumPostsToDisplay") }}
+                <div v-else class="my-[10vh] text-center text-gray-400 text-lg">
+                    {{ $t("noHospitalsToDisplay") }}
                 </div>
             </div>
             <div class="ml-3 col-span-4">
@@ -139,12 +140,12 @@ const confirmPostDeletion = (id) => {
                     <form @submit.prevent="createHospital">
                         <div class="form-control w-full pt-6">
                             <label class="label"><span class="label-text font-bold">{{ $t('name') }}</span></label>
-                            <input v-model="createForm.name" type="text" placeholder="Add title" class="input input-bordered w-full max-w" />
+                            <input v-model="createForm.name" type="text" :placeholder="$t('addHospitalName')" class="input input-bordered w-full max-w" />
                             <InputError class="mt-2" :message="createForm.errors.name" />
                         </div>
 
                         <div class="pb-4 flex justify-center pt-6">
-                            <button type="submit" class="text-center px-6 py-3 text-lg bg-mainBlue text-white border-0 rounded-xl">{{ $t('hospitalCreate') }}</button>
+                            <button type="submit" class="text-center px-6 py-3 text-lg bg-mainBlue text-white border-0 rounded-xl hover:bg-lightBlue">{{ $t('hospitalCreate') }}</button>
                         </div>
                     </form>
                 </div>

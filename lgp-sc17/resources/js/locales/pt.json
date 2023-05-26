@@ -169,11 +169,13 @@
     "adminTopicCreate": "Adicionar um tópico",
     "adminNoTopicsToDisplay": "Não existem tópicos para gerir",
 
+    "hospitalsAdministrationTitle": "Admnistração dos hospitais",
     "hospitals": "Hospitais",
     "hospitalsContent": "Gestão dos hospitais",
     "hospitalsContentHint": "Criar e gerir hospitais",
     "hospitalCreate": "Criar hospital",
-
+    "addHospitalName": "Adicionar nome do hospital",
+    "noHospitalsToDisplay": "Não existem hospitais para gerir",
     "hospitalCreated": "Hospital criado com sucesso",
     "hospitalDeleted": "Hospital removido com sucesso",
     "hospitalDeletedError": "Erro na remoção. Tem utilizadores associados",

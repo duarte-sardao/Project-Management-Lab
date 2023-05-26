@@ -162,7 +162,7 @@
     "isAdmin": "Admin account",
     "users": "Users",
 
-    "forumAdministrationTitle": "Forum Admnistration",
+    "forumAdministrationTitle": "Forum Administration",
     "forumContent": "Forum management",
     "forumContentHint": "Manage forum posts and topics",
     "adminForumDateAdded": "Date added",
@@ -170,11 +170,13 @@
     "adminTopicCreate": "Add new topic",
     "adminNoTopicsToDisplay": "There are no topics to display",
 
+    "hospitalsAdministrationTitle": "Hospitals administration",
     "hospitals": "Hospitals",
     "hospitalsContent": "Hospitals management",
     "hospitalsContentHint": "Create and manage hospitals",
     "hospitalCreate": "Create hospital",
-
+    "addHospitalName": "Add hospital name",
+    "noHospitalsToDisplay": "There are no hospitals to display",
     "hospitalCreated": "Hospital created with success",
     "hospitalDeleted": "Hospital deleted with success",
     "hospitalDeletedError": "Error on deletion. Some users are associated",
