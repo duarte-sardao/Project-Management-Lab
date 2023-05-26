@@ -64,4 +64,8 @@ class User extends Authenticatable
     public function isMedic(): bool {
         return Medic::where('user_id','=',$this->id)->exists();
     }
+
+    public function messages() {
+        return $this->hasMany(Message::class);
+    }
 }

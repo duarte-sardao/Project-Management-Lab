@@ -213,5 +213,15 @@
     "confirmAction": "Confirmar ação em utilizador: ",
     "confirm": "Confirmar",
     "actionStatus": "Definir utilizador como ",
-    "null": ""
+    "null": "",
+
+    "chatContent": "Gestão do Chat",
+    "noPatientsToDisplay": "Não existem pacientes registados",
+    "noMedicsToDisplay": "Não existem médicos registados",
+    "chatContentHint": "Associação de médicos a pacientes",
+    "associated": "Associado",
+    "chatMedicAssociated": "Médico associado com successo",
+    "chatMedicAssociatedError": "Falha na associação",
+    "chatMedicRemoved": "Médico removido com successo",
+    "chatMedicRemovedError": "Falha na remoção"
 }

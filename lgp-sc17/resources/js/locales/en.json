@@ -215,5 +215,15 @@
     "confirmAction": "Confirm action on user: ",
     "confirm": "Confirm",
     "actionStatus": "Set user to ",
-    "null": ""
+    "null": "",
+
+    "chatContent": "Chat Management",
+    "noPatientsToDisplay": "There are no patient to display",
+    "noMedicsToDisplay": "There are no medics to display",
+    "chatContentHint": "Association of medics to patients",
+    "associated": "Associated",
+    "chatMedicAssociated": "Medic associated with success",
+    "chatMedicAssociatedError": "Association failed",
+    "chatMedicRemoved": "Medic removed with success",
+    "chatMedicRemovedError": "Removal failed"
 }
