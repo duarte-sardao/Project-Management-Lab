@@ -129,6 +129,7 @@ const getResults = async (page = 1) => {
                     <table class="table w-full my-10">
                         <thead>
                             <tr>
+                                <th class="p-0"></th>
                                 <th class="w-5/12 bg-transparent text-black text-sm">{{ $t('title') }}</th>
                                 <th class="w-3/12 bg-transparent text-black text-sm">{{ $t('adminForumDateAdded') }}</th>
                                 <th class="w-1/12 bg-transparent text-black text-sm text-center">{{ $t('adminForumDelete') }}</th>
@@ -136,6 +137,7 @@ const getResults = async (page = 1) => {
                         </thead>
                         <tbody>
                             <tr v-for="post in postsToDisplay.data" class="border-b-2 border-[#F2F2F2]">
+                                <td class="p-0"></td>
                                 <td class="bg-transparent text-[#808080]">{{ post.title }}</td>
                                 <td class="bg-transparent text-[#808080] text-left">
                                     {{ post.date }}
@@ -143,8 +145,8 @@ const getResults = async (page = 1) => {
                                 <td class="bg-transparent text-[#808080] text-center">
                                     <form @submit.prevent="confirmPostDeletion(post.id)">
                                         <div id="end_opt" class="flex justify-center">
-                                            <button class="" type="submit">
-                                                <img src="/svg_icons/trash.svg" alt="our vision">
+                                            <button class="transition duration-200 hover:scale-125" type="submit">
+                                                <img src="/svg_icons/trash.svg" alt="Delete post">
                                             </button>
                                         </div>
                                     </form>
@@ -179,7 +181,7 @@ const getResults = async (page = 1) => {
                                         <form @submit.prevent="confirmTopicDeletion(topic.id)">
                                             <div id="end_opt" class="flex justify-center">
                                                 <button class="transition duration-200 hover:scale-125" type="submit">
-                                                    <img src="/svg_icons/trash.svg" alt="our vision" class="min-w-[30px] max-h-[30px] h-[30px]">
+                                                    <img src="/svg_icons/trash.svg" alt="Delete topic" class="min-w-[30px] max-h-[30px] h-[30px]">
                                                 </button>
                                             </div>
                                         </form>
@@ -191,8 +193,9 @@ const getResults = async (page = 1) => {
                             {{ $t("adminNoTopicsToDisplay") }}
                         </div>
                         <div class="pb-4 flex justify-center">
-                            <Link :href="route('topic.new')" class="text-center px-6 py-3 text-lg bg-mainBlue text-white border-0 rounded-xl">
-                                {{ $t('adminTopicCreate') }}</Link>
+                            <Link :href="route('topic.new')" class="text-center px-6 py-3 text-lg bg-mainBlue text-white border-0 rounded-xl hover:bg-lightBlue">
+                                {{ $t('adminTopicCreate') }}
+                            </Link>
                         </div>
                     </div>
                 </div>

@@ -36,10 +36,12 @@ class ProfileController extends Controller
         $user = Auth::getUser();
         $number = null;
         $hospital = null;
+        $questionnaire = null;
         if ($user->isPatient()) {
             $patient = Patient::where('user_id','=',$user->id)->first();
             $number = $patient->healthcare_number;
             $hospital = $patient->hospital->name;
+            $questionnaire = $patient->questionnaire;
         } elseif ($user->isMedic()) {
             $medic = Medic::where('user_id','=',$user->id)->first();
             $number = $medic->license_number;
@@ -51,6 +53,7 @@ class ProfileController extends Controller
             'status' => $user->status(),
             'number' => $number,
             'hospital' => $hospital,
+            'questionnaire' => $questionnaire,
             'nextAppointment' => [
                 'date' => '',
                 'time' => ''

@@ -145,6 +145,7 @@
     "libraryPostError": "Error has occurred",
     "deleteLibraryPost": "Remove post from library",
     "deleteLibraryPostButton": "Remove post",
+    "noLibraryPostsToDisplay": "There are no posts to display",
     "title": "Title",
     "subtitle": "Subitle",
     "body": "Body Content",
@@ -161,7 +162,7 @@
     "isAdmin": "Admin account",
     "users": "Users",
 
-    "forumAdministrationTitle": "Forum Admnistration",
+    "forumAdministrationTitle": "Forum Administration",
     "forumContent": "Forum management",
     "forumContentHint": "Manage forum posts and topics",
     "adminForumDateAdded": "Date added",
@@ -169,11 +170,13 @@
     "adminTopicCreate": "Add new topic",
     "adminNoTopicsToDisplay": "There are no topics to display",
 
+    "hospitalsAdministrationTitle": "Hospitals administration",
     "hospitals": "Hospitals",
     "hospitalsContent": "Hospitals management",
     "hospitalsContentHint": "Create and manage hospitals",
     "hospitalCreate": "Create hospital",
-
+    "addHospitalName": "Add hospital name",
+    "noHospitalsToDisplay": "There are no hospitals to display",
     "hospitalCreated": "Hospital created with success",
     "hospitalDeleted": "Hospital deleted with success",
     "hospitalDeletedError": "Error on deletion. Some users are associated",
@@ -199,11 +202,13 @@
     "goHome": "Go home",
     "goBack": "Go back",
 
+    "dashboardTitle": "Admin Dashboard",
     "seeMore": "See more",
     "confirmation": "Confirmation",
     "blockUser": "Block",
 
     "usersList": "User Listing",
+    "noUsersToDisplay": "There are no users to display",
     "usersListHint": "See and manage users",
     "accType": "Status",
     "medic": "Medic",

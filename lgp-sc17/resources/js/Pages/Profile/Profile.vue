@@ -12,6 +12,7 @@ const props = defineProps({
     number: String,
     status: String,
     hospital: String,
+    questionnaire: String,
     nextAppointment: {
         date: String,
         time: String
@@ -84,7 +85,7 @@ if (profile_img_url.value == null) {
                     </button>
                 </div>
                 <div class="text-gray-800 font-medium text-2xl w-full grid justify-center">
-                    <Link v-if="!isGuest" href="#" class="py-2 px-4 rounded-full hover:bg-lighterBlue">
+                    <Link v-if="!isGuest && questionnaire != null" :href="questionnaire" class="py-2 px-4 rounded-full hover:bg-lighterBlue">
                         <img src="/svg_icons/questionnaire.svg" class="inline mr-3 pb-1" alt="User questionnaire"/>
                         {{ $t("questionnaire") }}
                     </Link>

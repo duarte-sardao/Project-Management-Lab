@@ -79,14 +79,16 @@ const confirmPostDeletion = (id) => {
             </div>
         </div>
         <div class="pb-4 flex justify-center">
-            <Link :href="route('admin.library.create')" class="btn btn-wide hover:bg-lightBlue bg-mainBlue text-white border-0 rounded-full">
-                {{ $t('libraryButtonCreate') }}</Link>
+            <Link :href="route('admin.library.create')" class="btn btn-wide hover:bg-lightBlue bg-mainBlue text-white border-0 rounded-xl">
+                {{ $t('libraryButtonCreate') }}
+            </Link>
         </div>
 
         <div class="overflow-x-auto">
-            <table class="table w-full my-8">
+            <table v-if="results.data.length" class="table w-full my-8">
                 <thead>
                     <tr>
+                        <th class="p-0"></th>
                         <th class="w-5/12">{{ $t('title') }}</th>
                         <th class="w-3/12">{{ $t('date') }}</th>
                         <th class="w-2/12 text-center">{{ $t('state') }}</th>
@@ -96,6 +98,7 @@ const confirmPostDeletion = (id) => {
                 </thead>
                 <tbody>
                     <tr v-for="post in results.data">
+                        <td class="p-0"></td>
                         <td>{{ post.title }}</td>
                         <td>{{ moment(post.created_at).format('DD-MM-YYYY HH:mm:ss') }}</td>
                         <td class="text-center">{{ post.public ? $t('public') : $t('private') }}</td>
@@ -107,8 +110,8 @@ const confirmPostDeletion = (id) => {
                         <td class="text-center">
                             <form @submit.prevent="confirmPostDeletion(post.id)">
                                 <div id="end_opt" class="flex justify-center">
-                                    <button class="" type="submit">
-                                        <img src="/svg_icons/trash.svg" alt="our vision">
+                                    <button class="transition duration-200 hover:scale-125" type="submit">
+                                        <img src="/svg_icons/trash.svg" alt="Delete post">
                                     </button>
                                 </div>
                             </form>
@@ -116,6 +119,9 @@ const confirmPostDeletion = (id) => {
                     </tr>
                 </tbody>
             </table>
+            <div v-else class="my-[10vh] text-center text-gray-400 text-lg">
+                {{ $t("noLibraryPostsToDisplay") }}
+            </div>
             <div class="flex justify-center">
                 <TailwindPagination
                     :data="results"

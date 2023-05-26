@@ -70,7 +70,7 @@ if (autorImage == null) autorImage = '/svg_icons/profile.svg';
         <img
             v-if="answer.isAuthor || is_admin"
             alt="Delete answer"
-            class="absolute max-w-[2.5vw] w-[2.5vw] min-w-[30px] top-[3vh] right-[2vw] transition duration-200 hover:scale-110 hover:cursor-pointer"
+            class="absolute max-w-[2.5vw] w-[2.5vw] min-w-[30px] top-[3vh] right-[2vw] transition duration-200 hover:scale-125 hover:cursor-pointer"
             src="/svg_icons/trash.svg"
             v-on:click="confirmAnswerDeletion"
         />

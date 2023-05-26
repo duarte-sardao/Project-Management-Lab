@@ -1,9 +1,9 @@
 <script setup>
 import AdministrationLayout from "@/Layouts/AdministrationLayout.vue";
-import {Link} from '@inertiajs/vue3';
+import { Link, Head} from '@inertiajs/vue3';
 import moment from "moment";
 
-const props = defineProps({
+defineProps({
     users: {
         default: []
     },
@@ -17,11 +17,12 @@ const props = defineProps({
 </script>
 
 <template>
+    <Head><title>{{ $t("dashboardTitle") }}</title></Head>
     <AdministrationLayout page="dashboard">
         <div class="py-6 bg-[#E9EFFD] w-full flex flex-col mb-6">
             <div class="flex justify-center text-4xl font-bold py-4">{{ $t('users') }}</div>
             <div class="overflow-x-auto mx-8">
-                <table class="table w-full">
+                <table v-if="users.length" class="table w-full">
                     <thead>
                     <tr>
                         <th class="p-0"></th>
@@ -45,9 +46,12 @@ const props = defineProps({
                     </tr>
                     </tbody>
                 </table>
+                <div v-else class="my-[10vh] text-center text-gray-400 text-lg">
+                    {{ $t("noUsersToDisplay") }}
+                </div>
             </div>
             <div class="flex justify-center pt-6">
-                <Link :href="route('admin.users')" class="btn btn-wide hover:bg-lightBlue bg-mainBlue text-white border-0 rounded-full">
+                <Link :href="route('admin.users')" class="btn btn-wide hover:bg-lightBlue bg-mainBlue text-white border-0 rounded-xl">
                     {{ $t('seeMore') }}</Link>
             </div>
         </div>
@@ -55,7 +59,7 @@ const props = defineProps({
             <div id="library-posts" class="flex py-6 flex-col mr-4 justify-center bg-[#E9EFFD] w-full">
                 <div class="flex justify-center text-4xl font-bold py-4">{{ $t('library') }}</div>
                 <div class="overflow-x-auto mx-8">
-                    <table class="table w-full">
+                    <table v-if="library_posts.length" class="table w-full">
                         <thead>
                         <tr>
                             <th class="p-0"></th>
@@ -71,16 +75,19 @@ const props = defineProps({
                         </tr>
                         </tbody>
                     </table>
+                    <div v-else class="my-[10vh] text-center text-gray-400 text-lg">
+                        {{ $t("noLibraryPostsToDisplay") }}
+                    </div>
                 </div>
                 <div class="flex justify-center pt-6">
-                    <Link :href="route('admin.library')" class="btn btn-wide hover:bg-lightBlue bg-mainBlue text-white border-0 rounded-full">
+                    <Link :href="route('admin.library')" class="btn btn-wide hover:bg-lightBlue bg-mainBlue text-white border-0 rounded-xl">
                         {{ $t('seeMore') }}</Link>
                 </div>
             </div>
             <div id="forum-posts" class="flex py-6 flex-col ml-4 bg-[#E9EFFD]">
                 <div class="flex justify-center text-4xl font-bold py-4">Forum</div>
                 <div class="overflow-x-auto mx-8">
-                    <table class="table w-full">
+                    <table v-if="forum_posts.length" class="table w-full">
                         <thead>
                         <tr>
                             <th class="p-0"></th>
@@ -92,13 +99,16 @@ const props = defineProps({
                         <tr v-for="forum_post in forum_posts">
                             <td class="p-0"></td>
                             <td class="max-w-[400px] overflow-x-hidden">{{ forum_post.title }}</td>
-                            <td class="text-center">{{ moment(forum_post.created_at).format('DD-MM-YYYY HH:mm:ss') }}</td>
+                            <td class="text-center">{{ forum_post.date }}</td>
                         </tr>
                         </tbody>
                     </table>
+                    <div v-else class="my-[10vh] text-center text-gray-400 text-lg">
+                        {{ $t("noForumPostsToDisplay") }}
+                    </div>
                 </div>
                 <div class="flex justify-center pt-6">
-                    <Link :href="route('admin.forum')" class="btn btn-wide hover:bg-lightBlue bg-mainBlue text-white border-0 rounded-full">
+                    <Link :href="route('admin.forum')" class="btn btn-wide hover:bg-lightBlue bg-mainBlue text-white border-0 rounded-xl">
                         {{ $t('seeMore') }}</Link>
                 </div>
             </div>

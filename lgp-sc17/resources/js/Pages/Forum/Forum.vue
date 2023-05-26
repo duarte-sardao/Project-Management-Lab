@@ -69,25 +69,26 @@ const onPageChange = ({ next_page = currentPage, order: order } = {}) => {
 <template>
     <Head><title>{{ $t("forumTitle") }}</title></Head>
     <div class="relative h-[80vh]" style="z-index: 1">
-        <div class="absolute top-0 left-0 h-[80vh] w-[100%] z-0" style="background: linear-gradient(243.54deg, #578AD6 -2.66%, rgba(87, 138, 214, 0) 112.25%);">
-        </div>
-        <img src="/svg_img/forum-polygons.svg" class="absolute top-0 left-0 z-0 max-h-[90vh]">
-        <NavBarSimple class="relative z-10" :background="false"></NavBarSimple>
-        <div class="relative z-10 ml-[35%]">
-            <div class="mt-[15vh] text-[#221F1C] text-6xl font-bold">{{ $t("forumTitle") }}</div>
-            <div class="mt-[2vh] text-[#221F1C]/[.9] w-[30vw] font-bold text-xl">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet
+        <div class="absolute top-0 left-0 h-[80vh] w-[100%] z-0" style="background: linear-gradient(243.54deg, #578AD6 -2.66%, rgba(87, 138, 214, 0) 112.25%);"></div>
+        <div class="relative">
+            <img src="/svg_img/forum-polygons.svg" class="absolute top-0 left-0 z-0 max-h-[90vh]">
+            <NavBarSimple class="z-0" :background="false"></NavBarSimple>
+            <div class="z-10 ml-[35%]">
+                <div class="mt-[15vh] text-[#221F1C] text-black text-6xl font-bold">{{ $t("forumTitle") }}</div>
+                <div class="mt-[2vh] text-[#221F1C]/[.9] w-[30vw] font-bold text-xl">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt ligula aliquet
+                </div>
+                <form @submit.prevent="submit" class="relative mt-[3vh]">
+                    <input
+                        id="forum_search"
+                        class="relative z-10 py-[1vh] pl-6 pr-[4vw] bg-[#FFF]/[.63] border-2 border-[#244D89] rounded-3xl w-[40vw] text-[#000]/[.57] text-lg focus-visible:outline-none"
+                        :placeholder="$t('forumSearchPlaceholder')"
+                        v-model="form.search"
+                    />
+                    <div class="absolute top-0 left-[36.5vw] z-30 h-[100%]  border-[1px] border-[#244D89]"></div>
+                    <button type="submit" class="absolute top-[.85vh] left-[37vw] z-20 hover:scale-125 transition duration-300"><img src="/svg_icons/search.svg" /></button>
+                </form>
             </div>
-            <form @submit.prevent="submit" class="relative mt-[3vh]">
-                <input
-                    id="forum_search"
-                    class="relative z-10 py-[1vh] pl-6 pr-[4vw] bg-[#FFF]/[.63] border-2 border-[#244D89] rounded-3xl w-[40vw] text-[#000]/[.57] text-lg focus-visible:outline-none"
-                    :placeholder="$t('forumSearchPlaceholder')"
-                    v-model="form.search"
-                />
-                <div class="absolute top-0 left-[36.5vw] z-30 h-[100%]  border-[1px] border-[#244D89]"></div>
-                <button type="submit" class="absolute top-[.85vh] left-[37vw] z-20 hover:scale-125 transition duration-300"><img src="/svg_icons/search.svg" /></button>
-            </form>
         </div>
     </div>
 
@@ -168,10 +169,10 @@ const onPageChange = ({ next_page = currentPage, order: order } = {}) => {
                     </Link>
                 </div>
                 <div class="mt-[6vh] border-2 border-[#221F1C]/[.42] w-[100%] rounded-3xl"></div>
-                <div class="mt-[6vh] h-[100%] overflow-auto">
-                    <Link v-for="topic in topics" :href="route('forum-topic_posts', {id:topic.id})" class="block mt-[3vh] ml-2 hover:pl-2">
+                <div class="mt-[3vh] h-[100%] overflow-auto">
+                    <Link v-for="topic in topics" :href="route('forum-topic_posts', {id:topic.id})" class="flex items-center mt-[3vh] ml-2 hover:pl-2">
                         <div
-                            class="inline-block align-middle rounded-full w-[25px] h-[25px] mb-[3px] mr-2"
+                            class="inline-block align-middle rounded-full w-[25px] min-w-[25px] h-[25px] min-h-[25px] mb-[3px] mr-2"
                             :style="`background: ${topic.color}; outline: 2px dashed ${currentTopic && (currentTopic == topic.id) ? '#578AD6':'transparent'};`">
                         </div>
                         <span class="ml-[1.25vw] text-lg font-bold" :class="(currentTopic && (currentTopic == topic.id)) ? 'text-[#578AD6]': 'text-[#6D6D6D]'">{{ topic.topic }}</span>
