@@ -193,8 +193,9 @@ const getResults = async (page = 1) => {
                             {{ $t("adminNoTopicsToDisplay") }}
                         </div>
                         <div class="pb-4 flex justify-center">
-                            <Link :href="route('topic.new')" class="text-center px-6 py-3 text-lg bg-mainBlue text-white border-0 rounded-xl">
-                                {{ $t('adminTopicCreate') }}</Link>
+                            <Link :href="route('topic.new')" class="text-center px-6 py-3 text-lg bg-mainBlue text-white border-0 rounded-xl hover:bg-lightBlue">
+                                {{ $t('adminTopicCreate') }}
+                            </Link>
                         </div>
                     </div>
                 </div>

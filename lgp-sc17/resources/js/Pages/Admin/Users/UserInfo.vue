@@ -94,16 +94,16 @@ if (profile_img_url.value == null) {
                 <img id="profile-img" class="rounded-full mx-auto mb-[7vh] h-fit w-[200px] h-[200px]" :src="profile_img_url" alt="profile image">
                 <div class="flex items-center flex-col">
                     <div class="w-[75%] dropdown h-fit">
-                        <label tabindex="0" class="btn w-full">{{ $t('setStatus') }}</label>
+                        <label tabindex="0" class="btn w-full hover:opacity-70">{{ $t('setStatus') }}</label>
                         <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
                             <li><label for="patient-modal">{{ $t('patient') }}</label></li>
                             <li><label for="medic-modal">{{ $t('medic') }}</label></li>
                         </ul>
                     </div>
-                    <div v-if="!user.is_admin && !banned" class="h-fit w-[75%] absolute bottom-[4vh]">  
+                    <div v-if="!user.is_admin && !banned" class="h-fit w-[75%] absolute bottom-[4vh] hover:opacity-70">  
                         <label for="ban-modal" class="btn btn-error w-full">{{ $t('ban') }}</label>
                     </div>
-                    <div v-if="!user.is_admin && banned" class="h-fit w-[75%] absolute bottom-[4vh]">  
+                    <div v-if="!user.is_admin && banned" class="h-fit w-[75%] absolute bottom-[4vh] hover:opacity-70">  
                         <label for="unban-modal" class="btn btn-error w-full">{{ $t('unban') }}</label>
                     </div>
                 </div>

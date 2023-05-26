@@ -50,7 +50,7 @@ const props = defineProps({
                 </div>
             </div>
             <div class="flex justify-center pt-6">
-                <Link :href="route('admin.users')" class="btn btn-wide hover:bg-lightBlue bg-mainBlue text-white border-0 rounded-full">
+                <Link :href="route('admin.users')" class="btn btn-wide hover:bg-lightBlue bg-mainBlue text-white border-0 rounded-xl">
                     {{ $t('seeMore') }}</Link>
             </div>
         </div>
@@ -79,7 +79,7 @@ const props = defineProps({
                     </div>
                 </div>
                 <div class="flex justify-center pt-6">
-                    <Link :href="route('admin.library')" class="btn btn-wide hover:bg-lightBlue bg-mainBlue text-white border-0 rounded-full">
+                    <Link :href="route('admin.library')" class="btn btn-wide hover:bg-lightBlue bg-mainBlue text-white border-0 rounded-xl">
                         {{ $t('seeMore') }}</Link>
                 </div>
             </div>
@@ -107,7 +107,7 @@ const props = defineProps({
                     </div>
                 </div>
                 <div class="flex justify-center pt-6">
-                    <Link :href="route('admin.forum')" class="btn btn-wide hover:bg-lightBlue bg-mainBlue text-white border-0 rounded-full">
+                    <Link :href="route('admin.forum')" class="btn btn-wide hover:bg-lightBlue bg-mainBlue text-white border-0 rounded-xl">
                         {{ $t('seeMore') }}</Link>
                 </div>
             </div>
