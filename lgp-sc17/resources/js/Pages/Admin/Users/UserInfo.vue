@@ -45,6 +45,10 @@ const submitDate = () => {
 };
 
 const submitMedic = () => {
+    if (form.license_number < 1) {
+      form.errors.license_number = "Must be greater than 0.";
+      return;
+    }
     const checkbox = document.getElementById('medic-modal');
     checkbox.checked = false;
     form.action = 'register_medic';
@@ -53,6 +57,10 @@ const submitMedic = () => {
 };
 
 const submitPatient = () => {
+    if (form.healthcare_number < 1) {
+      form.errors.healthcare_number = "Must be greater than 0.";
+      return;
+    }
     const checkbox = document.getElementById('patient-modal');
     checkbox.checked = false;
     form.action = 'register_patient';
