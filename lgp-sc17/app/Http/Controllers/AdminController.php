@@ -28,7 +28,7 @@ class AdminController extends Controller
             'library_posts' => LibraryPost::orderBy('created_at', 'desc')->limit(4)->get(),
             'forum_posts' => ForumPost::join('posts', 'post_id', '=', 'posts.id')
                 ->orderBy('posted_at', 'desc')
-                ->select('forum_posts.id', 'title', DB::raw("DATE_FORMAT(posted_at, '%d/%m/%Y') as date"))
+                ->select('forum_posts.id', 'title', DB::raw("DATE_FORMAT(posted_at, '%d-%m-%Y %h:%i:%s') as date"))
                 ->limit(4)->get()
         ]);
     }
@@ -89,7 +89,7 @@ class AdminController extends Controller
             'topics' => Topic::select('id', 'topic', 'color')->get(),
             'posts' => ForumPost::join('posts', 'post_id', '=', 'posts.id')
                 ->orderBy('posted_at', 'desc')
-                ->select('forum_posts.id', 'title', DB::raw("DATE_FORMAT(posted_at, '%d/%m/%Y') as date"))
+                ->select('forum_posts.id', 'title', DB::raw("DATE_FORMAT(posted_at, '%d-%m-%Y %h:%i:%s') as date"))
                 ->paginate(6),
             ];
 
