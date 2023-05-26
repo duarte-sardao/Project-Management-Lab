@@ -93,7 +93,7 @@ const confirmPostDeletion = (id) => {
                     </div>
                 </div>
 
-                <div v-if="hospitals.data.length" class="overflow-x-auto">
+                <div v-if="results.data.length" class="overflow-x-auto">
                     <table class="table w-full my-10">
                         <thead>
                         <tr>
