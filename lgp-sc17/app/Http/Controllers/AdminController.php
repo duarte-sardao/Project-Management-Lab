@@ -63,6 +63,8 @@ class AdminController extends Controller
             $appointment = $medic->nextAppointment();
         }
 
+        $hosps = Hospital::orderBy('created_at', 'desc')->get();
+
         return Inertia::render('Admin/Users/UserInfo', [
             'user' => $user,
             'isGuest' => $user->isGuest(),
@@ -71,11 +73,8 @@ class AdminController extends Controller
             'number' => $number,
             'hospital' => $hospital,
             'questionnaire' => $questionnaire,
-            'nextAppointment' => [
-                'date' => '',
-                'time' => ''
-            ],
-            'nextAppointment' => $appointment
+            'nextAppointment' => $appointment,
+            'hospital_list' => $hosps
         ]);
     }
 
@@ -115,7 +114,7 @@ class AdminController extends Controller
                     ['user_id' => $id],
                     [
                         'healthcare_number' => $request->healthcare_number,
-                        'hospital_id' => $request->hospital_id,
+                        'hospital_id' => intval($request->hospital_id),
                     ]
                 );
                 break;
@@ -134,7 +133,7 @@ class AdminController extends Controller
                     ['user_id' => $id],
                     [
                         'license_number' => $request->license_number,
-                        'hospital_id' => $request->hospital_id,
+                        'hospital_id' => intval($request->hospital_id),
                     ]
                 );
                 break;

@@ -118,7 +118,7 @@ if (profile_img_url.value == null) {
                         />
                         <ProfileTextBox
                             v-if="!isGuest"
-                            :text="status === 'Patient' ? $t('healthcareNumber'):$t('license')"
+                            :text="status === 'Patient' ? $t('healthcareNumber'):$t('licenseNumber')"
                             v-model="props.number"
                             :edit="edit"
                             :isInput="false"
