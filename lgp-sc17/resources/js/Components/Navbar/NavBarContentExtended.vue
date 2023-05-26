@@ -13,9 +13,9 @@ let is_admin = (usePage().props.auth.user && usePage().props.auth.user.is_admin)
 <template>
     <div class="flex-1 ml-7">
         <Link class="btn btn-ghost text-gray-600 normal-case text-xl" :href="route('about')">{{ $t("about") }}</Link>
-        <Link class="btn btn-ghost text-gray-600 normal-case text-xl" :href="route('forum')">{{ $t("forum") }}</Link>
-        <Link class="btn btn-ghost text-gray-600 normal-case text-xl" :href="route('homepage')">{{ $t("home") }}</Link>
         <Link class="btn btn-ghost text-gray-600 normal-case text-xl" :href="route('library')">{{ $t("library") }}</Link>
+        <Link class="btn btn-ghost text-gray-600 normal-case text-xl" :href="route('forum')">{{ $t("forum") }}</Link>
+        <Link class="btn btn-ghost text-gray-600 normal-case text-xl" :href="route('chat')">Chat</Link>
         <Link v-if="is_admin" class="btn btn-ghost text-gray-600 normal-case text-xl" :href="route('admin')">{{ $t("administration") }}</Link>
     </div>
     <div v-for="entry in languages">

@@ -76,7 +76,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/chat', [ChatsController::class, 'index']);
+    Route::get('/chat', [ChatsController::class, 'index'])->name('chat');
     Route::get('/messages', [ChatsController::class, 'fetchMessagesPatient']);
     Route::post('/messages', [ChatsController::class, 'sendMessagePatient']);
     Route::get('/messagesMedic', [ChatsController::class, 'fetchMessagesMedic']);
