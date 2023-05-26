@@ -1,9 +1,8 @@
 <script setup>
-import moment from "moment";
 import { TailwindPagination } from 'laravel-vue-pagination';
 import AdministrationLayout from "@/Layouts/AdministrationLayout.vue";
 import SearchAdmin from "@/Components/Admin/SearchAdmin.vue";
-import {Link, useForm} from '@inertiajs/vue3';
+import { Link, Head } from '@inertiajs/vue3';
 import {ref} from "vue";
 import axios from "axios";
 
@@ -21,6 +20,7 @@ getResults(); //hacky but we need to run userAdminList to get status and this do
 </script>
 
 <template>
+    <Head><title>{{ $t('adminUsersManagement') }}</title></Head>
     <AdministrationLayout page="users">
         <div class="grid grid-cols-2">
             <div class="pb-16 text-xl text-gray-400">
