@@ -139,7 +139,7 @@ const displayToastAction = () => {
                         </ul>
                     </div>
                     <div class="mt-10 h-fit w-[75%]">
-                        <div class="btn w-full" v-on:click="adminManagement">
+                        <div class="btn w-full hover:opacity-70" v-on:click="adminManagement">
                             {{ $t(user.is_admin ? 'unsetAdmin':'setAdmin') }}
                         </div>
                     </div>
@@ -197,7 +197,7 @@ const displayToastAction = () => {
                             :errors="(form.errors.phone_number === undefined) ? '':$t(`${form.errors.phone_number}`)"
                         />
                         <ProfileTextBox
-                            v-if="!isGuest"
+                            v-if="!isGuest && status == 'Patient'"
                             :text="$t('questionnaire')"
                             v-model="user.questionnaire"
                             :edit="edit"
