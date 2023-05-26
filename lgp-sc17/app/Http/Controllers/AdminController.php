@@ -48,20 +48,17 @@ class AdminController extends Controller
         $user = User::find($id);
         $number = null;
         $hospital = null;
-        $date = '';
-        $time = '';
+        $appointment = null;
         if ($user->isPatient()) {
             $patient = Patient::where('user_id','=',$user->id)->first();
             $number = $patient->healthcare_number;
             $hospital = $patient->hospital->name;
-            $date = $patient->getDate();
-            $time = $patient->getTime();
+            $appointment = $patient->nextAppointment();
         } elseif ($user->isMedic()) {
             $medic = Medic::where('user_id','=',$user->id)->first();
             $number = $medic->license_number;
             $hospital = $medic->hospital->name;
-            $date = $medic->getDate();
-            $time = $medic->getTime();
+            $appointment = $medic->nextAppointment();
         }
 
         return Inertia::render('Admin/Users/UserInfo', [
@@ -71,10 +68,7 @@ class AdminController extends Controller
             'banned' => $user->isBanned(),
             'number' => $number,
             'hospital' => $hospital,
-            'nextAppointment' => [
-                'date' => $date,
-                'time' => $time
-            ],
+            'nextAppointment' => $appointment
         ]);
     }
 

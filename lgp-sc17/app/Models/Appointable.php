@@ -17,16 +17,13 @@ class Appointable extends Model
         $this->save();
     }
 
-    public function getDate() {
-        if($this->date == null)
-            return '';
-        return date_format($this->date, 'd-m-Y');
-    }
-
-    public function getTime() {
-        if($this->time == null)
-            return '';
-        return date_format($this->time, 'h\hi');
+    public function nextAppointment() {
+        $nextAppointment = [
+            'time' => $this->time,
+            'date' => $this->date
+        ];
+        //verify if its in the past and nullify if so?
+        return $nextAppointment;
     }
 }
 
