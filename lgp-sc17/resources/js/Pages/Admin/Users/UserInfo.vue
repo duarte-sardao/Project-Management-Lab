@@ -37,6 +37,17 @@ const form = useForm({
 });
 
 const submitDate = () => {
+    const dateTimeString = form.date + 'T' + form.time;
+    const dateTime = new Date(dateTimeString);
+
+    const currentDateTime = new Date();
+
+    if (dateTime < currentDateTime) {
+        form.errors.time = "Must be in the future.";
+        return;
+    }
+
+
     const checkbox = document.getElementById('date-modal');
     checkbox.checked = false;
     form.action = 'set_date';
