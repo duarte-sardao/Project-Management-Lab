@@ -92,7 +92,15 @@ class AdminController extends Controller
                 $this->unban($id);
                 break;
             case 'register_patient':
-                Medic::destroy($id); //not working?
+                $medic = Medic::whereHas(
+                    'user',
+                    function($q) use ($id) {
+                        return $q->where('id', '=', $id);
+                    }
+                )->first();
+                if ($medic != null) {
+                    $medic->delete();
+                }
 
                 Patient::updateOrCreate(
                     ['user_id' => $id],
@@ -103,7 +111,15 @@ class AdminController extends Controller
                 );
                 break;
             case 'register_medic':
-                Patient::destroy($id); // remains patient after switching to medic
+                $patient = Patient::whereHas(
+                    'user',
+                    function($q) use ($id) {
+                        return $q->where('id', '=', $id);
+                    }
+                )->first();
+                if ($patient != null) {
+                    $patient->delete();
+                }
                 
                 Medic::updateOrCreate(
                     ['user_id' => $id],
