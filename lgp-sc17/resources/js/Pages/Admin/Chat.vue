@@ -1,10 +1,11 @@
 <script setup>
 import AdministrationLayout from "@/Layouts/AdministrationLayout.vue";
 import SearchAdmin from "@/Components/Admin/SearchAdmin.vue";
-import {Link, useForm, usePage} from '@inertiajs/vue3';
+import {Link, Head, useForm, usePage} from '@inertiajs/vue3';
 import {ref} from "vue";
 import axios from "axios";
 import MessageToast from "@/Components/MessageToast.vue";
+import { TailwindPagination } from 'laravel-vue-pagination';
 
 const props = defineProps({
     patients: {
@@ -84,6 +85,7 @@ if (usePage().props.flash.success_message || usePage().props.flash.error_message
 </script>
 
 <template>
+    <Head><title>{{ $t("chatContent") }}</title></Head>
     <MessageToast
         v-if="displayToast"
         :message="$page.props.flash.success_message === undefined ? undefined:$t(`${$page.props.flash.success_message}`)"
