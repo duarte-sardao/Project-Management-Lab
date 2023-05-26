@@ -38,7 +38,7 @@ getResults(); //hacky but we need to run userAdminList to get status and this do
                     <tr>
                         <th class="p-0"></th>
                         <th class="w-5/12">Username</th>
-                        <th class="w-3/12">{{ $t('fullName') }}</th>
+                        <th class="w-4/12">{{ $t('fullName') }}</th>
                         <th class="w-2/12 text-center">{{ $t('accType') }}</th>
                         <th class="w-1/12 text-center">{{ $t('edit') }}</th>
                     </tr>

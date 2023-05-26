@@ -129,10 +129,10 @@ const getResults = async (page = 1) => {
                     <table class="table w-full my-10">
                         <thead>
                             <tr>
-                                <th class="p-0"></th>
-                                <th class="w-5/12 bg-transparent text-black text-sm">{{ $t('title') }}</th>
-                                <th class="w-3/12 bg-transparent text-black text-sm">{{ $t('adminForumDateAdded') }}</th>
-                                <th class="w-1/12 bg-transparent text-black text-sm text-center">{{ $t('adminForumDelete') }}</th>
+                                <th class="p-0 m-0"></th>
+                                <th class="w-6/12 bg-transparent text-black text-sm">{{ $t('title') }}</th>
+                                <th class="w-4/12 bg-transparent text-black text-sm">{{ $t('adminForumDateAdded') }}</th>
+                                <th class="w-2/12 bg-transparent text-black text-sm text-center">{{ $t('adminForumDelete') }}</th>
                             </tr>
                         </thead>
                         <tbody>
