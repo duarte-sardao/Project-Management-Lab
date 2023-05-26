@@ -23,7 +23,7 @@ const props = defineProps({
         <div class="drawer-side">
             <label for="my-drawer" class="drawer-overlay"></label>
             <ul class="menu p-4 w-80 space-y-4 bg-adminBackground text-base-content text-xl text-[#4A4A4A] flex-col">
-                <li><Link class="justify-center" :href="route('homepage')"><img src="/logo.png" alt="default user"/></Link></li>
+                <li><Link class="justify-center active:bg-mainBlue" :href="route('homepage')"><img src="/logo.png" alt="default user"/></Link></li>
                 <li><Link :class="{ 'bg-mainBlue text-white': props.page === 'dashboard' }" class="pl-[25%] active:bg-mainBlue" :href="route('admin')">
                     <img :src="`/svg_icons/adminDashboard${props.page === 'dashboard' ? 'Selected':''}.svg`" alt="Dashboard" class="max-h-[25px] h-[25px] w-fit"/>
                     Dashboard

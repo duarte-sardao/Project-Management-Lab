@@ -211,6 +211,7 @@
 
     "usersList": "User Listing",
     "noUsersToDisplay": "There are no users to display",
+    "adminUsersManagement": "Users management",
     "usersListHint": "See and manage users",
     "accType": "Status",
     "medic": "Medic",
