@@ -136,6 +136,8 @@ if (profile_img_url.value == null) {
 }
 
 const adminManagement = () => {
+    const checkbox = document.getElementById('admin-modal');
+    checkbox.checked = false;
     useForm({}).post(route(`admin.users.${props.user.is_admin ? 'un' : ''}setAdmin`, { id: user.value.id }), {
         onFinish: () => {
             user.value = props.user;
@@ -180,20 +182,18 @@ const displayToastAction = () => {
             <div class="col-span-2 bg-[#E9EFFD] ml-[1vw] mr-[1vw] rounded-3xl shadow-md pt-[5vh] relative">
                 <img id="profile-img" class="rounded-full mx-auto mb-[7vh] h-fit w-[200px] h-[200px]" :src="profile_img_url" alt="profile image">
                 <div class="flex items-center flex-col">
-                    <div class="w-[75%] dropdown h-fit">
+                    <div v-if="!banned" class="w-[75%] dropdown h-fit">
                         <label tabindex="0" class="btn w-full hover:opacity-70">{{ $t('setStatus') }}</label>
                         <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
                             <li><label for="patient-modal">{{ $t('patient') }}</label></li>
                             <li><label for="medic-modal">{{ $t('medic') }}</label></li>
                         </ul>
                     </div>
-                    <div v-if="!isGuest" class="mt-10 h-fit w-[75%]">  
+                    <div v-if="!isGuest && !banned" class="mt-10 h-fit w-[75%]">  
                         <label for="date-modal" class="btn w-full hover:opacity-70">{{ $t('setDate') }}</label>
                     </div>
-                    <div class="mt-10 h-fit w-[75%]">
-                        <div class="btn w-full hover:opacity-70" v-on:click="adminManagement">
-                            {{ $t(user.is_admin ? 'unsetAdmin':'setAdmin') }}
-                        </div>
+                    <div v-if="!banned" class="mt-10 h-fit w-[75%]">  
+                        <label for="admin-modal" class="btn w-full hover:opacity-70">{{ $t(user.is_admin ? 'unsetAdmin':'setAdmin') }}</label>
                     </div>
                     <div v-if="!user.is_admin && !banned" class="h-fit w-[75%] absolute bottom-[4vh] hover:opacity-70">  
                         <label for="ban-modal" class="btn btn-error w-full">{{ $t('ban') }}</label>
@@ -288,6 +288,17 @@ const displayToastAction = () => {
         </div>
     </form>
     </AdministrationLayout>
+
+    <input type="checkbox" id="admin-modal" class="modal-toggle" />
+    <div class="modal">
+    <div class="modal-box">
+        <p class="py-4">{{ $t("confirmAction")}} {{ $t(user.is_admin ? 'unsetAdmin':'setAdmin') }}</p>
+        <div class="modal-action">
+        <label for="admin-modal" class="btn">{{ $t('cancel') }}</label>
+        <label class="btn btn-error" v-on:click="adminManagement">{{ $t('confirm') }}</label>
+        </div>
+    </div>
+    </div>
 
     <input type="checkbox" id="ban-modal" class="modal-toggle" />
     <div class="modal">
