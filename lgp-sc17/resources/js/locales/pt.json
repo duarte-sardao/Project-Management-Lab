@@ -164,7 +164,7 @@
     "isAdmin": "Conta de Administração",
     "users": "Utilizadores",
 
-    "forumAdministrationTitle": "Admnistração do fórum",
+    "forumAdministrationTitle": "Administração do fórum",
     "forumContent": "Gestão do fórum",
     "forumContentHint": "Gerir posts e tópicos do fórum ",
     "adminForumDateAdded": "Data de adição",
@@ -172,7 +172,7 @@
     "adminTopicCreate": "Adicionar um tópico",
     "adminNoTopicsToDisplay": "Não existem tópicos para gerir",
 
-    "hospitalsAdministrationTitle": "Admnistração dos hospitais",
+    "hospitalsAdministrationTitle": "Administração dos hospitais",
     "hospitals": "Hospitais",
     "hospitalsContent": "Gestão dos hospitais",
     "hospitalsContentHint": "Criar e gerir hospitais",
@@ -183,6 +183,8 @@
     "hospitalDeleted": "Hospital removido com sucesso",
     "hospitalDeletedError": "Erro na remoção. Tem utilizadores associados",
     "deleteHospitalButton": "Remover hospital",
+    "deleteHospital": "Tem a certeza que pretende eliminar este hospital?",
+    "hospitalUniqueError": "Hospital já existe",
 
     "404_title": "Página não encontrada",
     "404_text": "Alguma coisa em falta",
