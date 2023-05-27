@@ -85,7 +85,7 @@ class AdminController extends Controller
             abort(404, 'User not found');
         }
 
-        if (Auth::user()->cannot('manageAdmins', $user)) {
+        if (Auth::user()->cannot('manageBans', $user)) {
             abort(401, 'User not allowed manage bans');
         }
         $user->setBan(True);
@@ -100,7 +100,7 @@ class AdminController extends Controller
             abort(404, 'User not found');
         }
 
-        if (Auth::user()->cannot('manageAdmins', $user)) {
+        if (Auth::user()->cannot('manageBans', $user)) {
             abort(401, 'User not allowed manage bans');
         }
         $user->setBan(False);
@@ -112,7 +112,7 @@ class AdminController extends Controller
         if ($user == null) {
             abort(404, 'User not found');
         }
-        if (Auth::user()->cannot('manageAdmins', $user)) {
+        if (Auth::user()->cannot('manageStatus', $user)) {
             abort(401, 'User not allowed to manage status');
         }
 
@@ -143,7 +143,7 @@ class AdminController extends Controller
         if ($user == null) {
             abort(404, 'User not found');
         }
-        if (Auth::user()->cannot('manageAdmins', $user)) {
+        if (Auth::user()->cannot('manageStatus', $user)) {
             abort(401, 'User not allowed to manage status');
         }
 
@@ -174,8 +174,8 @@ class AdminController extends Controller
         if ($user == null) {
             abort(404, 'User not found');
         }
-        if (Auth::user()->cannot('manageAdmins', $user)) {
-            abort(401, 'User not allowed to manage status');
+        if (Auth::user()->cannot('manageAppointments', $user)) {
+            abort(401, 'User not allowed to manage appointments');
         }
 
         $usr = Patient::whereHas(
@@ -192,7 +192,7 @@ class AdminController extends Controller
                 }
             )->first();
         }
-        
+
         if ($usr == null) {
             abort(404, 'Non-Guest user not found');
         }

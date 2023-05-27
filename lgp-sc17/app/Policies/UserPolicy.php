@@ -18,4 +18,19 @@ class UserPolicy
   {
     return Auth::check() && $user->is_admin;
   }
+
+  public function manageStatus(User $user)
+  {
+    return Auth::check() && $user->is_admin;
+  }
+
+  public function manageBans(User $user)
+  {
+    return Auth::check() && $user->is_admin;
+  }
+
+  public function manageAppointments(User $user)
+  {
+    return Auth::check() && $user->is_admin;
+  }
 }
