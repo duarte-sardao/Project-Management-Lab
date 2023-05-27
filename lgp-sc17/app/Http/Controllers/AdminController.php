@@ -78,87 +78,127 @@ class AdminController extends Controller
         ]);
     }
 
-    function ban($id) {
+    function ban(Request $request, $id) {
 
         $user = User::find($id);
+        if ($user == null) {
+            abort(404, 'User not found');
+        }
+
+        if (Auth::user()->cannot('manageAdmins', $user)) {
+            abort(401, 'User not allowed manage bans');
+        }
         $user->setBan(True);
+        return Redirect::route('admin.users.info', $id)->with(['success' => 'userUpdatedWithSuccess']);
     }
 
     
-    function unban($id) {
+    function unban(Request $request, $id) {
 
         $user = User::find($id);
+        if ($user == null) {
+            abort(404, 'User not found');
+        }
+
+        if (Auth::user()->cannot('manageAdmins', $user)) {
+            abort(401, 'User not allowed manage bans');
+        }
         $user->setBan(False);
+        return Redirect::route('admin.users.info', $id)->with(['success' => 'userUpdatedWithSuccess']);
     }
 
-    function updateUser(Request $request, $id) {
-        switch ($request->action) {
-            case 'ban':
-                $this->ban($id);
-                break;
-            case 'unban':
-                $this->unban($id);
-                break;
-            case 'register_patient':
-                $medic = Medic::whereHas(
-                    'user',
-                    function($q) use ($id) {
-                        return $q->where('id', '=', $id);
-                    }
-                )->first();
-                if ($medic != null) {
-                    $medic->delete();
-                }
-
-                Patient::updateOrCreate(
-                    ['user_id' => $id],
-                    [
-                        'healthcare_number' => $request->healthcare_number,
-                        'hospital_id' => intval($request->hospital_id),
-                        'date' => '',
-                        'time' => ''
-                    ]
-                );
-                break;
-            case 'register_medic':
-                $patient = Patient::whereHas(
-                    'user',
-                    function($q) use ($id) {
-                        return $q->where('id', '=', $id);
-                    }
-                )->first();
-                if ($patient != null) {
-                    $patient->delete();
-                }
-                
-                Medic::updateOrCreate(
-                    ['user_id' => $id],
-                    [
-                        'license_number' => $request->license_number,
-                        'hospital_id' => intval($request->hospital_id),
-                        'date' => '',
-                        'time' => ''
-                    ]
-                );
-                break;
-            case 'set_date':
-                $usr = Patient::whereHas(
-                    'user',
-                    function($q) use ($id) {
-                        return $q->where('id', '=', $id);
-                    }
-                )->first();
-                if ($usr == null) {
-                    $usr = Medic::whereHas(
-                        'user',
-                        function($q) use ($id) {
-                            return $q->where('id', '=', $id);
-                        }
-                    )->first();
-                }
-                $usr->setDate($request->date, $request->time);
-                break;
+    function registerPatient(Request $request, $id) {
+        $user = User::find($id);
+        if ($user == null) {
+            abort(404, 'User not found');
         }
+        if (Auth::user()->cannot('manageAdmins', $user)) {
+            abort(401, 'User not allowed to manage status');
+        }
+
+        $medic = Medic::whereHas(
+            'user',
+            function($q) use ($id) {
+                return $q->where('id', '=', $id);
+            }
+        )->first();
+        if ($medic != null) {
+            $medic->delete();
+        }
+
+        Patient::updateOrCreate(
+            ['user_id' => $id],
+            [
+                'healthcare_number' => $request->healthcare_number,
+                'hospital_id' => intval($request->hospital_id),
+                'date' => '',
+                'time' => ''
+            ]
+        );
+        return Redirect::route('admin.users.info', $id)->with(['success' => 'userUpdatedWithSuccess']);
+    }
+
+    function registerMedic(Request $request, $id) {
+        $user = User::find($id);
+        if ($user == null) {
+            abort(404, 'User not found');
+        }
+        if (Auth::user()->cannot('manageAdmins', $user)) {
+            abort(401, 'User not allowed to manage status');
+        }
+
+        $patient = Patient::whereHas(
+            'user',
+            function($q) use ($id) {
+                return $q->where('id', '=', $id);
+            }
+        )->first();
+        if ($patient != null) {
+            $patient->delete();
+        }
+        
+        Medic::updateOrCreate(
+            ['user_id' => $id],
+            [
+                'license_number' => $request->license_number,
+                'hospital_id' => intval($request->hospital_id),
+                'date' => '',
+                'time' => ''
+            ]
+        );
+        return Redirect::route('admin.users.info', $id)->with(['success' => 'userUpdatedWithSuccess']);
+    }
+
+    function setDate(Request $request, $id) {
+        $user = User::find($id);
+        if ($user == null) {
+            abort(404, 'User not found');
+        }
+        if (Auth::user()->cannot('manageAdmins', $user)) {
+            abort(401, 'User not allowed to manage status');
+        }
+
+        $usr = Patient::whereHas(
+            'user',
+            function($q) use ($id) {
+                return $q->where('id', '=', $id);
+            }
+        )->first();
+        if ($usr == null) {
+            $usr = Medic::whereHas(
+                'user',
+                function($q) use ($id) {
+                    return $q->where('id', '=', $id);
+                }
+            )->first();
+        }
+        
+        if ($usr == null) {
+            abort(404, 'Non-Guest user not found');
+        }
+
+        $usr->setDate($request->date, $request->time);
+        return Redirect::route('admin.users.info', $id)->with(['success' => 'userUpdatedWithSuccess']);
     }
 
     function setAdmin(Request $request, $id) {
@@ -183,7 +223,7 @@ class AdminController extends Controller
         }
 
         if (Auth::user()->cannot('manageAdmins', $user)) {
-            abort(401, 'User no allowed to manage admins');
+            abort(401, 'User not allowed to manage admins');
         }
 
         if (Auth::user()->id == $id) {

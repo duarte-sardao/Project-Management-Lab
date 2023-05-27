@@ -32,7 +32,6 @@ const form = useForm({
     hospital_id: '',
     date: '',
     time: '',
-    action: '',
     questionnaire: props.questionnaire,
 });
 
@@ -50,8 +49,11 @@ const submitDate = () => {
 
     const checkbox = document.getElementById('date-modal');
     checkbox.checked = false;
-    form.action = 'set_date';
-    form.post(route('admin.users.update', {id:user.value.id}), {
+    form.post(route('admin.users.setDate', {id:user.value.id}), {
+        onFinish: () => {
+            user.value = props.user;
+            displayToastAction();
+        },
     });
 };
 
@@ -62,8 +64,11 @@ const submitMedic = () => {
     }
     const checkbox = document.getElementById('medic-modal');
     checkbox.checked = false;
-    form.action = 'register_medic';
-    form.post(route('admin.users.update', {id:user.value.id}), {
+    form.post(route('admin.users.registerMedic', {id:user.value.id}), {
+        onFinish: () => {
+            user.value = props.user;
+            displayToastAction();
+        },
     });
 };
 
@@ -74,24 +79,33 @@ const submitPatient = () => {
     }
     const checkbox = document.getElementById('patient-modal');
     checkbox.checked = false;
-    form.action = 'register_patient';
-    form.post(route('admin.users.update', {id:user.value.id}), {
+    form.post(route('admin.users.registerPatient', {id:user.value.id}), {
+        onFinish: () => {
+            user.value = props.user;
+            displayToastAction();
+        },
     });
 };
 
 window.banFunc = () => {
     const checkbox = document.getElementById('ban-modal');
     checkbox.checked = false;
-    form.action = 'ban';
-    form.post(route('admin.users.update', {id:user.value.id}), {
+    useForm({}).post(route('admin.users.ban', {id:user.value.id}), {
+        onFinish: () => {
+            user.value = props.user;
+            displayToastAction();
+        },
     });
 };
 
 window.unbanFunc = () => {
     const checkbox = document.getElementById('unban-modal');
     checkbox.checked = false;
-    form.action = 'unban';
-    form.post(route('admin.users.update', {id:user.value.id}), {
+    useForm({}).post(route('admin.users.unban', {id:user.value.id}), {
+        onFinish: () => {
+            user.value = props.user;
+            displayToastAction();
+        },
     });
 };
 
