@@ -29,30 +29,46 @@ Main languages:
 ```shell
 # Get git repository
 git clone git@github.com:LGP-FEUP-2023/SC17.git
+```
 
+```shell
 # Enter into the application folder
 cd SC17/lgp-sc17/
+```
 
+```shell
 # Install dependencies
 composer install
 npm install
+```
 
+```shell
 # Configure environment variables and generate a laravel key
 cp .env.example .env
 php artisan key:generate
+```
 
+```shell
 # Create a symbolic link from public/storage to storage/app/public
 php artisan storage:link
+```
 
+```shell
 # Build the project
 npm run build
+```
 
+```shell
 # Create docker container with database
 docker compose up -d
+```
 
+```shell
 # Run database migrations 
 php artisan migrate
+```
 
+```shell
 # Initialize the server locally
 php artisan serve # initialize the server locally
 ```
