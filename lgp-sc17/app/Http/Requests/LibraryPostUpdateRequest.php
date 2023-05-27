@@ -26,8 +26,8 @@ class LibraryPostUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required','string', 'max:255'],
-            'subtitle' => ['string', 'max:16', 'nullable'],
+            'title' => ['required', 'string', 'max:255'],
+            'subtitle' => ['string', 'nullable'],
             'body_content' => ['required', 'string'],
             'public' => ['boolean']
         ];

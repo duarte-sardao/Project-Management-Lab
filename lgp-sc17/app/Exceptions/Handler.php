@@ -55,10 +55,11 @@ class Handler extends ExceptionHandler
 
         if (!app()->hasDebugModeEnabled() || $status == 404) {
             return match ($status) {
+                404 => Inertia::render('ErrorPage', ['code' => 404])->toResponse($request)->setStatusCode($status),
                 500, 503 => Inertia::render('ErrorPage', ['code' => 500])->toResponse($request)->setStatusCode($status),
                 403, 401 => Inertia::render('ErrorPage', ['code' => $status])->toResponse($request)->setStatusCode($status),
                 419 => redirect()->back()->withErrors(['status' => __('The page expired, please try again.')]),
-                default => Inertia::render('ErrorPage', ['code' => 404])->toResponse($request)->setStatusCode($status)
+                default => $response
             };
         }
 
