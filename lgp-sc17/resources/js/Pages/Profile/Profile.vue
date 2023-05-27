@@ -70,10 +70,10 @@ if (profile_img_url.value == null) {
     ></MessageToast>
 
     <form @submit.prevent="submit">
-        <div id="profile-grid" class="mt-7 mb-14 grid grid-cols-8 relative">
-            <div class="col-span-2 bg-[#E9EFFD] ml-[3vw] mr-[1vw] rounded-3xl shadow-md pt-[5vh] relative">
+        <div id="profile-grid" class="mt-7 mb-14 grid grid-cols-4 relative">
+            <div class="col-span-1 bg-[#E9EFFD] ml-[3vw] mr-[3vw] rounded-3xl shadow-md pt-[5vh] relative mb-4">
                 <img id="profile-img" class="rounded-full mx-auto mb-[7vh] h-fit w-[200px] h-[200px]" :src="profile_img_url" alt="profile image">
-                <div class="text-gray-800 font-medium text-2xl mb-[4vh] grid justify-center" :class="edit && 'text-center'">
+                <div class="text-gray-800 font-medium text-2xl mb-[2vh] grid justify-center" :class="edit && 'text-center'">
                     <button class="border-0 py-2 px-4 rounded-full hover:bg-lighterBlue" @click="edit = !edit" type="button">
                         <div v-if="!edit" class="">
                             <img src="/svg_icons/settingsProfile.svg" class="inline mr-3 pb-1" alt="Edit profile"/>
@@ -85,27 +85,28 @@ if (profile_img_url.value == null) {
                     </button>
                 </div>
                 <div class="text-gray-800 font-medium text-2xl w-full grid justify-center">
-                    <Link v-if="!isGuest && questionnaire != null" :href="questionnaire" class="py-2 px-4 rounded-full hover:bg-lighterBlue">
+                    <Link v-if="!isGuest && questionnaire != null" :href="questionnaire" class="py-2 px-4 mb-[2vh] rounded-full hover:bg-lighterBlue">
                         <img src="/svg_icons/questionnaire.svg" class="inline mr-3 pb-1" alt="User questionnaire"/>
                         {{ $t("questionnaire") }}
                     </Link>
                 </div>
-                <div class="text-error font-medium text-2xl mt-4 absolute bottom-[5vh] w-full grid justify-center">
+                <div id="logout" class="text-error font-medium text-2xl mt-4 absolute bottom-[5vh] w-full grid justify-center">
                     <Link :href="route('logout')" method="post" as="button" class="py-2 px-4 rounded-full hover:bg-lighterBlue">
                         <img src="/svg_icons/logout.svg" class="inline mr-3 pb-1" alt="Log out"/>
                         {{ $t("logout") }}
                     </Link>
                 </div>
             </div>
-            <div class="col-span-6 border-2 border-[#E9EFFD] ml-[1vw] mr-[3vw] rounded-lg pt-[5vh] px-[3vw] shadow-md">
-                <div class="grid grid-cols-2">
-                    <div class="col-span-1 h-fit">
+            <div class="col-span-3 border-2 border-[#E9EFFD] ml-[1vw] ml-[3vw] mr-[3vw] rounded-lg pt-[5vh] px-[3vw] shadow-md mb-4">
+                <div id="profile-info-grid" class="grid grid-cols-2">
+                    <div id="profile-info-grid-left" class="col-span-1 grid h-fit align-middle">
                         <ProfileTextBox
                             :text="$t('fullName')"
                             v-model="form.name"
                             :edit="edit"
                             :isInput="edit"
                             inputType="text"
+                            class="w-[30vw] profileTextBox"
                             :errors="form.errors.name"
                         />
                         <ProfileTextBox
@@ -114,6 +115,7 @@ if (profile_img_url.value == null) {
                             :edit="edit"
                             :isInput="false"
                             inputType="text"
+                            class="w-[30vw] profileTextBox"
                             errors=""
                         />
                         <ProfileTextBox
@@ -123,15 +125,17 @@ if (profile_img_url.value == null) {
                             :edit="edit"
                             :isInput="false"
                             input-type="text"
+                            class="w-[30vw] profileTextBox"
                             errors=""/>
                     </div>
-                    <div class="col-span-1 grid justify-items-end flex items-start h-fit">
+                    <div id="profile-info-grid-right" class="col-span-1 grid justify-items-end flex flex-col items-start h-fit">
                         <ProfileTextBox
                             :text="'Email'"
                             v-model="user.email"
                             :edit="edit"
                             :isInput="false"
                             inputType="email"
+                            class="w-[30vw] profileTextBox"
                             errors=""
                         />
                         <ProfileTextBox
@@ -141,11 +145,12 @@ if (profile_img_url.value == null) {
                             :isInput="edit"
                             :required="false"
                             inputType="number"
+                            class="w-[30vw] profileTextBox"
                             :errors="(form.errors.phone_number === undefined) ? '':$t(`${form.errors.phone_number}`)"
                         />
                     </div>
                 </div>
-                <div class="grid grid-cols-4 mt-10 mb-[20vh]">
+                <div class="grid grid-cols-4 mt-10 mb-[5vh]">
                     <div class="col-span-3">
                         <div v-if="edit">
                             <label for="image-input" class="pl-5 text-lg text-black/[.57] block">{{ $t('profileImage') }}</label>
@@ -196,5 +201,28 @@ export default {
         background-color: #578AD6;
         --tw-text-opacity: 1;
         color: hsl(var(--pc) / var(--tw-text-opacity));
+    }
+
+    @media all and (max-width: 1000px) {
+        #profile-grid{
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+        }
+        #profile-info-grid {
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+        }
+        #profile-info-grid-left {
+            justify-items: center;
+        }
+        #profile-info-grid-right {
+            justify-items: center;
+        }
+        .profileTextBox {
+            width: 80% !important;
+        }
+        #logout {
+            position: static;
+            margin-top: 0;
+            margin-bottom: 2vh;
+        }
     }
 </style>
