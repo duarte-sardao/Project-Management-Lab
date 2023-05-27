@@ -89,6 +89,7 @@
     "numberOfTopicsError": "Um post só pode ter até 4 tópicos associados. Remova qualquer tópico adicional antes de tentar adicionar um novo.",
     "postSuccessfullyCreated": "Post criado com sucesso",
     "topicSuccessfullyCreated": "Tópico criado com sucesso",
+    "topicSuccessfullyUpdated": "Tópico atualizado com sucesso",
     "comments": "Comentário",
     "backToForum": "Voltar para o fórum",
     "deletePostModal": "Tem a certeza que pretende eliminar este post?",
@@ -119,7 +120,9 @@
     "lessLikesFirst": "Com menos likes primeiro",
 
     "newTopicTitle": "Novo tópico",
+    "editTopicTitle": "Editar tópico",
     "createTopic": "Criar um novo tópico",
+    "editTopic": "Editar tópico",
     "addTopicName": "Adicione o nome do tópico",
     "topicError": "O tópico tem de possuir um título",
     "topicExists": "Já existe um tópico com o nome especificado",
