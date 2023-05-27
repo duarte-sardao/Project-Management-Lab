@@ -89,6 +89,7 @@
     "numberOfTopicsError": "A post can only have up to 4 topics associated. Please remove any additional topics before trying to add a new one.",
     "postSuccessfullyCreated": "The post was created with success",
     "topicSuccessfullyCreated": "The topic was created with success",
+    "topicSuccessfullyUpdated": "The topic was updated with success",
     "comments": "Comment",
     "backToForum": "Back to Forum",
     "deletePostModal": "Are you sure you want to delete this post?",
@@ -119,7 +120,9 @@
     "lessLikesFirst": "Less likes first",
 
     "newTopicTitle": "New topic",
+    "editTopicTitle": "Edit topic",
     "createTopic": "Create a new topic",
+    "editTopic": "Edit topic",
     "addTopicName": "Add the topic name",
     "topicError": "The topic name cannot be empty",
     "topicExists": "Already exists a topic with the specified name",

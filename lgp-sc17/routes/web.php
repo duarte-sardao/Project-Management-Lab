@@ -70,6 +70,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/topic/{id}', [TopicController::class, 'delete'])->name('topic.delete');
     Route::get('/newTopic', [TopicController::class, 'create'])->name('topic.new');
     Route::post('/newTopic', [TopicController::class, 'store'])->name('topic.create');
+    Route::get('/topic/{id}', [TopicController::class, 'edit'])->name('topic.edit');
+    Route::put('/topic/{id}', [TopicController::class, 'update'])->name('topic.update');
 
     Route::get('/profile', [ProfileController::class, 'visualize'])->name('profile');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
