@@ -158,8 +158,8 @@ if (profile_img_url.value == null) {
                         </div>
                         <ProfileInfo :text="$t('status')" :value="status == undefined ? '':$t(status.toLowerCase())" />
                         <ProfileInfo v-if="!isGuest" :text="'Hospital'" :value="hospital" />
-                        <ProfileInfo v-if="!isGuest" :text="$t('nextAppointmentDate')" :value="nextAppointment.date !== '' ? nextAppointment.date : $t('noFutureAppointment')" />
-                        <ProfileInfo v-if="!isGuest" :text="$t('nextAppointmentTime')" :value="nextAppointment.time !== '' ? nextAppointment.time : $t('noFutureAppointment')" />
+                        <ProfileInfo v-if="!isGuest && status == 'Patient'" :text="$t('nextAppointmentDate')" :value="nextAppointment.date !== '' ? nextAppointment.date : $t('noFutureAppointment')" />
+                        <ProfileInfo v-if="!isGuest && status == 'Patient'" :text="$t('nextAppointmentTime')" :value="nextAppointment.time !== '' ? nextAppointment.time : $t('noFutureAppointment')" />
                         <div v-if="user.is_admin" class="my-5 text-xl">
                             <label class="text-error pr-1">{{ $t('isAdmin') }}</label>
                         </div>
