@@ -291,7 +291,7 @@ const displayToastAction = () => {
                             <label for="image-input" class="pl-5 text-lg text-black/[.57] block">{{ $t('profileImage') }}</label>
                             <input id="image-input" @change="inputFile" type="file" accept="image/*" class="file-input file-input-primary w-full max-w-md right-0 bottom-10" />
                         </div>
-                        <ProfileInfo :text="$t('status')" :value="$t(status.toLowerCase())" />
+                        <ProfileInfo :text="$t('status')" :value="status == undefined ? '':$t(status.toLowerCase())" />
                         <ProfileInfo v-if="!isGuest" :text="'Hospital'" :value="hospital" />
                         <ProfileInfo v-if="!isGuest" :text="$t('nextAppointmentDate')" :value="nextAppointment.date !== '' ? nextAppointment.date : $t('noFutureAppointment')" />
                         <ProfileInfo v-if="!isGuest" :text="$t('nextAppointmentTime')" :value="nextAppointment.time !== '' ? nextAppointment.time : $t('noFutureAppointment')" />

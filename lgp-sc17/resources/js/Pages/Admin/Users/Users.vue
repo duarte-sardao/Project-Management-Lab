@@ -48,7 +48,7 @@ getResults();
                         <td class="p-0"></td>
                         <td>{{ user.username }}</td>
                         <td>{{ user.name}}</td>
-                        <td class="text-center">{{ $t(user.status.toLowerCase()) }}</td>
+                        <td class="text-center">{{ user.status == undefined ? '':$t(user.status.toLowerCase()) }}</td>
                         <td class="text-center">
                             <Link class="flex justify-center transition duration-200 hover:scale-125" :href="route('admin.users.info', {id: user.id})">
                                 <img src="/svg_icons/pencil.svg" alt="edit">
