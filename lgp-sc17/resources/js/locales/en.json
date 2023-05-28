@@ -231,8 +231,11 @@
     "setAdmin": "Set admin",
     "unsetAdmin": "Unset admin",
     "userUpdatedWithSuccess": "The user was successfully updated",
+    "questionnaireUpdatedWithSuccess": "Questionnaire updated with success",
     "setDate": "Set Appointment Date",
     "updateAppointment": "Update next appointment date",
+    "setQuestionnaire": "Set questionnaire",
+    "updateQuestionnaire": "Update the questionnaire url",
 
     "chatContent": "Chat Management",
     "noPatientsToDisplay": "There are no patient to display",
@@ -242,5 +245,12 @@
     "chatMedicAssociated": "Professional associated with success",
     "chatMedicAssociatedError": "Association failed",
     "chatMedicRemoved": "Professional removed with success",
-    "chatMedicRemovedError": "Removal failed"
+    "chatMedicRemovedError": "Removal failed",
+
+    "noProfessionalsAssociated": "You are not associanted with any professionals",
+    "noPatientsAssociated": "You are not associated with any patient",
+    "professionalsTeam": "Professionals",
+    "patients": "Patients",
+    "currentPatient": "Current patient",
+    "sendMessage": "Send Message"
 }

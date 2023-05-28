@@ -98,6 +98,7 @@ Route::middleware(['auth', 'bancheck'])->group(function () {
         Route::post('/admin/users/unban/{id}', [AdminController::class, 'unban'])->name('admin.users.unban');
         Route::post('/admin/users/registerMedic/{id}', [AdminController::class, 'registerMedic'])->name('admin.users.registerMedic');
         Route::post('/admin/users/registerPatient/{id}', [AdminController::class, 'registerPatient'])->name('admin.users.registerPatient');
+        Route::post('/admin/users/patient/{id}', [AdminController::class, 'setPatientQuestionnaire'])->name('admin.users.patient.questionnaire');
         Route::post('/admin/users/setDate/{id}', [AdminController::class, 'setDate'])->name('admin.users.setDate');
         Route::post('/admin/users/{id}', [RegisteredMedicController::class, 'storeFromUser'])->name('admin.register.medic');
         Route::post('/admin/users/{id}', [RegisteredPatientController::class, 'storeFromUser'])->name('admin.register.patient');

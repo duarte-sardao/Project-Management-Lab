@@ -23,26 +23,20 @@ class ChatsController extends Controller
         $current_user = Auth::user();
 
         if ($current_user->status() == 'Guest') {
-            return Inertia::render('ErrorPage', ['code' => 404]);
+            return Inertia::render('ErrorPage', ['code' => 403]);
         }
 
         $user_is_medic = Medic::where('user_id','=', $current_user['id']);
         if($user_is_medic->exists()) {
             $has_patients = PatientMedics::where('medic_id','=',$user_is_medic->get()[0]['id'])->exists();
 
-            if($has_patients) {
-                return Inertia::render('Chat/ChatMedic');
-            }
-            return Inertia::render('ErrorPage', ['code' => 404]);
+            return Inertia::render('Chat/ChatMedic');
         } else {
             $patient = Patient::where('user_id','=', $current_user['id'])->get();
 
             $has_medics = PatientMedics::where('patient_id','=',$patient[0]['id'])->exists();
 
-            if($has_medics) {
-                return Inertia::render('Chat/ChatPatient');
-            }
-            return Inertia::render('ErrorPage', ['code' => 404]);
+            return Inertia::render('Chat/ChatPatient');
         }
     }
 
