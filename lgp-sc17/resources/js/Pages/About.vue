@@ -65,7 +65,6 @@ const submit = () => {
                         class="input input-ghost w-full"
                         v-model="form.name"
                         required
-                        autofocus
                         autocomplete="name"
                     />
 
