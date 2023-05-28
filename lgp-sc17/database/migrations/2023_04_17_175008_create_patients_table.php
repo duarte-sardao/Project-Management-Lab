@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->integer('healthcare_number')->unique();
             $table->timestamps();
-            $table->text('questionnaire');
+            $table->text('questionnaire')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users');
         });

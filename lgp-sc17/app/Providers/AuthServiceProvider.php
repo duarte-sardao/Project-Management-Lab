@@ -11,6 +11,8 @@ use App\Models\Topic;
 use App\Policies\TopicPolicy;
 use App\Models\Answer;
 use App\Policies\AnswerPolicy;
+use App\Models\User;
+use App\Policies\UserPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -24,7 +26,8 @@ class AuthServiceProvider extends ServiceProvider
         Post::class => Post::class,
         ForumPost::class => ForumPolicy::class,
         Topic::class => TopicPolicy::class,
-        Answer::class => AnswerPolicy::class
+        Answer::class => AnswerPolicy::class,
+        User::class => UserPolicy::class,
     ];
 
     /**
