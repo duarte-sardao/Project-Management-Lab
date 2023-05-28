@@ -19,14 +19,14 @@ if (profile_img_url.value == null) {
 <template>
     <NavBarSimple :title="title" :subtitle="subtitle"/>
     <div class="pt-12 px-20 flex gap-3 pb-5">
-        <div class="card lg:card-side bg-skyBlue shadow-xl w-2/6 rounded-4xl">  
+        <div class="card lg:card-side bg-skyBlue shadow-xl w-2/6 rounded-4xl">
             <div class="flex-row w-full">
                 <div class="card-body">
                     <div class="card bg-stone lg:card-side bg-base-100 shadow-xl">
                         <figure><img :src="profile_img_url" alt="ProfileImage"/></figure>
                         <div class="card-body w-2/3">
                             <h2 class="card-title">{{user.name}}</h2>
-                            <p>Pacient</p>
+                            <p>{{ $t('patient') }}</p>
                             <div class="card-actions justify-end">
                             </div>
                         </div>
@@ -34,13 +34,13 @@ if (profile_img_url.value == null) {
                     <p></p>
                 </div>
                 <h2 class="text-center text-4xl text-black pb-2">Medic Team</h2>
-                <div class="overflow-auto h-[26rem]"> 
+                <div class="overflow-auto h-[26rem]">
                     <div v-for="medic in medics" class="pl-10 p-7">
                         <div class="card bg-stone lg:card-side bg-base-100 shadow-2xl">
                             <figure><img :src="profile_img_url" alt="ProfileImage"/></figure>
                             <div class="card-body w-2/3">
                                 <h2 class="card-title">{{medic[0].name}}</h2>
-                                <p>Médico</p>
+                                <p>{{ $t('medic') }}</p>
                                 <div class="card-actions justify-end">
                                 </div>
                             </div>
@@ -57,7 +57,7 @@ if (profile_img_url.value == null) {
                 </div>
             </div>
         </div>
-    </div>  
+    </div>
     <Footer></Footer>
 </template>
 
