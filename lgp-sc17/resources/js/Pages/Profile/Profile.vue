@@ -71,7 +71,7 @@ if (profile_img_url.value == null) {
 
     <form @submit.prevent="submit">
         <div id="profile-grid" class="mt-7 mb-14 grid grid-cols-4 relative">
-            <div class="col-span-1 bg-[#E9EFFD] ml-[3vw] mr-[3vw] rounded-3xl shadow-md pt-[5vh] relative mb-4">
+            <div class="col-span-1 bg-[#E9EFFD] ml-[3vw] mr-[3vw] min-h-[75vh] rounded-3xl shadow-md pt-[5vh] relative mb-4">
                 <img id="profile-img" class="rounded-full mx-auto mb-[7vh] h-fit w-[200px] h-[200px]" :src="profile_img_url" alt="profile image">
                 <div class="text-gray-800 font-medium text-2xl mb-[2vh] grid justify-center" :class="edit && 'text-center'">
                     <button class="border-0 py-2 px-4 rounded-full hover:bg-lighterBlue" @click="edit = !edit" type="button">
@@ -84,8 +84,8 @@ if (profile_img_url.value == null) {
                         </div>
                     </button>
                 </div>
-                <div class="text-gray-800 font-medium text-2xl w-full grid justify-center">
-                    <a v-if="!isGuest && questionnaire != null" :href="questionnaire" class="py-2 px-4 rounded-full hover:bg-lighterBlue">
+                <div  v-if="status == 'Patient' && questionnaire != null" class="text-gray-800 font-medium text-2xl w-full grid justify-center">
+                    <a :href="questionnaire" class="py-2 px-4 rounded-full hover:bg-lighterBlue">
                         <img src="/svg_icons/questionnaire.svg" class="inline mr-3 pb-1" alt="User questionnaire"/>
                         {{ $t("questionnaire") }}
                     </a>
