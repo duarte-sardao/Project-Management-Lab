@@ -1,5 +1,5 @@
 <script setup>
-const props = defineProps({
+defineProps({
     message: String,
     error: String
 });
@@ -7,14 +7,14 @@ const props = defineProps({
 
 <template>
     <div v-if="message !== 'null' && message != null && message !== ''">
-        <div class="toast toast-end" style="z-index: 99">
+        <div class="toast toast-end mr-5" style="z-index: 99">
             <div class="alert alert-success text-white">
                 <span>{{ message }}</span>
             </div>
         </div>
     </div>
     <div v-else-if="error !== 'null' && error != null && error !== ''">
-        <div class="toast toast-end" style="z-index: 99">
+        <div class="toast toast-end mr-5" style="z-index: 99">
             <div class="alert alert-error text-white">
                 <span>{{ error }}</span>
             </div>

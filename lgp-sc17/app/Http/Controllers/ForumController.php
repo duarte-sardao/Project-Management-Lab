@@ -67,7 +67,7 @@ class ForumController extends Controller
             abort(404, 'Invalid way of ordering posts');
         }
 
-        $collection = $collection->sortByDesc('posted_at'); // double ordered, latestFirst
+        $collection = $collection->sortByDesc('posted_at');
         switch ($order) {
             case 'oldestFirst':
                 return $collection->sortBy('posted_at');

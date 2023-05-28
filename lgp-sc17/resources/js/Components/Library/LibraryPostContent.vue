@@ -119,15 +119,15 @@ if (usePage().props.flash.success_message || usePage().props.flash.error_message
                 <div  class="form-control pt-8 w-fit">
                     <label class="label cursor-pointer">
                         <span class="label-text font-bold">{{ $t('public') }}&nbsp;&nbsp;</span>
-                        <input type="checkbox" v-model="form.public" :checked="form.public" class="checkbox checkbox-lg checkbox-success focus:ring-transparent" />
+                        <input type="checkbox" v-model="form.public" :checked="form.public" class="checkbox checkbox-lg checkbox-success focus:ring-transparent hover:opacity-70" />
                     </label>
                 </div>
             </div>
             <div class="flex justify-center pt-8">
-                <button class="btn btn-success border-0" type="submit">{{ $t('save') }}</button>
+                <button class="btn btn-success border-0 hover:opacity-70" type="submit">{{ $t('save') }}</button>
             </div>
             <form @submit.prevent="deletePost">
-                <div id="end_opt" class="flex justify-end pt-8">
+                <div id="end_opt" class="flex justify-end pt-8 hover:opacity-70">
                     <button class="btn btn-error border-0" type="submit">{{ $t('delete') }}</button>
                 </div>
             </form>
