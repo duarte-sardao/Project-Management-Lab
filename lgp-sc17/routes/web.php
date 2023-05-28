@@ -11,7 +11,6 @@ use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\ChatsController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use UniSharp\LaravelFilemanager\Lfm;
@@ -48,9 +47,7 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
     Lfm::routes();
 });
 
-
-
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'bancheck'])->group(function () {
     Route::get('forum/search', [ForumController::class, 'search'])->name('forum.search');
     Route::get('/forum', [ForumController::class, 'posts'])->name('forum');
     Route::get('/forum/my_discussions', [ForumController::class, 'my_discussions'])->name('forum-my_discussions');
@@ -95,6 +92,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/users', [AdminController::class, 'usersIndex'])->name('admin.users');
         Route::get('/api/admin/users', [ApiController::class, 'userListAdmin']);
         Route::get('/admin/users/{id}', [AdminController::class, 'userInfo'])->name('admin.users.info');
+        Route::post('/admin/users/setAdmin/{id}', [AdminController::class, 'setAdmin'])->name('admin.users.setAdmin');
+        Route::post('/admin/users/unsetAdmin/{id}', [AdminController::class, 'unsetAdmin'])->name('admin.users.unsetAdmin');
+        Route::post('/admin/users/ban/{id}', [AdminController::class, 'ban'])->name('admin.users.ban');
+        Route::post('/admin/users/unban/{id}', [AdminController::class, 'unban'])->name('admin.users.unban');
+        Route::post('/admin/users/registerMedic/{id}', [AdminController::class, 'registerMedic'])->name('admin.users.registerMedic');
+        Route::post('/admin/users/registerPatient/{id}', [AdminController::class, 'registerPatient'])->name('admin.users.registerPatient');
+        Route::post('/admin/users/setDate/{id}', [AdminController::class, 'setDate'])->name('admin.users.setDate');
         Route::post('/admin/users/{id}', [RegisteredMedicController::class, 'storeFromUser'])->name('admin.register.medic');
         Route::post('/admin/users/{id}', [RegisteredPatientController::class, 'storeFromUser'])->name('admin.register.patient');
 

@@ -85,10 +85,10 @@ if (profile_img_url.value == null) {
                     </button>
                 </div>
                 <div class="text-gray-800 font-medium text-2xl w-full grid justify-center">
-                    <Link v-if="!isGuest && questionnaire != null" :href="questionnaire" class="py-2 px-4 rounded-full hover:bg-lighterBlue">
+                    <a v-if="!isGuest && questionnaire != null" :href="questionnaire" class="py-2 px-4 rounded-full hover:bg-lighterBlue">
                         <img src="/svg_icons/questionnaire.svg" class="inline mr-3 pb-1" alt="User questionnaire"/>
                         {{ $t("questionnaire") }}
-                    </Link>
+                    </a>
                 </div>
                 <div class="text-error font-medium text-2xl mt-4 absolute bottom-[5vh] w-full grid justify-center">
                     <Link :href="route('logout')" method="post" as="button" class="py-2 px-4 rounded-full hover:bg-lighterBlue">
@@ -118,7 +118,7 @@ if (profile_img_url.value == null) {
                         />
                         <ProfileTextBox
                             v-if="!isGuest"
-                            :text="status === 'Patient' ? $t('healthcareNumber'):$t('license')"
+                            :text="status === 'Patient' ? $t('healthcareNumber'):$t('licenseNumber')"
                             v-model="props.number"
                             :edit="edit"
                             :isInput="false"
@@ -154,7 +154,7 @@ if (profile_img_url.value == null) {
                         <ProfileInfo :text="$t('status')" :value="status" />
                         <ProfileInfo v-if="!isGuest" :text="'Hospital'" :value="hospital" />
                         <ProfileInfo v-if="!isGuest" :text="$t('nextAppointmentDate')" :value="nextAppointment.date !== '' ? nextAppointment.date : $t('noFutureAppointment')" />
-                        <ProfileInfo v-if="!isGuest" :text="$t('nextAppointmentDate')" :value="nextAppointment.time !== '' ? nextAppointment.time : $t('noFutureAppointment')" />
+                        <ProfileInfo v-if="!isGuest" :text="$t('nextAppointmentTime')" :value="nextAppointment.time !== '' ? nextAppointment.time : $t('noFutureAppointment')" />
                         <div v-if="user.is_admin" class="my-5 text-xl">
                             <label class="text-error pr-1">{{ $t('isAdmin') }}</label>
                         </div>

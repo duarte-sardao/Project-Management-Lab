@@ -69,19 +69,15 @@ class RegisteredPatientController extends Controller
      * Handle an incoming registration request to an existing user
      *
      */
-    public function storeFromUser(Request $request, $id)
+    /**public function storeFromUser(Request $request, $id)
     {
-
-        Hospital::create([
-            'name' => 'test_hosp',
-        ]);
 
         Patient::create([
             'user_id' => $id,
             'healthcare_number' => $request->healthcare_number,
-            'hospital_id' => 1,
+            'hospital_id' => $request->hospital_id,
         ]);
 
         return;
-    }
+    }**/
 }

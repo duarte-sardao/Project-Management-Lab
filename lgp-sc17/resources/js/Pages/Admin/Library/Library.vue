@@ -103,7 +103,7 @@ const confirmPostDeletion = (id) => {
                         <td>{{ moment(post.created_at).format('DD-MM-YYYY HH:mm:ss') }}</td>
                         <td class="text-center">{{ post.public ? $t('public') : $t('private') }}</td>
                         <td class="text-center">
-                            <Link class="flex justify-center" :href="route('admin.library.post', {id: post.id})">
+                            <Link class="flex justify-center transition duration-200 hover:scale-125" :href="route('admin.library.post', {id: post.id})">
                                 <img src="/svg_icons/pencil.svg" alt="our vision">
                             </Link>
                         </td>
