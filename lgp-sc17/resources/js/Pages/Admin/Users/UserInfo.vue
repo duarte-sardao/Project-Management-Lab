@@ -179,40 +179,41 @@ const displayToastAction = () => {
 
         <form @submit.prevent="submit">
         <div id="profile-grid" class="mt-7 mb-14 grid grid-cols-8 relative">
-            <div class="col-span-2 bg-[#E9EFFD] ml-[1vw] mr-[1vw] rounded-3xl shadow-md pt-[5vh] relative">
+            <div class="col-span-2 bg-[#E9EFFD] ml-[1vw] mr-[1vw] rounded-3xl shadow-md pt-[5vh] relative mb-4">
                 <img id="profile-img" class="rounded-full mx-auto mb-[7vh] h-fit w-[200px] h-[200px]" :src="profile_img_url" alt="profile image">
                 <div class="flex items-center flex-col">
-                    <div v-if="!banned" class="w-[75%] dropdown h-fit">
+                    <div v-if="!banned" class="w-[75%] dropdown h-fit mb-[2vh]">
                         <label tabindex="0" class="btn w-full hover:opacity-70">{{ $t('setStatus') }}</label>
                         <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
                             <li><label for="patient-modal">{{ $t('patient') }}</label></li>
                             <li><label for="medic-modal">{{ $t('medic') }}</label></li>
                         </ul>
                     </div>
-                    <div v-if="!isGuest && !banned" class="mt-10 h-fit w-[75%]">  
+                    <div id="set-date" v-if="!isGuest && !banned" class="mt-10 h-fit w-[75%]">
                         <label for="date-modal" class="btn w-full hover:opacity-70">{{ $t('setDate') }}</label>
                     </div>
-                    <div v-if="!banned" class="mt-10 h-fit w-[75%]">  
+                    <div id="set-admin" v-if="!banned" class="mt-10 h-fit w-[75%]">
                         <label for="admin-modal" class="btn w-full hover:opacity-70">{{ $t(user.is_admin ? 'unsetAdmin':'setAdmin') }}</label>
                     </div>
-                    <div v-if="!user.is_admin && !banned" class="h-fit w-[75%] absolute bottom-[4vh] hover:opacity-70">  
+                    <div id="ban" v-if="!user.is_admin && !banned" class="h-fit w-[75%] absolute bottom-[4vh] hover:opacity-70 mb-[2vh]">
                         <label for="ban-modal" class="btn btn-error w-full">{{ $t('ban') }}</label>
                     </div>
-                    <div v-if="!user.is_admin && banned" class="h-fit w-[75%] absolute bottom-[4vh] hover:opacity-70">  
+                    <div id="unban" v-if="!user.is_admin && banned" class="h-fit w-[75%] absolute bottom-[4vh] hover:opacity-70 mb-[2vh]">
                         <label for="unban-modal" class="btn btn-error w-full">{{ $t('unban') }}</label>
                     </div>
                 </div>
             </div>
 
-            <div class="col-span-6 border-2 border-[#E9EFFD] ml-[1vw] mr-[1vw] rounded-lg pt-[5vh] px-[3vw] shadow-md">
+            <div class="col-span-6 border-2 border-[#E9EFFD] ml-[1vw] mr-[1vw] rounded-lg pt-[5vh] px-[3vw] shadow-md mb-4">
                 <div class="grid grid-cols-1">
-                    <div class="col-span-1 h-fit">
+                    <div id="profile-info-grid" class="col-span-1 grid flex flex-col items-start h-fit">
                         <ProfileTextBox
                             :text="$t('fullName')"
                             v-model="user.name"
                             :edit="edit"
                             :isInput="edit"
                             inputType="text"
+                            class="w-[30vw] profileTextBox"
                             :errors="form.errors.name"
                         />
                         <ProfileTextBox
@@ -221,6 +222,7 @@ const displayToastAction = () => {
                             :edit="edit"
                             :isInput="false"
                             inputType="text"
+                            class="w-[30vw] profileTextBox"
                             errors=""
                         />
                         <ProfileTextBox
@@ -230,6 +232,7 @@ const displayToastAction = () => {
                             :edit="edit"
                             :isInput="false"
                             input-type="text"
+                            class="w-[30vw] profileTextBox"
                             errors=""/>
                         <ProfileTextBox
                             :text="'Email'"
@@ -237,6 +240,7 @@ const displayToastAction = () => {
                             :edit="edit"
                             :isInput="false"
                             inputType="email"
+                            class="w-[30vw] profileTextBox"
                             errors=""
                         />
                         <ProfileTextBox
@@ -246,6 +250,7 @@ const displayToastAction = () => {
                             :isInput="edit"
                             :required="false"
                             inputType="number"
+                            class="w-[30vw] profileTextBox"
                             :errors="(form.errors.phone_number === undefined) ? '':$t(`${form.errors.phone_number}`)"
                         />
                         <ProfileTextBox
@@ -256,11 +261,12 @@ const displayToastAction = () => {
                             :isInput="edit"
                             :required="false"
                             inputType="url"
+                            class="w-[30vw] profileTextBox"
                             :errors="(form.errors.questionnaire === undefined) ? '':$t(`${form.errors.questionnaire}`)"
                         />
                     </div>
                 </div>
-                <div class="grid grid-cols-4 mt-10 mb-[20vh]">
+                <div class="grid grid-cols-4 mt-10 mb-[5vh]">
                     <div class="col-span-3">
                         <div v-if="edit">
                             <label for="image-input" class="pl-5 text-lg text-black/[.57] block">{{ $t('profileImage') }}</label>
@@ -341,9 +347,9 @@ const displayToastAction = () => {
         </div>
         <div class="mt-3 w-full">
             <InputLabel for="hospital" value="Hospital" />
-            <select class="form-control mt-1 input-bordered border-mainBlue rounded-full text-gray-800 w-full" 
+            <select class="form-control mt-1 input-bordered border-mainBlue rounded-full text-gray-800 w-full"
             id="hospital" name="hospital" v-model="form.hospital_id" required focus>
-                <option v-for="hosp in hospital_list" :value=hosp.id  selected>{{hosp.name}}</option>  
+                <option v-for="hosp in hospital_list" :value=hosp.id  selected>{{hosp.name}}</option>
             </select>
             <InputError class="mt-2" :message="form.errors.hospital_id" />
         </div>
@@ -374,9 +380,9 @@ const displayToastAction = () => {
         </div>
         <div class="mt-3 w-full">
             <InputLabel for="hospital" value="Hospital" />
-            <select class="form-control mt-1 input-bordered border-mainBlue rounded-full text-gray-800 w-full" 
+            <select class="form-control mt-1 input-bordered border-mainBlue rounded-full text-gray-800 w-full"
             id="hospital" name="hospital" v-model="form.hospital_id" required focus>
-                <option v-for="hosp in hospital_list" :value=hosp.id  selected>{{hosp.name}}</option>  
+                <option v-for="hosp in hospital_list" :value=hosp.id  selected>{{hosp.name}}</option>
             </select>
             <InputError class="mt-2" :message="form.errors.hospital_id" />
         </div>
@@ -443,5 +449,37 @@ export default {
         background-color: #578AD6;
         --tw-text-opacity: 1;
         color: hsl(var(--pc) / var(--tw-text-opacity));
+    }
+
+    @media all and (max-width: 1200px) {
+        #profile-grid{
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+        }
+        #profile-info-grid {
+            justify-items: center;
+        }
+        .profileTextBox {
+            width: 80% !important;
+        }
+        #ban {
+            position: static;
+            margin-top: 0;
+            margin-bottom: 2vh;
+        }
+        #unban {
+            position: static;
+            margin-top: 0;
+            margin-bottom: 2vh;
+        }
+        #set-admin {
+            position: static;
+            margin-top: 0;
+            margin-bottom: 2vh;
+        }
+        #set-date {
+            position: static;
+            margin-top: 0;
+            margin-bottom: 2vh;
+        }
     }
 </style>

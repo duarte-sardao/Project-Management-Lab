@@ -58,12 +58,12 @@ defineExpose({ focus: () => input.value.focus() });
                 autofocus
                 ref="input"
                 :required="required"
-                class="pb-1 focus-visible:outline-none rounded-full border-2 bg-transparent border-[#B9CEED] h-12 leading-9 pt-1 px-5 w-[30vw] text-gray-800 text-xl"
+                class="pb-1 focus-visible:outline-none rounded-full border-2 bg-transparent border-[#B9CEED] h-12 leading-9 w-full pt-1 px-5 text-gray-800 text-xl"
             />
         </div>
         <div
             v-else
-            class="rounded-full border-2 border-[#B9CEED] h-12 leading-9 pt-1 px-5 w-[30vw] text-gray-800 text-xl" :class="edit && 'bg-slate-200/[.4]'"
+            class="rounded-full border-2 border-[#B9CEED] h-12 leading-9 pt-1 px-5 text-gray-800 text-xl" :class="edit && 'bg-slate-200/[.4]'"
         >
             {{ modelValue }}
         </div>
