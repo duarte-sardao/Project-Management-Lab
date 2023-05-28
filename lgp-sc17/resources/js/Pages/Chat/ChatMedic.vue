@@ -18,10 +18,10 @@ if (profile_img_url.value == null) {
 
 <template>
     <NavBarSimple :title="title" :subtitle="subtitle"/>
-    <div class="pt-12 px-20 flex gap-3 pb-5">
+    <div class="pt-12 mb-7 px-20 flex gap-3 pb-5">
         <div class="card lg:card-side bg-skyBlue shadow-xl w-2/6 rounded-4xl">
             <div class="card-body"> 
-                <p class="block card-title text-bold text-black text-5xl text-center pt-5"> Patients </p> 
+                <p class="block card-title text-bold text-black text-5xl text-center pt-5"> {{ $t("patients") }} </p> 
                 <div class="overflow-auto h-[36rem]">
                     <div v-for="patient in patients"> 
                         <div class="card-body">
@@ -29,7 +29,7 @@ if (profile_img_url.value == null) {
                                 <figure><img class="ml-4" :src="profile_img_url" alt="ProfileImage"/></figure>
                                 <div class="card-body w-2/3">
                                     <h2 class="card-title">{{patient[0].name}}</h2>
-                                    <p> Patient </p>
+                                    <p> {{ $t("patient") }} </p>
                                     <div class="card-actions justify-end">
                                         <button class="btn btn-circle border-0 bg-adminMainBlue hover:bg-indigo text-white" 
                                             @click="fetchMessages(patient[0])"
@@ -42,14 +42,17 @@ if (profile_img_url.value == null) {
                 </div>
             </div>
         </div>
-        <div class="card lg:card-side bg-inherit border-2 border-skyBlue/75 shadow-xl w-4/6">
+        <div v-if="patients.length" class="card lg:card-side bg-inherit border-2 border-skyBlue/75 shadow-xl w-4/6">
             <div class="card-body">
-                <h2 class="card-title text-black">Paciente atual: {{this.current_patient.name}}</h2>
+                <h2 class="card-title text-black">{{ $t("currentPatient") }}: {{this.current_patient.name}}</h2>
                 <ChatMessage :messages="messages" :user="user" class="h-3/4"></ChatMessage>
                 <div class="card-actions justify-end">
                     <ChatForm v-on:messagesent="addMessage" :user="user" :patient="current_patient"></ChatForm>
                 </div>
             </div>
+        </div>
+        <div v-else class="flex items-center w-4/6 justify-center text-lg text-gray-400">
+            {{ $t('noPatientsAssociated') }}
         </div>
     </div>  
     <Footer></Footer>

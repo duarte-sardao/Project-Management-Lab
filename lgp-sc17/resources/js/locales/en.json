@@ -242,5 +242,12 @@
     "chatMedicAssociated": "Professional associated with success",
     "chatMedicAssociatedError": "Association failed",
     "chatMedicRemoved": "Professional removed with success",
-    "chatMedicRemovedError": "Removal failed"
+    "chatMedicRemovedError": "Removal failed",
+
+    "noProfessionalsAssociated": "You are not associanted with any professionals",
+    "noPatientsAssociated": "You are not associated with any patient",
+    "professionalsTeam": "Professionals",
+    "patients": "Patients",
+    "currentPatient": "Current patient",
+    "sendMessage": "Send Message"
 }
