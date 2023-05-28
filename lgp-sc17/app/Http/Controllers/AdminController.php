@@ -64,6 +64,8 @@ class AdminController extends Controller
         }
 
         $hosps = Hospital::orderBy('created_at', 'desc')->get();
+        $lic_numbs = Medic::pluck('license_number')->toArray();
+        $hc_numbs = Patient::pluck('healthcare_number')->toArray();
 
         return Inertia::render('Admin/Users/UserInfo', [
             'user' => $user,
@@ -74,7 +76,9 @@ class AdminController extends Controller
             'hospital' => $hospital,
             'questionnaire' => $questionnaire,
             'nextAppointment' => $appointment,
-            'hospital_list' => $hosps
+            'hospital_list' => $hosps,
+            'license_list' => $lic_numbs,
+            'healthcare_list' => $hc_numbs,
         ]);
     }
 
