@@ -64,8 +64,6 @@ class AdminController extends Controller
         }
 
         $hosps = Hospital::orderBy('created_at', 'desc')->get();
-        $lic_numbs = Medic::pluck('license_number')->toArray();
-        $hc_numbs = Patient::pluck('healthcare_number')->toArray();
 
         return Inertia::render('Admin/Users/UserInfo', [
             'user' => $user,
@@ -77,8 +75,6 @@ class AdminController extends Controller
             'questionnaire' => $questionnaire,
             'nextAppointment' => $appointment,
             'hospital_list' => $hosps,
-            'license_list' => $lic_numbs,
-            'healthcare_list' => $hc_numbs,
         ]);
     }
 
@@ -111,6 +107,7 @@ class AdminController extends Controller
         return Redirect::route('admin.users.info', $id)->with(['success' => 'userUpdatedWithSuccess']);
     }
 
+    
     function registerPatient(Request $request, $id) {
         $user = User::find($id);
         if ($user == null) {
@@ -118,6 +115,11 @@ class AdminController extends Controller
         }
         if (Auth::user()->cannot('manageStatus', $user)) {
             abort(401, 'User not allowed to manage status');
+        }
+
+        $numb = Patient::where('healthcare_number','=', $request->healthcare_number)->first();
+        if($numb != null) {
+            return Redirect::route('admin.users.info', $id)->withErrors(['healthcare_number' => 'Number is taken']);
         }
 
         $medic = Medic::whereHas(
@@ -149,6 +151,11 @@ class AdminController extends Controller
         }
         if (Auth::user()->cannot('manageStatus', $user)) {
             abort(401, 'User not allowed to manage status');
+        }
+
+        $numb = Medic::where('license_number','=',$request->license_number)->first();
+        if($numb != null) {
+            return Redirect::route('admin.users.info', $id)->withErrors(['license_number' => 'Number is taken']);
         }
 
         $patient = Patient::whereHas(

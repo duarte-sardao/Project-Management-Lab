@@ -46,12 +46,11 @@ const submitDate = () => {
         return;
     }
 
-
-    const checkbox = document.getElementById('date-modal');
-    checkbox.checked = false;
     form.post(route('admin.users.setDate', {id:user.value.id}), {
         onFinish: () => {
             user.value = props.user;
+            const checkbox = document.getElementById('date-modal');
+            checkbox.checked = false;
             displayToastAction();
         },
     });
@@ -62,11 +61,12 @@ const submitMedic = () => {
       form.errors.license_number = "Must be greater than 0.";
       return;
     }
-    const checkbox = document.getElementById('medic-modal');
-    checkbox.checked = false;
+
     form.post(route('admin.users.registerMedic', {id:user.value.id}), {
         onFinish: () => {
             user.value = props.user;
+            const checkbox = document.getElementById('medic-modal');
+            checkbox.checked = false;
             displayToastAction();
         },
     });
@@ -77,33 +77,34 @@ const submitPatient = () => {
       form.errors.healthcare_number = "Must be greater than 0.";
       return;
     }
-    const checkbox = document.getElementById('patient-modal');
-    checkbox.checked = false;
+
     form.post(route('admin.users.registerPatient', {id:user.value.id}), {
         onFinish: () => {
             user.value = props.user;
+            const checkbox = document.getElementById('patient-modal');
+            checkbox.checked = false;
             displayToastAction();
         },
     });
 };
 
 window.banFunc = () => {
-    const checkbox = document.getElementById('ban-modal');
-    checkbox.checked = false;
     useForm({}).post(route('admin.users.ban', {id:user.value.id}), {
         onFinish: () => {
             user.value = props.user;
+            const checkbox = document.getElementById('ban-modal');
+            checkbox.checked = false;
             displayToastAction();
         },
     });
 };
 
 window.unbanFunc = () => {
-    const checkbox = document.getElementById('unban-modal');
-    checkbox.checked = false;
     useForm({}).post(route('admin.users.unban', {id:user.value.id}), {
         onFinish: () => {
             user.value = props.user;
+            const checkbox = document.getElementById('unban-modal');
+            checkbox.checked = false;
             displayToastAction();
         },
     });
@@ -136,11 +137,11 @@ if (profile_img_url.value == null) {
 }
 
 const adminManagement = () => {
-    const checkbox = document.getElementById('admin-modal');
-    checkbox.checked = false;
     useForm({}).post(route(`admin.users.${props.user.is_admin ? 'un' : ''}setAdmin`, { id: user.value.id }), {
         onFinish: () => {
             user.value = props.user;
+            const checkbox = document.getElementById('admin-modal');
+            checkbox.checked = false;
             displayToastAction();
         },
     })
