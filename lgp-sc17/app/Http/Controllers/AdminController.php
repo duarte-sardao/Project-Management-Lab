@@ -275,4 +275,21 @@ class AdminController extends Controller
             'hospitals' => Hospital::orderBy('created_at', 'desc')->paginate(6)
         ]);
     }
+
+    function chatIndex(Request $request) {
+        $patients = Patient::select('patients.*', 'users.name', 'users.username')
+            ->join('users', 'patients.user_id', '=', 'users.id')
+            ->orderBy('patients.created_at', 'desc')
+            ->paginate(6);
+
+        $medics = Medic::select('medics.*', 'users.name')
+            ->join('users', 'users.id', '=', 'medics.user_id')
+            ->orderBy('medics.created_at', 'desc')
+            ->paginate(6);
+
+        return Inertia::render('Admin/Chat', [
+            'patients' => $patients,
+            'medics' => $medics
+        ]);
+    }
 }

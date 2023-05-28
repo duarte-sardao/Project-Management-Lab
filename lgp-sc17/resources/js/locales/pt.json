@@ -90,6 +90,7 @@
     "numberOfTopicsError": "Um post só pode ter até 4 tópicos associados. Remova qualquer tópico adicional antes de tentar adicionar um novo.",
     "postSuccessfullyCreated": "Post criado com sucesso",
     "topicSuccessfullyCreated": "Tópico criado com sucesso",
+    "topicSuccessfullyUpdated": "Tópico atualizado com sucesso",
     "comments": "Comentário",
     "backToForum": "Voltar para o fórum",
     "deletePostModal": "Tem a certeza que pretende eliminar este post?",
@@ -120,7 +121,9 @@
     "lessLikesFirst": "Com menos likes primeiro",
 
     "newTopicTitle": "Novo tópico",
+    "editTopicTitle": "Editar tópico",
     "createTopic": "Criar um novo tópico",
+    "editTopic": "Editar tópico",
     "addTopicName": "Adicione o nome do tópico",
     "topicError": "O tópico tem de possuir um título",
     "topicExists": "Já existe um tópico com o nome especificado",
@@ -162,7 +165,7 @@
     "isAdmin": "Conta de Administração",
     "users": "Utilizadores",
 
-    "forumAdministrationTitle": "Admnistração do fórum",
+    "forumAdministrationTitle": "Administração do fórum",
     "forumContent": "Gestão do fórum",
     "forumContentHint": "Gerir posts e tópicos do fórum ",
     "adminForumDateAdded": "Data de adição",
@@ -170,7 +173,7 @@
     "adminTopicCreate": "Adicionar um tópico",
     "adminNoTopicsToDisplay": "Não existem tópicos para gerir",
 
-    "hospitalsAdministrationTitle": "Admnistração dos hospitais",
+    "hospitalsAdministrationTitle": "Administração dos hospitais",
     "hospitals": "Hospitais",
     "hospitalsContent": "Gestão dos hospitais",
     "hospitalsContentHint": "Criar e gerir hospitais",
@@ -181,7 +184,8 @@
     "hospitalDeleted": "Hospital removido com sucesso",
     "hospitalDeletedError": "Erro na remoção. Tem utilizadores associados",
     "deleteHospitalButton": "Remover hospital",
-    "deleteHospital": "Tem a certeza que pertende eliminar este hospital?",
+    "deleteHospital": "Tem a certeza que pretende eliminar este hospital?",
+    "hospitalUniqueError": "Hospital já existe",
 
     "404_title": "Página não encontrada",
     "404_text": "Alguma coisa em falta",
@@ -227,5 +231,15 @@
     "unsetAdmin": "Remover administrador",
     "userUpdatedWithSuccess": "Utilizador atualizado com sucesso",
     "setDate": "Definir data de consulta",
-    "updateAppointment": "Atualizar data da próxima consulta"
+    "updateAppointment": "Atualizar data da próxima consulta",
+
+    "chatContent": "Gestão do Chat",
+    "noPatientsToDisplay": "Não existem pacientes registados",
+    "noMedicsToDisplay": "Não existem médicos registados",
+    "chatContentHint": "Associação de médicos a pacientes",
+    "associated": "Associado",
+    "chatMedicAssociated": "Médico associado com successo",
+    "chatMedicAssociatedError": "Falha na associação",
+    "chatMedicRemoved": "Médico removido com successo",
+    "chatMedicRemovedError": "Falha na remoção"
 }

@@ -8,12 +8,15 @@ use App\Models\Medic;
 use App\Models\Patient;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 
 class HospitalController extends Controller
 {
     function create(HospitalPostUpdateRequest $request) {
         $request->user()->fill($request->validated());
+
+        if (Hospital::where('name','=',$request->name)->exists()) {
+            return to_route('admin.hospitals')->with(['error' => 'hospitalUniqueError']);
+        }
 
         $hospital = new Hospital();
         $hospital->name = $request->name;

@@ -15,7 +15,7 @@
     "iAgree": "I Agree to ",
     "termsAndConditions": "Terms and Conditions",
     "alreadyRegistered": "Already registered?",
-    "registerAdvice": "*If you\"re a patient, contact your doctor team after sign up and get access to patient sign up with additional features",
+    "registerAdvice": "*If you're a patient, contact your doctor team after sign up and get access to patient sign up with additional features",
     "medicalStaffRegister": "Register - Medical Staff",
     "medicalStaff": "Medical Staff",
     "licenseNumber": "License number",
@@ -90,6 +90,7 @@
     "numberOfTopicsError": "A post can only have up to 4 topics associated. Please remove any additional topics before trying to add a new one.",
     "postSuccessfullyCreated": "The post was created with success",
     "topicSuccessfullyCreated": "The topic was created with success",
+    "topicSuccessfullyUpdated": "The topic was updated with success",
     "comments": "Comment",
     "backToForum": "Back to Forum",
     "deletePostModal": "Are you sure you want to delete this post?",
@@ -120,7 +121,9 @@
     "lessLikesFirst": "Less likes first",
 
     "newTopicTitle": "New topic",
+    "editTopicTitle": "Edit topic",
     "createTopic": "Create a new topic",
+    "editTopic": "Edit topic",
     "addTopicName": "Add the topic name",
     "topicError": "The topic name cannot be empty",
     "topicExists": "Already exists a topic with the specified name",
@@ -184,6 +187,7 @@
     "deleteHospitalButton": "Delete hospital",
     "deleteHospital": "Are you sure you want to delete this hospital?",
 
+    "hospitalUniqueError": "Hospital already created",
 
     "404_title": "Page not found",
     "404_text": "Something's missing",
@@ -229,5 +233,15 @@
     "unsetAdmin": "Unset admin",
     "userUpdatedWithSuccess": "The user was successfully updated",
     "setDate": "Set Appointment Date",
-    "updateAppointment": "Update next appointment date"
+    "updateAppointment": "Update next appointment date",
+
+    "chatContent": "Chat Management",
+    "noPatientsToDisplay": "There are no patient to display",
+    "noMedicsToDisplay": "There are no medics to display",
+    "chatContentHint": "Association of medics to patients",
+    "associated": "Associated",
+    "chatMedicAssociated": "Medic associated with success",
+    "chatMedicAssociatedError": "Association failed",
+    "chatMedicRemoved": "Medic removed with success",
+    "chatMedicRemovedError": "Removal failed"
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\TopicController;
@@ -9,9 +10,12 @@ use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\ChatsController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use UniSharp\LaravelFilemanager\Lfm;
+use App\Http\Controllers\Auth\RegisteredPatientController;
+use App\Http\Controllers\Auth\RegisteredMedicController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,11 +67,22 @@ Route::middleware(['auth', 'bancheck'])->group(function () {
     Route::delete('/topic/{id}', [TopicController::class, 'delete'])->name('topic.delete');
     Route::get('/newTopic', [TopicController::class, 'create'])->name('topic.new');
     Route::post('/newTopic', [TopicController::class, 'store'])->name('topic.create');
+    Route::get('/topic/{id}', [TopicController::class, 'edit'])->name('topic.edit');
+    Route::put('/topic/{id}', [TopicController::class, 'update'])->name('topic.update');
 
     Route::get('/profile', [ProfileController::class, 'visualize'])->name('profile');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/chat', [ChatsController::class, 'index'])->name('chat');
+    Route::get('/messages', [ChatsController::class, 'fetchMessagesPatient']);
+    Route::post('/messages', [ChatsController::class, 'sendMessagePatient']);
+    Route::get('/messagesMedic', [ChatsController::class, 'fetchMessagesMedic']);
+    Route::post('/messagesMedic', [ChatsController::class, 'sendMessageMedic']);
+
+    Route::get('/getMedics', [ChatsController::class, 'fetchMedics']);
+    Route::get('/getPatients', [ChatsController::class, 'fetchPatients']);
 
     Route::middleware('admin')->group(function () {
         //Dashboard
@@ -84,6 +99,9 @@ Route::middleware(['auth', 'bancheck'])->group(function () {
         Route::post('/admin/users/registerMedic/{id}', [AdminController::class, 'registerMedic'])->name('admin.users.registerMedic');
         Route::post('/admin/users/registerPatient/{id}', [AdminController::class, 'registerPatient'])->name('admin.users.registerPatient');
         Route::post('/admin/users/setDate/{id}', [AdminController::class, 'setDate'])->name('admin.users.setDate');
+        Route::post('/admin/users/{id}', [RegisteredMedicController::class, 'storeFromUser'])->name('admin.register.medic');
+        Route::post('/admin/users/{id}', [RegisteredPatientController::class, 'storeFromUser'])->name('admin.register.patient');
+
         //Library
         Route::get('/admin/library', [AdminController::class, 'libraryIndex'])->name('admin.library');
         Route::get('/api/admin/library', [ApiController::class, 'libraryPostsAdmin']);
@@ -102,6 +120,14 @@ Route::middleware(['auth', 'bancheck'])->group(function () {
         Route::get('/api/admin/hospitals', [ApiController::class, 'hospitals']);
         Route::post('/admin/hospitals/new', [HospitalController::class, 'create'])->name('admin.hospitals.create');
         Route::delete('/admin/hospitals/{id}', [HospitalController::class, 'delete'])->name('admin.hospitals.delete');
+
+        //Chat
+        Route::get('/admin/chat', [AdminController::class, 'chatIndex'])->name('admin.chat');
+        Route::get('/admin/chat/{patient_id}/medics', [ChatController::class, 'chatMedics'])->name('admin.chat.medics');
+        Route::get('/api/admin/chat/patients', [ApiController::class, 'chatPatients']);
+        Route::get('/api/admin/chat/medics', [ApiController::class, 'chatMedics']);
+        Route::post('/admin/chat/{patient_id}/medics/{medic_id}', [ChatController::class, 'addMedicToPatient'])->name('admin.chat.medics.associate');
+        Route::delete('/admin/chat/{patient_id}/medics/{medic_id}', [ChatController::class, 'removeMedicToPatient'])->name('admin.chat.medics.remove');
     });
 });
 

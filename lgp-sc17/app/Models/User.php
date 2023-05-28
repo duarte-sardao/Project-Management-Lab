@@ -70,4 +70,8 @@ class User extends Authenticatable
         $this->banned = $b_bool;
         $this->save();
     }
+
+    public function messages() {
+        return $this->hasMany(Message::class);
+    }
 }

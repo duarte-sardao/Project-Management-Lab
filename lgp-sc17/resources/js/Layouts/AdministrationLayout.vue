@@ -44,6 +44,10 @@ const props = defineProps({
                     <img :src="`/svg_icons/adminHospitals${props.page === 'hospitals' ? 'Selected':''}.svg`" alt="Dashboard" class="max-h-[25px] h-[25px] w-fit"/>
                     {{ $t("hospitals") }}
                 </Link></li>
+                <li><Link :class="{ 'bg-mainBlue text-white': props.page === 'chat' }" class="pl-[25%] active:bg-mainBlue" :href="route('admin.chat')">
+                    <img :src="`/svg_icons/adminChat${props.page === 'chat' ? 'Selected':''}.svg`" alt="Dashboard" class="max-h-[25px] h-[25px] w-fit"/>
+                    Chat
+                </Link></li>
                 <template v-for="entry in languages">
                     <li v-if="entry.language != i18n.global.locale.value" style="margin-top: auto !important;">
                         <button @click="changeLocale(entry.language)" class="flex justify-center group">

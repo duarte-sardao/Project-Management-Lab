@@ -21,6 +21,14 @@ class TopicPolicy
   }
 
   /**
+   * Only an admin user can edit topics
+   */
+  public function edit(User $user)
+  {
+    return Auth::check() && $user->is_admin;
+  }
+
+  /**
    * Only logged users can follow topics 
    */
   public function follow(User $user)

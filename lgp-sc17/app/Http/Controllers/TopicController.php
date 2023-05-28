@@ -25,6 +25,57 @@ class TopicController extends Controller
     }
 
     /**
+     * Display the edit topic page
+     */
+    public function edit(Request $request, $id)
+    {
+        $topic = Topic::find($id);
+        if ($topic == null) {
+            abort(404, "Invalid topic id");
+        }
+        return Inertia::render('Admin/Forum/CreateTopic', ['topic' => $topic]);
+    }
+
+    /**
+     * Handle the incoming edit topic request
+     */
+    public function update(Request $request, $id)
+    {
+        $topic = Topic::find($id);
+        if ($topic == null) {
+            abort(404, "Invalid topic id");
+        }
+
+        if(Auth::user()->cannot('edit', $topic)) {
+            abort(401, "User not allowed to edit a topic");
+        }
+
+        $request->validate([
+            'topic' => 'required|string|max:32',
+            'color' => 'required|string|max:7',
+        ]);
+
+        if ($request->topic != null && $request->topic != $topic->topic && !Topic::where('topic', $request->topic)->get()->isEmpty()) {
+            return back()->withErrors(['topic' => "topicExists"]);
+        }
+
+        if ($request->color != null && $request->color != $topic->color && !Topic::where('color', $request->color)->get()->isEmpty()) {
+            return back()->withErrors(['color' => "colorError"]);
+        }
+
+        if ($request->topic != null) {
+            $topic->topic = $request->topic;
+        }
+        if ($request->color != null) {
+            $topic->color = $request->color;
+        }
+
+        $topic->save();
+
+        return Redirect::route('admin.forum')->with(['success' => 'topicSuccessfullyUpdated']);
+    } 
+
+    /**
      * Handle an incoming topic request
      * 
      * @throws \Illuminate\Validation\ValidationException

@@ -173,11 +173,16 @@ const getResults = async (page = 1) => {
                         <table v-if="topics.length" class="table w-full my-8 bg-transparent">
                             <tbody>
                                 <tr v-for="topic in topics" class="border-b-2">
-                                    <td class="bg-transparent text-center text-[#4C4C4C] text-lg whitespace-pre-wrap">{{ topic.topic }}</td>
-                                    <td class="text-center bg-transparent">
+                                    <td class="w-6/12 bg-transparent text-center text-[#4C4C4C] text-lg whitespace-pre-wrap">{{ topic.topic }}</td>
+                                    <td class="w-4/12 text-center bg-transparent">
                                         <div class="inline-block align-middle rounded-full border-1 w-[20px] h-[20px] mb-[3px] mr-2" :style="`background:${topic.color}`"></div>
                                     </td>
-                                    <td class="text-center bg-transparent">
+                                    <td class="w-1/12 text-center bg-transparent">
+                                        <Link class="flex justify-center transition duration-200 hover:scale-125" :href="route('topic.edit', {id: topic.id})">
+                                            <img class="min-w-[30px] max-h-[30px] h-[30px]" src="/svg_icons/pencil.svg" alt="edit">
+                                        </Link>
+                                    </td>
+                                    <td class="w-1/12 text-center bg-transparent">
                                         <form @submit.prevent="confirmTopicDeletion(topic.id)">
                                             <div id="end_opt" class="flex justify-center">
                                                 <button class="transition duration-200 hover:scale-125" type="submit">

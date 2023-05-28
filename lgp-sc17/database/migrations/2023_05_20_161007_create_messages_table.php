@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('topics', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->string('topic', 32)->unique();
-            $table->string('color', 7);
             $table->timestamps();
+            $table->integer('user_id')->unsigned();
+            $table->text('message');
+            $table->integer('patient_id')->unsigned();
         });
     }
 
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('topics');
+        Schema::dropIfExists('messages');
     }
 };
