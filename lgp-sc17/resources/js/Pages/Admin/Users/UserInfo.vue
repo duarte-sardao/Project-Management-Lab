@@ -87,6 +87,22 @@ const submitPatient = () => {
     });
 };
 
+const submitQuestionnaire = () => {
+    if (form.questionnaire.trim() == '') {
+        form.errors.questionnaire = 'The questionnaire must not be empty.';
+        return;
+    }
+
+    const checkbox = document.getElementById('questionnaire-modal');
+    checkbox.checked = false;
+    form.post(route('admin.users.patient.questionnaire', { id: user.value.id }), {
+        onFinish: () => {
+            user.value = props.user;
+            displayToastAction();
+        }
+    });
+}
+
 window.banFunc = () => {
     const checkbox = document.getElementById('ban-modal');
     checkbox.checked = false;
@@ -191,6 +207,9 @@ const displayToastAction = () => {
                     </div>
                     <div id="set-date" v-if="!isGuest && !banned" class="mt-10 h-fit w-[75%]">
                         <label for="date-modal" class="btn w-full hover:opacity-70">{{ $t('setDate') }}</label>
+                    </div>
+                    <div id="set-questionnaire" v-if="status == 'Patient' && !banned" class="mt-10 h-fit w-[75%]">
+                        <label for="questionnaire-modal" class="btn w-full hover:opacity-70">{{ $t('setQuestionnaire') }}</label>
                     </div>
                     <div id="set-admin" v-if="!banned" class="mt-10 h-fit w-[75%]">
                         <label for="admin-modal" class="btn w-full hover:opacity-70">{{ $t(user.is_admin ? 'unsetAdmin':'setAdmin') }}</label>
@@ -422,6 +441,29 @@ const displayToastAction = () => {
         <div class="modal-action">
         <label for="date-modal" class="btn">{{ $t('cancel') }}</label>
         <PrimaryButton :disabled="form.processing">{{ $t('confirm') }}</PrimaryButton> <!--and this too-->
+        </div>
+    </form>
+    </div>
+    </div>
+    
+    <input type="checkbox" id="questionnaire-modal" class="modal-toggle" />
+    <div class="modal">
+    <div class="modal-box">
+    <form @submit.prevent="submitQuestionnaire">
+        <p class="py-4">{{ $t("updateQuestionnaire")}}</p>
+        <div class="mt-3 w-full">
+            <TextInput
+                id="questionnaire"
+                type="url"
+                class="mt-1 input-bordered border-mainBlue rounded-full text-gray-800 w-full"
+                :placeholder="$t('questionnaire')"
+                v-model="form.questionnaire"
+            />
+            <InputError class="mt-2" :message="form.errors.questionnaire" />
+        </div>
+        <div class="modal-action">
+        <label for="questionnaire-modal" class="btn">{{ $t('cancel') }}</label>
+        <PrimaryButton :disabled="form.processing">{{ $t('confirm') }}</PrimaryButton>
         </div>
     </form>
     </div>

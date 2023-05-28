@@ -230,8 +230,11 @@
     "setAdmin": "Definir administrador",
     "unsetAdmin": "Remover administrador",
     "userUpdatedWithSuccess": "Utilizador atualizado com sucesso",
+    "questionnaireUpdatedWithSuccess": "Questionário atualizado com sucesso",
     "setDate": "Definir data de consulta",
     "updateAppointment": "Atualizar data da próxima consulta",
+    "setQuestionnaire": "Definir questionário",
+    "updateQuestionnaire": "Atualizar url do questionário",
 
     "chatContent": "Gestão do Chat",
     "noPatientsToDisplay": "Não existem pacientes registados",
