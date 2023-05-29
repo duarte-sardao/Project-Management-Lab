@@ -230,8 +230,11 @@
     "setAdmin": "Definir administrador",
     "unsetAdmin": "Remover administrador",
     "userUpdatedWithSuccess": "Utilizador atualizado com sucesso",
+    "questionnaireUpdatedWithSuccess": "Questionário atualizado com sucesso",
     "setDate": "Definir data de consulta",
     "updateAppointment": "Atualizar data da próxima consulta",
+    "setQuestionnaire": "Definir questionário",
+    "updateQuestionnaire": "Atualizar url do questionário",
 
     "chatContent": "Gestão do Chat",
     "noPatientsToDisplay": "Não existem pacientes registados",
@@ -241,5 +244,12 @@
     "chatMedicAssociated": "Profissional associado com successo",
     "chatMedicAssociatedError": "Falha na associação",
     "chatMedicRemoved": "Profissional removido com successo",
-    "chatMedicRemovedError": "Falha na remoção"
+    "chatMedicRemovedError": "Falha na remoção",
+
+    "noProfessionalsAssociated": "De momento não se encontra associado a nenhuma equipa de profissionais",
+    "noPatientsAssociated": "De momento não se encontra associado a nenhum paciente",
+    "professionalsTeam": "Profissionais",
+    "patients": "Pacientes",
+    "currentPatient": "Paciente atual",
+    "sendMessage": "Enviar mensagem"
 }

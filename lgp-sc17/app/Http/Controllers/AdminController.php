@@ -144,6 +144,33 @@ class AdminController extends Controller
         return Redirect::route('admin.users.info', $id)->with(['success' => 'userUpdatedWithSuccess']);
     }
 
+    function setPatientQuestionnaire(Request $request, $id) {
+        $user = User::find($id);
+        if ($user == null) {
+            abort(404, 'User not found');
+        }
+
+        if (Auth::user()->cannot('manageQuestionnaire', $user)) {
+            abort(401, 'User not allowed to manage status');
+        }
+        $patient = Patient::whereHas(
+            'user',
+            function($q) use ($id) {
+                return $q->where('id', '=', $id);
+            }
+        )->first();
+        if ($patient == null) {
+            abort(404, 'Patient not found');
+        }
+
+        if ($request->questionnaire != null) {
+            $patient->questionnaire = $request->questionnaire;
+            $patient->save();
+        }
+
+        return Redirect::route('admin.users.info', $id)->with(['success' => 'questionnaireUpdatedWithSuccess']);
+    }
+
     function registerMedic(Request $request, $id) {
         $user = User::find($id);
         if ($user == null) {

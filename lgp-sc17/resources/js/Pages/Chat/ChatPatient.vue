@@ -1,5 +1,5 @@
 <script setup>
-import { Link, usePage } from "@inertiajs/vue3";
+import { usePage } from "@inertiajs/vue3";
 import NavBarSimple from "@/Components/Navbar/NavBarSimple.vue";
 import Footer from "@/Components/Footer.vue";
 import ChatMessage from "@/Components/Chat/ChatMessages.vue";
@@ -18,7 +18,7 @@ if (profile_img_url.value == null) {
 
 <template>
     <NavBarSimple :title="title" :subtitle="subtitle"/>
-    <div class="pt-12 px-20 flex gap-3 pb-5">
+    <div class="pt-12 mb-7 px-20 flex gap-3 pb-5">
         <div class="card lg:card-side bg-skyBlue shadow-xl w-2/6 rounded-4xl">
             <div class="flex-row w-full">
                 <div class="card-body">
@@ -33,7 +33,7 @@ if (profile_img_url.value == null) {
                     </div>
                     <p></p>
                 </div>
-                <h2 class="text-center text-4xl text-black pb-2">Medic Team</h2>
+                <h2 class="text-center text-4xl text-black pb-2">{{ $t("professionalsTeam") }}</h2>
                 <div class="overflow-auto h-[26rem]">
                     <div v-for="medic in medics" class="pl-10 p-7">
                         <div class="card bg-stone lg:card-side bg-base-100 shadow-2xl">
@@ -49,13 +49,16 @@ if (profile_img_url.value == null) {
                 </div>
             </div>
         </div>
-        <div class="card lg:card-side bg-inherit border-2 border-skyBlue/75 shadow-xl w-4/6">
+        <div v-if="medics.length" class="card lg:card-side bg-inherit border-2 border-skyBlue/75 shadow-xl w-4/6">
             <div class="card-body">
                 <ChatMessage :messages="messages" :user="user" class="h-3/4"></ChatMessage>
                 <div class="card-actions justify-end">
                     <ChatForm v-on:messagesent="addMessage" :user="user" ></ChatForm>
                 </div>
             </div>
+        </div>
+        <div v-else class="flex items-center w-4/6 justify-center text-lg text-gray-400">
+            {{ $t('noProfessionalsAssociated') }}
         </div>
     </div>
     <Footer></Footer>

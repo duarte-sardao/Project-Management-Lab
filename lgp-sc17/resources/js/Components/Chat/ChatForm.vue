@@ -13,7 +13,7 @@
     />
     <span class="input-group-btn w-56">
       <button class="btn btn-sm px-5 rounded-xl bg-mainBlue border-0 text-white" id="btn-chat" @click="sendMessage">
-        Send Message ►
+        {{ $t("sendMessage") }} ►
       </button>
     </span>
   </div>

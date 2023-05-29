@@ -39,7 +39,7 @@ defineProps({
                         <td>{{ user.name}}</td>
                         <td class="text-center">{{ user.status }}</td>
                         <td class="text-center">
-                            <Link class="flex justify-center" :href="route('admin.users.info', {id: user.id})">
+                            <Link class="flex justify-center transition duration-200 hover:scale-110" :href="route('admin.users.info', {id: user.id})">
                                 <img src="/svg_icons/pencil.svg" alt="edit">
                             </Link>
                         </td>

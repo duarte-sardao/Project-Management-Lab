@@ -33,4 +33,9 @@ class UserPolicy
   {
     return Auth::check() && $user->is_admin;
   }
+
+  public function manageQuestionnaire(User $user)
+  {
+    return Auth::check() && $user->is_admin;
+  }
 }
