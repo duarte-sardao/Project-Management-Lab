@@ -2,7 +2,7 @@
 import ProfileTextBox from '@/Components/Profile/ProfileTextBox.vue';
 import ProfileInfo from '@/Components/Profile/ProfileInfo.vue';
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
-import {ref} from "vue";
+import {ref, onUpdated } from "vue";
 import MessageToast from "@/Components/MessageToast.vue";
 import AdministrationLayout from "@/Layouts/AdministrationLayout.vue";
 import PrimaryButton from '@/Components/PrimaryButton.vue';
@@ -87,6 +87,16 @@ const submitPatient = () => {
         },
     });
 };
+
+onUpdated(() => {
+    if (form.errors.license_number !== undefined) {
+        const checkbox = document.getElementById('medic-modal');
+        checkbox.checked = true;
+    } else if (form.errors.healthcare_number !== undefined) {
+        const checkbox = document.getElementById('patient-modal');
+        checkbox.checked = true;
+    }
+});
 
 window.banFunc = () => {
     useForm({}).post(route('admin.users.ban', {id:user.value.id}), {

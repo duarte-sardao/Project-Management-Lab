@@ -119,7 +119,7 @@ class AdminController extends Controller
 
         $numb = Patient::where('healthcare_number','=', $request->healthcare_number)->first();
         if($numb != null) {
-            return Redirect::route('admin.users.info', $id)->withErrors(['healthcare_number' => 'Number is taken']);
+            return Redirect::back()->withErrors(['healthcare_number' => 'Number is taken']);
         }
 
         $medic = Medic::whereHas(
