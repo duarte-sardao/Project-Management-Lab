@@ -118,8 +118,8 @@ class AdminController extends Controller
         }
 
         $numb = Patient::where('healthcare_number','=', $request->healthcare_number)->first();
-        if($numb != null) {
-            return Redirect::back()->withErrors(['healthcare_number' => 'Number is taken']);
+        if($numb != null && $numb->user_id != $id) {
+            return Redirect::back()->withErrors(['healthcare_number' => 'healthcareNumberNotUnique']);
         }
 
         $medic = Medic::whereHas(
@@ -181,8 +181,8 @@ class AdminController extends Controller
         }
 
         $numb = Medic::where('license_number','=',$request->license_number)->first();
-        if($numb != null) {
-            return Redirect::route('admin.users.info', $id)->withErrors(['license_number' => 'Number is taken']);
+        if($numb != null && $numb->user_id != $id) {
+            return Redirect::route('admin.users.info', $id)->withErrors(['license_number' => 'licenseNumberNotUnique']);
         }
 
         $patient = Patient::whereHas(

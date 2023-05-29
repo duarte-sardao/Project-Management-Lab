@@ -22,16 +22,19 @@ const props = defineProps({
         date: String,
         time: String
     },
-    hospital_list: { required:true }
+    hospital_list: {
+        required: true
+    }
 });
 
+const curr_hospital = props.hospital_list.find(h => h.name == props.hospital);
 const user = ref(props.user);
 const form = useForm({
-    license_number: '',
-    healthcare_number: '',
-    hospital_id: '',
-    date: '',
-    time: '',
+    license_number: props.status == 'Medic' ? props.number:'',
+    healthcare_number: props.status == 'Patient' ? props.number:'',
+    hospital_id: curr_hospital != undefined ? curr_hospital.id:'',
+    date: props.nextAppointment != undefined ? props.nextAppointment.date:'',
+    time: props.nextAppointment != undefined ? props.nextAppointment.time:'',
     questionnaire: props.questionnaire,
 });
 
@@ -42,7 +45,7 @@ const submitDate = () => {
     const currentDateTime = new Date();
 
     if (dateTime < currentDateTime) {
-        form.errors.time = "Must be in the future.";
+        form.errors.time = "nextAppointmentNotInFuture";
         return;
     }
 
@@ -58,7 +61,7 @@ const submitDate = () => {
 
 const submitMedic = () => {
     if (form.license_number < 1) {
-      form.errors.license_number = "Must be greater than 0.";
+      form.errors.license_number = "licenseMustBeGreaterThan";
       return;
     }
 
@@ -74,7 +77,7 @@ const submitMedic = () => {
 
 const submitPatient = () => {
     if (form.healthcare_number < 1) {
-      form.errors.healthcare_number = "Must be greater than 0.";
+      form.errors.healthcare_number = "healthCareMustBeGreaterThan";
       return;
     }
 
@@ -100,7 +103,7 @@ onUpdated(() => {
 
 const submitQuestionnaire = () => {
     if (form.questionnaire.trim() == '') {
-        form.errors.questionnaire = 'The questionnaire must not be empty.';
+        form.errors.questionnaire = 'questionnaireNotEmpty.';
         return;
     }
 
@@ -373,12 +376,18 @@ const displayToastAction = () => {
                 required
                 autocomplete="new-password"
             />
-            <InputError class="mt-2" :message="form.errors.healthcare_number" />
+            <InputError class="mt-2" :message="form.errors.healthcare_number != undefined ? $t(form.errors.healthcare_number):''" />
         </div>
         <div class="mt-3 w-full">
             <InputLabel for="hospital" value="Hospital" />
-            <select class="form-control mt-1 input-bordered border-mainBlue rounded-full text-gray-800 w-full"
-            id="hospital" name="hospital" v-model="form.hospital_id" required focus>
+            <select
+                class="form-control mt-1 input-bordered border-mainBlue rounded-full text-gray-800 w-full"
+                id="hospital"
+                name="hospital"
+                v-model="form.hospital_id"
+                required
+                focus
+            >
                 <option v-for="hosp in hospital_list" :value=hosp.id  selected>{{hosp.name}}</option>
             </select>
             <InputError class="mt-2" :message="form.errors.hospital_id" />
@@ -406,12 +415,18 @@ const displayToastAction = () => {
                 required
                 autocomplete="new-password"
             />
-            <InputError class="mt-2" :message="form.errors.license_number" />
+            <InputError class="mt-2" :message="form.errors.license_number != undefined ? $t(form.errors.license_number):''" />
         </div>
         <div class="mt-3 w-full">
             <InputLabel for="hospital" value="Hospital" />
-            <select class="form-control mt-1 input-bordered border-mainBlue rounded-full text-gray-800 w-full"
-            id="hospital" name="hospital" v-model="form.hospital_id" required focus>
+            <select
+                class="form-control mt-1 input-bordered border-mainBlue rounded-full text-gray-800 w-full"
+                id="hospital"
+                name="hospital"
+                v-model="form.hospital_id"
+                required
+                focus
+            >
                 <option v-for="hosp in hospital_list" :value=hosp.id  selected>{{hosp.name}}</option>
             </select>
             <InputError class="mt-2" :message="form.errors.hospital_id" />
@@ -437,7 +452,7 @@ const displayToastAction = () => {
                 v-model="form.date"
                 required
             />
-            <InputError class="mt-2" :message="form.errors.date" />
+            <InputError class="mt-2" :message="form.errors.date != undefined ? $t(form.errors.date):''" />
         </div>
         <div class="mt-3 w-full">
             <TextInput
@@ -447,7 +462,7 @@ const displayToastAction = () => {
                 v-model="form.time"
                 required
             />
-            <InputError class="mt-2" :message="form.errors.time" />
+            <InputError class="mt-2" :message="form.errors.time != undefined ? $t(form.errors.time):''" />
         </div>
         <div class="modal-action">
         <label for="date-modal" class="btn">{{ $t('cancel') }}</label>
@@ -470,7 +485,7 @@ const displayToastAction = () => {
                 :placeholder="$t('questionnaire')"
                 v-model="form.questionnaire"
             />
-            <InputError class="mt-2" :message="form.errors.questionnaire" />
+            <InputError class="mt-2" :message="form.errors.questionnaire != undefined ? $t(form.errors.questionnaire):''" />
         </div>
         <div class="modal-action">
         <label for="questionnaire-modal" class="btn">{{ $t('cancel') }}</label>

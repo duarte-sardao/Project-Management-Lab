@@ -235,6 +235,12 @@
     "updateAppointment": "Atualizar data da próxima consulta",
     "setQuestionnaire": "Definir questionário",
     "updateQuestionnaire": "Atualizar url do questionário",
+    "questionnaireNotEmpty": "O questionário não pode estar vazio.",
+    "healthcareNumberNotUnique":"Já existe um paciente associado ao número de utente de saúde fornecido",
+    "licenseNumberNotUnique":"Já existe um profissional associado à licença fornecida",
+    "healthCareMustBeGreaterThan": "O número de utente de saúde tem de ser maior que 0",
+    "licenseMustBeGreaterThan": "A licença tem que ser maior que 0",
+    "nextAppointmentNotInFuture":"A data de próxima consulta tem de ser no futuro",
 
     "chatContent": "Gestão do Chat",
     "noPatientsToDisplay": "Não existem pacientes registados",

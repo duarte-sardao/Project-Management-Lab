@@ -236,6 +236,12 @@
     "updateAppointment": "Update next appointment date",
     "setQuestionnaire": "Set questionnaire",
     "updateQuestionnaire": "Update the questionnaire url",
+    "questionnaireNotEmpty": "The questionnaire cannot be empty",
+    "healthcareNumberNotUnique":"That healthcare number is already associated to a patient",
+    "licenseNumberNotUnique":"That license is already associated to a professional",
+    "healthCareMustBeGreaterThan": "The healthcare number must be greater than 0",
+    "licenseMustBeGreaterThan": "The license must be greater than 0",
+    "nextAppointmentNotInFuture":"The next appointment must be in the future",
 
     "chatContent": "Chat Management",
     "noPatientsToDisplay": "There are no patient to display",
