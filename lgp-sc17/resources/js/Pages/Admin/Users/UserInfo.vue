@@ -205,10 +205,10 @@ const displayToastAction = () => {
                             <li><label for="medic-modal">{{ $t('medic') }}</label></li>
                         </ul>
                     </div>
-                    <div id="set-date" v-if="!isGuest && !banned" class="mt-10 h-fit w-[75%]">
+                    <div id="set-date" v-if="!isGuest && status == 'Patient' && !banned" class="mt-10 h-fit w-[75%]">
                         <label for="date-modal" class="btn w-full hover:opacity-70">{{ $t('setDate') }}</label>
                     </div>
-                    <div id="set-questionnaire" v-if="status == 'Patient' && !banned" class="mt-10 h-fit w-[75%]">
+                    <div id="set-questionnaire" v-if="!isGuest && status == 'Patient' && !banned" class="mt-10 h-fit w-[75%]">
                         <label for="questionnaire-modal" class="btn w-full hover:opacity-70">{{ $t('setQuestionnaire') }}</label>
                     </div>
                     <div id="set-admin" v-if="!banned" class="mt-10 h-fit w-[75%]">
@@ -291,10 +291,10 @@ const displayToastAction = () => {
                             <label for="image-input" class="pl-5 text-lg text-black/[.57] block">{{ $t('profileImage') }}</label>
                             <input id="image-input" @change="inputFile" type="file" accept="image/*" class="file-input file-input-primary w-full max-w-md right-0 bottom-10" />
                         </div>
-                        <ProfileInfo :text="$t('status')" :value="status" />
+                        <ProfileInfo :text="$t('status')" :value="status == undefined ? '':$t(status.toLowerCase())" />
                         <ProfileInfo v-if="!isGuest" :text="'Hospital'" :value="hospital" />
-                        <ProfileInfo v-if="!isGuest" :text="$t('nextAppointmentDate')" :value="nextAppointment.date !== '' ? nextAppointment.date : $t('noFutureAppointment')" />
-                        <ProfileInfo v-if="!isGuest" :text="$t('nextAppointmentTime')" :value="nextAppointment.time !== '' ? nextAppointment.time : $t('noFutureAppointment')" />
+                        <ProfileInfo v-if="!isGuest && status == 'Patient'" :text="$t('nextAppointmentDate')" :value="nextAppointment.date !== '' ? nextAppointment.date : $t('noFutureAppointment')" />
+                        <ProfileInfo v-if="!isGuest && status == 'Patient'" :text="$t('nextAppointmentTime')" :value="nextAppointment.time !== '' ? nextAppointment.time : $t('noFutureAppointment')" />
                         <div v-if="user.is_admin" class="my-5 text-xl">
                             <label class="text-error pr-1">{{ $t('isAdmin') }}</label>
                         </div>
